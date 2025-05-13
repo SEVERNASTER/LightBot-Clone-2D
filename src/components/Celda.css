@@ -1,0 +1,10 @@
+
+.celda {
+    height: var(--alto);
+    width: var(--ancho);
+    height: 100%;
+    width: 100%;
+    border: solid red;
+    aspect-ratio: 1 / 1;
+
+}

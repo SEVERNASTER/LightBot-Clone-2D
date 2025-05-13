@@ -1,0 +1,30 @@
+
+.app-contenedor {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #191c31;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.botones-contenedor {
+  border: solid yellow;
+  height: 70px;
+  width: 550px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+.botones-contenedor button {
+  height: 100%;
+  width: 70px;
+
+}
+
+.botones-contenedor button:active {
+  background-color: rgb(108, 96, 151);
+}

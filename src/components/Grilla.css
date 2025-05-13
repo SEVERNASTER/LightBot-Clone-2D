@@ -1,0 +1,28 @@
+
+
+.grilla {
+    /* height: var(--alto); */
+    /* width: min(var(--ancho), 100%); */
+    border: solid #0ef;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: min(550px, 100%);
+    max-width: 550px;
+    aspect-ratio: 1 / 1;
+}
+
+.flecha-contenedor {
+    position: absolute;
+    height: 110px;
+    width: 110px;
+    top: 0;
+    left: 0;
+}
+
+.flecha-contenedor img {
+    height: 100%;
+    width: 100%;
+    transform: scale(.9);
+}
+
