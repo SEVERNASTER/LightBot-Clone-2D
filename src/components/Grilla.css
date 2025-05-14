@@ -12,15 +12,24 @@
     aspect-ratio: 1 / 1;
 }
 
-.flecha-contenedor {
-    position: absolute;
-    height: 110px;
-    width: 110px;
+
+.bot-contenedor {
+    /* position: absolute; */
+    /* height: var(--alto);
+    width: var(--ancho); */
+    height: 100%;
+    width: 100%;
+    /* height: 110px;
+    width: 110px; */
     top: 0;
     left: 0;
+    aspect-ratio: 1 / 1;
+    border: solid yellow;
+    transform: translateY(-100%);
+    transition: .5s;
 }
 
-.flecha-contenedor img {
+.bot-contenedor img {
     height: 100%;
     width: 100%;
     transform: scale(.9);

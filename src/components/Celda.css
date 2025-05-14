@@ -1,7 +1,7 @@
 
 .celda {
-    height: var(--alto);
-    width: var(--ancho);
+    /* height: var(--alto);
+    width: var(--ancho); */
     height: 100%;
     width: 100%;
     border: solid red;
