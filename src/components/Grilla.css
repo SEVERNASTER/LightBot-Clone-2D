@@ -32,6 +32,7 @@
 .bot-contenedor img {
     height: 100%;
     width: 100%;
-    transform: scale(.9);
+    transition: .5s;
+    /* transform: scale(.9) rotate(-90deg); */
 }
 

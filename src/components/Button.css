@@ -1,0 +1,30 @@
+
+.boton-funcional {
+    height: 70px;
+    width: 70px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    transition: .3s ease-out;
+    background-size: 100%;
+    border: solid #fff;
+}
+
+.boton-funcional.zoom {
+    background-size: cover;
+}
+
+.boton-funcional:hover {
+    transform: scale(1.2);
+    /* animation: sacudir .5s ease-in; */
+}
+
+.boton-funcional:active {
+    transform: scale(.9);
+}
+
+@keyframes sacudir {
+    0%, 100% {}
+    33%{ transform: rotate(10deg);}
+    66%{ transform: rotate(-10deg);}
+}

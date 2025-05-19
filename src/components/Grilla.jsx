@@ -6,7 +6,7 @@ import flechaImg from '../assets/flecha.png';
 
 
 
-function Grilla({ pos }) {
+function Grilla({ pos, sentido }) {
 
     const filas = 5
     const columnas = 5
@@ -41,7 +41,7 @@ function Grilla({ pos }) {
                 '--ancho': `${ancho}px`,
                 transform: `${tranformStyle}`
             }}>
-                <img src={flechaImg} alt="bot" />
+                <img src={flechaImg} alt="bot" style={{transform: `rotate(${sentido}deg)`}} />
             </div>
         </div>
     )
