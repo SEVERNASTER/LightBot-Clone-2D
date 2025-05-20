@@ -24,6 +24,10 @@ import girarIzqImg from './assets/girarIzq.png';
 
 function App() {
 
+  const filas = 5
+  const columnas = 5
+
+  // y: -1 porque si esta en 0 sobresale de la grilla entonces para que este acomodado una casilla arriba
   const [pos, setPos] = useState({ x: 0, y: -1 })
   // este es el sentido que sera en grados, en el sentido de las agujas del reloj y servira para
   // saber si se mueve arr abj izq der
@@ -31,7 +35,7 @@ function App() {
 
   return (
     <div className="app-contenedor">
-      <Grilla pos={pos} sentido={sentido} />
+      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} />
 
       <div className="botones-contenedor">
         <Button imgBg={avanzarImg} onClick={() => {
@@ -40,19 +44,20 @@ function App() {
           switch (angulo) {
             // arriba
             case 0:
-              setPos({ x: pos.x, y: pos.y - 1 })
+              setPos({ x: pos.x, y: pos.y < (filas - 1) * -1 ? pos.y : pos.y - 1 })
+              console.log(pos.y);
               break;
             // derecha
             case 90:
-              setPos({ x: pos.x + 1, y: pos.y })
+              setPos({ x: pos.x < columnas - 1 ? pos.x + 1 : pos.x, y: pos.y })
               break;
             // abajo
             case 180:
-              setPos({ x: pos.x, y: pos.y + 1 })
+              setPos({ x: pos.x, y: pos.y < - 1 ? pos.y + 1 : pos.y })
               break;
             // izquierda
             case 270:
-              setPos({ x: pos.x - 1, y: pos.y })
+              setPos({ x: pos.x > 0 ? pos.x - 1 : pos.x, y: pos.y })
               break;
 
             default:
@@ -64,7 +69,6 @@ function App() {
         <Button imgBg={girarImg} onClick={() => {
           const sentidoActual = sentido
           setSentido(sentidoActual + 90)
-          console.log(sentido);
 
         }} extraClass='zoom' />
 
@@ -72,7 +76,6 @@ function App() {
         <Button imgBg={girarIzqImg} onClick={() => {
           const sentidoActual = sentido
           setSentido(sentidoActual - 90)
-          console.log(sentido);
           
         }} extraClass='zoom' />
 

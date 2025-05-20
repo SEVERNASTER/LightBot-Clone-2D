@@ -6,10 +6,8 @@ import flechaImg from '../assets/flecha.png';
 
 
 
-function Grilla({ pos, sentido }) {
+function Grilla({ pos, sentido, filas, columnas }) {
 
-    const filas = 5
-    const columnas = 5
     const alto = 550
     const ancho = 550
 
