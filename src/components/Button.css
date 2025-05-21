@@ -6,8 +6,9 @@
     border: none;
     outline: none;
     transition: .3s ease-out;
-    background-size: 100%;
+    background-size: cover;
     border: solid #fff;
+    border-radius: 20px;
 }
 
 .boton-funcional.zoom {

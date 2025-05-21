@@ -2,11 +2,14 @@
 import './App.css'
 
 import Grilla from './components/Grilla';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from './components/Button';
 import avanzarImg from './assets/avanzar.png';
 import girarImg from './assets/girar.png';
 import girarIzqImg from './assets/girarIzq.png';
+import { PiPlayCircle } from "react-icons/pi";
+import { CiPlay1 } from "react-icons/ci";
+import { IoPlayOutline } from "react-icons/io5";
 
 
 /** idea para corregir que al llegar al limite de derecha, osea 270 grados evite hacer una 
@@ -29,9 +32,70 @@ function App() {
 
   // y: -1 porque si esta en 0 sobresale de la grilla entonces para que este acomodado una casilla arriba
   const [pos, setPos] = useState({ x: 0, y: -1 })
+  const [posAux, setPosAux] = useState({ x: 0, y: -1 })
   // este es el sentido que sera en grados, en el sentido de las agujas del reloj y servira para
   // saber si se mueve arr abj izq der
   const [sentido, setSentido] = useState(0)
+  const [sentidoAux, setSentidoAux] = useState(0)
+
+  const [secuencia, setSecuencia] = useState([])
+
+
+  // Aqui editamos el oficial directo para hacer los cambios y que se reflejen en la interfaz
+  const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
+  if (indice >= secuencia.length) return;
+
+  const direccion = secuencia[indice];
+  let nuevoSentido = sentidoActual;
+  let nuevaPos = { ...posActual };
+
+  if (direccion.includes('vuelta')) {
+    nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
+    setSentido(nuevoSentido);
+  } else {
+    const angulo = ((nuevoSentido % 360) + 360) % 360;
+    switch (angulo) {
+      case 0:
+        nuevaPos.y = nuevaPos.y < (filas - 1) * -1 ? nuevaPos.y : nuevaPos.y - 1;
+        break;
+      case 90:
+        nuevaPos.x = nuevaPos.x < columnas - 1 ? nuevaPos.x + 1 : nuevaPos.x;
+        break;
+      case 180:
+        nuevaPos.y = nuevaPos.y < -1 ? nuevaPos.y + 1 : nuevaPos.y;
+        break;
+      case 270:
+        nuevaPos.x = nuevaPos.x > 0 ? nuevaPos.x - 1 : nuevaPos.x;
+        break;
+    }
+    setPos(nuevaPos);
+  }
+
+  setTimeout(() => {
+    ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
+  }, 800); // puedes ajustar el tiempo
+};
+
+
+  useEffect(() => {
+    console.log(secuencia);
+  }, [secuencia])
+
+  useEffect(() => {
+    console.log(sentidoAux);
+  }, [sentidoAux])
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     mover()
+  //   }, 1000);  
+  // }, [sentido])
+  
+
+
+
+
+
 
   return (
     <div className="app-contenedor">
@@ -39,49 +103,74 @@ function App() {
 
       <div className="botones-contenedor">
         <Button imgBg={avanzarImg} onClick={() => {
-          const angulo = ((sentido % 360) + 360) % 360;
+          const angulo = ((sentidoAux % 360) + 360) % 360
 
           switch (angulo) {
             // arriba
             case 0:
-              setPos({ x: pos.x, y: pos.y < (filas - 1) * -1 ? pos.y : pos.y - 1 })
-              console.log(pos.y);
+              setPosAux({
+                x: posAux.x,
+                y: posAux.y < (filas - 1) * -1
+                  ? posAux.y
+                  : (setSecuencia(prev => [...prev, 'arriba']), posAux.y - 1)
+              });
               break;
+
             // derecha
             case 90:
-              setPos({ x: pos.x < columnas - 1 ? pos.x + 1 : pos.x, y: pos.y })
+              setPosAux({
+                x: posAux.x < columnas - 1
+                  ? (setSecuencia(prev => [...prev, 'derecha']), posAux.x + 1)
+                  : posAux.x,
+                y: posAux.y
+              });
               break;
+
             // abajo
             case 180:
-              setPos({ x: pos.x, y: pos.y < - 1 ? pos.y + 1 : pos.y })
+              setPosAux({
+                x: posAux.x,
+                y: posAux.y < -1
+                  ? (setSecuencia(prev => [...prev, 'abajo']), posAux.y + 1)
+                  : posAux.y
+              });
               break;
+
             // izquierda
             case 270:
-              setPos({ x: pos.x > 0 ? pos.x - 1 : pos.x, y: pos.y })
+              setPosAux({
+                x: posAux.x > 0
+                  ? (setSecuencia(prev => [...prev, 'izquierda']), posAux.x - 1)
+                  : posAux.x,
+                y: posAux.y
+              });
               break;
 
             default:
               break;
           }
+
+
         }} />
 
         {/* girar a la derecha */}
         <Button imgBg={girarImg} onClick={() => {
-          const sentidoActual = sentido
-          setSentido(sentidoActual + 90)
-
-        }} extraClass='zoom' />
+          setSentidoAux(prev => prev + 90);
+          setSecuencia(prev => [...prev, 'vueltaDer']);
+        }} extraClass="zoom" />
 
         {/* girar a la izquierda */}
         <Button imgBg={girarIzqImg} onClick={() => {
-          const sentidoActual = sentido
-          setSentido(sentidoActual - 90)
-          
-        }} extraClass='zoom' />
+          setSentidoAux(prev => prev - 90);
+          setSecuencia(prev => [...prev, 'vueltaIzq']);
+        }} extraClass="zoom" />
+
+        <div className="jugarBtn" onClick={() => ejecutarSecuencia()}><IoPlayOutline /></div>
 
       </div>
     </div>
-  )
+  );
+
 }
 
 export default App
