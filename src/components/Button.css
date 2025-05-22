@@ -1,6 +1,6 @@
 
 .boton-funcional {
-    height: 70px;
+    /* height: 70px; */
     width: 70px;
     background-color: transparent;
     border: none;
@@ -9,6 +9,7 @@
     background-size: cover;
     border: solid #fff;
     border-radius: 20px;
+    aspect-ratio: 1 / 1;
 }
 
 .boton-funcional.zoom {

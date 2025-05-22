@@ -6,7 +6,7 @@
     border: solid #0ef;
     position: relative;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-columns: repeat(5, 1fr); */
     width: min(550px, 100%);
     max-width: 550px;
     aspect-ratio: 1 / 1;

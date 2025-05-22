@@ -43,7 +43,10 @@ function App() {
 
   // Aqui editamos el oficial directo para hacer los cambios y que se reflejen en la interfaz
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
-  if (indice >= secuencia.length) return;
+  if (indice >= secuencia.length) {
+    setSecuencia([])
+    return
+  };
 
   const direccion = secuencia[indice];
   let nuevoSentido = sentidoActual;

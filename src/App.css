@@ -11,21 +11,18 @@
 .botones-contenedor {
   /* border: solid yellow; */
   height: 70px;
-  width: 550px;
+  width: min(550px, 100%);
   display: flex;
   justify-content: space-around;
   align-items: center;
-
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .botones-contenedor button {
   height: 100%;
   width: 70px;
 
-}
-
-.botones-contenedor button:active {
-  /* background-color: rgb(108, 96, 151); */
 }
 
 .jugarBtn {
