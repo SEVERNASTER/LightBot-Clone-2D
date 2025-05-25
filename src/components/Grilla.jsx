@@ -4,10 +4,11 @@ import './Grilla.css'
 import Celda from './Celda';
 import flechaImg from '../assets/flecha.png';
 import { useRef, useState, useEffect } from 'react';
+import sueloImg from '../assets/suelo.jpg';
 
 
 
-function Grilla({ pos, sentido, filas, columnas }) {
+function Grilla({ pos, sentido, filas, columnas, mapa }) {
 
     const grillaRef = useRef(null);
     const [dimensiones, setDimensiones] = useState({ ancho: 0, alto: 0 });
@@ -16,14 +17,15 @@ function Grilla({ pos, sentido, filas, columnas }) {
         if (grillaRef.current) {
             const { width, height } = grillaRef.current.getBoundingClientRect();
             setDimensiones({ ancho: width, alto: height });
-            console.log(dimensiones);
         }
 
     }, []);
 
-    useEffect(() => {
-        console.log(dimensiones);
-    }, [dimensiones]);
+    
+
+    // useEffect(() => {
+    //     console.log(dimensiones);
+    // }, [dimensiones]);
 
     let grilla = []
 
@@ -35,29 +37,40 @@ function Grilla({ pos, sentido, filas, columnas }) {
 
     // console.log(grilla);
 
+    const alto = dimensiones.alto / filas
+    const ancho = dimensiones.ancho / columnas
     const tranformStyle = `translateX(${pos.x * 100}%) translateY(${pos.y * 100}%)`
+
 
     return (
         <div className="grilla" ref={grillaRef} style={{
             gridTemplateColumns: `repeat(${columnas}, 1fr)`
         }}>
+
+
+            <div className="bot-contenedor" style={{
+                // transform: `${tranformStyle}`
+                // height: `${alto}px`,
+                width: `calc(100% / ${columnas})`
+            }}>
+                <img src={flechaImg} alt="bot" style={{ transform: `rotate(${sentido}deg)` }} />
+            </div>
+
+
             {
                 grilla.map(actual => (
                     <Celda
                         key={`{${actual.x}, ${actual.y}}`}
-                        alto={dimensiones.alto / filas}
-                        ancho={dimensiones.ancho / columnas}
+                        alto={`${alto}px`}
+                        ancho={`${ancho}px`}
+                        fondo={mapa[actual.x][actual.y] === 1 ? sueloImg : ''}
                     />
                 ))
             }
             {/* <Bot estilosExtra={{tranform: `${tranformStyle}`}}  alto={alto / filas} ancho={ancho / columnas} /> */}
 
 
-            <div className="bot-contenedor" style={{
-                transform: `${tranformStyle}`
-            }}>
-                <img src={flechaImg} alt="bot" style={{ transform: `rotate(${sentido}deg)` }} />
-            </div>
+
         </div>
     )
 

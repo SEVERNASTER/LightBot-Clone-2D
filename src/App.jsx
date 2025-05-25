@@ -27,6 +27,15 @@ import { IoPlayOutline } from "react-icons/io5";
 
 function App() {
 
+  const mapa = [
+    [0, 0, 0, 1, 0],
+    [0, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 1],
+    [0, 0, 0, 0, 0],
+  ];
+
+
   const filas = 5
   const columnas = 5
 
@@ -43,41 +52,41 @@ function App() {
 
   // Aqui editamos el oficial directo para hacer los cambios y que se reflejen en la interfaz
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
-  if (indice >= secuencia.length) {
-    setSecuencia([])
-    return
-  };
+    if (indice >= secuencia.length) {
+      setSecuencia([])
+      return
+    };
 
-  const direccion = secuencia[indice];
-  let nuevoSentido = sentidoActual;
-  let nuevaPos = { ...posActual };
+    const direccion = secuencia[indice];
+    let nuevoSentido = sentidoActual;
+    let nuevaPos = { ...posActual };
 
-  if (direccion.includes('vuelta')) {
-    nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
-    setSentido(nuevoSentido);
-  } else {
-    const angulo = ((nuevoSentido % 360) + 360) % 360;
-    switch (angulo) {
-      case 0:
-        nuevaPos.y = nuevaPos.y < (filas - 1) * -1 ? nuevaPos.y : nuevaPos.y - 1;
-        break;
-      case 90:
-        nuevaPos.x = nuevaPos.x < columnas - 1 ? nuevaPos.x + 1 : nuevaPos.x;
-        break;
-      case 180:
-        nuevaPos.y = nuevaPos.y < -1 ? nuevaPos.y + 1 : nuevaPos.y;
-        break;
-      case 270:
-        nuevaPos.x = nuevaPos.x > 0 ? nuevaPos.x - 1 : nuevaPos.x;
-        break;
+    if (direccion.includes('vuelta')) {
+      nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
+      setSentido(nuevoSentido);
+    } else {
+      const angulo = ((nuevoSentido % 360) + 360) % 360;
+      switch (angulo) {
+        case 0:
+          nuevaPos.y = nuevaPos.y < (filas - 1) * -1 ? nuevaPos.y : nuevaPos.y - 1;
+          break;
+        case 90:
+          nuevaPos.x = nuevaPos.x < columnas - 1 ? nuevaPos.x + 1 : nuevaPos.x;
+          break;
+        case 180:
+          nuevaPos.y = nuevaPos.y < -1 ? nuevaPos.y + 1 : nuevaPos.y;
+          break;
+        case 270:
+          nuevaPos.x = nuevaPos.x > 0 ? nuevaPos.x - 1 : nuevaPos.x;
+          break;
+      }
+      setPos(nuevaPos);
     }
-    setPos(nuevaPos);
-  }
 
-  setTimeout(() => {
-    ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
-  }, 800); // puedes ajustar el tiempo
-};
+    setTimeout(() => {
+      ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
+    }, 800);
+  };
 
 
   useEffect(() => {
@@ -93,7 +102,21 @@ function App() {
   //     mover()
   //   }, 1000);  
   // }, [sentido])
-  
+
+
+
+
+
+
+  /**hacer un rework a todo lo que son posiciones, no deberiamos de manejarlo como x y basandonos en
+   * el eje cartesiano, lo mas conveniente ahora es cambiar x y por fila y columna y asi, al principio,
+   * seteamos el valor de lo que antes era 'y' ,que ahora es columna, con el valor de mapa.lenght
+   */
+
+
+
+
+
 
 
 
@@ -102,27 +125,32 @@ function App() {
 
   return (
     <div className="app-contenedor">
-      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} />
+      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa} />
 
       <div className="botones-contenedor">
         <Button imgBg={avanzarImg} onClick={() => {
           const angulo = ((sentidoAux % 360) + 360) % 360
-
+          const filaActual = (posAux.y + mapa.length) - 1
+          const noChocaArriba = mapa[filaActual][posAux.x] !== 1
+          const noChocaDerecha = mapa[filaActual][posAux.x + 1] !== 1
+          // console.log(mapa[filaActual][posAux.x + 1], noChocaDerecha);
+          
+          { console.log(posAux.x, posAux.y); }
           switch (angulo) {
             // arriba
             case 0:
               setPosAux({
                 x: posAux.x,
-                y: posAux.y < (filas - 1) * -1
-                  ? posAux.y
-                  : (setSecuencia(prev => [...prev, 'arriba']), posAux.y - 1)
+                y: (posAux.y > filas * -1) && noChocaArriba
+                  ? (setSecuencia(prev => [...prev, 'arriba']), posAux.y - 1)
+                  : posAux.y
               });
               break;
 
             // derecha
             case 90:
               setPosAux({
-                x: posAux.x < columnas - 1
+                x: posAux.x < columnas - 1 && noChocaDerecha
                   ? (setSecuencia(prev => [...prev, 'derecha']), posAux.x + 1)
                   : posAux.x,
                 y: posAux.y

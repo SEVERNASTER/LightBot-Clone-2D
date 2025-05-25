@@ -1,10 +1,13 @@
 import './Celda.css'
 
-function Celda({alto, ancho}) {
+function Celda({fondo}) {
     // console.log(alto, ancho);
     
     return (
-        <div className='celda' style={{'--alto':`${alto}px`, width: `${ancho}px`}}></div>
+        <div className='celda' style={{
+            backgroundImage: `url(${fondo})`,
+            backgroundSize: 'cover'
+        }}></div>
         
     )
 }
