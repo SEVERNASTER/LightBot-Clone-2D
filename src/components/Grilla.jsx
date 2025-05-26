@@ -21,7 +21,7 @@ function Grilla({ pos, sentido, filas, columnas, mapa }) {
 
     }, []);
 
-    
+
 
     // useEffect(() => {
     //     console.log(dimensiones);
@@ -39,19 +39,20 @@ function Grilla({ pos, sentido, filas, columnas, mapa }) {
 
     const alto = dimensiones.alto / filas
     const ancho = dimensiones.ancho / columnas
-    const tranformStyle = `translateX(${pos.x * 100}%) translateY(${pos.y * 100}%)`
+    const tranformStyle = `translateY(${pos.fila * 100}%) translateX(${pos.columna * 100}%)`
 
 
     return (
         <div className="grilla" ref={grillaRef} style={{
-            gridTemplateColumns: `repeat(${columnas}, 1fr)`
+            gridTemplateColumns: `repeat(${columnas}, 1fr)`,
         }}>
 
 
-            <div className="bot-contenedor" style={{
-                // transform: `${tranformStyle}`
-                // height: `${alto}px`,
-                width: `calc(100% / ${columnas})`
+            <div className="bot-contenedor" id='bot' style={{
+                transform: `${tranformStyle}`,
+                width: `calc(100% / ${columnas})`,
+                height: `calc(100% / ${filas})`
+                // width: `${ancho}px`,
             }}>
                 <img src={flechaImg} alt="bot" style={{ transform: `rotate(${sentido}deg)` }} />
             </div>

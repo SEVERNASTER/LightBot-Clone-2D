@@ -40,8 +40,8 @@ function App() {
   const columnas = 5
 
   // y: -1 porque si esta en 0 sobresale de la grilla entonces para que este acomodado una casilla arriba
-  const [pos, setPos] = useState({ x: 0, y: -1 })
-  const [posAux, setPosAux] = useState({ x: 0, y: -1 })
+  const [pos, setPos] = useState({ fila: 0, columna: 0 })
+  const [posAux, setPosAux] = useState({ fila: 0, columna: 0 })
   // este es el sentido que sera en grados, en el sentido de las agujas del reloj y servira para
   // saber si se mueve arr abj izq der
   const [sentido, setSentido] = useState(0)
@@ -67,17 +67,21 @@ function App() {
     } else {
       const angulo = ((nuevoSentido % 360) + 360) % 360;
       switch (angulo) {
+        // arriba
         case 0:
-          nuevaPos.y = nuevaPos.y < (filas - 1) * -1 ? nuevaPos.y : nuevaPos.y - 1;
+          nuevaPos.fila = nuevaPos.fila > 0 ? nuevaPos.fila - 1 : nuevaPos.fila;
           break;
         case 90:
-          nuevaPos.x = nuevaPos.x < columnas - 1 ? nuevaPos.x + 1 : nuevaPos.x;
+          // derecha
+          nuevaPos.columna = nuevaPos.columna < columnas - 1 ? nuevaPos.columna + 1 : nuevaPos.columna;
           break;
+        // abajo
         case 180:
-          nuevaPos.y = nuevaPos.y < -1 ? nuevaPos.y + 1 : nuevaPos.y;
+          nuevaPos.fila = nuevaPos.fila < filas - 1 ? nuevaPos.fila + 1 : nuevaPos.fila;
           break;
+        // izquierda
         case 270:
-          nuevaPos.x = nuevaPos.x > 0 ? nuevaPos.x - 1 : nuevaPos.x;
+          nuevaPos.columna = nuevaPos.columna > 0 ? nuevaPos.columna - 1 : nuevaPos.columna;
           break;
       }
       setPos(nuevaPos);
@@ -97,6 +101,10 @@ function App() {
     console.log(sentidoAux);
   }, [sentidoAux])
 
+  useEffect(() => {
+    console.log('fila: ' + posAux.fila, 'columna:' + posAux.columna);
+  }, [posAux])
+
   // useEffect(() => {
   //   setTimeout(() => {
   //     mover()
@@ -106,74 +114,59 @@ function App() {
 
 
 
-
-
-  /**hacer un rework a todo lo que son posiciones, no deberiamos de manejarlo como x y basandonos en
-   * el eje cartesiano, lo mas conveniente ahora es cambiar x y por fila y columna y asi, al principio,
-   * seteamos el valor de lo que antes era 'y' ,que ahora es columna, con el valor de mapa.lenght
-   */
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div className="app-contenedor">
       <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa} />
 
       <div className="botones-contenedor">
+
         <Button imgBg={avanzarImg} onClick={() => {
           const angulo = ((sentidoAux % 360) + 360) % 360
-          const filaActual = (posAux.y + mapa.length) - 1
-          const noChocaArriba = mapa[filaActual][posAux.x] !== 1
-          const noChocaDerecha = mapa[filaActual][posAux.x + 1] !== 1
+          const noChocaArriba = mapa[posAux.fila === 0 ? 0 : posAux.fila - 1][posAux.columna] !== 1
+          const noChocaAbajo = mapa[posAux.fila === filas - 1 ? posAux.fila : posAux.fila + 1][posAux.columna] !== 1
+          const noChocaDerecha = mapa[posAux.fila][posAux.columna < columnas - 1 ? posAux.columna + 1 : posAux.columna] !== 1
+          const noChocaIzquierda = mapa[posAux.fila][posAux.columna > 0 ? posAux.columna - 1 : posAux.columna] !== 1
           // console.log(mapa[filaActual][posAux.x + 1], noChocaDerecha);
-          
-          { console.log(posAux.x, posAux.y); }
+
+          // { console.log(posAux.fila, posAux.columna); }
           switch (angulo) {
             // arriba
             case 0:
               setPosAux({
-                x: posAux.x,
-                y: (posAux.y > filas * -1) && noChocaArriba
-                  ? (setSecuencia(prev => [...prev, 'arriba']), posAux.y - 1)
-                  : posAux.y
+                fila: (posAux.fila > 0) && noChocaArriba
+                  ? (setSecuencia(prev => [...prev, 'arriba']), posAux.fila - 1)
+                  : posAux.fila,
+                columna: posAux.columna
               });
               break;
 
             // derecha
             case 90:
               setPosAux({
-                x: posAux.x < columnas - 1 && noChocaDerecha
-                  ? (setSecuencia(prev => [...prev, 'derecha']), posAux.x + 1)
-                  : posAux.x,
-                y: posAux.y
+                fila: posAux.fila,
+                columna: posAux.columna < columnas - 1 && noChocaDerecha
+                  ? (setSecuencia(prev => [...prev, 'derecha']), posAux.columna + 1)
+                  : posAux.columna
               });
               break;
 
             // abajo
             case 180:
               setPosAux({
-                x: posAux.x,
-                y: posAux.y < -1
-                  ? (setSecuencia(prev => [...prev, 'abajo']), posAux.y + 1)
-                  : posAux.y
+                fila: posAux.fila < filas - 1 && noChocaAbajo
+                  ? (setSecuencia(prev => [...prev, 'abajo']), posAux.fila + 1)
+                  : posAux.fila,
+                columna: posAux.columna
               });
               break;
 
             // izquierda
             case 270:
               setPosAux({
-                x: posAux.x > 0
-                  ? (setSecuencia(prev => [...prev, 'izquierda']), posAux.x - 1)
-                  : posAux.x,
-                y: posAux.y
+                fila: posAux.fila,
+                columna: posAux.columna > 0 && noChocaIzquierda
+                  ? (setSecuencia(prev => [...prev, 'izquierda']), posAux.columna - 1)
+                  : posAux.columna,
               });
               break;
 

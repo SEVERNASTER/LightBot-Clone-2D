@@ -1,12 +1,9 @@
 
 
 .grilla {
-    /* height: var(--alto); */
-    /* width: min(var(--ancho), 100%); */
     border: solid #0ef;
     position: relative;
     display: grid;
-    /* grid-template-columns: repeat(5, 1fr); */
     width: min(550px, 100%);
     max-width: 550px;
     aspect-ratio: 1 / 1;
@@ -15,24 +12,20 @@
 
 .bot-contenedor {
     position: absolute;
-    /* height: var(--alto);
-    width: var(--ancho); */
-    /* height: 100%;
-    width: 100%; */
-    /* height: 110px;
-    width: 110px; */
     top: 0;
     left: 0;
-    aspect-ratio: 1 / 1;
     border: solid yellow;
-    /* transform: translateY(-100%); */
     transition: .5s;
+    width: auto;
+    aspect-ratio: 1 / 1;
+    /* height: 100%;
+    width: 100%; */
 }
 
 .bot-contenedor img {
     height: 100%;
     width: 100%;
     transition: .5s;
-    /* transform: scale(.9) rotate(-90deg); */
+    object-fit: cover;
 }
 
