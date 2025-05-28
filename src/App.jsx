@@ -10,6 +10,8 @@ import girarIzqImg from './assets/girarIzq.png';
 import { PiPlayCircle } from "react-icons/pi";
 import { CiPlay1 } from "react-icons/ci";
 import { IoPlayOutline } from "react-icons/io5";
+import obstaculosImg from './assets/cambiar.png'; // o la imagen que quieras
+
 
 
 /** idea para corregir que al llegar al limite de derecha, osea 270 grados evite hacer una 
@@ -27,13 +29,37 @@ import { IoPlayOutline } from "react-icons/io5";
 
 function App() {
 
-  const mapa = [
-    [0, 0, 0, 1, 0],
-    [0, 1, 0, 1, 0],
+  function insertarObstaculosAleatorios(mapa, cantidad) {
+    const filas = mapa.length;
+    const columnas = mapa[0].length;
+
+    const nuevoMapa = mapa.map(fila => [...fila]); // Clonar el mapa original
+
+    let colocados = 0;
+    while (colocados < cantidad) {
+      const fila = Math.floor(Math.random() * filas);
+      const columna = Math.floor(Math.random() * columnas);
+
+      // Evita sobrescribir obstáculos o la posición inicial del bot
+      if (nuevoMapa[fila][columna] === 0 && !(fila === 0 && columna === 0)) {
+        nuevoMapa[fila][columna] = 1;
+        colocados++;
+      }
+    }
+
+    return nuevoMapa;
+  }
+
+
+  const [mapa, setMapa] = useState([
     [0, 0, 0, 0, 0],
-    [1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0],
-  ];
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+  ]);
+
+
 
 
   const filas = 5
@@ -112,8 +138,6 @@ function App() {
   // }, [sentido])
 
 
-
-
   return (
     <div className="app-contenedor">
       <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa} />
@@ -188,6 +212,27 @@ function App() {
           setSentidoAux(prev => prev - 90);
           setSecuencia(prev => [...prev, 'vueltaIzq']);
         }} extraClass="zoom" />
+
+        <Button
+          imgBg={obstaculosImg}
+          onClick={() => {
+            const filas = mapa.length;
+            const columnas = mapa[0].length;
+            const mapaLimpio = Array.from({ length: filas }, () => Array(columnas).fill(0));
+            const nuevo = insertarObstaculosAleatorios(mapaLimpio, 7);
+
+            setMapa(nuevo);
+            setPos({ fila: 0, columna: 0 });
+            setPosAux({ fila: 0, columna: 0 });
+            setSentido(0);
+            setSentidoAux(0);
+            setSecuencia([]);
+          }}
+          extraClass="zoom"
+        />
+
+
+
 
         <div className="jugarBtn" onClick={() => ejecutarSecuencia()}><IoPlayOutline /></div>
 
