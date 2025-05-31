@@ -53,3 +53,51 @@
 .jugarBtn:active {
   transform: scale(.9);
 }
+
+.boton-luz {
+  color: yellow;
+  background-color: #fff;
+  border-radius: 50% !important;
+  border-color: yellow !important;
+}
+
+.boton-luz:active {
+  background-color: yellow;
+  color: #fff;
+  box-shadow: 
+    0 0 10px yellow,
+    0 0 20px yellow,
+    0 0 30px yellow,
+    0 0 40px yellow;
+}
+
+.boton-jugar {
+  color: #fff;
+  border-radius: 50%;
+  border-radius: 50% !important;
+  padding-left: 5px;
+  padding-top: 2px;
+  font-weight: 700;
+  /* background: linear-gradient(#D52286, #3398F4) !important; */
+  background-color: #F1287F !important;
+  /* box-shadow: 
+    0 0 10px #F1287F,
+    0 0 20px #F1287F,
+    0 0 30px #F1287F,
+    0 0 40px #F1287F */
+}
+
+.boton-jugar:hover {
+  box-shadow: 
+    0 0 10px #F1287F,
+    0 0 20px #F1287F,
+    0 0 30px #F1287F,
+    0 0 40px #F1287F;
+    
+  rotate: 120deg;
+}
+
+.boton-jugar:active {
+  box-shadow: none;
+  
+}

@@ -7,10 +7,8 @@ import Button from './components/Button';
 import avanzarImg from './assets/avanzar.png';
 import girarImg from './assets/girar.png';
 import girarIzqImg from './assets/girarIzq.png';
-import { PiPlayCircle } from "react-icons/pi";
-import { CiPlay1 } from "react-icons/ci";
 import { IoPlayOutline } from "react-icons/io5";
-import obstaculosImg from './assets/cambiar.png'; // o la imagen que quieras
+import { FaLightbulb } from "react-icons/fa6";
 
 
 
@@ -29,35 +27,15 @@ import obstaculosImg from './assets/cambiar.png'; // o la imagen que quieras
 
 function App() {
 
-  function insertarObstaculosAleatorios(mapa, cantidad) {
-    const filas = mapa.length;
-    const columnas = mapa[0].length;
-
-    const nuevoMapa = mapa.map(fila => [...fila]); // Clonar el mapa original
-
-    let colocados = 0;
-    while (colocados < cantidad) {
-      const fila = Math.floor(Math.random() * filas);
-      const columna = Math.floor(Math.random() * columnas);
-
-      // Evita sobrescribir obstáculos o la posición inicial del bot
-      if (nuevoMapa[fila][columna] === 0 && !(fila === 0 && columna === 0)) {
-        nuevoMapa[fila][columna] = 1;
-        colocados++;
-      }
-    }
-
-    return nuevoMapa;
-  }
 
 
-  const [mapa, setMapa] = useState([
+  const mapa = [
+    [0, 0, 0, 1, 0],
+    [0, 1, 0, 1, 0],
     [0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0],
-  ]);
+  ]
 
 
 
@@ -76,7 +54,6 @@ function App() {
   const [secuencia, setSecuencia] = useState([])
 
 
-  // Aqui editamos el oficial directo para hacer los cambios y que se reflejen en la interfaz
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
     if (indice >= secuencia.length) {
       setSecuencia([])
@@ -197,8 +174,6 @@ function App() {
             default:
               break;
           }
-
-
         }} />
 
         {/* girar a la derecha */}
@@ -213,28 +188,10 @@ function App() {
           setSecuencia(prev => [...prev, 'vueltaIzq']);
         }} extraClass="zoom" />
 
-        <Button
-          imgBg={obstaculosImg}
-          onClick={() => {
-            const filas = mapa.length;
-            const columnas = mapa[0].length;
-            const mapaLimpio = Array.from({ length: filas }, () => Array(columnas).fill(0));
-            const nuevo = insertarObstaculosAleatorios(mapaLimpio, 7);
+        {/* para encender la luz */}
+        <Button icon={FaLightbulb}  extraClass="zoom boton-luz" />
 
-            setMapa(nuevo);
-            setPos({ fila: 0, columna: 0 });
-            setPosAux({ fila: 0, columna: 0 });
-            setSentido(0);
-            setSentidoAux(0);
-            setSecuencia([]);
-          }}
-          extraClass="zoom"
-        />
-
-
-
-
-        <div className="jugarBtn" onClick={() => ejecutarSecuencia()}><IoPlayOutline /></div>
+        <Button icon={IoPlayOutline} onClick={() => ejecutarSecuencia()}  extraClass="zoom boton-jugar" />
 
       </div>
     </div>
