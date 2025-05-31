@@ -27,15 +27,14 @@ import { FaLightbulb } from "react-icons/fa6";
 
 function App() {
 
-
-
-  const mapa = [
-    [0, 0, 0, 1, 0],
+  const [mapa, setMapa] = useState([
+    [0, 0, 2, 1, 0],
     [0, 1, 0, 1, 0],
+    [0, 0, 0, 2, 0],
+    [1, 2, 1, 0, 1],
     [0, 0, 0, 0, 0],
-    [1, 0, 1, 0, 1],
-    [0, 0, 0, 0, 0],
-  ]
+  ])
+
 
 
 
@@ -55,45 +54,55 @@ function App() {
 
 
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
-    if (indice >= secuencia.length) {
-      setSecuencia([])
-      return
-    };
+  if (indice >= secuencia.length) {
+    setSecuencia([]);
+    return;
+  }
 
-    const direccion = secuencia[indice];
-    let nuevoSentido = sentidoActual;
-    let nuevaPos = { ...posActual };
+  const direccion = secuencia[indice];
+  let nuevoSentido = sentidoActual;
+  let nuevaPos = { ...posActual };
 
-    if (direccion.includes('vuelta')) {
-      nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
-      setSentido(nuevoSentido);
-    } else {
-      const angulo = ((nuevoSentido % 360) + 360) % 360;
-      switch (angulo) {
-        // arriba
-        case 0:
-          nuevaPos.fila = nuevaPos.fila > 0 ? nuevaPos.fila - 1 : nuevaPos.fila;
-          break;
-        case 90:
-          // derecha
-          nuevaPos.columna = nuevaPos.columna < columnas - 1 ? nuevaPos.columna + 1 : nuevaPos.columna;
-          break;
-        // abajo
-        case 180:
-          nuevaPos.fila = nuevaPos.fila < filas - 1 ? nuevaPos.fila + 1 : nuevaPos.fila;
-          break;
-        // izquierda
-        case 270:
-          nuevaPos.columna = nuevaPos.columna > 0 ? nuevaPos.columna - 1 : nuevaPos.columna;
-          break;
-      }
-      setPos(nuevaPos);
+  // Giro
+  if (direccion === 'vueltaDer' || direccion === 'vueltaIzq') {
+    nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
+    setSentido(nuevoSentido);
+  }
+
+  // Encender luz
+  if (direccion === 'luz') {
+    if (mapa[nuevaPos.fila][nuevaPos.columna] === 2) {
+      const nuevoMapa = mapa.map(fila => [...fila]); // copia profunda
+      nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 3;
+      setMapa(nuevoMapa);
     }
+  }
 
-    setTimeout(() => {
-      ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
-    }, 800);
-  };
+  // Movimiento según texto
+  if (['arriba', 'abajo', 'izquierda', 'derecha'].includes(direccion)) {
+    switch (direccion) {
+      case 'arriba':
+        nuevaPos.fila = nuevaPos.fila > 0 ? nuevaPos.fila - 1 : nuevaPos.fila;
+        break;
+      case 'abajo':
+        nuevaPos.fila = nuevaPos.fila < filas - 1 ? nuevaPos.fila + 1 : nuevaPos.fila;
+        break;
+      case 'izquierda':
+        nuevaPos.columna = nuevaPos.columna > 0 ? nuevaPos.columna - 1 : nuevaPos.columna;
+        break;
+      case 'derecha':
+        nuevaPos.columna = nuevaPos.columna < columnas - 1 ? nuevaPos.columna + 1 : nuevaPos.columna;
+        break;
+    }
+    setPos(nuevaPos);
+  }
+
+  // Continuar
+  setTimeout(() => {
+    ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
+  }, 800);
+};
+
 
 
   useEffect(() => {
@@ -189,9 +198,11 @@ function App() {
         }} extraClass="zoom" />
 
         {/* para encender la luz */}
-        <Button icon={FaLightbulb}  extraClass="zoom boton-luz" />
+        <Button icon={FaLightbulb} onClick={() => {
+          setSecuencia(prev => [...prev, 'luz']);
+        }} extraClass="zoom boton-luz" />
 
-        <Button icon={IoPlayOutline} onClick={() => ejecutarSecuencia()}  extraClass="zoom boton-jugar" />
+        <Button icon={IoPlayOutline} onClick={() => ejecutarSecuencia()} extraClass="zoom boton-jugar" />
 
       </div>
     </div>

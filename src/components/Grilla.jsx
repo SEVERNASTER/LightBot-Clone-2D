@@ -4,11 +4,39 @@ import './Grilla.css'
 import Celda from './Celda';
 import flechaImg from '../assets/flecha.png';
 import { useRef, useState, useEffect } from 'react';
+import muroImg from '../assets/muro.jpg';
 import sueloImg from '../assets/suelo.jpg';
 
 
 
 function Grilla({ pos, sentido, filas, columnas, mapa }) {
+
+    const textura = (tipo) => {
+        let textura = null;
+        switch (tipo) {
+            case 0:
+                textura = 'sueloImg'
+                break;
+            case 1:
+                textura = muroImg
+                break;
+        
+            default:
+                break;
+        }
+        return textura
+    }
+
+    const colorFondo = (valor) => {
+        if(valor === 2){
+            return '#4E9CD4'
+        }
+
+        if(valor === 3){
+            return '#FFFC00'
+        }
+    }
+
 
     const grillaRef = useRef(null);
     const [dimensiones, setDimensiones] = useState({ ancho: 0, alto: 0 });
@@ -64,7 +92,9 @@ function Grilla({ pos, sentido, filas, columnas, mapa }) {
                         key={`{${actual.x}, ${actual.y}}`}
                         alto={`${alto}px`}
                         ancho={`${ancho}px`}
-                        fondo={mapa[actual.x][actual.y] === 1 ? sueloImg : ''}
+                        // fondo= {textura(mapa[actual.x][actual.y])}
+                        fondo={mapa[actual.x][actual.y] === 1 ? muroImg : ''}
+                        colorFondo={ colorFondo(mapa[actual.x][actual.y])}
                     />
                 ))
             }
