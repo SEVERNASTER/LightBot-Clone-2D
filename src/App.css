@@ -1,82 +1,16 @@
 .app-contenedor {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #191c31;
-  flex-direction: column;
   gap: 20px;
+  overflow: auto;
 }
 
-.botones-contenedor {
-  /* border: solid yellow; */
-  height: 70px;
-  width: min(550px, 100%);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+@media screen and (max-width: 850px) {
+  .app-contenedor {
+    flex-direction: column;
+  }
 }
 
-.botones-contenedor button {
-  height: 100%;
-  width: 70px;
-
-}
-
-.boton-luz {
-  color: yellow;
-  background-color: #fff;
-  border-radius: 50% !important;
-  border-color: yellow !important;
-}
-
-.boton-luz.inhabilitar:active {
-  background-color: transparent;
-  color: yellow;
-  box-shadow: none;
-}
-
-.boton-luz:active {
-  background-color: yellow;
-  color: #fff;
-  box-shadow: 
-    0 0 10px yellow,
-    0 0 20px yellow,
-    0 0 30px yellow,
-    0 0 40px yellow;
-}
-
-.boton-jugar {
-  color: #fff;
-  border-radius: 50%;
-  border-radius: 50% !important;
-  padding-left: 5px;
-  padding-top: 2px;
-  font-weight: 700;
-  background-color: #F1287F !important;
-}
-
-.boton-jugar.inhabilitar {
-  cursor: not-allowed;
-  padding-left: 0;
-}
-
-.boton-jugar.inhabilitar:hover{
-  box-shadow: none;
-}
-
-.boton-jugar:hover {
-  box-shadow: 
-    0 0 10px #F1287F,
-    0 0 20px #F1287F,
-    0 0 30px #F1287F,
-    0 0 40px #F1287F;
-    
-}
-
-.boton-jugar:active {
-  box-shadow: none;
-  
-}
