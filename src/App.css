@@ -25,40 +25,17 @@
 
 }
 
-.jugarBtn {
-  height: 100%;
-  width: 70px;
-  color: #fff;
-  font-size: 4rem;
-  border: solid #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #F1287F;
-  border-radius: 50%;
-  transition: .3s;
-  padding-left: 5px;
-  box-shadow: 
-    0 0 10px #F1287F,
-    0 0 20px #F1287F,
-    0 0 30px #F1287F,
-    0 0 40px #F1287F
-}
-
-.jugarBtn:hover {
-  transform: scale(1.15);
-  box-shadow: none;
-}
-
-.jugarBtn:active {
-  transform: scale(.9);
-}
-
 .boton-luz {
   color: yellow;
   background-color: #fff;
   border-radius: 50% !important;
   border-color: yellow !important;
+}
+
+.boton-luz.inhabilitar:active {
+  background-color: transparent;
+  color: yellow;
+  box-shadow: none;
 }
 
 .boton-luz:active {
@@ -78,13 +55,16 @@
   padding-left: 5px;
   padding-top: 2px;
   font-weight: 700;
-  /* background: linear-gradient(#D52286, #3398F4) !important; */
   background-color: #F1287F !important;
-  /* box-shadow: 
-    0 0 10px #F1287F,
-    0 0 20px #F1287F,
-    0 0 30px #F1287F,
-    0 0 40px #F1287F */
+}
+
+.boton-jugar.inhabilitar {
+  cursor: not-allowed;
+  padding-left: 0;
+}
+
+.boton-jugar.inhabilitar:hover{
+  box-shadow: none;
 }
 
 .boton-jugar:hover {
@@ -94,7 +74,6 @@
     0 0 30px #F1287F,
     0 0 40px #F1287F;
     
-  rotate: 120deg;
 }
 
 .boton-jugar:active {

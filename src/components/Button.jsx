@@ -1,7 +1,7 @@
 import React from 'react';
 import './Button.css';
 
-function Button({ imgBg, icon: Icono, onClick, extraClass, estilosExtra }) {
+function Button({ imgBg, icon: Icono, onClick, extraClass, inhabilitar }) {
     return (
         <button
             onClick={onClick}
@@ -12,6 +12,7 @@ function Button({ imgBg, icon: Icono, onClick, extraClass, estilosExtra }) {
                 backgroundPosition: 'center',
                 
             }}
+            disabled={inhabilitar}
         >
             {Icono && <Icono size={35} />}
         </button>

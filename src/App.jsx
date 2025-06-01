@@ -7,8 +7,9 @@ import Button from './components/Button';
 import avanzarImg from './assets/avanzar.png';
 import girarImg from './assets/girar.png';
 import girarIzqImg from './assets/girarIzq.png';
-import { IoPlayOutline } from "react-icons/io5";
 import { FaLightbulb } from "react-icons/fa6";
+import { FaPlay } from "react-icons/fa";
+import { FaPause } from "react-icons/fa";
 
 
 
@@ -52,56 +53,85 @@ function App() {
 
   const [secuencia, setSecuencia] = useState([])
 
+  const [botAnimado, setBotAnimado] = useState(false)
+  const [ejecutando, setEjecutando] = useState(false)
+
+
 
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
-  if (indice >= secuencia.length) {
-    setSecuencia([]);
-    return;
-  }
+    if (indice >= secuencia.length) {
+      setSecuencia([]);
+      setEjecutando(false)
+      return;
+    }
 
-  const direccion = secuencia[indice];
-  let nuevoSentido = sentidoActual;
-  let nuevaPos = { ...posActual };
+    const direccion = secuencia[indice];
+    let nuevoSentido = sentidoActual;
+    let nuevaPos = { ...posActual };
 
-  // Giro
-  if (direccion === 'vueltaDer' || direccion === 'vueltaIzq') {
-    nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
-    setSentido(nuevoSentido);
-  }
+    // Giro
+    if (direccion === 'vueltaDer' || direccion === 'vueltaIzq') {
+      nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
+      setSentido(nuevoSentido);
+    }
 
-  // Encender luz
-  if (direccion === 'luz') {
-    if (mapa[nuevaPos.fila][nuevaPos.columna] === 2) {
-      const nuevoMapa = mapa.map(fila => [...fila]); // copia profunda
-      nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 3;
-      setMapa(nuevoMapa);
+    // Encender luz
+    if (direccion === 'luz') {
+      if (mapa[nuevaPos.fila][nuevaPos.columna] === 2) {
+        const nuevoMapa = mapa.map(fila => [...fila])
+        nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 3
+        setMapa(prevMapa => {
+          const nuevoMapa = prevMapa.map(fila => [...fila]);
+          nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 3;
+
+          const todasEncendidas = nuevoMapa.every(fila =>
+            fila.every(celda => celda !== 2)
+          );
+
+          if (todasEncendidas) {
+            console.log('¡Todas las luces han sido encendidas!');
+          }
+
+          return nuevoMapa;
+        });
+      }
+      setBotAnimado(true)
+      setTimeout(() => {
+        setBotAnimado(false)
+      }, 500);
+    }
+
+    // Movimiento según texto
+    if (['arriba', 'abajo', 'izquierda', 'derecha'].includes(direccion)) {
+      switch (direccion) {
+        case 'arriba':
+          nuevaPos.fila = nuevaPos.fila > 0 ? nuevaPos.fila - 1 : nuevaPos.fila;
+          break;
+        case 'abajo':
+          nuevaPos.fila = nuevaPos.fila < filas - 1 ? nuevaPos.fila + 1 : nuevaPos.fila;
+          break;
+        case 'izquierda':
+          nuevaPos.columna = nuevaPos.columna > 0 ? nuevaPos.columna - 1 : nuevaPos.columna;
+          break;
+        case 'derecha':
+          nuevaPos.columna = nuevaPos.columna < columnas - 1 ? nuevaPos.columna + 1 : nuevaPos.columna;
+          break;
+      }
+      setPos(nuevaPos);
+    }
+
+    // Continuar
+    setTimeout(() => {
+      ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
+    }, 800);
+  };
+
+  const jugar = () => {
+    if (secuencia.length > 0) {
+      ejecutarSecuencia()
+      setEjecutando(true)
     }
   }
-
-  // Movimiento según texto
-  if (['arriba', 'abajo', 'izquierda', 'derecha'].includes(direccion)) {
-    switch (direccion) {
-      case 'arriba':
-        nuevaPos.fila = nuevaPos.fila > 0 ? nuevaPos.fila - 1 : nuevaPos.fila;
-        break;
-      case 'abajo':
-        nuevaPos.fila = nuevaPos.fila < filas - 1 ? nuevaPos.fila + 1 : nuevaPos.fila;
-        break;
-      case 'izquierda':
-        nuevaPos.columna = nuevaPos.columna > 0 ? nuevaPos.columna - 1 : nuevaPos.columna;
-        break;
-      case 'derecha':
-        nuevaPos.columna = nuevaPos.columna < columnas - 1 ? nuevaPos.columna + 1 : nuevaPos.columna;
-        break;
-    }
-    setPos(nuevaPos);
-  }
-
-  // Continuar
-  setTimeout(() => {
-    ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
-  }, 800);
-};
 
 
 
@@ -109,9 +139,9 @@ function App() {
     console.log(secuencia);
   }, [secuencia])
 
-  useEffect(() => {
-    console.log(sentidoAux);
-  }, [sentidoAux])
+  // useEffect(() => {
+  //   console.log(mapa);
+  // }, [mapa])
 
   useEffect(() => {
     console.log('fila: ' + posAux.fila, 'columna:' + posAux.columna);
@@ -126,7 +156,7 @@ function App() {
 
   return (
     <div className="app-contenedor">
-      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa} />
+      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa} botAnimado={botAnimado} />
 
       <div className="botones-contenedor">
 
@@ -183,26 +213,32 @@ function App() {
             default:
               break;
           }
-        }} />
+        }} inhabilitar={ejecutando}
+          extraClass={` ${ejecutando ? 'inhabilitar' : ''}`}/>
 
         {/* girar a la derecha */}
         <Button imgBg={girarImg} onClick={() => {
           setSentidoAux(prev => prev + 90);
           setSecuencia(prev => [...prev, 'vueltaDer']);
-        }} extraClass="zoom" />
+        }} extraClass={`zoom ${ejecutando ? 'inhabilitar' : ''}`}
+        inhabilitar={ejecutando}/>
 
         {/* girar a la izquierda */}
         <Button imgBg={girarIzqImg} onClick={() => {
           setSentidoAux(prev => prev - 90);
           setSecuencia(prev => [...prev, 'vueltaIzq']);
-        }} extraClass="zoom" />
+        }} extraClass={`zoom ${ejecutando ? 'inhabilitar' : ''}`} 
+        inhabilitar={ejecutando}/>
 
         {/* para encender la luz */}
         <Button icon={FaLightbulb} onClick={() => {
           setSecuencia(prev => [...prev, 'luz']);
-        }} extraClass="zoom boton-luz" />
+        }} extraClass={`zoom boton-luz ${ejecutando ? 'inhabilitar' : ''}`} 
+        inhabilitar={ejecutando}/>
 
-        <Button icon={IoPlayOutline} onClick={() => ejecutarSecuencia()} extraClass="zoom boton-jugar" />
+        <Button icon={ejecutando ? FaPause : FaPlay} onClick={jugar}
+          extraClass={`zoom boton-jugar ${ejecutando ? 'inhabilitar' : ''}`}
+          inhabilitar={ejecutando}/>
 
       </div>
     </div>

@@ -9,7 +9,7 @@ import sueloImg from '../assets/suelo.jpg';
 
 
 
-function Grilla({ pos, sentido, filas, columnas, mapa }) {
+function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado }) {
 
     const textura = (tipo) => {
         let textura = null;
@@ -76,7 +76,7 @@ function Grilla({ pos, sentido, filas, columnas, mapa }) {
         }}>
 
 
-            <div className="bot-contenedor" id='bot' style={{
+            <div className={`bot-contenedor ${botAnimado ? 'animar' : ''}`} id='bot' style={{
                 transform: `${tranformStyle}`,
                 width: `calc(100% / ${columnas})`,
                 height: `calc(100% / ${filas})`

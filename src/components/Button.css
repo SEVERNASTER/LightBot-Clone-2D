@@ -1,6 +1,6 @@
-
 .boton-funcional {
     /* height: 70px; */
+    position: relative;
     width: 70px;
     background-color: transparent;
     border: none;
@@ -10,7 +10,18 @@
     border: solid #fff;
     border-radius: 20px;
     aspect-ratio: 1 / 1;
+    overflow: hidden;
 }
+
+.boton-funcional.inhabilitar:active {
+    transform: scale(1);
+}
+
+.boton-funcional.inhabilitar:hover {
+    transform: scale(1);
+    cursor: not-allowed;
+}
+
 
 .boton-funcional.zoom {
     background-size: cover;
@@ -26,7 +37,15 @@
 }
 
 @keyframes sacudir {
-    0%, 100% {}
-    33%{ transform: rotate(10deg);}
-    66%{ transform: rotate(-10deg);}
+
+    0%,
+    100% {}
+
+    33% {
+        transform: rotate(10deg);
+    }
+
+    66% {
+        transform: rotate(-10deg);
+    }
 }

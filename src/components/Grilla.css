@@ -12,8 +12,6 @@
 
 .bot-contenedor {
     position: absolute;
-    top: 0;
-    left: 0;
     border: solid yellow;
     transition: .5s;
     width: auto;
@@ -25,7 +23,17 @@
 .bot-contenedor img {
     height: 100%;
     width: 100%;
-    transition: .5s;
+    transition: .3s;
     object-fit: cover;
 }
+.bot-contenedor.animar img {
+    animation: encender-luz .5s ease-in;
+}
+
+@keyframes encender-luz {
+    50%{
+        scale: .7;
+    }
+}
+
 
