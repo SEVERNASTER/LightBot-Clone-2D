@@ -36,4 +36,20 @@
     }
 }
 
+.bot-contenedor.colisionar-arr img {
+    translate: 0 20px;
+}
+
+.bot-contenedor.colisionar-abj img {
+    translate: 0 -20px;
+}
+
+.bot-contenedor.colisionar-der img {
+    translate: -20px 0;
+}
+.bot-contenedor.colisionar-izq img {
+    translate: 20px 0;
+}
+
+
 

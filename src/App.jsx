@@ -50,6 +50,10 @@ function App() {
 
   const [botAnimado, setBotAnimado] = useState(false)
   const [ejecutando, setEjecutando] = useState(false)
+  const [colisionArriba, setColisionArriba] = useState(false)
+  const [colisionAbajo, setColisionAbajo] = useState(false)
+  const [colisionDerecha, setColisionDerecha] = useState(false)
+  const [colisionIzquierda, setColisionIzquierda] = useState(false)
 
 
 
@@ -109,16 +113,46 @@ function App() {
 
       switch (angulo) {
         case 0: // arriba
-          if (noChocaArriba) nuevaPos.fila--;
+          if (noChocaArriba) {
+            nuevaPos.fila--
+          } else {
+            setColisionArriba(true)
+            setTimeout(() => {
+              setColisionArriba(false)
+            }, 300);
+          }
           break;
         case 90: // derecha
-          if (noChocaDerecha) nuevaPos.columna++;
+          if (noChocaDerecha) {
+            nuevaPos.columna++
+          } else {
+            setColisionDerecha(true)
+
+            setTimeout(() => {
+              setColisionDerecha(false)
+            }, 300);
+          }
           break;
         case 180: // abajo
-          if (noChocaAbajo) nuevaPos.fila++;
+          if (noChocaAbajo) {
+            nuevaPos.fila++
+          } else {
+            setColisionAbajo(true)
+
+            setTimeout(() => {
+              setColisionAbajo(false)
+            }, 300);
+          }
           break;
         case 270: // izquierda
-          if (noChocaIzquierda) nuevaPos.columna--;
+          if (noChocaIzquierda) {
+            nuevaPos.columna--
+          } else {
+            setColisionIzquierda(true)
+            setTimeout(() => {
+              setColisionIzquierda(false)
+            }, 300);
+          }
           break;
       }
 
@@ -216,7 +250,9 @@ function App() {
 
   return (
     <div className="app-contenedor">
-      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa} botAnimado={botAnimado} />
+      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
+        botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
+        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} />
 
       <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
         setSentidoAux={setSentidoAux}

@@ -9,7 +9,9 @@ import sueloImg from '../assets/suelo.jpg';
 
 
 
-function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado }) {
+function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
+    colisionAbajo, colisionDerecha, colisionIzquierda
+}) {
 
     const textura = (tipo) => {
         let textura = null;
@@ -20,7 +22,7 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado }) {
             case 1:
                 textura = muroImg
                 break;
-        
+
             default:
                 break;
         }
@@ -28,11 +30,11 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado }) {
     }
 
     const colorFondo = (valor) => {
-        if(valor === 2){
+        if (valor === 2) {
             return '#4E9CD4'
         }
 
-        if(valor === 3){
+        if (valor === 3) {
             return '#FFFC00'
         }
     }
@@ -76,7 +78,12 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado }) {
         }}>
 
 
-            <div className={`bot-contenedor ${botAnimado ? 'animar' : ''}`} id='bot' style={{
+            <div className={`bot-contenedor ${botAnimado ? 'animar' : ''} 
+                ${colisionArriba ? 'colisionar-arr' : ''}
+                ${colisionAbajo ? 'colisionar-abj' : ''}
+                ${colisionDerecha ? 'colisionar-der' : ''}
+                ${colisionIzquierda ? 'colisionar-izq' : ''}`
+            } id='bot' style={{
                 transform: `${tranformStyle}`,
                 width: `calc(100% / ${columnas})`,
                 height: `calc(100% / ${filas})`
@@ -94,7 +101,7 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado }) {
                         ancho={`${ancho}px`}
                         // fondo= {textura(mapa[actual.x][actual.y])}
                         fondo={mapa[actual.x][actual.y] === 1 ? muroImg : ''}
-                        colorFondo={ colorFondo(mapa[actual.x][actual.y])}
+                        colorFondo={colorFondo(mapa[actual.x][actual.y])}
                     />
                 ))
             }
