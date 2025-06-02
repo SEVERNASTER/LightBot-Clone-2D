@@ -5,4 +5,8 @@
     /* aspect-ratio: 1 / 1; */
     border: solid #fff;
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: yellow;
 }
