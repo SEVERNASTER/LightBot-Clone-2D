@@ -55,7 +55,6 @@ function App() {
 
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
     if (indice >= secuencia.length) {
-      // setSecuencia([]);
       setEjecutando(false)
       return;
     }
@@ -99,22 +98,34 @@ function App() {
     // Movimiento para avanzar
     if (direccion === 'avanzar') {
       const angulo = ((nuevoSentido % 360) + 360) % 360;
+
+      const filaActual = nuevaPos.fila;
+      const colActual = nuevaPos.columna;
+
+      const noChocaArriba = filaActual > 0 && mapa[filaActual - 1][colActual] !== 1;
+      const noChocaAbajo = filaActual < filas - 1 && mapa[filaActual + 1][colActual] !== 1;
+      const noChocaDerecha = colActual < columnas - 1 && mapa[filaActual][colActual + 1] !== 1;
+      const noChocaIzquierda = colActual > 0 && mapa[filaActual][colActual - 1] !== 1;
+
       switch (angulo) {
-        case 0:
-          nuevaPos.fila = nuevaPos.fila > 0 ? nuevaPos.fila - 1 : nuevaPos.fila;
+        case 0: // arriba
+          if (noChocaArriba) nuevaPos.fila--;
           break;
-        case 90:
-          nuevaPos.columna = nuevaPos.columna < columnas - 1 ? nuevaPos.columna + 1 : nuevaPos.columna;
+        case 90: // derecha
+          if (noChocaDerecha) nuevaPos.columna++;
           break;
-        case 180:
-          nuevaPos.fila = nuevaPos.fila < filas - 1 ? nuevaPos.fila + 1 : nuevaPos.fila;
+        case 180: // abajo
+          if (noChocaAbajo) nuevaPos.fila++;
           break;
-        case 270:
-          nuevaPos.columna = nuevaPos.columna > 0 ? nuevaPos.columna - 1 : nuevaPos.columna;
+        case 270: // izquierda
+          if (noChocaIzquierda) nuevaPos.columna--;
           break;
       }
+
       setPos(nuevaPos);
     }
+
+
 
 
     // Continuar
@@ -128,22 +139,12 @@ function App() {
   const avanzar = () => {
     const angulo = ((sentidoAux % 360) + 360) % 360;
 
-    const noChocaArriba =
-      mapa[posAux.fila === 0 ? 0 : posAux.fila - 1][posAux.columna] !== 1;
-    const noChocaAbajo =
-      mapa[posAux.fila === filas - 1 ? posAux.fila : posAux.fila + 1][posAux.columna] !== 1;
-    const noChocaDerecha =
-      mapa[posAux.fila][posAux.columna < columnas - 1 ? posAux.columna + 1 : posAux.columna] !== 1;
-    const noChocaIzquierda =
-      mapa[posAux.fila][posAux.columna > 0 ? posAux.columna - 1 : posAux.columna] !== 1;
-
-    // Guardar siempre 'avanzar', no importa el ángulo
     setSecuencia(prev => [...prev, 'avanzar']);
 
     switch (angulo) {
       case 0: // arriba
         setPosAux({
-          fila: (posAux.fila > 0) && noChocaArriba ? posAux.fila - 1 : posAux.fila,
+          fila: posAux.fila - 1,
           columna: posAux.columna
         });
         break;
@@ -151,17 +152,13 @@ function App() {
       case 90: // derecha
         setPosAux({
           fila: posAux.fila,
-          columna: posAux.columna < columnas - 1 && noChocaDerecha
-            ? posAux.columna + 1
-            : posAux.columna
+          columna: posAux.columna + 1
         });
         break;
 
       case 180: // abajo
         setPosAux({
-          fila: posAux.fila < filas - 1 && noChocaAbajo
-            ? posAux.fila + 1
-            : posAux.fila,
+          fila: posAux.fila + 1,
           columna: posAux.columna
         });
         break;
@@ -169,9 +166,7 @@ function App() {
       case 270: // izquierda
         setPosAux({
           fila: posAux.fila,
-          columna: posAux.columna > 0 && noChocaIzquierda
-            ? posAux.columna - 1
-            : posAux.columna,
+          columna: posAux.columna - 1
         });
         break;
 
@@ -192,29 +187,6 @@ function App() {
     setSentidoAux(prev => prev - 90);
     setSecuencia(prev => [...prev, 'vueltaIzq']);
   }
-
-
-  const reajustarSecuencia = () => {
-    if (secuenciaRepetida) {
-      const nuevaSecuencia = secuencia.map(actual => {
-        if (['arriba', 'abajo', 'izquierda', 'derecha'].includes(actual)) {
-          avanzar()
-        }
-
-        if (actual === 'vueltaDer') {
-          girarDer()
-        }
-
-        if (actual === 'vueltaIzq') {
-          girarIzq()
-        }
-
-      })
-      setSecuencia(nuevaSecuencia)
-    }
-  }
-
-
 
   const jugar = () => {
     if (secuencia.length > 0) {

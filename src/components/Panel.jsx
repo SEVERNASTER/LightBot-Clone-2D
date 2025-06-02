@@ -12,10 +12,7 @@ import { FaPause } from "react-icons/fa";
 import Comando from './Comando';
 
 
-function Panel({ posAux, setPosAux, sentidoAux, setSentidoAux, ejecutando, jugar, setSecuencia,
-    secuencia, mapa, filas, columnas, avanzar, girarDer, girarIzq
-
-}) {
+function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq}) {
 
     const [comandos, setComandos] = useState([])
 
@@ -55,8 +52,8 @@ function Panel({ posAux, setPosAux, sentidoAux, setSentidoAux, ejecutando, jugar
     useEffect(() => {
         if (secuencia.length !== 0) {
             const nuevosComandos = secuencia.map(actual => {
-                if (['arriba', 'abajo', 'izquierda', 'derecha'].includes(actual)) {
-                    return agregarComando('avanzar');
+                if (actual === 'avanzar') {
+                    return agregarComando(actual);
                 }
                 if (actual === 'vueltaDer' || actual === 'vueltaIzq') {
                     return agregarComando(actual);
@@ -73,7 +70,7 @@ function Panel({ posAux, setPosAux, sentidoAux, setSentidoAux, ejecutando, jugar
 
     }, [secuencia]);
 
-    
+
 
 
 
