@@ -3,7 +3,7 @@ import './App.css'
 
 import Grilla from './components/Grilla';
 import Panel from './components/Panel';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 
 
@@ -45,6 +45,9 @@ function App() {
   // saber si se mueve arr abj izq der
   const [sentido, setSentido] = useState(0)
   const [sentidoAux, setSentidoAux] = useState(0)
+  const xInicial = pos.x
+  const yInicial = pos.y
+  const sentidoInicial = sentido
 
   const [secuencia, setSecuencia] = useState([])
 
@@ -54,11 +57,14 @@ function App() {
   const [colisionAbajo, setColisionAbajo] = useState(false)
   const [colisionDerecha, setColisionDerecha] = useState(false)
   const [colisionIzquierda, setColisionIzquierda] = useState(false)
+  const [secuenciaReiniciada, setSecuenciaReiniciada] = useState(false)
+  const pausadoRef = useRef(false)
 
 
 
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
-    if (indice >= secuencia.length) {
+
+    if (indice >= secuencia.length || pausadoRef.current) {
       setEjecutando(false)
       return;
     }
@@ -222,10 +228,23 @@ function App() {
     setSecuencia(prev => [...prev, 'vueltaIzq']);
   }
 
-  const jugar = () => {
-    if (secuencia.length > 0) {
+  useEffect(() => {
+    if (ejecutando && !pausadoRef.current) {
       ejecutarSecuencia()
+    }
+  }, [ejecutando, pausadoRef])
+
+
+  const jugar = () => {
+    if (secuencia.length > 0 && !ejecutando) {
+      if(secuenciaReiniciada){
+        setPos({x: xInicial, y: yInicial})
+        setSentido(sentidoInicial)
+      }
       setEjecutando(true)
+      pausadoRef.current = false
+    } else if (ejecutando && !pausadoRef.current) {
+      pausadoRef.current = true
     }
   }
 

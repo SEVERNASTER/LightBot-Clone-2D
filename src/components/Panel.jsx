@@ -12,7 +12,7 @@ import { FaPause } from "react-icons/fa";
 import Comando from './Comando';
 
 
-function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq}) {
+function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq }) {
 
     const [comandos, setComandos] = useState([])
 
@@ -105,9 +105,10 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
                 }} extraClass={`zoom boton-luz ${ejecutando ? 'inhabilitar' : ''}`}
                     inhabilitar={ejecutando} />
 
+                {/* para iniciar la secuencia */}
                 <Button icon={ejecutando ? FaPause : FaPlay} onClick={jugar}
-                    extraClass={`zoom boton-jugar ${ejecutando ? 'inhabilitar' : ''}`}
-                    inhabilitar={ejecutando} />
+                    extraClass={`zoom boton-jugar `}
+                />
 
             </div>
         </div>
