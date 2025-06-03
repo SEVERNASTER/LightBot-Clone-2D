@@ -23,6 +23,11 @@ import { useState, useEffect, useRef } from 'react';
 
 function App() {
 
+  // 0 = camino libre
+  // 1 = obstaculo
+  // 2 = objetivo / luz para prender
+  // 3 = luz ya prendida
+
   const [mapa, setMapa] = useState([
     [0, 0, 2, 1, 0],
     [0, 1, 0, 1, 0],
@@ -45,9 +50,9 @@ function App() {
   // saber si se mueve arr abj izq der
   const [sentido, setSentido] = useState(0)
   const [sentidoAux, setSentidoAux] = useState(0)
-  const xInicial = pos.x
-  const yInicial = pos.y
-  const sentidoInicial = sentido
+  const filaInicial = 0
+  const columnaInicial = 0
+  const sentidoInicial = 0
 
   const [secuencia, setSecuencia] = useState([])
 
@@ -57,8 +62,9 @@ function App() {
   const [colisionAbajo, setColisionAbajo] = useState(false)
   const [colisionDerecha, setColisionDerecha] = useState(false)
   const [colisionIzquierda, setColisionIzquierda] = useState(false)
-  const [secuenciaReiniciada, setSecuenciaReiniciada] = useState(false)
+  const [reiniciar, setReiniciar] = useState(false)
   const pausadoRef = useRef(false)
+
 
 
 
@@ -235,18 +241,33 @@ function App() {
   }, [ejecutando, pausadoRef])
 
 
+  useEffect(() => {
+    if(reiniciar){
+      setPos({fila: filaInicial, columna: columnaInicial})
+      setSentido(sentidoInicial)
+    }
+  }, [reiniciar])
+  
+  const apagarLuces = () => {
+    const nuevoMapa = mapa.map(actual => {
+      return actual.map(celda => celda = celda === 3 ? 2 : celda)
+    })
+    setMapa(nuevoMapa)
+  }
+
   const jugar = () => {
     if (secuencia.length > 0 && !ejecutando) {
-      if(secuenciaReiniciada){
-        setPos({x: xInicial, y: yInicial})
-        setSentido(sentidoInicial)
-      }
       setEjecutando(true)
       pausadoRef.current = false
+      setReiniciar(false)
     } else if (ejecutando && !pausadoRef.current) {
       pausadoRef.current = true
+      setReiniciar(true)
+      apagarLuces()
     }
   }
+
+  
 
   useEffect(() => {
     console.log(secuencia);
@@ -271,7 +292,7 @@ function App() {
     <div className="app-contenedor">
       <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
         botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
-        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} />
+        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} reiniciar={reiniciar}/>
 
       <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
         setSentidoAux={setSentidoAux}

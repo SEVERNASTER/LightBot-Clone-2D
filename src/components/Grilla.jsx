@@ -10,7 +10,7 @@ import sueloImg from '../assets/suelo.jpg';
 
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
-    colisionAbajo, colisionDerecha, colisionIzquierda
+    colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar
 }) {
 
     const textura = (tipo) => {
@@ -82,7 +82,8 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
                 ${colisionArriba ? 'colisionar-arr' : ''}
                 ${colisionAbajo ? 'colisionar-abj' : ''}
                 ${colisionDerecha ? 'colisionar-der' : ''}
-                ${colisionIzquierda ? 'colisionar-izq' : ''}`
+                ${colisionIzquierda ? 'colisionar-izq' : ''}
+                ${reiniciar ? 'quitar-transition' : ''}`
             } id='bot' style={{
                 transform: `${tranformStyle}`,
                 width: `calc(100% / ${columnas})`,

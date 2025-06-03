@@ -23,12 +23,21 @@
     width: 100%; */
 }
 
+.bot-contenedor.quitar-transition {
+    transition: none;
+}
+
+.bot-contenedor.quitar-transition img {
+    transition: none;
+}
+
 .bot-contenedor img {
     height: 100%;
     width: 100%;
     transition: .3s;
     object-fit: cover;
 }
+
 .bot-contenedor.animar img {
     animation: encender-luz .5s ease-in;
 }
