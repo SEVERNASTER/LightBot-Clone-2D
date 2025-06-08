@@ -2,16 +2,22 @@
 import './Comando.css'
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import { IoCloseCircle } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 
-function Comando({ imagen, icono: Icono, resaltar }) {
+function Comando({ imagen, icono: Icono, resaltar, eliminarComando, inhabilitar }) {
     return (
-        <div className={`comando ${resaltar ? 'resaltar' : ''}`}
+        <div className={`
+                comando 
+                ${resaltar ? 'resaltar' : ''}
+                ${inhabilitar ? 'inhabilitar' : ''}
+            `}
+
             style={{
                 backgroundImage: imagen ? `url(${imagen})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}>{Icono && <Icono size={35} />}
-            {/* <span className='quitar-comando'><IoIosCloseCircleOutline /></span> */}
+            <span onClick={eliminarComando} className='quitar-comando'><IoClose /></span>
         </div>
     )
 }

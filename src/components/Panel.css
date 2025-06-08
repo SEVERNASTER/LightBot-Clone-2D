@@ -109,7 +109,7 @@
     display: flex;
     flex-wrap: wrap;
     overflow: auto !important;
-    padding: 10px 0;
+    padding: 10px 20px;
     justify-content: center;
     gap: 15px;
 }

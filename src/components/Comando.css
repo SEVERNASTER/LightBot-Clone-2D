@@ -12,6 +12,10 @@
     transition: .3s;
 }
 
+.comando.inhabilitar {
+    pointer-events: none;
+}
+
 .comando.resaltar {
     /* border: 3px solid yellow; */
     background-color: rgb(240, 240, 12);
@@ -29,7 +33,32 @@
 
 .quitar-comando {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -15px;
+    right: -15px;
     font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    opacity: 0;
+    transition: all .3s, opacity .3s, transform .5s;
+    transform: rotate(-95deg);
+    border-radius: 50%;
+    color: #191c31;
+    background-color: #0ef;
+}
+
+.comando:hover .quitar-comando {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.quitar-comando:hover {
+    background-color: #f00;
+    transform: rotate(90deg) !important;
+    color: #fff;
+}
+
+.quitar-comando:active {
+    transform: scale(.7) !important;
 }

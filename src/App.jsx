@@ -290,6 +290,8 @@ function App() {
     indiceActualRef.current = 0
   }
 
+  
+
 
 
   useEffect(() => {

@@ -75,7 +75,10 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
     }, [secuencia]);
 
 
-
+    const eliminarComando = (indiceAEliminar) => {
+        setComandos(prev => prev.filter((_, indice) => indice !== indiceAEliminar))
+        setSecuencia(prev => prev.filter((_, indice) => indice !== indiceAEliminar))
+    }
 
 
 
@@ -85,11 +88,13 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
             <div className="comandos-contenedor" >
                 {
                     comandos.map((actual, indice) => {
-                        return <Comando 
+                        return <Comando
                             key={indice}
                             imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
                             icono={actual.tipo === 'icono' ? actual.imagen : ''}
                             resaltar={indice + 1 === comandoActual}
+                            eliminarComando={() => eliminarComando(indice)}
+                            inhabilitar={ejecutando}
                         />
                     })
                 }
