@@ -1,5 +1,5 @@
-
 .comando {
+    position: relative;
     width: 70px;
     height: 70px;
     /* aspect-ratio: 1 / 1; */
@@ -9,4 +9,27 @@
     justify-content: center;
     align-items: center;
     color: yellow;
+    transition: .3s;
+}
+
+.comando.resaltar {
+    /* border: 3px solid yellow; */
+    background-color: rgb(240, 240, 12);
+    box-shadow: 0 0 15px 5px rgba(255, 255, 0, 0.6);
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.comando.resaltado {
+    border: 2px solid yellow;
+    animation: pulso 1s infinite;
+    border-radius: 8px;
+}
+
+
+.quitar-comando {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 28px;
 }

@@ -63,9 +63,9 @@ function App() {
   const [colisionDerecha, setColisionDerecha] = useState(false)
   const [colisionIzquierda, setColisionIzquierda] = useState(false)
   const [reiniciar, setReiniciar] = useState(false)
+  const [comandoActual, setComandoActual] = useState(0)
+  const indiceActualRef = useRef(0);
   const pausadoRef = useRef(false)
-
-
 
 
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
@@ -74,6 +74,9 @@ function App() {
       setEjecutando(false)
       return;
     }
+
+    indiceActualRef.current = indice + 1;
+    setComandoActual(indice + 1)
 
     const direccion = secuencia[indice];
     let nuevoSentido = sentidoActual;
@@ -234,20 +237,20 @@ function App() {
     setSecuencia(prev => [...prev, 'vueltaIzq']);
   }
 
-  useEffect(() => {
-    if (ejecutando && !pausadoRef.current) {
-      ejecutarSecuencia()
-    }
-  }, [ejecutando, pausadoRef])
+  // useEffect(() => {
+  //   if (ejecutando && !pausadoRef.current) {
+  //     ejecutarSecuencia()
+  //   }
+  // }, [ejecutando, pausadoRef])
 
 
   useEffect(() => {
-    if(reiniciar){
-      setPos({fila: filaInicial, columna: columnaInicial})
+    if (reiniciar) {
+      setPos({ fila: filaInicial, columna: columnaInicial })
       setSentido(sentidoInicial)
     }
   }, [reiniciar])
-  
+
   const apagarLuces = () => {
     const nuevoMapa = mapa.map(actual => {
       return actual.map(celda => celda = celda === 3 ? 2 : celda)
@@ -256,18 +259,38 @@ function App() {
   }
 
   const jugar = () => {
-    if (secuencia.length > 0 && !ejecutando) {
-      setEjecutando(true)
-      pausadoRef.current = false
-      setReiniciar(false)
+    if (secuencia.length > 0 && !ejecutando && pausadoRef.current) {
+      // Reanudar desde el índice guardado
+      setEjecutando(true);
+      pausadoRef.current = false;
+      ejecutarSecuencia(indiceActualRef.current, sentido, pos); 
+    } else if (secuencia.length > 0 && !ejecutando) {
+      // Empezar desde cero
+      indiceActualRef.current = 0;
+      setEjecutando(true);
+      pausadoRef.current = false;
+      ejecutarSecuencia(0, sentido, pos); 
     } else if (ejecutando && !pausadoRef.current) {
-      pausadoRef.current = true
-      setReiniciar(true)
-      apagarLuces()
+      // Pausar
+      pausadoRef.current = true;
+      setEjecutando(false);
     }
+  };
+
+
+
+  const reiniciarFuncionBtn = () => {
+    setComandoActual(-1)
+    setReiniciar(true)
+    // para que devuevla el transition
+    setTimeout(() => {
+      setReiniciar(false)
+    }, 200);
+    apagarLuces()
+    indiceActualRef.current = 0
   }
 
-  
+
 
   useEffect(() => {
     console.log(secuencia);
@@ -292,13 +315,14 @@ function App() {
     <div className="app-contenedor">
       <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
         botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
-        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} reiniciar={reiniciar}/>
+        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} reiniciar={reiniciar} />
 
       <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
         setSentidoAux={setSentidoAux}
         ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
         mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
-        avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} />
+        avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
+        comandoActual={comandoActual}/>
 
     </div>
   );

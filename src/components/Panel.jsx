@@ -10,9 +10,13 @@ import { FaLightbulb } from "react-icons/fa6";
 import { FaPlay } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";
 import Comando from './Comando';
+import { BiReset } from "react-icons/bi";
+import { RiResetRightFill } from "react-icons/ri";
 
 
-function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq }) {
+function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq,
+    reiniciar, comandoActual
+}) {
 
     const [comandos, setComandos] = useState([])
 
@@ -76,13 +80,17 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
 
 
     return (
-        <div className="panel-principal">
+        <div className="panel-principal" >
 
-            <div className="comandos-contenedor">
+            <div className="comandos-contenedor" >
                 {
                     comandos.map((actual, indice) => {
-                        return <Comando key={indice} imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
-                            icono={actual.tipo === 'icono' ? actual.imagen : ''} />
+                        return <Comando 
+                            key={indice}
+                            imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
+                            icono={actual.tipo === 'icono' ? actual.imagen : ''}
+                            resaltar={indice + 1 === comandoActual}
+                        />
                     })
                 }
             </div>
@@ -107,7 +115,12 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
 
                 {/* para iniciar la secuencia */}
                 <Button icon={ejecutando ? FaPause : FaPlay} onClick={jugar}
-                    extraClass={`zoom boton-jugar `}
+                    extraClass={`zoom boton-jugar ${ejecutando ? 'padding-icono' : ''}`}
+                />
+
+                <Button icon={RiResetRightFill} onClick={reiniciar}
+                    extraClass={`zoom boton-reiniciar ${ejecutando ? 'inhabilitar' : ''}`}
+                    inhabilitar={ejecutando}
                 />
 
             </div>

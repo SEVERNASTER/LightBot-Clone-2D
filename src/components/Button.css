@@ -12,6 +12,11 @@
     border-radius: 20px;
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    
+}
+
+.boton-funcional.padding-icono {
+    padding-right: 6px;
 }
 
 .boton-funcional.inhabilitar:active {
