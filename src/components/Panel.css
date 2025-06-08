@@ -105,7 +105,7 @@
 .comandos-contenedor {
     border: solid #F1287F;
     width: 100%;
-    max-height: 400px;
+    max-height: 350px;
     display: flex;
     flex-wrap: wrap;
     overflow: auto !important;

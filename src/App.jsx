@@ -64,6 +64,7 @@ function App() {
   const [colisionIzquierda, setColisionIzquierda] = useState(false)
   const [reiniciar, setReiniciar] = useState(false)
   const [comandoActual, setComandoActual] = useState(0)
+  const [puedeEditar, setPuedeEditar] = useState(true)
   const indiceActualRef = useRef(0);
   const pausadoRef = useRef(false)
 
@@ -237,12 +238,6 @@ function App() {
     setSecuencia(prev => [...prev, 'vueltaIzq']);
   }
 
-  // useEffect(() => {
-  //   if (ejecutando && !pausadoRef.current) {
-  //     ejecutarSecuencia()
-  //   }
-  // }, [ejecutando, pausadoRef])
-
 
   useEffect(() => {
     if (reiniciar) {
@@ -272,6 +267,7 @@ function App() {
       ejecutarSecuencia(0, sentido, pos); 
     } else if (ejecutando && !pausadoRef.current) {
       // Pausar
+      setPuedeEditar(false)
       pausadoRef.current = true;
       setEjecutando(false);
     }
@@ -280,6 +276,7 @@ function App() {
 
 
   const reiniciarFuncionBtn = () => {
+    setPuedeEditar(true)
     setComandoActual(-1)
     setReiniciar(true)
     // para que devuevla el transition
@@ -324,7 +321,7 @@ function App() {
         ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
         mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
         avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
-        comandoActual={comandoActual}/>
+        comandoActual={comandoActual} puedeEditar={puedeEditar}/>
 
     </div>
   );

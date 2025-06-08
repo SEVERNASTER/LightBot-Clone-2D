@@ -15,7 +15,7 @@ import { RiResetRightFill } from "react-icons/ri";
 
 
 function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq,
-    reiniciar, comandoActual
+    reiniciar, comandoActual, puedeEditar
 }) {
 
     const [comandos, setComandos] = useState([])
@@ -95,6 +95,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
                             resaltar={indice + 1 === comandoActual}
                             eliminarComando={() => eliminarComando(indice)}
                             inhabilitar={ejecutando}
+                            puedeEditar={puedeEditar}
                         />
                     })
                 }
