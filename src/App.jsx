@@ -69,9 +69,17 @@ function App() {
   const pausadoRef = useRef(false)
 
 
+
+
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
 
-    if (indice >= secuencia.length || pausadoRef.current) {
+    if(indice >= secuencia.length){
+      setPuedeEditar(true)
+      setEjecutando(false)
+      return;
+    }
+
+    if (pausadoRef.current) {
       setEjecutando(false)
       return;
     }
@@ -264,6 +272,7 @@ function App() {
 
     if (!ejecutando && !pausadoRef.current) {
       // Si ya terminó la secuencia o es la primera vez, reiniciar desde el inicio
+      setPuedeEditar(false)
       setReiniciar(true)
       apagarLuces()
       setTimeout(() => {
@@ -276,6 +285,7 @@ function App() {
 
     } else if (!ejecutando && pausadoRef.current) {
       // Reanudar desde donde quedó
+      setPuedeEditar(false)
       setEjecutando(true);
       pausadoRef.current = false;
       ejecutarSecuencia(indiceActualRef.current, sentido, pos);
@@ -287,6 +297,10 @@ function App() {
       setEjecutando(false);
     }
   }
+
+  useEffect(() => {
+    console.log(puedeEditar);
+  }, [puedeEditar])
 
 
 

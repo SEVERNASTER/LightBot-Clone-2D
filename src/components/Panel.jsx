@@ -102,29 +102,39 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
             </div>
 
             <div className="botones-contenedor">
-                <Button imgBg={avanzarImg} onClick={avanzar} inhabilitar={ejecutando}
-                    extraClass={` ${ejecutando ? 'inhabilitar' : ''}`} />
+                <Button imgBg={avanzarImg}
+                    onClick={avanzar}
+                    extraClass={` ${!puedeEditar ? 'inhabilitar' : ''}`}
+                    inhabilitar={!puedeEditar} />
 
                 {/* girar a la derecha */}
-                <Button imgBg={girarImg} onClick={girarDer} extraClass={`zoom ${ejecutando ? 'inhabilitar' : ''}`}
-                    inhabilitar={ejecutando} />
+                <Button imgBg={girarImg}
+                    onClick={girarDer}
+                    extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
+
+                    inhabilitar={!puedeEditar} />
 
                 {/* girar a la izquierda */}
-                <Button imgBg={girarIzqImg} onClick={girarIzq} extraClass={`zoom ${ejecutando ? 'inhabilitar' : ''}`}
-                    inhabilitar={ejecutando} />
+                <Button imgBg={girarIzqImg}
+                    onClick={girarIzq}
+                    extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
+                    inhabilitar={!puedeEditar} />
 
                 {/* para encender la luz */}
-                <Button icon={FaLightbulb} onClick={() => {
-                    setSecuencia(prev => [...prev, 'luz']);
-                }} extraClass={`zoom boton-luz ${ejecutando ? 'inhabilitar' : ''}`}
-                    inhabilitar={ejecutando} />
+                <Button icon={FaLightbulb}
+                    onClick={() => {
+                        setSecuencia(prev => [...prev, 'luz']);
+                    }} extraClass={`zoom boton-luz ${!puedeEditar ? 'inhabilitar' : ''}`}
+                    inhabilitar={!puedeEditar} />
 
                 {/* para iniciar la secuencia */}
-                <Button icon={ejecutando ? FaPause : FaPlay} onClick={jugar}
+                <Button icon={ejecutando ? FaPause : FaPlay}
+                    onClick={jugar}
                     extraClass={`zoom boton-jugar ${ejecutando ? 'padding-icono' : ''}`}
                 />
 
-                <Button icon={RiResetRightFill} onClick={reiniciar}
+                <Button icon={RiResetRightFill}
+                    onClick={reiniciar}
                     extraClass={`zoom boton-reiniciar ${ejecutando ? 'inhabilitar' : ''}`}
                     inhabilitar={ejecutando}
                 />
