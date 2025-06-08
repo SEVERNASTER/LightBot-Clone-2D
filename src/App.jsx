@@ -50,8 +50,7 @@ function App() {
   // saber si se mueve arr abj izq der
   const [sentido, setSentido] = useState(0)
   const [sentidoAux, setSentidoAux] = useState(0)
-  const filaInicial = 0
-  const columnaInicial = 0
+  const posInicial = { fila: 0, columna: 0 }
   const sentidoInicial = 0
 
   const [secuencia, setSecuencia] = useState([])
@@ -65,6 +64,7 @@ function App() {
   const [reiniciar, setReiniciar] = useState(false)
   const [comandoActual, setComandoActual] = useState(0)
   const [puedeEditar, setPuedeEditar] = useState(true)
+  const [listoParaEjecutar, setListoParaEjecutar] = useState(false);
   const indiceActualRef = useRef(0);
   const pausadoRef = useRef(false)
 
@@ -92,8 +92,6 @@ function App() {
     // Encender luz
     if (direccion === 'luz') {
       if (mapa[nuevaPos.fila][nuevaPos.columna] === 2) {
-        const nuevoMapa = mapa.map(fila => [...fila])
-        nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 3
         setMapa(prevMapa => {
           const nuevoMapa = prevMapa.map(fila => [...fila]);
           nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 3;
@@ -241,10 +239,18 @@ function App() {
 
   useEffect(() => {
     if (reiniciar) {
-      setPos({ fila: filaInicial, columna: columnaInicial })
+      setPos(posInicial)
       setSentido(sentidoInicial)
     }
   }, [reiniciar])
+
+  useEffect(() => {
+    if (listoParaEjecutar) {
+      setEjecutando(true);
+      ejecutarSecuencia(0, sentidoInicial, posInicial);
+      setListoParaEjecutar(false);
+    }
+  }, [listoParaEjecutar]);
 
   const apagarLuces = () => {
     const nuevoMapa = mapa.map(actual => {
@@ -254,24 +260,34 @@ function App() {
   }
 
   const jugar = () => {
-    if (secuencia.length > 0 && !ejecutando && pausadoRef.current) {
-      // Reanudar desde el índice guardado
+    if (secuencia.length === 0) return;
+
+    if (!ejecutando && !pausadoRef.current) {
+      // Si ya terminó la secuencia o es la primera vez, reiniciar desde el inicio
+      setReiniciar(true)
+      apagarLuces()
+      setTimeout(() => {
+        setReiniciar(false)
+        setPos(posInicial);
+        setSentido(sentidoInicial);
+        indiceActualRef.current = 0;
+        setListoParaEjecutar(true);
+      }, 200);
+
+    } else if (!ejecutando && pausadoRef.current) {
+      // Reanudar desde donde quedó
       setEjecutando(true);
       pausadoRef.current = false;
-      ejecutarSecuencia(indiceActualRef.current, sentido, pos); 
-    } else if (secuencia.length > 0 && !ejecutando) {
-      // Empezar desde cero
-      indiceActualRef.current = 0;
-      setEjecutando(true);
-      pausadoRef.current = false;
-      ejecutarSecuencia(0, sentido, pos); 
+      ejecutarSecuencia(indiceActualRef.current, sentido, pos);
+
     } else if (ejecutando && !pausadoRef.current) {
-      // Pausar
-      setPuedeEditar(false)
+      // Pausar ejecución
+      setPuedeEditar(false);
       pausadoRef.current = true;
       setEjecutando(false);
     }
-  };
+  }
+
 
 
 
@@ -287,7 +303,7 @@ function App() {
     indiceActualRef.current = 0
   }
 
-  
+
 
 
 
@@ -321,7 +337,7 @@ function App() {
         ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
         mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
         avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
-        comandoActual={comandoActual} puedeEditar={puedeEditar}/>
+        comandoActual={comandoActual} puedeEditar={puedeEditar} />
 
     </div>
   );
