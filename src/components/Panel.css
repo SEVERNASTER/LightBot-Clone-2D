@@ -136,10 +136,50 @@
 }
 
 .boton-reiniciar.inhabilitar:hover {
-    transform: none !important;
+    transform: scale(.8) !important;
 }
 
 .boton-reiniciar.inhabilitar:active {
     scale: 1;
     box-shadow: none;
 }
+
+/* para el boton limpiar */
+
+.boton-limpiar {
+    width: 70px;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #f00;
+    outline: none;
+    border: none;
+    transition: .3s;
+}
+
+.boton-limpiar:hover {
+    border: solid #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+}
+
+.boton-limpiar:active {
+    transform: scale(.9);
+}
+
+.boton-limpiar.inhabilitar {
+    transform: scale(.8);
+    opacity: .8;
+}
+
+.boton-limpiar.inhabilitar:hover {
+    border: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+

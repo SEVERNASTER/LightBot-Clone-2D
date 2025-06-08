@@ -19,12 +19,18 @@
     padding-right: 6px;
 }
 
+.boton-funcional.inhabilitar {
+    transform: scale(.8);
+    opacity: .5;
+    border: none;
+}
+
 .boton-funcional.inhabilitar:active {
-    transform: scale(1);
+    transform: scale(.8);
 }
 
 .boton-funcional.inhabilitar:hover {
-    transform: scale(1);
+    transform: scale(.8);
     cursor: not-allowed;
 }
 

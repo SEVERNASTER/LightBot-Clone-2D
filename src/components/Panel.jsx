@@ -12,6 +12,8 @@ import { FaPause } from "react-icons/fa";
 import Comando from './Comando';
 import { BiReset } from "react-icons/bi";
 import { RiResetRightFill } from "react-icons/ri";
+import { BsFillTrash3Fill } from "react-icons/bs";
+import { TbTrashOff } from "react-icons/tb";
 
 
 function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq,
@@ -87,6 +89,21 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
 
             <div className="comandos-contenedor" >
                 {
+                    comandos.length > 0 &&
+                    <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
+                        title='Borrar Comandos'
+                        onClick={() => {
+                            setComandos([])
+                            setSecuencia([])
+                            reiniciar()
+                        }}
+                        disabled={!puedeEditar}
+                    >
+                        {puedeEditar && <BsFillTrash3Fill />}
+                        {!puedeEditar && <TbTrashOff />}
+                    </button>
+                }
+                {
                     comandos.map((actual, indice) => {
                         return <Comando
                             key={indice}
@@ -105,38 +122,48 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
                 <Button imgBg={avanzarImg}
                     onClick={avanzar}
                     extraClass={` ${!puedeEditar ? 'inhabilitar' : ''}`}
-                    inhabilitar={!puedeEditar} />
+                    inhabilitar={!puedeEditar}
+                    label='Avanzar'
+                />
 
                 {/* girar a la derecha */}
                 <Button imgBg={girarImg}
                     onClick={girarDer}
                     extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
 
-                    inhabilitar={!puedeEditar} />
+                    inhabilitar={!puedeEditar}
+                    label='Girar Derecha'
+                />
 
                 {/* girar a la izquierda */}
                 <Button imgBg={girarIzqImg}
                     onClick={girarIzq}
                     extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
-                    inhabilitar={!puedeEditar} />
+                    inhabilitar={!puedeEditar}
+                    label='Girar Izquierda'
+                />
 
                 {/* para encender la luz */}
                 <Button icon={FaLightbulb}
                     onClick={() => {
                         setSecuencia(prev => [...prev, 'luz']);
                     }} extraClass={`zoom boton-luz ${!puedeEditar ? 'inhabilitar' : ''}`}
-                    inhabilitar={!puedeEditar} />
+                    inhabilitar={!puedeEditar}
+                    label='Encender Luz'
+                />
 
                 {/* para iniciar la secuencia */}
                 <Button icon={ejecutando ? FaPause : FaPlay}
                     onClick={jugar}
                     extraClass={`zoom boton-jugar ${ejecutando ? 'padding-icono' : ''}`}
+                    label='Ejecutar Comandos'
                 />
 
                 <Button icon={RiResetRightFill}
                     onClick={reiniciar}
                     extraClass={`zoom boton-reiniciar ${ejecutando ? 'inhabilitar' : ''}`}
                     inhabilitar={ejecutando}
+                    label='Reiniciar'
                 />
 
             </div>

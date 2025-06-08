@@ -298,9 +298,9 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    console.log(puedeEditar);
-  }, [puedeEditar])
+  // useEffect(() => {
+  //   console.log(puedeEditar);
+  // }, [puedeEditar])
 
 
 
