@@ -17,7 +17,12 @@ function Comando({ imagen, icono: Icono, resaltar, eliminarComando, inhabilitar,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}>{Icono && <Icono size={35} />}
-            {puedeEditar && <span onClick={eliminarComando} className='quitar-comando'><IoClose /></span>}
+            {puedeEditar &&
+                <span
+                    onClick={eliminarComando}
+                    className='quitar-comando'><IoClose title='Eliminar este comando' />
+                </span>
+            }
         </div>
     )
 }

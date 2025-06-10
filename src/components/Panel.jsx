@@ -91,7 +91,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
                 {
                     comandos.length > 0 &&
                     <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
-                        title='Borrar Comandos'
+                        title='Eliminar todos los comandos'
                         onClick={() => {
                             setComandos([])
                             setSecuencia([])

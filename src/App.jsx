@@ -4,6 +4,7 @@ import './App.css'
 import Grilla from './components/Grilla';
 import Panel from './components/Panel';
 import { useState, useEffect, useRef } from 'react';
+import Tour from './components/Tour';
 
 
 
@@ -73,7 +74,7 @@ function App() {
 
   const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
 
-    if(indice >= secuencia.length){
+    if (indice >= secuencia.length) {
       setPuedeEditar(true)
       setEjecutando(false)
       return;
@@ -99,9 +100,11 @@ function App() {
 
     // Encender luz
     if (direccion === 'luz') {
-      if (mapa[nuevaPos.fila][nuevaPos.columna] === 2) {
-        setMapa(prevMapa => {
-          const nuevoMapa = prevMapa.map(fila => [...fila]);
+      setMapa(prevMapa => {
+        const nuevoMapa = prevMapa.map(fila => [...fila]);
+        const celdaActual = nuevoMapa[nuevaPos.fila][nuevaPos.columna];
+
+        if (celdaActual === 2) {
           nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 3;
 
           const todasEncendidas = nuevoMapa.every(fila =>
@@ -112,14 +115,19 @@ function App() {
             console.log('¡Todas las luces han sido encendidas!');
           }
 
-          return nuevoMapa;
-        });
-      }
-      setBotAnimado(true)
+        } else if (celdaActual === 3) {
+          nuevoMapa[nuevaPos.fila][nuevaPos.columna] = 2;
+        }
+
+        return nuevoMapa;
+      });
+
+      setBotAnimado(true);
       setTimeout(() => {
-        setBotAnimado(false)
+        setBotAnimado(false);
       }, 500);
     }
+
 
     // Movimiento para avanzar
     if (direccion === 'avanzar') {
@@ -342,6 +350,7 @@ function App() {
 
   return (
     <div className="app-contenedor">
+      {/* <Tour /> */}
       <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
         botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
         colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} reiniciar={reiniciar} />

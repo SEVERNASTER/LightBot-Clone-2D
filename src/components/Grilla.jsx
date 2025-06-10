@@ -6,6 +6,8 @@ import flechaImg from '../assets/flecha.png';
 import { useRef, useState, useEffect } from 'react';
 import muroImg from '../assets/muro.jpg';
 import sueloImg from '../assets/suelo.jpg';
+import botImg from '../assets/bot.png';
+import bot2Img from '../assets/bot2.png';
 
 
 
