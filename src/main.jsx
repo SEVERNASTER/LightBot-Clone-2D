@@ -7,6 +7,7 @@ import Main from './layouts/Main.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    {/* <App /> */}
     <Main />
   </StrictMode>,
 )

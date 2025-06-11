@@ -1,0 +1,91 @@
+.niveles {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s ease-in;
+}
+
+.niveles.deslizar {
+    transform: translateY(-100%);
+}
+
+.niveles-card {
+    width: min(600px, 100%);
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(45deg, #ff00cc, #354EDE, #18B2F8);
+    padding: 4px;
+    border-radius: 20px;
+}
+
+.contenido-niveles-card {
+    background-color: #232247;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    display: grid;
+    grid-template-rows: 25% 60% 15%;
+}
+
+
+.niveles-header {
+    color: #1ABCFD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.7rem;
+    font-weight: 400;
+    gap: 20px;
+    text-shadow: 0 0 20px rgba(26, 188, 253, .8);
+    text-align: center;
+}
+
+.niveles-header h3 {
+    font-size: 1.3rem;
+    color: #D220D3;
+    text-shadow: none;
+}
+
+
+.niveles-contenedor {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 1fr;
+    padding: 20px;
+    gap: 20px;
+}
+
+.niveles-footer {
+    height: 100%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 20px;
+    gap: 10px;
+}
+
+.barra-progreso {
+    /* border: solid #fff; */
+    position: relative;
+    width: 100%;
+    height: 10px;
+    border-radius: 20px;
+    background-color: #17172d;
+    overflow: hidden;
+}
+
+
+.barra-progreso::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    background: linear-gradient(90deg,#D122D5, #1BBCFD);
+    border-radius: 20px;
+}
+
