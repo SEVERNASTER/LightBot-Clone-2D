@@ -22,20 +22,14 @@ import Tour from './components/Tour';
  */
 
 
-function App() {
+function App({mapa: mapaProp}) {
 
   // 0 = camino libre
   // 1 = obstaculo
   // 2 = objetivo / luz para prender
   // 3 = luz ya prendida
 
-  const [mapa, setMapa] = useState([
-    [0, 0, 2, 1, 0],
-    [0, 1, 0, 1, 0],
-    [0, 0, 0, 2, 0],
-    [1, 2, 1, 0, 1],
-    [0, 0, 0, 0, 0],
-  ])
+  const [mapa, setMapa] = useState(mapaProp)
 
 
 

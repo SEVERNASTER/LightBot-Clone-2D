@@ -4,6 +4,7 @@
     overflow: hidden;
     background: linear-gradient(135deg, #212655, #1150D2, #18AFF7);
     padding: 0 30px;
+    z-index: 0;
 }
 
 .regresar-niveles-btn {
@@ -27,4 +28,14 @@
 
 .regresar-niveles-btn.mostrar {
     top: 10px;
+}
+
+@media (max-width: 800px) {
+    .regresar-niveles-btn {
+        top: -100px !important;
+    }
+
+    .regresar-niveles-btn.mostrar {
+        top: 20px !important;
+    }
 }

@@ -1,16 +1,21 @@
-.niveles {
-    position: relative;
+
+
+.niveles-wrapper {
+    position: absolute;
     height: 100vh;
+    width: min(600px, 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 1s ease-in;
+    transition: 2s;
 }
 
-.niveles.deslizar {
-    transform: translateY(-100%);
-    display: flex;
-    flex-direction: column;
+.niveles-wrapper.ocultarDer {
+    transform: translateX(100vw);
+}
+
+.niveles-wrapper.ocultarIzq {
+    transform: translateX(-100vw);
 }
 
 .niveles-card {
@@ -21,6 +26,7 @@
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, .8);
     animation: flotar-nivel-contenedor 5s linear infinite;
+    transition: 2s;
 }
 
 @keyframes flotar-nivel-contenedor {
@@ -28,6 +34,13 @@
         transform: translateY(10px);
     }
 }
+
+.niveles-card.ocultarDer, .niveles-card.ocultarIzq {
+    /* position: absolute; */
+    scale: .5;
+    transition: 1s;
+}
+
 
 .contenido-niveles-card {
     background-color: #232247;
@@ -101,67 +114,8 @@
     border-radius: 20px;
 }
 
-.boton-cambiar {
-    position: absolute;
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
-    border: none;
-    outline: none;
-    background: linear-gradient(90deg, #BE29D9, #7A46E8);
-    color: #fff;
-    font-size: 2.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .3s;
-}
-
-.boton-cambiar:hover {
-    transform: scale(1.2);
-}
-
-.boton-cambiar:active {
-    transform: scale(.9);
-}
-
-.boton-cambiar.inhabilitar {
-    opacity: .5 ;
-}
-
-.boton-cambiar.inhabilitar:hover {
-    cursor: not-allowed;
-    pointer-events: none;
-}
-
-.boton-cambiar.inhabilitar:active {
-    transform: scale(1);
-}
-
-.izq-btn {
-    left: 0;
-}
-
-.der-btn {
-    right: 0;
-}
 
 
-
-
-
-
-
-
-@media (max-width: 800px) {
-    .boton-cambiar {
-        top: 90%;
-    }
-
-    .regresar-niveles-btn {
-        top: 20px;
-    }
-}
 
 
 @media (max-width: 768px) {
@@ -179,14 +133,6 @@
 
     .niveles-header h3 {
         font-size: .9rem;
-    }
-
-    .boton-cambiar {
-        top: 75%;
-    }
-
-    .regresar-niveles-btn {
-        top: 20px;
     }
 }
 
