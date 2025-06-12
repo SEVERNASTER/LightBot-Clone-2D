@@ -5,3 +5,26 @@
     background: linear-gradient(135deg, #212655, #1150D2, #18AFF7);
     padding: 0 30px;
 }
+
+.regresar-niveles-btn {
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient( #EC1B43, #9E00C7);
+    height: 50px;
+    width: 50px;
+    /* font-size: 2rem; */
+    transition: all .5s ease-out ;
+}
+
+.regresar-niveles-btn:hover {
+    transform: scale(1.1) translateX(-50%) !important;
+}
+
+.regresar-niveles-btn:active {
+    transform: scale(.9) translateX(-50%) !important;
+}
+
+.regresar-niveles-btn.mostrar {
+    top: 10px;
+}

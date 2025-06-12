@@ -20,6 +20,13 @@
     padding: 4px;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, .8);
+    animation: flotar-nivel-contenedor 5s linear infinite;
+}
+
+@keyframes flotar-nivel-contenedor {
+    50%{
+        transform: translateY(10px);
+    }
 }
 
 .contenido-niveles-card {
@@ -140,9 +147,19 @@
 }
 
 
+
+
+
+
+
+
 @media (max-width: 800px) {
     .boton-cambiar {
         top: 90%;
+    }
+
+    .regresar-niveles-btn {
+        top: 20px;
     }
 }
 
@@ -166,6 +183,10 @@
 
     .boton-cambiar {
         top: 75%;
+    }
+
+    .regresar-niveles-btn {
+        top: 20px;
     }
 }
 
