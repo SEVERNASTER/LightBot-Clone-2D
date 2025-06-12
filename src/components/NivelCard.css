@@ -1,13 +1,98 @@
-
 .nivel {
-    width: 100%;
+    position: relative;
+    width: 90%;
     aspect-ratio: 1 / 1;
     border-radius: 15px;
-    background: linear-gradient(#0853D0, #19B4FA);
+    background: linear-gradient(120deg, #0853D0, #19B4FA);
     color: #fff;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    margin: auto;
+    transition: .5s;
+    box-shadow: -2px 2px 20px rgba(16, 127, 227, .5);
+    overflow: hidden;
+    outline: none;
+    border: none;
+}
+
+.nivel:active {
+    transform: scale(.9) !important;
+}
+
+.nivel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, transparent, rgba(255, 255, 255, .5), transparent, transparent);
+    transform: translateX(-100%);
+    transition: .5s;
+}
+
+.nivel:hover::before {
+    transform: translateX(100%);
+}
+
+.nivel.completado::after {
+    content: '✓';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #0F78E0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    height: 30%;
+    width: 30%;
+}
+
+.nivel.completado {
+    background: linear-gradient(120deg, #CC23D5, #8541E6);
+}
+
+.nivel.bloqueado::after {
+    content: '🔒';
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.nivel.bloqueado {
+    background: linear-gradient(120deg, #383a7d, #645ee1);
+    box-shadow: 0 0 20px #000;
+    opacity: .5;
+    border: dashed 2px #fff;
+    cursor: not-allowed;
+}
+
+.nivel.bloqueado:hover {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 20px #000;
+    background: linear-gradient(120deg, #383a7d, #645ee1);
+
+}
+
+.nivel.bloqueado::before {
+    display: none;
+}
+
+.nivel.bloqueado:active {
+    transform: scale(1) !important;
+}
+
+.nivel:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: -5px 5px 20px rgba(16, 127, 227, 1);
+    background: linear-gradient(120deg, #CC23D5, #8541E6);
+}
+
+@media (max-width: 410px) {
+    .nivel {
+        width: 100%;
+    }
 }

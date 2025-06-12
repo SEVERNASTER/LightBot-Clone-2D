@@ -1,11 +1,11 @@
 import React from 'react'
 import './NivelCard.css'
 
-function NivelCard({numero}) {
+function NivelCard({numero, clasesExtra}) {
     return (
-        <div className={`nivel`}>
+        <button className={`nivel ${clasesExtra}`}>
             <h3>{numero}</h3>
-        </div>
+        </button>
     )
 }
 

@@ -1,4 +1,5 @@
 .niveles {
+    position: relative;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -8,6 +9,8 @@
 
 .niveles.deslizar {
     transform: translateY(-100%);
+    display: flex;
+    flex-direction: column;
 }
 
 .niveles-card {
@@ -16,6 +19,7 @@
     background: linear-gradient(45deg, #ff00cc, #354EDE, #18B2F8);
     padding: 4px;
     border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .8);
 }
 
 .contenido-niveles-card {
@@ -65,6 +69,7 @@
     flex-direction: column;
     padding: 0 20px;
     gap: 10px;
+    text-align: center;
 }
 
 .barra-progreso {
@@ -85,7 +90,99 @@
     left: 0;
     height: 100%;
     width: 50%;
-    background: linear-gradient(90deg,#D122D5, #1BBCFD);
+    background: linear-gradient(90deg, #D122D5, #1BBCFD);
     border-radius: 20px;
 }
 
+.boton-cambiar {
+    position: absolute;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, #BE29D9, #7A46E8);
+    color: #fff;
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+}
+
+.boton-cambiar:hover {
+    transform: scale(1.2);
+}
+
+.boton-cambiar:active {
+    transform: scale(.9);
+}
+
+.boton-cambiar.inhabilitar {
+    opacity: .5 ;
+}
+
+.boton-cambiar.inhabilitar:hover {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.boton-cambiar.inhabilitar:active {
+    transform: scale(1);
+}
+
+.izq-btn {
+    left: 0;
+}
+
+.der-btn {
+    right: 0;
+}
+
+
+@media (max-width: 800px) {
+    .boton-cambiar {
+        top: 90%;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .niveles-header {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 510px) {
+    .niveles-header {
+        font-size: 1rem;
+        gap: 0;
+        padding: 0 10px;
+    }
+
+    .niveles-header h3 {
+        font-size: .9rem;
+    }
+
+    .boton-cambiar {
+        top: 75%;
+    }
+}
+
+@media (max-width: 410px) {
+    .niveles-contenedor {
+        gap: 10px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 350px) {
+    .niveles-header {
+        font-size: .7rem;
+        gap: 0;
+    }
+
+    .niveles-footer {
+        font-size: .9rem;
+    }
+}

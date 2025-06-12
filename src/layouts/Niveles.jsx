@@ -1,6 +1,8 @@
 import React from 'react'
 import './Niveles.css'
 import NivelCard from '../components/NivelCard';
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 function Niveles({ clasesExtra }) {
 
@@ -25,6 +27,10 @@ function Niveles({ clasesExtra }) {
                     </footer>
                 </div>
             </div>
+            {/* <div className="botones-cambiar"> */}
+                <button className='boton-cambiar izq-btn'><FaArrowLeft /></button>
+                <button className='boton-cambiar der-btn'><FaArrowRight /></button>
+            {/* </div> */}
         </div>
     )
 }
