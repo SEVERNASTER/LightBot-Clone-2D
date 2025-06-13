@@ -1,12 +1,23 @@
 
+.grilla-contenedor {
+    border: solid #191c31;
+    width: min(550px, 100%);
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #161627;
+    background-color: #0A161A;
+}
 
 .grilla {
-    border: solid #0ef;
+    /* border: solid #0ef; */
     position: relative;
     display: grid;
     width: min(550px, 100%);
     max-width: 550px;
     aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    gap: 3px;
 }
 
 
@@ -19,6 +30,7 @@
                 width .5s ease-in;
     width: auto;
     aspect-ratio: 1 / 1;
+    border-radius: 15px;
     /* height: 100%;
     width: 100%; */
 }

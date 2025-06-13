@@ -1,7 +1,6 @@
 
 .celda {
     width: 100%;
-    border: solid 1px red;
     aspect-ratio: 1 / 1;
-    
+    border-radius: 15px;
 }

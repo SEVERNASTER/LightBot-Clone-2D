@@ -8,6 +8,7 @@
     padding: 20px 10px;
     background-color: #24244E;
     border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 }
 
 .comandos-titulo {
@@ -127,8 +128,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #342E89;
+    background: linear-gradient(#362B80, #2244C6);
     margin-left: auto;
+
 }
 
 
@@ -144,10 +146,11 @@
 }
 
 .secuencia-contenedor {
-    border: solid #0ef;
+    /* border: solid #0ef; */
     background-color: #24244E;
     border-radius: 20px;
     padding: 0 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
 }
 
 .secuencia-titulo {

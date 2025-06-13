@@ -7,7 +7,7 @@ function Celda({fondo, colorFondo}) {
         <div className='celda' style={{
             backgroundImage: `url(${fondo})`,
             backgroundSize: 'cover',
-            backgroundColor: `${colorFondo}`
+            background: `${colorFondo}`
         }}></div>
         
     )

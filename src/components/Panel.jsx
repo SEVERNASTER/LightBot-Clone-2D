@@ -174,6 +174,14 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
                             titulo='GIRAR DER'
                         />
 
+                        {/* para reiniciar la secuencia */}
+                        <Button icon={RiResetRightFill}
+                            onClick={reiniciar}
+                            extraClass={`zoom boton-reiniciar ${ejecutando ? 'inhabilitar' : ''}`}
+                            inhabilitar={ejecutando}
+                            label='Reiniciar'
+                        />
+
                         {/* para iniciar la secuencia */}
                         <Button icon={ejecutando ? FaPause : FaPlay}
                             onClick={jugar}
@@ -181,12 +189,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
                             label='Ejecutar Comandos'
                         />
 
-                        <Button icon={RiResetRightFill}
-                            onClick={reiniciar}
-                            extraClass={`zoom boton-reiniciar ${ejecutando ? 'inhabilitar' : ''}`}
-                            inhabilitar={ejecutando}
-                            label='Reiniciar'
-                        />
+
 
                     </div>
                 </div>
