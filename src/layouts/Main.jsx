@@ -13,11 +13,11 @@ function Main() {
     
     const mapaActual = useRef(1)
     
-    const [vistaMenu, setVistaMenu] = useState(true)
-    const [jugando, setJugando] = useState(false)
+    const [vistaMenu, setVistaMenu] = useState(false)
+    const [jugando, setJugando] = useState(true)
 
     return (
-        <div className='main-container'>
+        <div className={`main-container ${jugando ? 'jugando' : ''}`}>
             <MenuInicio clasesExtra={`${vistaMenu ? '' : 'deslizar'}`}
                 setVistaMenu={setVistaMenu}
             />

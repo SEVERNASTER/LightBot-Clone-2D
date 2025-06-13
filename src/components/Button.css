@@ -1,18 +1,27 @@
 .boton-funcional {
     /* height: 70px; */
     position: relative;
-    width: 70px;
-    
+    /* width: 70px; */
+    height: 75px;
+    width: 80%;
     background-color: transparent;
     border: none;
     outline: none;
     transition: .3s ease-out;
     background-size: cover;
-    border: solid #fff;
     border-radius: 20px;
-    aspect-ratio: 1 / 1;
+    /* aspect-ratio: 1 / 1; */
     overflow: hidden;
-    
+    margin: auto;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(90deg, #CE22D5, #684CEC);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 10px 0;
 }
 
 .boton-funcional.padding-icono {
@@ -40,12 +49,14 @@
 }
 
 .boton-funcional:hover {
-    transform: scale(1.2);
+    transform: translateY(-7px);
     /* animation: sacudir .5s ease-in; */
+    background: linear-gradient(90deg, #0958D2, #17A9F5);
+    box-shadow: 0 5px 20px #C824D6;
 }
 
 .boton-funcional:active {
-    transform: scale(.9);
+    transform: translateY(0);
 }
 
 @keyframes sacudir {

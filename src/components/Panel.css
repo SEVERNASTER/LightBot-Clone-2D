@@ -1,12 +1,37 @@
-.botones-contenedor {
-    border: solid yellow;
-    width: 100%;
+
+
+.comandos-disponibles {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    margin-top: auto;
+    gap: 20px;
+    padding: 20px 0;
+    background-color: #24244E;
+    border-radius: 20px;
+}
+
+.comandos-titulo {
+    color: #1ABCFD;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
     align-items: center;
+}
+
+.comandos-titulo h3 {
+    text-align: center;
+}
+
+
+.botones-contenedor {
+    /* border: solid yellow; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
     /* flex-wrap: wrap; */
     gap: 15px;
-    padding: 10px;
+    /* padding: 10px; */
     margin-top: auto;
 }
 
@@ -18,7 +43,6 @@
     position: relative;
     color: yellow;
     background-color: #fff;
-    border-radius: 50% !important;
     border-color: yellow !important;
 }
 
@@ -62,7 +86,6 @@
 .boton-jugar {
     color: #fff;
     border-radius: 50%;
-    border-radius: 50% !important;
     padding-left: 5px;
     padding-top: 2px;
     font-weight: 700;
@@ -91,6 +114,24 @@
     box-shadow: none;
 }
 
+
+
+
+
+
+
+.panel-contenedor {
+    border: solid red;
+    height: 100vh;
+    width: min(600px, 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #342E89;
+    margin-left: auto;
+}
+
+
 .panel-principal {
     border: solid #fff;
     /* height: 550px; */
@@ -116,15 +157,10 @@
 
 .boton-reiniciar {
     color: #fff;
-    background: linear-gradient(#DF227E, #852CE0, #1CB6F8) !important;
+    background: linear-gradient(90deg,#DF227E, #852CE0, #1CB6F8) !important;
     padding-top: 5px;
     transition: 5s;
-    border-radius: 50% !important;
     /* transform: rotate(-45deg); */
-}
-
-.boton-reiniciar:hover {
-    transform: rotate(180deg) scale(1.2) !important;
 }
 
 .boton-reiniciar:active {

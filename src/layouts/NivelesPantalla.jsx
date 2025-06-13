@@ -15,17 +15,30 @@ function NivelesPantalla({ clasesExtra, setJugando, mapaActual }) {
         <div className={`niveles ${clasesExtra}`}>
             <Niveles niveles={nivelesArray} setJugando={setJugando} mapaActual={mapaActual}
                 extraClases={`${nivelActual !== 1 ? 'ocultarIzq' : ''}`}
+                titulo='CONCEPTOS BÁSICOS'
+                subtitulo='Aprende movimiento y orientación'
             />
 
             <Niveles niveles={nivelesArray} setJugando={setJugando} mapaActual={mapaActual}
                 extraClases={`
                     ${nivelActual === 1 ? 'ocultarDer' : ''}
+                    ${nivelActual === 2 ? 'segunda-card' : ''}
                     ${nivelActual === 3 ? 'ocultarIzq' : ''}
                 `}
+                extraStyles={{
+                    background: 'linear-gradient(120deg, #2B236D, #580D43)'
+                }}
+                titulo='CONCEPTOS BÁSICOS'
+                subtitulo='Aprende movimiento y orientación'
             />
 
             <Niveles niveles={nivelesArray} setJugando={setJugando} mapaActual={mapaActual}
                 extraClases={`${nivelActual !== 3 ? 'ocultarDer' : ''}`}
+                extraStyles={{
+                    background: 'linear-gradient(120deg, #a90570, #300E82)'
+                }}
+                titulo='CONCEPTOS BÁSICOS'
+                subtitulo='Aprende movimiento y orientación'
             />
 
             {/* <div className="botones-cambiar"> */}

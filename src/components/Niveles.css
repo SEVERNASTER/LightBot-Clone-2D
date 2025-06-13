@@ -29,6 +29,7 @@
     transition: 2s;
 }
 
+
 @keyframes flotar-nivel-contenedor {
     50%{
         transform: translateY(10px);
@@ -43,14 +44,13 @@
 
 
 .contenido-niveles-card {
-    background-color: #232247;
+    background: #232247;
     width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: 20px;
     display: grid;
     grid-template-rows: 25% 60% 15%;
 }
-
 
 .niveles-header {
     color: #1ABCFD;

@@ -3,14 +3,14 @@ import './Niveles.css'
 import NivelCard from '../components/NivelCard';
 
 
-function Niveles({ niveles, mapaActual, extraClases }) {
+function Niveles({ niveles, mapaActual, extraClases, setJugando, extraStyles, titulo, subtitulo }) {
     return (
         <div className={`niveles-wrapper ${extraClases}`}>
             <div className={`niveles-card ${extraClases}`}>
-                <div className="contenido-niveles-card">
+                <div className={`contenido-niveles-card`} style={extraStyles}>
                     <header className="niveles-header">
-                        <h2>CONCEPTOS BÁSICOS</h2>
-                        <h3>Aprende movimiento y orientación</h3>
+                        <h2>{`${titulo}`}</h2>
+                        <h3>{`${subtitulo}`}</h3>
                     </header>
                     <div className="niveles-contenedor">
                         {niveles.map(nivel => {

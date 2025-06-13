@@ -1,9 +1,10 @@
 .app-contenedor {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #191c31;
+  /* background-color: #191c31; */
   gap: 20px;
   overflow: auto;
   z-index: 10;
