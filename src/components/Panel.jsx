@@ -91,36 +91,44 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
         <div className="panel-contenedor">
 
             <div className="panel-principal" >
-
-                <div className="comandos-contenedor" >
-                    {
-                        comandos.length > 0 &&
-                        <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
-                            title='Eliminar todos los comandos'
-                            onClick={() => {
-                                setComandos([])
-                                setSecuencia([])
-                                reiniciar()
-                            }}
-                            disabled={!puedeEditar}
-                        >
-                            {puedeEditar && <BsFillTrash3Fill />}
-                            {!puedeEditar && <TbTrashOff />}
-                        </button>
-                    }
-                    {
-                        comandos.map((actual, indice) => {
-                            return <Comando
-                                key={indice}
-                                imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
-                                icono={actual.tipo === 'icono' ? actual.imagen : ''}
-                                resaltar={indice + 1 === comandoActual}
-                                eliminarComando={() => eliminarComando(indice)}
-                                inhabilitar={ejecutando}
-                                puedeEditar={puedeEditar}
-                            />
-                        })
-                    }
+                <div className="secuencia-contenedor">
+                    <div className="secuencia-titulo">
+                        <h3>SECUENCIA DE COMANDOS</h3>
+                    </div>
+                    <div className="comandos-contenedor" >
+                        {
+                            comandos.length === 0 &&
+                            <h3 className='sin-comandos'>Aqui verás tus comandos</h3>
+                        }
+                        {
+                            comandos.length > 0 &&
+                            <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
+                                title='Eliminar todos los comandos'
+                                onClick={() => {
+                                    setComandos([])
+                                    setSecuencia([])
+                                    reiniciar()
+                                }}
+                                disabled={!puedeEditar}
+                            >
+                                {puedeEditar && <BsFillTrash3Fill />}
+                                {!puedeEditar && <TbTrashOff />}
+                            </button>
+                        }
+                        {
+                            comandos.map((actual, indice) => {
+                                return <Comando
+                                    key={indice}
+                                    imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
+                                    icono={actual.tipo === 'icono' ? actual.imagen : ''}
+                                    resaltar={indice + 1 === comandoActual}
+                                    eliminarComando={() => eliminarComando(indice)}
+                                    inhabilitar={ejecutando}
+                                    puedeEditar={puedeEditar}
+                                />
+                            })
+                        }
+                    </div>
                 </div>
 
                 <div className="comandos-disponibles">
