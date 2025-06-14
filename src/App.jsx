@@ -347,14 +347,16 @@ function App({mapa: mapaProp}) {
       {/* <Tour /> */}
       <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
         botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
-        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} reiniciar={reiniciar} />
+        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} 
+        reiniciar={reiniciar} ejecutando={ejecutando}
+      />
 
-      {/* <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
+      <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
         setSentidoAux={setSentidoAux}
         ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
         mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
         avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
-        comandoActual={comandoActual} puedeEditar={puedeEditar} /> */}
+        comandoActual={comandoActual} puedeEditar={puedeEditar}  />
 
     </div>
   );

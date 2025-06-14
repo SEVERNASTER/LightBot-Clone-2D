@@ -2,18 +2,20 @@
 import './Grilla.css'
 
 import Celda from './Celda';
-import flechaImg from '../assets/static-bot.png';
+import botCaminando from '../assets/bot3.png';
+import botStatic from '../assets/static-bot.png';
 import { useRef, useState, useEffect } from 'react';
+import { IoIosArrowDropupCircle } from "react-icons/io";
 import muroImg from '../assets/muro2.jpg';
-import sueloImg from '../assets/suelo.jpg';
-import botImg from '../assets/bot.png';
-import bot2Img from '../assets/bot2.png';
+import { IoIosArrowUp } from "react-icons/io";
 
 
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
-    colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar
+    colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando
 }) {
+
+    const [botSentido, setBotSentido] = useState(0)
 
     const textura = (tipo) => {
         let textura = null;
@@ -32,11 +34,11 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
     }
 
     const colorFondo = (valor) => {
-        if(valor === 0){// camino libre
+        if (valor === 0) {// camino libre
             return 'linear-gradient(#0954D1, #18B1F8)'
         }
 
-        if(valor === 0){// obstaculo
+        if (valor === 0) {// obstaculo
             return 'none'
         }
 
@@ -47,7 +49,7 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
         if (valor === 3) {// si es luz prendida
             return '#FFFC00'
         }
-        
+
     }
 
 
@@ -82,6 +84,33 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
     const ancho = dimensiones.ancho / columnas
     const tranformStyle = `translateY(${pos.fila * 100}%) translateX(${pos.columna * 100}%)`
 
+    useEffect(() => {
+        const normalizado = ((sentido % 360) + 360) % 360;
+        setBotSentido(normalizado)
+    }, [sentido])
+
+    const botDireccion = (angulo) => {
+        let res = ''
+        switch (angulo) {
+            case 0:
+                res = 'arriba'
+                break;
+            case 90:
+                res = 'derecha'
+                break;
+            case 180:
+                res = 'abajo'
+                break;
+            case 270:
+                res = 'izquierda'
+                break;
+            default:
+                res = ''
+                break;
+        }
+        return res
+    }
+
 
     return (
         <div className="grilla-contenedor">
@@ -102,7 +131,19 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
                     height: `calc(100% / ${filas})`
                     // width: `${ancho}px`,
                 }}>
-                    <img src={flechaImg} alt="bot" style={{ transform: `rotate(${sentido}deg)` }} />
+                    <div className="bot-wrapper">
+                        <img src={`${ejecutando ? botCaminando : botStatic}`} alt="bot"
+                        // style={{ transform: `rotate(${sentido}deg)` }}
+                        />
+                        <span className={`
+                                bot-sentido
+                                ${botDireccion(botSentido)}
+                            `}
+                            style={{
+                                transform: `rotate(${sentido}deg)`
+                            }}
+                        ><IoIosArrowUp /></span>
+                    </div>
                 </div>
 
 
