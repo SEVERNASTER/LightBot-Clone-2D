@@ -2,36 +2,17 @@
 import './Grilla.css'
 
 import Celda from './Celda';
-import botCaminando from '../assets/bot3.png';
-import botStatic from '../assets/static-bot.png';
 import { useRef, useState, useEffect } from 'react';
-import { IoIosArrowDropupCircle } from "react-icons/io";
 import muroImg from '../assets/muro2.jpg';
-import { IoIosArrowUp } from "react-icons/io";
+import Bot from '../components/Bot';
 
 
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
-    colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando
+    colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando, secuencia,
+    indice
 }) {
 
-    const [botSentido, setBotSentido] = useState(0)
-
-    const textura = (tipo) => {
-        let textura = null;
-        switch (tipo) {
-            case 0:
-                textura = 'sueloImg'
-                break;
-            case 1:
-                textura = muroImg
-                break;
-
-            default:
-                break;
-        }
-        return textura
-    }
 
     const colorFondo = (valor) => {
         if (valor === 0) {// camino libre
@@ -84,32 +65,8 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
     const ancho = dimensiones.ancho / columnas
     const tranformStyle = `translateY(${pos.fila * 100}%) translateX(${pos.columna * 100}%)`
 
-    useEffect(() => {
-        const normalizado = ((sentido % 360) + 360) % 360;
-        setBotSentido(normalizado)
-    }, [sentido])
 
-    const botDireccion = (angulo) => {
-        let res = ''
-        switch (angulo) {
-            case 0:
-                res = 'arriba'
-                break;
-            case 90:
-                res = 'derecha'
-                break;
-            case 180:
-                res = 'abajo'
-                break;
-            case 270:
-                res = 'izquierda'
-                break;
-            default:
-                res = ''
-                break;
-        }
-        return res
-    }
+    
 
 
     return (
@@ -131,19 +88,9 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
                     height: `calc(100% / ${filas})`
                     // width: `${ancho}px`,
                 }}>
-                    <div className="bot-wrapper">
-                        <img src={`${ejecutando ? botCaminando : botStatic}`} alt="bot"
-                        // style={{ transform: `rotate(${sentido}deg)` }}
-                        />
-                        <span className={`
-                                bot-sentido
-                                ${botDireccion(botSentido)}
-                            `}
-                            style={{
-                                transform: `rotate(${sentido}deg)`
-                            }}
-                        ><IoIosArrowUp /></span>
-                    </div>
+                    <Bot secuencia={secuencia} indiceActual={indice}
+                        ejecutando={ejecutando} sentido={sentido} reiniciar={reiniciar}
+                    />
                 </div>
 
 

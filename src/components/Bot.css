@@ -1,0 +1,89 @@
+.bot-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.bot-sentido {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    translate: -50% 0;
+    border-radius: 50%;
+    background-color: rgb(0, 198, 0);
+    color: #fff;
+    transition: .5s ease-in-out;
+}
+
+.bot-sentido.derecha {
+    left: 100%;
+    top: 50%;
+    translate: -50% -50%;
+}
+
+.bot-sentido.abajo {
+    left: 50%;
+    top: 100%;
+    translate: -50% -50%;
+}
+
+.bot-sentido.izquierda {
+    left: 0;
+    top: 50%;
+    translate: -50% -50%;
+}
+
+.bot-sentido.quitar-transition {
+    transition: 0s;
+}
+
+
+.bot-contenedor img {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: .3s;
+    object-fit: cover;
+    border: solid #fff;
+    scale: 1.3;
+}
+
+
+.bot-contenedor.animar img {
+    animation: encender-luz .5s ease-in;
+}
+
+@keyframes encender-luz {
+    50%{
+        scale: .9;
+    }
+}
+
+.bot-contenedor.colisionar-arr img {
+    translate: 0 20px;
+    height: 110%;
+}
+
+.bot-contenedor.colisionar-abj img {
+    translate: 0 -20px;
+    height: 110%;
+}
+
+.bot-contenedor.colisionar-der img {
+    translate: -20px 0;
+    width: 110%;
+}
+.bot-contenedor.colisionar-izq img {
+    translate: 20px 0;
+    width: 110%;
+}
+
+.bot.voltear {
+    transform: scaleX(-1);
+}
+

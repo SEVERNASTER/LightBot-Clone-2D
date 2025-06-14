@@ -348,7 +348,8 @@ function App({mapa: mapaProp}) {
       <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
         botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
         colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} 
-        reiniciar={reiniciar} ejecutando={ejecutando}
+        reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia} 
+        indice={indiceActualRef.current}
       />
 
       <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
