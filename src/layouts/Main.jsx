@@ -14,7 +14,7 @@ function Main() {
     const mapaActual = useRef(1)
     
     const [vistaMenu, setVistaMenu] = useState(false)
-    const [jugando, setJugando] = useState(true)
+    const [jugando, setJugando] = useState(false)
 
     return (
         <div className={`main-container ${jugando ? 'jugando' : ''}`}>

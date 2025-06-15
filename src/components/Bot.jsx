@@ -8,19 +8,37 @@ import { IoIosArrowUp } from "react-icons/io";
 import frames from '../data/frames';
 
 
-function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar }) {
+function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnimado,
+    colisionArriba, colisionAbajo, colisionDerecha, colisionIzquierda, pos, filas,
+    columnas
+}) {
 
     const [botSentido, setBotSentido] = useState(0)
     const [debeVoltearse, setDebeVoltearse] = useState(false)
+    const [quitarBotAnimacion, setQuitarBotAnimacion] = useState(false)
+
+
 
     const [frameIndex, setFrameIndex] = useState(0)
     const intervalRef = useRef(null)
 
+
+
+    /**en esta parte se ve el tiempo de animacion de los frames
+     * ver si se anima solamente cuando esta avanzando 
+     * o tambien cuando gira y tambien ver cuando se pausa
+     * o tal vez no pausamos frames sino reducimos la velocidad
+     */
     useEffect(() => {
-        if (ejecutando && secuencia[indiceActual - 1] === 'avanzar') {
+        if (ejecutando && (secuencia[indiceActual - 1]?.includes('vuelta') || secuencia[indiceActual - 1]?.includes('luz'))) {
             intervalRef.current = setInterval(() => {
                 setFrameIndex(prev => (prev + 1) % frames.length);
-            }, 40);
+            }, 70);// 50
+
+        } else if (ejecutando && (secuencia[indiceActual - 1] !== 'luz')) {
+            intervalRef.current = setInterval(() => {
+                setFrameIndex(prev => (prev + 1) % frames.length);
+            }, 25);// 15
         } else {
             clearInterval(intervalRef.current);
             // Si querés que se quede quieto en el primer frame:
@@ -30,6 +48,7 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar }) {
         return () => clearInterval(intervalRef.current);
     }, [ejecutando, indiceActual]);
 
+    // para que gire izq o der
     useEffect(() => {
         if (botSentido === 270) {
             setDebeVoltearse(true)
@@ -41,10 +60,23 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar }) {
     }, [botSentido])
 
 
+    // para normalizar el angulo y siempre este entre 0 y 270
     useEffect(() => {
         const normalizado = ((sentido % 360) + 360) % 360;
         setBotSentido(normalizado)
     }, [sentido])
+
+    // para quitar la animacion si se pone en pausa la ejecucion
+
+    // descomentar esta parte para quitar el transition cuando el usuario hace pausa
+    // en medio de una secuencia
+
+    // useEffect(() => {
+    //     setQuitarBotAnimacion(true)
+    //     setTimeout(() => {
+    //         setQuitarBotAnimacion(false)
+    //     }, 200);
+    // }, [ejecutando])
 
 
     const botDireccion = (angulo) => {
@@ -69,25 +101,43 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar }) {
         return res
     }
 
-    return (
-        <div className="bot-wrapper">
-            {/* No se que honda con esta parte nomas se que si le pongo 
-                        indiceActual - 1 da normal hahaha, de lo contrario se adelanta a la secuencia */}
-            <img className={`bot ${debeVoltearse ? 'voltear' : ''}`}
-                src={`${frames[frameIndex]}`}
-                alt="bot"
-            // style={{ transform: `rotate(${sentido}deg)` }}
-            />
+    const tranformStyle = `translateY(${pos.fila * 100}%) translateX(${pos.columna * 100}%)`
 
-            <span className={`
+
+    return (
+        <div className={`bot-contenedor ${botAnimado ? 'animar' : ''} 
+                ${colisionArriba ? 'colisionar-arr' : ''}
+                ${colisionAbajo ? 'colisionar-abj' : ''}
+                ${colisionDerecha ? 'colisionar-der' : ''}
+                ${colisionIzquierda ? 'colisionar-izq' : ''}
+                ${reiniciar ? 'quitar-transition' : ''}
+                ${quitarBotAnimacion ? 'quitar-transition' : ''}
+            `
+        } id='bot' style={{
+            transform: `${tranformStyle}`,
+            width: `calc(100% / ${columnas})`,
+            height: `calc(100% / ${filas})`
+            // width: `${ancho}px`,
+        }}>
+            <div className="bot-wrapper">
+                {/* No se que honda con esta parte nomas se que si le pongo 
+                        indiceActual - 1 da normal hahaha, de lo contrario se adelanta a la secuencia */}
+                <img className={`bot ${debeVoltearse ? 'voltear' : ''}`}
+                    src={`${frames[frameIndex]}`}
+                    alt="bot"
+                // style={{ transform: `rotate(${sentido}deg)` }}
+                />
+
+                <span className={`
                                 bot-sentido
                                 ${botDireccion(botSentido)}
                                 ${reiniciar ? 'quitar-transition' : ''}
                             `}
-                style={{
-                    transform: `rotate(${sentido}deg)`
-                }}
-            ><IoIosArrowUp /></span>
+                    style={{
+                        transform: `rotate(${sentido}deg)`
+                    }}
+                ><IoIosArrowUp /></span>
+            </div>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import Bot from '../components/Bot';
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
     colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando, secuencia,
-    indice
+    indice, jugando
 }) {
 
 
@@ -63,35 +63,26 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
 
     const alto = dimensiones.alto / filas
     const ancho = dimensiones.ancho / columnas
-    const tranformStyle = `translateY(${pos.fila * 100}%) translateX(${pos.columna * 100}%)`
 
 
-    
+
 
 
     return (
-        <div className="grilla-contenedor">
+        <div className={`grilla-contenedor ${jugando ? 'mostrar' : ''}`}>
 
             <div className="grilla" ref={grillaRef} style={{
                 gridTemplateColumns: `repeat(${columnas}, 1fr)`,
             }}>
 
-                <div className={`bot-contenedor ${botAnimado ? 'animar' : ''} 
-                ${colisionArriba ? 'colisionar-arr' : ''}
-                ${colisionAbajo ? 'colisionar-abj' : ''}
-                ${colisionDerecha ? 'colisionar-der' : ''}
-                ${colisionIzquierda ? 'colisionar-izq' : ''}
-                ${reiniciar ? 'quitar-transition' : ''}`
-                } id='bot' style={{
-                    transform: `${tranformStyle}`,
-                    width: `calc(100% / ${columnas})`,
-                    height: `calc(100% / ${filas})`
-                    // width: `${ancho}px`,
-                }}>
-                    <Bot secuencia={secuencia} indiceActual={indice}
-                        ejecutando={ejecutando} sentido={sentido} reiniciar={reiniciar}
-                    />
-                </div>
+
+                <Bot secuencia={secuencia} indiceActual={indice}
+                    ejecutando={ejecutando} sentido={sentido} reiniciar={reiniciar}
+                    botAnimado={botAnimado} colisionArriba={colisionArriba}
+                    colisionAbajo={colisionAbajo} colisionDerecha={colisionDerecha}
+                    colisionIzquierda={colisionIzquierda} pos={pos} filas={filas} 
+                    columnas={columnas}
+                />
 
 
                 {

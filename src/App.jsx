@@ -22,7 +22,7 @@ import Tour from './components/Tour';
  */
 
 
-function App({mapa: mapaProp}) {
+function App({ mapa: mapaProp, jugando }) {
 
   // 0 = camino libre
   // 1 = obstaculo
@@ -189,7 +189,7 @@ function App({mapa: mapaProp}) {
     // Continuar
     setTimeout(() => {
       ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
-    }, 800);
+    }, 1000);//500
   };
 
 
@@ -343,21 +343,24 @@ function App({mapa: mapaProp}) {
 
 
   return (
-    <div className="app-contenedor">
-      {/* <Tour /> */}
-      <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
-        botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
-        colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda} 
-        reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia} 
-        indice={indiceActualRef.current}
-      />
+    <div className="app-wrapper">
 
-      <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
-        setSentidoAux={setSentidoAux}
-        ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
-        mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
-        avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
-        comandoActual={comandoActual} puedeEditar={puedeEditar}  />
+      <div className="app-contenedor">
+        {/* <Tour /> */}
+        <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
+          botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
+          colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
+          reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
+          indice={indiceActualRef.current} jugando={jugando}
+        />
+
+        <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
+          setSentidoAux={setSentidoAux}
+          ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
+          mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
+          avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
+          comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando} />
+      </div>
 
     </div>
   );

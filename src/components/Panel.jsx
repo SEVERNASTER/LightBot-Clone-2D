@@ -20,7 +20,7 @@ import { HiArrowUturnRight } from "react-icons/hi2";
 
 
 function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq,
-    reiniciar, comandoActual, puedeEditar
+    reiniciar, comandoActual, puedeEditar, jugando
 }) {
 
     const [comandos, setComandos] = useState([])
@@ -88,7 +88,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
 
 
     return (
-        <div className="panel-contenedor">
+        <div className={`panel-contenedor ${jugando ? 'mostrar' : ''}`}>
 
             <div className="panel-principal" >
                 <div className="secuencia-contenedor">

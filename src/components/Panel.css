@@ -130,7 +130,12 @@
     align-items: center;
     background: linear-gradient(#362B80, #2244C6);
     margin-left: auto;
+    transform: translateX(100%);
+    transition: 1s;
+}
 
+.panel-contenedor.mostrar {
+    transform: translateX(0);
 }
 
 

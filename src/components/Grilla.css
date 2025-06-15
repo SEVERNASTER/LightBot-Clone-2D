@@ -8,6 +8,12 @@
     background-color: #161627;
     background-color: #0A161A;
     background-color: #0A0F14;
+    transform: translate(-50vw);
+    transition: 1s;
+}
+
+.grilla-contenedor.mostrar {
+    transform: translateX(0);
 }
 
 .grilla {
@@ -22,27 +28,7 @@
 }
 
 
-.bot-contenedor {
-    position: absolute;
-    border: solid yellow;
-    transition: transform .5s,
-                translate .5s ease-in,
-                height .5s ease-in,
-                width .5s ease-in;
-    width: auto;
-    aspect-ratio: 1 / 1;
-    border-radius: 15px;
-    /* height: 100%;
-    width: 100%; */
-}
 
-.bot-contenedor.quitar-transition {
-    transition: none;
-}
-
-.bot-contenedor.quitar-transition img {
-    transition: none;
-}
 
 
 
