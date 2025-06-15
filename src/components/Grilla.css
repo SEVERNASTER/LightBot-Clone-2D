@@ -9,7 +9,7 @@
     background-color: #0A161A;
     background-color: #0A0F14;
     transform: translate(-50vw);
-    transition: 1s;
+    transition: 1.5s;
 }
 
 .grilla-contenedor.mostrar {

@@ -3,9 +3,11 @@ import './Niveles.css'
 import NivelCard from '../components/NivelCard';
 
 
-function Niveles({ niveles, mapaActual, extraClases, setJugando, extraStyles, titulo, subtitulo }) {
+function Niveles({ niveles, mapaActual, extraClases, setJugando, extraStyles, titulo, subtitulo,
+}) {
     return (
-        <div className={`niveles-wrapper ${extraClases}`}>
+        <div className={`niveles-wrapper ${extraClases}
+        `}>
             <div className={`niveles-card ${extraClases}`}>
                 <div className={`contenido-niveles-card`} style={extraStyles}>
                     <header className="niveles-header">

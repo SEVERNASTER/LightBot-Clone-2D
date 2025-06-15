@@ -22,16 +22,16 @@ function Main() {
                 setVistaMenu={setVistaMenu}
             />
 
-            {!jugando && <Niveles clasesExtra={`${vistaMenu ? '' : 'deslizar'}`}
-                setJugando={setJugando} mapaActual={mapaActual}
-            />}
+            <Niveles clasesExtra={`${vistaMenu ? '' : 'deslizar'}`}
+                setJugando={setJugando} mapaActual={mapaActual} jugando={jugando}
+            />
 
             <button className={`boton-cambiar regresar-niveles-btn ${!vistaMenu ? 'mostrar' : ''}`}
                 title='Regresar'
                 onClick={() => { setVistaMenu(prev => !prev) }}
             ><IoIosArrowDropup /></button>
 
-            {jugando && <App mapa={mapas[mapaActual.current - 1]} />}
+            <App mapa={mapas[mapaActual.current - 1]} jugando={jugando} />
         </div>
     )
 }

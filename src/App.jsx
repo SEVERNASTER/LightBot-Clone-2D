@@ -343,7 +343,7 @@ function App({ mapa: mapaProp, jugando }) {
 
 
   return (
-    <div className="app-wrapper">
+    <div className={`app-wrapper ${jugando ? 'mostrar' : ''}`}>
 
       <div className="app-contenedor">
         {/* <Tour /> */}
