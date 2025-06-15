@@ -22,7 +22,7 @@ function Main() {
                 setVistaMenu={setVistaMenu}
             />
 
-            <Niveles clasesExtra={`${vistaMenu ? '' : 'deslizar'}`}
+            <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} mapaActual={mapaActual} jugando={jugando}
             />
 

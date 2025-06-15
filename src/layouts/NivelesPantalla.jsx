@@ -12,8 +12,11 @@ function NivelesPantalla({ clasesExtra, setJugando, mapaActual, jugando }) {
     const [nivelActual, setNivelActual] = useState(1) //para saber en que card de nivel va
 
     return (
-        <div className={`niveles-container ${jugando ? 'ocultar' : ''}`}>
-            <div className={`niveles ${clasesExtra}`}>
+        <div className={`niveles-container 
+            ${jugando ? 'ocultar' : ''} 
+            ${clasesExtra}
+        `}>
+            <div className={`niveles `}>
                 <Niveles niveles={nivelesArray} setJugando={setJugando} mapaActual={mapaActual}
                     extraClases={`${nivelActual !== 1 ? 'ocultarIzq' : ''}`}
                     titulo='CONCEPTOS BÁSICOS'

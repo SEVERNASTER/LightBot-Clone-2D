@@ -131,7 +131,7 @@
     background: linear-gradient(#362B80, #2244C6);
     margin-left: auto;
     transform: translateX(100%);
-    transition: 1.5s;
+    transition: 1s ease-in;
 }
 
 .panel-contenedor.mostrar {
