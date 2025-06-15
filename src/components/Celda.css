@@ -3,4 +3,5 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     border-radius: 15px;
+    background-size: cover !important;
 }

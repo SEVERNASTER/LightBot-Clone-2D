@@ -3,8 +3,9 @@ import './Niveles.css'
 import NivelCard from '../components/NivelCard';
 
 
-function Niveles({ niveles, mapaActual, extraClases, setJugando, extraStyles, titulo, subtitulo,
+function Niveles({ niveles, setMapaActual, extraClases, setJugando, extraStyles, titulo, subtitulo,
 }) {
+    
     return (
         <div className={`niveles-wrapper ${extraClases}
         `}>
@@ -19,8 +20,8 @@ function Niveles({ niveles, mapaActual, extraClases, setJugando, extraStyles, ti
                             return <NivelCard key={nivel * Math.random()}
                                 numero={nivel}
                                 onClick={() => {
-                                    setJugando(prev => !prev)
-                                    mapaActual.current = nivel
+                                    setMapaActual(nivel)
+                                    setJugando(true)
                                 }}
                             />
                         })}

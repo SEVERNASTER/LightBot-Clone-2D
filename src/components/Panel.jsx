@@ -75,6 +75,8 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
             }).filter(Boolean)
 
             setComandos(nuevosComandos);
+        }else{
+            setComandos([])
         }
 
     }, [secuencia]);

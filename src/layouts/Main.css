@@ -1,4 +1,3 @@
-
 .main-container {
     position: relative;
     height: 100vh;
@@ -10,18 +9,32 @@
 
 .main-container.jugando {
     padding: 0;
+    background: linear-gradient(#20285A, #123A95);
 }
 
 .regresar-niveles-btn {
     top: -100px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient( #EC1B43, #9E00C7);
+    background: linear-gradient(#EC1B43, #9E00C7);
     height: 50px;
     width: 50px;
     /* font-size: 2rem; */
-    transition: all .5s ease-out ;
+    transition: all .5s ease-out;
 }
+
+.regresar-niveles-btn.volver-btn {
+    z-index: 50;
+    
+}
+
+.regresar-niveles-btn:hover.volver-btn {
+    background: red;
+    box-shadow: 0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff;
+}
+
 
 .regresar-niveles-btn:hover {
     transform: scale(1.1) translateX(-50%) !important;

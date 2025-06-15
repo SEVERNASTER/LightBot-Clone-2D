@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 import Niveles from '../components/Niveles';
 
 
-function NivelesPantalla({ clasesExtra, setJugando, mapaActual, jugando }) {
+function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando }) {
 
     const nivelesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
@@ -17,13 +17,13 @@ function NivelesPantalla({ clasesExtra, setJugando, mapaActual, jugando }) {
             ${clasesExtra}
         `}>
             <div className={`niveles `}>
-                <Niveles niveles={nivelesArray} setJugando={setJugando} mapaActual={mapaActual}
+                <Niveles niveles={nivelesArray} setJugando={setJugando} setMapaActual={setMapaActual}
                     extraClases={`${nivelActual !== 1 ? 'ocultarIzq' : ''}`}
                     titulo='CONCEPTOS BÁSICOS'
                     subtitulo='Aprende movimiento y orientación'
                 />
 
-                <Niveles niveles={nivelesArray} setJugando={setJugando} mapaActual={mapaActual}
+                <Niveles niveles={nivelesArray} setJugando={setJugando} setMapaActual={setMapaActual}
                     extraClases={`
                     ${nivelActual === 1 ? 'ocultarDer' : ''}
                     ${nivelActual === 2 ? 'segunda-card' : ''}
@@ -36,7 +36,7 @@ function NivelesPantalla({ clasesExtra, setJugando, mapaActual, jugando }) {
                     subtitulo='Aprende movimiento y orientación'
                 />
 
-                <Niveles niveles={nivelesArray} setJugando={setJugando} mapaActual={mapaActual}
+                <Niveles niveles={nivelesArray} setJugando={setJugando} setMapaActual={setMapaActual}
                     extraClases={`${nivelActual !== 3 ? 'ocultarDer' : ''}`}
                     extraStyles={{
                         background: 'linear-gradient(120deg, #a90570, #300E82)'

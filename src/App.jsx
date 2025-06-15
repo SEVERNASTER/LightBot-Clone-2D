@@ -22,16 +22,37 @@ import Tour from './components/Tour';
  */
 
 
-function App({ mapa: mapaProp, jugando }) {
+function App({ mapa, setMapa, jugando, mapaActual }) {
 
   // 0 = camino libre
   // 1 = obstaculo
   // 2 = objetivo / luz para prender
   // 3 = luz ya prendida
 
-  const [mapa, setMapa] = useState(mapaProp)
+  useEffect(() => {
+    reiniciarJuego()
+  }, [mapaActual])
 
 
+  const reiniciarJuego = () => {
+    setPos({ fila: 0, columna: 0 });
+    setPosAux({ fila: 0, columna: 0 });
+    setSentido(0);
+    setSentidoAux(0);
+    setSecuencia([]);
+    setBotAnimado(false);
+    setEjecutando(false);
+    setColisionArriba(false);
+    setColisionAbajo(false);
+    setColisionDerecha(false);
+    setColisionIzquierda(false);
+    setReiniciar(false);
+    setComandoActual(0);
+    setPuedeEditar(true);
+    setListoParaEjecutar(false);
+    indiceActualRef.current = 0;
+    pausadoRef.current = false;
+  }
 
 
 
@@ -318,6 +339,8 @@ function App({ mapa: mapaProp, jugando }) {
     apagarLuces()
     indiceActualRef.current = 0
   }
+
+
 
 
 
