@@ -48,6 +48,13 @@
     top: 10px;
 }
 
+@media (max-width: 850px) {
+    .regresar-niveles-btn {
+        left: 90%;
+        scale: .8;
+    }
+}
+
 @media (max-width: 800px) {
     .regresar-niveles-btn {
         top: -100px !important;
@@ -55,5 +62,15 @@
 
     .regresar-niveles-btn.mostrar {
         top: 20px !important;
+    }
+}
+
+@media (max-width: 580px) {
+    .regresar-niveles-btn {
+        background: red !important;
+    }
+
+    .regresar-niveles-btn.mostrar {
+        top: 0px !important;
     }
 }

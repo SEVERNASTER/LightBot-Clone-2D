@@ -72,3 +72,17 @@
         transform: rotate(-10deg);
     }
 }
+
+@media screen and (max-width: 850px) {
+    .boton-funcional {
+        font-size: .8rem;
+    }
+
+    .boton-funcional:hover {
+        transform: translateY(0);
+    }
+
+    .boton-funcional:active {
+        transform: translateY(0) scale(.8);
+    }
+}

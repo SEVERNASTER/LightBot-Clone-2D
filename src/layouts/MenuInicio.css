@@ -1,11 +1,12 @@
 .menu-inicio {
     height: 100vh;
+    width: min(500px, 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
     transition: 1s ease-in;
-    
+    margin: auto;
 }
 
 .menu-inicio.deslizar {
@@ -16,7 +17,7 @@
     display: grid;
     grid-template-rows: 25% 75%;
     height: 450px;
-    width: 450px;
+    width: 100%;
 }
 
 .contenedor-menu-animado {
@@ -157,4 +158,10 @@
 
 .opciones:hover {
     background: linear-gradient(90deg, #0852D0, #1AB9FC);
+}
+
+@media (max-width: 490px) {
+    .contenedor-titulo {
+        font-size: 1.5rem;
+    }
 }

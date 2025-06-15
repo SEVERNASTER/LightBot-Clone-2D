@@ -35,7 +35,6 @@
     position: absolute;
     top: -15px;
     right: -15px;
-    font-size: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,4 +60,17 @@
 
 .quitar-comando:active {
     transform: scale(.7) !important;
+}
+
+@media (max-width: 850px) {
+    .comando {
+        height: 60px;
+        width: 60px;
+        border-radius: 15px;
+    }
+
+    .quitar-comando {
+        opacity: 1;
+        font-size: 25px;
+    }
 }
