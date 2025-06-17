@@ -9,6 +9,10 @@
     margin: auto;
 }
 
+.menu-inicio.ocultar {
+    transform: translateX(-100vw);
+}
+
 .menu-inicio.deslizar {
     transform: translateY(-100%);
 }
@@ -16,7 +20,7 @@
 .contenedor-menu-inicio {
     display: grid;
     grid-template-rows: 25% 75%;
-    height: 450px;
+    height: 550px;
     width: 100%;
 }
 
@@ -39,14 +43,14 @@
     /* display: none; */
     content: '';
     position: absolute;
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     top: 50%;
     left: 50%;
     background-color: red;
     transform-origin: top left;
     animation: rotar-lineas 4s linear infinite;
-    background: linear-gradient(#FE8D46, #FE337C, #C633CE);
+    background: linear-gradient(transparent, #FE8D46, #FE337C, #C633CE);
 }
 
 .contenedor-menu-animado::after {
@@ -141,7 +145,7 @@
 }
 
 .jugar:hover {
-    background: linear-gradient(90deg, #0852D0, #1AB9FC);
+    background: linear-gradient(90deg, #FE8D46, #FE337C);
 }
 
 .instrucciones {
@@ -158,6 +162,14 @@
 
 .opciones:hover {
     background: linear-gradient(90deg, #0852D0, #1AB9FC);
+}
+
+.crear {
+    background: linear-gradient(90deg, #FE8D46, #FE337C);
+}
+
+.crear:hover {
+    background: linear-gradient(90deg, #5D4DE2, #28244F);
 }
 
 @media (max-width: 490px) {

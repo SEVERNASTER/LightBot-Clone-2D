@@ -1,7 +1,7 @@
 import React from 'react'
 import './MenuInicio.css'
 
-function MenuInicio({ clasesExtra, setVistaMenu }) {
+function MenuInicio({ clasesExtra, setVistaMenu, setCreando }) {
     return (
         <div className={`menu-inicio ${clasesExtra}`}>
             <div className="contenedor-menu-inicio">
@@ -15,6 +15,9 @@ function MenuInicio({ clasesExtra, setVistaMenu }) {
                         >Jugar</button>
                         <button className="opcion-menu instrucciones">Instrucciones</button>
                         <button className="opcion-menu opciones">Opciones</button>
+                        <button className="opcion-menu crear"
+                            onClick={() => setCreando(true)}
+                        >Crear Nivel</button>
                     </div>
                 </div>
             </div>

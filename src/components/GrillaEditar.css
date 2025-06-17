@@ -1,0 +1,40 @@
+
+.grilla-editar-contenedor {
+    /* border: solid; */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: min(500px, 100%);
+    aspect-ratio: 1 / 1;
+    margin: auto;
+}
+
+.grilla-editar-wrapper {
+    /* border: solid #fff; */
+    width: min(500px, 100%);
+    aspect-ratio: 1 / 1;
+    background-color: #19192D;
+    border-radius: 20px;
+    padding: 20px;
+
+}
+
+.editar-titulo {
+    color: #1ABCFD;
+    text-shadow: 0 0 5px #1ABCFD;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.grilla-editar {
+    /* border: solid yellow; */
+    /* width: 100%;  */
+    width: min(500px, 100%);
+
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    display: grid;
+    /* grid-template-rows: repeat(5, 1fr); */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+}

@@ -1,0 +1,9 @@
+
+.celda-editar {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(45deg, #17AAF5, #0956D1);
+    border: dashed #0F7BE1;
+    border-radius: 15px;
+    
+}

@@ -1,0 +1,13 @@
+
+.tool {
+    background-size: cover;
+    height: 100px;
+    width: 100px;
+    border: solid #fff;
+    background-position: center;
+    cursor: grab;
+}
+
+.tool:active {
+    cursor: grabbing;
+}

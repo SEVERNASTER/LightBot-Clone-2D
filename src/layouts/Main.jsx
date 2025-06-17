@@ -1,7 +1,8 @@
 import React from 'react'
-import MenuInicio from './MenuInicio';
 import './Main.css'
+import MenuInicio from './MenuInicio';
 import Niveles from './NivelesPantalla';
+import Maker from './Maker';
 import { useState, useRef, useEffect } from 'react';
 import { IoIosArrowDropup } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
@@ -14,8 +15,9 @@ function Main() {
 
     const [mapaActual, setMapaActual] = useState(1)
 
-    const [vistaMenu, setVistaMenu] = useState(false)
+    const [vistaMenu, setVistaMenu] = useState(true)
     const [jugando, setJugando] = useState(false)
+    const [creando, setCreando] = useState(true)
 
     const handleRegresar = () => {
         setVistaMenu(prev => !prev)
@@ -35,9 +37,13 @@ function Main() {
 
     return (
         <div className={`main-container ${jugando ? 'jugando' : ''}`}>
-            <MenuInicio clasesExtra={`${vistaMenu ? '' : 'deslizar'}`}
-                setVistaMenu={setVistaMenu}
+            <MenuInicio clasesExtra={`${vistaMenu ? '' : 'deslizar'}
+                ${creando ? 'ocultar' : ''}
+            `}
+                setVistaMenu={setVistaMenu} setCreando={setCreando}
             />
+
+            <Maker creando={creando} />
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}

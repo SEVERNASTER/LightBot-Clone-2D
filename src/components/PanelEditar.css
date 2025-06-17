@@ -1,0 +1,9 @@
+
+
+.panel-editar {
+    border: solid #fff;
+    height: 100vh;
+    width: min(600px, 100%);
+    margin-left: auto;
+    /* width: ; */
+}
