@@ -4,6 +4,7 @@ import GrillaEditar from '../components/GrillaEditar';
 import PanelEditar from '../components/PanelEditar';
 
 function Maker({creando}) {
+    
     return (
         <div className={`creador ${creando ? 'mostrar' : ''}`} >
             <GrillaEditar />

@@ -1,13 +1,28 @@
 
 .tool {
     background-size: cover;
-    height: 100px;
-    width: 100px;
+    width: 130px;
+    aspect-ratio: 1 / 1;
     border: solid #fff;
     background-position: center;
     cursor: grab;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .tool:active {
     cursor: grabbing;
+}
+
+.tool.bot {
+    border: dashed;
+    background-color: rgba(255, 255, 255, .2);
+}
+
+.tool.luz {
+    color: yellow;
+    background: linear-gradient(-45deg, #6C4BEB, #CC24D6) !important;
 }

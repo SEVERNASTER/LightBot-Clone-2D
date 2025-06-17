@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
@@ -12,6 +12,17 @@ function GrillaEditar() {
             .map(() => Array(columnas).fill(0))
     )
 
+    useEffect(() => {
+        console.log(mapa);
+    }, [mapa])
+
+
+    const handleDrop = (fila, col, tool) => {
+        const nuevoMapa = mapa.map((filaActual, i) =>
+            filaActual.map((celda, j) => (i === fila && j === col ? tool : celda))
+        );
+        setMapa(nuevoMapa);
+    };
 
 
     return (
@@ -25,13 +36,16 @@ function GrillaEditar() {
                     // gridTemplateRows: `repeat(${columnas}, 1fr)`
                 }}>
 
-                    {mapa.map((fila, indiceFila) => (
-                        fila.map((celda, indiceColumna) => (
-                            <CeldaEditar key={`${indiceFila} ${indiceColumna}`}
-
+                    {mapa.map((fila, i) =>
+                        fila.map((celda, j) => (
+                            <CeldaEditar
+                                key={`${i}-${j}`}
+                                contenido={celda}
+                                onDropTool={(tool) => handleDrop(i, j, tool)}
                             />
                         ))
-                    ))}
+                    )}
+
 
 
                 </div>
