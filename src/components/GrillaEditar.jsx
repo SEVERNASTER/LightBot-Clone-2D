@@ -2,15 +2,9 @@ import React, { useState , useEffect} from 'react'
 import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
-function GrillaEditar() {
+function GrillaEditar({mapa, setMapa}) {
 
-    const [filas, setFilas] = useState(5)
-    const [columnas, setSolumnas] = useState(5)
-    const [mapa, setMapa] = useState(
-        Array(filas)
-            .fill(0)
-            .map(() => Array(columnas).fill(0))
-    )
+    
 
     useEffect(() => {
         console.log(mapa);
@@ -23,7 +17,6 @@ function GrillaEditar() {
         );
         setMapa(nuevoMapa);
     };
-
 
     return (
         <div className='grilla-editar-contenedor' >
@@ -42,6 +35,8 @@ function GrillaEditar() {
                                 key={`${i}-${j}`}
                                 contenido={celda}
                                 onDropTool={(tool) => handleDrop(i, j, tool)}
+                                mapa={mapa}
+                                pos={{fila: `${i}`, columna: `${j}`}}
                             />
                         ))
                     )}

@@ -1,5 +1,6 @@
 
 .tool {
+    position: relative;
     background-size: cover;
     width: 130px;
     aspect-ratio: 1 / 1;
@@ -10,16 +11,51 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    transition: all .3s;
 }
 
 .tool:active {
     cursor: grabbing;
+    transform: scale(.8);
 }
 
 .tool.bot {
-    border: dashed;
-    background-color: rgba(255, 255, 255, .2);
+    border: dashed 5px #0F7BE1;
+    /* background-color: rgba(255, 255, 255, .5); */
+}
+
+.tool.bot::before {
+    content: '▲';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) rotate(var(--sentido));
+    color: rgb(0, 255, 0);
+    font-size: 2rem;
+    transition: .5s;
+}
+
+.tool.bot.derecha::before {
+    top: 50%;
+    left: 100%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--sentido));
+}
+
+.tool.bot.abajo::before {
+    top: 100%;
+    transform: translateY(-50%) translateX(-50%) rotate(var(--sentido));
+}
+
+.tool.bot.izquierda::before {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) translateX(-50%) rotate(var(--sentido));
+}
+
+.tool.bot.inhabilitar {
+    cursor: not-allowed;
+    transform: scale(.9);
+    opacity: .5;
 }
 
 .tool.luz {

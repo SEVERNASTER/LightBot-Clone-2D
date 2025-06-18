@@ -1,7 +1,7 @@
 
 
 .panel-editar {
-    border: solid #fff;
+    /* border: solid #fff; */
     height: 100vh;
     width: min(600px, 100%);
     margin-left: auto;
@@ -89,3 +89,30 @@
 .boton-editar:hover::before {
     transform: translateX(100%);
 }
+
+.girar-bot-herramienta {
+    /* border: solid; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 30px;
+    color: #0ef;
+}
+
+.girar-bot {
+    transition: .5s;
+    /* border: solid #fff; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.girar-bot:active {
+    transform: scale(.9) !important;
+}
+
+.girar-bot-izq:hover {
+    transform: scale(1.3);
+    color: #C228D8;
+}
+

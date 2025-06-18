@@ -28,6 +28,7 @@ function App({ mapa, setMapa, jugando, mapaActual }) {
   // 1 = obstaculo
   // 2 = objetivo / luz para prender
   // 3 = luz ya prendida
+  // 4 = bot
 
   useEffect(() => {
     reiniciarJuego()

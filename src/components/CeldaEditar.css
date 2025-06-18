@@ -1,9 +1,29 @@
 
 .celda-editar {
+    position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    background: linear-gradient(45deg, #17AAF5, #0956D1);
     border: dashed #0F7BE1;
     border-radius: 15px;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: yellow;
+    background-size: cover !important;
+    background-position: center !important;
+    background-color: #125ce4;
 }
+
+.celda-editar.luz {
+    background-color: #B12FDC;
+}
+
+.celda-editar.bot::before {
+    content: '▲';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(0, 255, 0);
+    
+}   
