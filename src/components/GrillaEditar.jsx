@@ -2,7 +2,7 @@ import React, { useState , useEffect} from 'react'
 import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
-function GrillaEditar({mapa, setMapa}) {
+function GrillaEditar({mapa, setMapa, botSentido, direccionDesdeGrados, debeVoltearse}) {
 
     
 
@@ -37,6 +37,9 @@ function GrillaEditar({mapa, setMapa}) {
                                 onDropTool={(tool) => handleDrop(i, j, tool)}
                                 mapa={mapa}
                                 pos={{fila: `${i}`, columna: `${j}`}}
+                                sentido={botSentido}
+                                clasesExtra={direccionDesdeGrados(botSentido)}
+                                debeVoltearse={debeVoltearse}
                             />
                         ))
                     )}

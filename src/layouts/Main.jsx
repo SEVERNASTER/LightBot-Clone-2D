@@ -17,7 +17,7 @@ function Main() {
 
     const [vistaMenu, setVistaMenu] = useState(true)
     const [jugando, setJugando] = useState(false)
-    const [creando, setCreando] = useState(false)
+    const [creando, setCreando] = useState(true)
 
     const handleRegresar = () => {
         setVistaMenu(prev => !prev)

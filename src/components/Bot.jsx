@@ -113,12 +113,15 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
                 ${reiniciar ? 'quitar-transition' : ''}
                 ${quitarBotAnimacion ? 'quitar-transition' : ''}
             `
-        } id='bot' style={{
-            transform: `${tranformStyle}`,
-            width: `calc(100% / ${columnas})`,
-            height: `calc(100% / ${filas})`
-            // width: `${ancho}px`,
-        }}>
+            } 
+            id='bot'
+            style={{
+                transform: `${tranformStyle}`,
+                width: `calc(100% / ${columnas})`,
+                height: `calc(100% / ${filas})`
+                // width: `${ancho}px`,
+            }}
+        >
             <div className="bot-wrapper">
                 {/* No se que honda con esta parte nomas se que si le pongo 
                         indiceActual - 1 da normal hahaha, de lo contrario se adelanta a la secuencia */}

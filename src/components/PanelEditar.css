@@ -107,6 +107,20 @@
     align-items: center;
 }
 
+.girar-bot.inhabilitar {
+    cursor: not-allowed;
+    opacity: .5;
+    pointer-events: none;
+}
+
+.girar-bot.inhabilitar:hover {
+    transform: scale(1);
+}
+
+.girar-bot.inhabilitar:active {
+    transform: scale(1);
+}
+
 .girar-bot:active {
     transform: scale(.9) !important;
 }

@@ -10,10 +10,9 @@ import { IoArrowRedoSharp } from "react-icons/io5";
 import { IoArrowUndoSharp } from "react-icons/io5";
 
 
-function PanelEditar({ mapa }) {
+function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVoltearse }) {
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
-    const [sentido, setSentido] = useState(0)
 
     useEffect(() => {
         let puedeArrastrar = true
@@ -26,31 +25,7 @@ function PanelEditar({ mapa }) {
         })
         setPuedeArrastrarBot(puedeArrastrar)
     }, [mapa])
-
-    useEffect(() => {
-        console.log(sentido);
-    }, [sentido])
-
-    const direccionDesdeGrados = (grados) => {
-        const normalizado = ((grados % 360) + 360) % 360;
-
-        switch (normalizado) {
-            case 0:
-                return 'arriba';
-            case 90:
-                return 'derecha';
-            case 180:
-                return 'abajo';
-            case 270:
-                return 'izquierda';
-            default:
-                return 'desconocido';
-        }
-    }
-
-
-
-
+    
 
     return (
         <div className='panel-editar' >
@@ -70,13 +45,22 @@ function PanelEditar({ mapa }) {
                             puedeArrastrar={puedeArrastrarBot}
                             tipo={4}
                             sentido={sentido}
+                            debeVoltearse={debeVoltearse}
                         />
-                        <div className="girar-bot-herramienta">
-                            <div className="girar-bot girar-bot-izq">
-                                <IoArrowUndoSharp onClick={() => setSentido(prev => prev - 90)} />
+                        <div className='girar-bot-herramienta'>
+                            <div className={`girar-bot girar-bot-izq
+                                ${!puedeArrastrarBot ? 'inhabilitar' : ''}
+                            `}>
+                                <IoArrowUndoSharp
+                                    onClick={() => setSentido(prev => prev - 90)}
+                                />
                             </div>
-                            <div className="girar-bot girar-bot-izq">
-                                <IoArrowRedoSharp onClick={() => setSentido(prev => prev + 90)} />
+                            <div className={`girar-bot girar-bot-izq 
+                                ${!puedeArrastrarBot ? 'inhabilitar' : ''}
+                            `}>
+                                <IoArrowRedoSharp
+                                    onClick={() => setSentido(prev => prev + 90)}
+                                />
                             </div>
                         </div>
                     </div>

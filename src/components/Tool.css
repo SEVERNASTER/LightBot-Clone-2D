@@ -62,3 +62,18 @@
     color: yellow;
     background: linear-gradient(-45deg, #6C4BEB, #CC24D6) !important;
 }
+
+.tool-fondo {
+    border: solid #fff;
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+    transition: .5s;
+    transform: scale(1.2);
+}
+
+.tool-fondo.voltear {
+    transform: scaleX(-1) scale(1.2);
+
+}

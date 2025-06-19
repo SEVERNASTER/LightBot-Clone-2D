@@ -21,9 +21,48 @@
 .celda-editar.bot::before {
     content: '▲';
     position: absolute;
-    top: -15px;
+    top: -25px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) rotate(0);
     color: rgb(0, 255, 0);
-    
-}   
+    font-size: 1.5rem;
+    transition: .5s;
+    z-index: 100;
+} 
+
+.celda-editar.bot.derecha::before {
+    top: 50%;
+    left: 100%;
+    transform: translateX(-50%) translateY(-50%) rotate(var(--sentido));
+}
+
+.celda-editar.bot.abajo::before {
+    top: 100%;
+    transform: translateY(-50%) translateX(-50%) rotate(var(--sentido));
+}
+
+.celda-editar.bot.izquierda::before {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) translateX(-50%) rotate(var(--sentido));
+}
+
+.celda-editar.bot.voltear {
+    transform: scaleX(-1);
+}
+
+.tool-fondo-celda {
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    transform: scale(1.2) !important;
+}
+
+.tool-fondo-celda.voltear {
+    transform: scaleX(-1) scale(1.2) !important;
+}
+
+
+
+
