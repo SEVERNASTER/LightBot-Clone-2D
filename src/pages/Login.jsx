@@ -1,5 +1,7 @@
 import React from 'react'
 import './Login.css'
+import Input from '../components/Input';
+import Boton from '../components/FormButton';
 
 function Login() {
     return (
@@ -9,18 +11,14 @@ function Login() {
                     <h2>Iniciar Sesión</h2>
                 </div>
                 <form className="login-form">
-                    <div className="input-group">
-                        <input type="email" name="correo" id="correo" required />
-                        <label htmlFor="correo">Correo Electrónico</label>
-                    </div>
+                    
+                    <Input label='Correo Electronico' name='email' tipo='email'  />
+                    
+                    <Input label='Contraseña' name='password' tipo='password'  />
 
-                    <div className="input-group">
-                        <input type="password" name="password" id="pass" required />
-                        <label htmlFor="pass">Contraseña</label>
-                    </div>
+                    <Boton texto='INICIAR SESION' />
 
-                    <button className="login-btn">INICIAR SESION</button>
-                </form>
+                    </form>
                 <footer className="login-footer">
                     <h4>¿No tienes una cuenta? <a href="#" className="registrarse">Regístrate</a></h4>
                 </footer>

@@ -1,0 +1,35 @@
+
+.login-btn {
+    position: relative;
+    width: 80%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #C626D7, #704AEA);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: .5s;
+    overflow: hidden;
+}
+
+.login-btn::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(-90deg, transparent, transparent, rgba(255, 255, 255, .5), transparent, transparent);
+    transform: translateX(-100%);
+    transition: .3s;
+}
+
+.login-btn:hover:before {
+    transform: translateX(100%);
+}
+
+.login-btn:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px #BD29D9;
+}

@@ -1,0 +1,43 @@
+
+
+.input-group {
+    position: relative;
+    /* border: solid #fff; */
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.input-group label {
+    position: absolute;
+    color: #fff;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    background-color: #21244E;
+    padding: 0 10px;
+    transition: .3s;
+    color: #0ef;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.input-group input {
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #21244E;
+    outline: none;
+    border: solid #0ef;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~label {
+    top: 0;
+    font-size: 1rem;
+}
+
