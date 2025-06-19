@@ -10,7 +10,9 @@ import { IoArrowRedoSharp } from "react-icons/io5";
 import { IoArrowUndoSharp } from "react-icons/io5";
 
 
-function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVoltearse }) {
+function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVoltearse,
+    setCreando, reiniciarPantallaEdicion
+}) {
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
 
@@ -25,7 +27,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
         })
         setPuedeArrastrarBot(puedeArrastrar)
     }, [mapa])
-    
+
 
     return (
         <div className='panel-editar' >
@@ -84,8 +86,15 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
             </div>
 
             <div className="botones-editar">
-                <button className="boton-editar guardar-editar"><BiSolidSave size={25} /> CANCELAR</button>
-                <button className="boton-editar cancelar-editar"><IoClose size={25} /> GUARDAR</button>
+                <button className="boton-editar guardar-editar"
+                    onClick={() => {
+                        setCreando(false)
+                        setTimeout(() => {
+                            reiniciarPantallaEdicion()
+                        }, 1000);
+                    }}
+                ><IoClose size={25}/>CANCELAR</button>
+                <button className="boton-editar cancelar-editar"><BiSolidSave size={25} /> GUARDAR</button>
             </div>
         </div>
     )

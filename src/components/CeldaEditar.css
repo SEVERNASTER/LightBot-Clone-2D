@@ -63,6 +63,30 @@
     transform: scaleX(-1) scale(1.2) !important;
 }
 
+.quitar-celda {
+    border: solid #fff;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    z-index: 100;
+    transform: translateY(50%) translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: red;
+    color: #fff;
+    transition: .3s;
+}
+
+.quitar-celda:hover {
+    transform: translateY(50%) translateX(-50%) rotate(90deg);
+}
+
+.quitar-celda:active {
+    transform: translateY(50%) translateX(-50%) rotate(90deg) scale(.8);
+}
+
 
 
 

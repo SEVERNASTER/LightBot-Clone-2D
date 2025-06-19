@@ -4,7 +4,7 @@ import GrillaEditar from '../components/GrillaEditar';
 import PanelEditar from '../components/PanelEditar';
 
 
-function Maker({ creando }) {
+function Maker({ creando, setCreando }) {
 
     const [filas, setFilas] = useState(5)
     const [columnas, setSolumnas] = useState(5)
@@ -35,6 +35,18 @@ function Maker({ creando }) {
             .fill(0)
             .map(() => Array(columnas).fill(0))
     )
+
+    const reiniciarPantallaEdicion = () => {
+        setSentido(0)
+        setDebeVoltearse(false)
+        setMapa(
+            Array(filas)
+            .fill(0)
+            .map(() => Array(columnas).fill(0))
+        )
+    }
+
+    
 
     useEffect(() => {
         const normalizado = ((sentido % 360) + 360) % 360;
@@ -71,6 +83,7 @@ function Maker({ creando }) {
             />
             <PanelEditar mapa={mapa} sentido={sentido} setSentido={setSentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
+                setCreando={setCreando} reiniciarPantallaEdicion={reiniciarPantallaEdicion}
             />
         </div>
     )

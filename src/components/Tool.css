@@ -14,6 +14,10 @@
     transition: all .3s;
 }
 
+.tool:hover {
+    box-shadow: 0 0 30px #fff;
+}
+
 .tool:active {
     cursor: grabbing;
     transform: scale(.8);
@@ -58,13 +62,17 @@
     opacity: .5;
 }
 
+.tool.bot.inhabilitar:hover {
+    box-shadow: none;
+}
+
 .tool.luz {
     color: yellow;
     background: linear-gradient(-45deg, #6C4BEB, #CC24D6) !important;
 }
 
 .tool-fondo {
-    border: solid #fff;
+    /* border: solid #fff; */
     height: 100%;
     width: 100%;
     background-size: contain;

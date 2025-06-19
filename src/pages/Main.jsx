@@ -1,8 +1,8 @@
 import React from 'react'
 import './Main.css'
-import MenuInicio from './MenuInicio';
-import Niveles from './NivelesPantalla';
-import Maker from './Maker';
+import MenuInicio from '../layouts/MenuInicio';
+import Niveles from '../layouts/NivelesPantalla';
+import Maker from '../layouts/Maker';
 import { useState, useRef, useEffect } from 'react';
 import { IoIosArrowDropup } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
@@ -10,14 +10,14 @@ import App from '../App';
 import mapas from '../data/mapas';
 
 
-function Main() {
+function PantallaPrincipal() {
 
 
     const [mapaActual, setMapaActual] = useState(1)
 
     const [vistaMenu, setVistaMenu] = useState(true)
     const [jugando, setJugando] = useState(false)
-    const [creando, setCreando] = useState(true)
+    const [creando, setCreando] = useState(false)
 
     const handleRegresar = () => {
         setVistaMenu(prev => !prev)
@@ -43,7 +43,7 @@ function Main() {
                 setVistaMenu={setVistaMenu} setCreando={setCreando}
             />
 
-            <Maker creando={creando} />
+            <Maker creando={creando} setCreando={setCreando} />
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}
@@ -65,4 +65,4 @@ function Main() {
     )
 }
 
-export default Main
+export default PantallaPrincipal

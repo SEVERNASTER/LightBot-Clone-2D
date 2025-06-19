@@ -3,9 +3,10 @@ import './CeldaEditar.css'
 import bot from '../assets/static-bot.png';
 import obstaculo from '../assets/muro2.jpg';
 import { FaLightbulb } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
 
-function CeldaEditar({ onDropTool, contenido, mapa, pos, sentido, clasesExtra, debeVoltearse }) {
+function CeldaEditar({ onDropTool, contenido, mapa, setMapa, pos, sentido, clasesExtra, debeVoltearse }) {
 
 
     const handleDragOver = (e) => {
@@ -16,6 +17,16 @@ function CeldaEditar({ onDropTool, contenido, mapa, pos, sentido, clasesExtra, d
         const tool = Number(e.dataTransfer.getData('tool'));
         onDropTool(tool);
     };
+
+    const eliminarCelda = () => {
+        const nuevoMapa = mapa.map((fila, i) =>
+            fila.map((celda, j) =>
+                i === Number(pos.fila) && j === Number(pos.columna) ? 0 : celda
+            )
+        );
+        setMapa(nuevoMapa);
+    };
+
 
 
 
@@ -45,6 +56,18 @@ function CeldaEditar({ onDropTool, contenido, mapa, pos, sentido, clasesExtra, d
                 ></div>
             }
             {contenido === 2 && <FaLightbulb size={40} />}
+
+            {/* para el boton de quitar celda */}
+
+            {contenido !== 0 &&
+                <div className="quitar-celda"
+                    onClick={eliminarCelda}
+                >
+                    <IoClose />
+                </div>
+            }
+
+
         </div>
 
     )

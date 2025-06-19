@@ -40,6 +40,7 @@ function GrillaEditar({mapa, setMapa, botSentido, direccionDesdeGrados, debeVolt
                                 sentido={botSentido}
                                 clasesExtra={direccionDesdeGrados(botSentido)}
                                 debeVoltearse={debeVoltearse}
+                                setMapa={setMapa}
                             />
                         ))
                     )}
