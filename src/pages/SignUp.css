@@ -1,4 +1,6 @@
-.login-container {
+
+
+.sign-up-container {
     position: relative;
     height: 100vh;
     width: 100%;
@@ -9,21 +11,20 @@
     z-index: 0;
     overflow: hidden;
     padding: 0 10px;
-
 }
 
-.login-card {
+.sign-up-card {
     /* border: solid #fff; */
     height: 500px;
     width: min(450px, 100%);
     display: grid;
-    grid-template-rows: 20% 60% 20%;
+    grid-template-rows: 20% 65% 15%;
     background-color: #21244E;
     border-radius: 20px;
     z-index: 50;
 }
 
-.titulo-login {
+.sign-up-titulo {
     height: 100%;
     width: 100%;
     font-size: 1.8rem;
@@ -33,24 +34,22 @@
     align-items: center;
 }
 
-.titulo-login h2 {
+.sign-up-titulo h2 {
     background: linear-gradient(90deg, #B526CB, #7144E0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.login-form {
-    /* border: solid #fff; */
-    height: 100%;
-    width: 100%;
+.sign-up-form {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
+    flex-direction: column;
+
 }
 
-.login-footer {
+.sign-up-footer {
     height: 100%;
     width: 100%;
     display: flex;
@@ -60,12 +59,12 @@
     color: #fff;
 }
 
-.login-footer a {
+.sign-up-footer a {
     color: #FE864A;
     transition: .3s;
 }
 
-.login-footer a:hover {
+.sign-up-footer a:hover {
     color: #FE3A78;
     cursor: pointer;
 }
@@ -110,9 +109,4 @@
     top: 60%;
     scale: 1.5;
 }
-
-
-
-
-
 
