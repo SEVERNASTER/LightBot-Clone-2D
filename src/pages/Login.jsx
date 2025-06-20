@@ -2,6 +2,8 @@ import React from 'react'
 import './Login.css'
 import Input from '../components/Input';
 import Boton from '../components/FormButton';
+import { Link } from 'react-router-dom';
+
 
 function Login() {
     return (
@@ -20,7 +22,7 @@ function Login() {
 
                     </form>
                 <footer className="login-footer">
-                    <h4>¿No tienes una cuenta? <a href="#" className="registrarse">Regístrate</a></h4>
+                    <h4>¿No tienes una cuenta? <a href="#" className="registrarse"><Link to={'/signup'} >Registrate</Link></a></h4>
                 </footer>
             </div>
             <div style={{'--delay': '0'}} className="bubble uno"></div>

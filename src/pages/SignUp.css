@@ -1,5 +1,3 @@
-
-
 .sign-up-container {
     position: relative;
     height: 100vh;
@@ -11,10 +9,38 @@
     z-index: 0;
     overflow: hidden;
     padding: 0 10px;
+    
 }
+
+.flip-container {
+    /* border: solid #fff; */
+    perspective: 1000px;
+    position: relative;
+    height: 500px;
+    width: min(450px, 100%);
+    z-index: 50;
+}
+
+.flip-card {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transform-style: preserve-3d;
+    transition: 1s;
+}
+
+.flip-card:hover {
+    transform: rotateY(-180deg);
+}
+
+/* .flip-card:hover .confirmacion-container {
+    transform: rotateY(0);
+} */
 
 .sign-up-card {
     /* border: solid #fff; */
+    position: absolute;
+    backface-visibility: hidden;
     height: 500px;
     width: min(450px, 100%);
     display: grid;
@@ -87,7 +113,9 @@
 @keyframes flotar {
     50% {
         transform: translateY(-20px);
-    }100%{
+    }
+
+    100% {
         transform: translateY(0);
     }
 }
@@ -109,4 +137,85 @@
     top: 60%;
     scale: 1.5;
 }
+
+.confirmacion-container {
+    position: absolute;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    /* border: solid red; */
+    transform: rotateY(180deg);
+    /* color: #fff; */
+    transition: 1s;
+    background-color: #f6f6f6;
+    border-radius: 20px;
+    display: grid;
+    grid-template-rows: 40% 40% 20%;
+}
+
+.titulo-confirmacion {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #F89227;
+    font-size: 1.5rem;
+    gap: 20px;
+}
+
+.titulo-confirmacion h2 {
+    color: #58016D;
+}
+
+.cuerpo-confirmacion {
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-direction: column;
+    
+}
+
+.cuerpo-confirmacion p {
+    color: #585858;
+    font-size: 1.1rem;
+}
+
+.correo-contenedor {
+    width: 100%;
+    height: 70px;
+    border-radius: 20px;
+    border-left: solid 5px #CD0146;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.correo-contenedor h4 {
+    color: #58016D;
+}
+
+.correo-contenedor p {
+    color: #737373;
+}
+
+.confirmacion-footer{
+    color: #58016D;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 20px;
+    margin: auto;
+}
+
+
 
