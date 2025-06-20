@@ -30,7 +30,7 @@
 }
 
 .flip-card:hover {
-    transform: rotateY(-180deg);
+    /* transform: rotateY(-180deg); */
 }
 
 /* .flip-card:hover .confirmacion-container {

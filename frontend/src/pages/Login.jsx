@@ -22,7 +22,7 @@ function Login() {
 
                     </form>
                 <footer className="login-footer">
-                    <h4>¿No tienes una cuenta? <a href="#" className="registrarse"><Link to={'/signup'} >Registrate</Link></a></h4>
+                    <h4>¿No tienes una cuenta? <Link to={'/signup'} >Registrate</Link></h4>
                 </footer>
             </div>
             <div style={{'--delay': '0'}} className="bubble uno"></div>

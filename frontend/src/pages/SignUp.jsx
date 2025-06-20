@@ -1,17 +1,23 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import './SignUp.css'
 import Input from '../components/Input';
 import Boton from '../components/FormButton';
 import { Link } from 'react-router-dom';
 import { FaCheckCircle } from "react-icons/fa";
+import Confetti from 'react-confetti';
+import { useWindowSize } from '@react-hook/window-size';
 
 function SignUp() {
+
+    const [estaLogeado, setEstaLogeado] = useState(false)
+    const [width, height] = useWindowSize()
 
 
 
     return (
 
         <div className='sign-up-container' >
+            {/* {estaLogeado && <Confetti width={width} height={height} />} */}
             <div className="flip-container">
                 <div className="flip-card">
                     <div className="sign-up-card">
@@ -27,10 +33,13 @@ function SignUp() {
 
                             <Input label='Nombre Real' name='nombreReal' tipo='text' />
 
-                            <Boton texto='INICIAR SESION' />
+                            <Boton texto='INICIAR SESION'
+                                
+                            />
                         </form>
                         <footer className="sign-up-footer">
-                            <h3>Ya tienes una cuenta? <a href="#" className="sign-up-login-btn"><Link to="/login">Ir al Login</Link></a></h3>
+                            <h3>Ya tienes una cuenta? <Link to="/login">Ir al Login</Link></h3>
+                            {/* sign-up-login-btn */}
                         </footer>
                     </div>
 
