@@ -38,13 +38,61 @@ app.post('/api/registrar', async (req, res) => {
 
     try {
 
+        // para validar email duplicado
+        const { data: existeData, error: existeError } = await supabaseAdmin.auth.admin.listUsers({
+            page: 1,
+            perPage: 1000,
+        });
+
+        if (existeError) throw existeError;
+
+        const existe = existeData.users.find(user => user.email === email);
+
+        if (existe) {
+            return res.status(400).json({ 
+                message: 'El email ya está registrado',
+                tipoError: 'email repetido'
+            });
+        }
+
+        // para validar el nombre de usuario duplicado
+
+        const { data: usuarioExistente, error } = await supabaseAdmin
+            .from('Usuario')
+            .select('id')
+            .eq('username', username)
+            .maybeSingle();
+
+        if (usuarioExistente) {
+            return res.status(400).json({ 
+                message: 'El nombre de usuario ya está en uso' ,
+                tipoError: 'username repetido'
+            });
+        }
+
+
         const { data: dataSign, error: errorSign } = await supabase.auth.signUp({
             email,
             password,
         })
 
 
-        if (errorSign) throw error;
+        if (errorSign) {
+            if(errorSign.message.includes('Unable to validate email address: invalid format')){
+                return res.status(400).json({
+                    message: 'Formato de correo electrónico invalido',
+                    tipoError: 'email invalido'
+                })
+            }
+
+            if (errorSign.message.includes('Password should be at least 6 characters.')) {
+                    return res.status(400).json({
+                        message: 'Mínimo 6 caracteres en la contraseña',
+                        type: 'supabase error'
+                    });
+                }
+            throw errorSign;
+        }
 
         const { data: dataUser, error: errorUser } = await supabaseAdmin
             .from('Usuario')
