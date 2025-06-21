@@ -49,7 +49,7 @@ app.post('/api/registrar', async (req, res) => {
         const existe = existeData.users.find(user => user.email === email);
 
         if (existe) {
-            return res.status(400).json({ 
+            return res.status(400).json({
                 message: 'El email ya está registrado',
                 tipoError: 'email repetido'
             });
@@ -64,8 +64,8 @@ app.post('/api/registrar', async (req, res) => {
             .maybeSingle();
 
         if (usuarioExistente) {
-            return res.status(400).json({ 
-                message: 'El nombre de usuario ya está en uso' ,
+            return res.status(400).json({
+                message: 'El nombre de usuario ya está en uso',
                 tipoError: 'username repetido'
             });
         }
@@ -78,7 +78,7 @@ app.post('/api/registrar', async (req, res) => {
 
 
         if (errorSign) {
-            if(errorSign.message.includes('Unable to validate email address: invalid format')){
+            if (errorSign.message.includes('Unable to validate email address: invalid format')) {
                 return res.status(400).json({
                     message: 'Formato de correo electrónico invalido',
                     tipoError: 'email invalido'
@@ -86,11 +86,11 @@ app.post('/api/registrar', async (req, res) => {
             }
 
             if (errorSign.message.includes('Password should be at least 6 characters.')) {
-                    return res.status(400).json({
-                        message: 'Mínimo 6 caracteres en la contraseña',
-                        type: 'supabase error'
-                    });
-                }
+                return res.status(400).json({
+                    message: 'Mínimo 6 caracteres en la contraseña',
+                    type: 'supabase error'
+                });
+            }
             throw errorSign;
         }
 
@@ -117,6 +117,51 @@ app.post('/api/registrar', async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: error.message })
+    }
+})
+
+// para el login 
+
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Faltan campos obligatorios' })
+    }
+
+    try {
+        const { data: dataAuth, error: errorAuth } = await supabase.auth.signInWithPassword({
+            email,
+            password
+        })
+
+        console.log(errorAuth);
+        
+
+        if (errorAuth) return res.status(401).json({ message: 'Email o contraseña incorrectos' });
+
+        const { user, session } = dataAuth
+
+        console.log(dataAuth);
+        
+
+        const { data: dataUser, error: errorUser } = await supabaseAdmin
+        .from('Usuario')
+        .select()
+        .eq('id', dataAuth.user.id)
+        .single()
+
+        if(errorUser) throw errorUser;
+
+        res.status(200).json({
+            message: 'Login existoso',
+            user: dataUser
+        })
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message})
     }
 })
 
