@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './Login.css'
 import Input from '../components/Input';
 import Boton from '../components/FormButton';
+import Toast from '../components/Toast';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -41,6 +42,7 @@ function Login() {
 
     return (
         <div className='login-container'>
+            <Toast />
             <div className="login-card">
                 <div className="titulo-login">
                     <h2>Iniciar Sesión</h2>
