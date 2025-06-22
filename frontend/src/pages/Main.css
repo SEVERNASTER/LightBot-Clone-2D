@@ -48,6 +48,32 @@
     top: 10px;
 }
 
+.perfil {
+    border: solid #fff;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #fff;
+    /* background: linear-gradient(to bottom right, #ff00ff, #00ff00); */
+
+}
+
+/* .perfil::before {
+    content: var(--nombre-completo);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+} */
+
 @media (max-width: 850px) {
     .regresar-niveles-btn {
         left: 90%;

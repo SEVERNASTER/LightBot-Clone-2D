@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import supabase from './services/supabaseClient.js';
 import supabaseAdmin from './services/supabaseAdmin.js';
 import cookieParser from 'cookie-parser';
+import getColores from './data/gradientColors.js';
 
 
 dotenv.config()
@@ -42,7 +43,10 @@ app.post('/api/registrar', async (req, res) => {
     const { email, password, username, nombre, apellido } = req.body
 
     if (!email || !password || !username || !nombre || !apellido) {
-        return res.status(400).json({ message: 'Faltan campo obligatorios' })
+        return res.status(400).json({
+            message: 'Faltan campo obligatorios',
+            tipoError: 'faltan campos'
+        })
     }
 
     try {
@@ -103,6 +107,8 @@ app.post('/api/registrar', async (req, res) => {
             throw errorSign;
         }
 
+        const colores = getColores()
+
         const { data: dataUser, error: errorUser } = await supabaseAdmin
             .from('Usuario')
             .insert([{
@@ -111,7 +117,9 @@ app.post('/api/registrar', async (req, res) => {
                 username,
                 nombre,
                 apellido,
-                alias: generarAlias(nombre, apellido)
+                alias: generarAlias(nombre, apellido),
+                color1: colores.color1,
+                color2: colores.color2,
             }])
             .select()
 
@@ -128,6 +136,8 @@ app.post('/api/registrar', async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 })
+
+
 
 // para el login 
 
@@ -172,7 +182,7 @@ app.post('/api/login', async (req, res) => {
             .status(200).json({
                 message: 'Login existoso',
                 mensajeBienvenida: `Bienvenido ${dataUser.nombre}`,
-                user: dataUser
+                user: dataUser,
             })
 
 

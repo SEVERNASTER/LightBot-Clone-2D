@@ -8,9 +8,10 @@ import { IoIosArrowDropup } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
 import App from '../App';
 import mapas from '../data/mapas';
+import { FaUser } from "react-icons/fa";
 
 
-function PantallaPrincipal() {
+function PantallaPrincipal({user}) {
 
 
     const [mapaActual, setMapaActual] = useState(1)
@@ -37,6 +38,12 @@ function PantallaPrincipal() {
 
     return (
         <div className={`main-container ${jugando ? 'jugando' : ''}`}>
+            <div className="perfil" style={{
+                background: `linear-gradient(to bottom right,${user.color1}, ${user.color2})`,
+                '--nombre-completo': `${user.nombre} ${user.apellido}`
+            }} >
+                <h3>{user?.alias || <FaUser />}</h3>
+            </div>
             <MenuInicio clasesExtra={`${vistaMenu ? '' : 'deslizar'}
                 ${creando ? 'ocultar' : ''}
             `}

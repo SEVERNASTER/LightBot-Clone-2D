@@ -6,23 +6,27 @@ import Toast from '../components/Toast';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
+import useToast from '../hooks/useToast.js';
+import { useNavigate } from 'react-router-dom'
 
 
 
-function Login() {
+
+function Login({setUsuario}) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [mensaje, setMensaje] = useState('')
-    const [mostrarToast, setMostrarToast] = useState(false)
-    const [icono, setIcono] = useState('check')
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
+    const navigate = useNavigate()
 
-    const desplegarToast = (mensaje, icono) => {
-        setMensaje(mensaje)
-        setIcono(icono)
-        setMostrarToast(true)
-    }
+
+    const {
+        mensaje,
+        icono,
+        mostrar,
+        setMostrar,
+        mostrarToast
+    } = useToast()
 
 
 
@@ -35,12 +39,16 @@ function Login() {
                 withCredentials: true
             })
 
-            desplegarToast(resultado.data.mensajeBienvenida, 'check')
+            mostrarToast(resultado.data.mensajeBienvenida, 'check')
+            setUsuario(resultado.data.user)
             
+            setTimeout(() => {
+                navigate('/')
+            }, 1500)
 
         } catch (error) {
             console.log(error)
-            desplegarToast(error.response.data.message, 'error')
+            mostrarToast(error.response.data.message, 'error')
         }
 
         setPidiendoDatos(false)
@@ -55,7 +63,7 @@ function Login() {
 
     return (
         <div className='login-container'>
-            <Toast mensaje={mensaje} icono={icono} mostrar={mostrarToast} setMostrar={setMostrarToast} />
+            <Toast mensaje={mensaje} icono={icono} mostrar={mostrar} setMostrar={setMostrar} />
             <div className="login-card">
                 <div className="titulo-login">
                     <h2>Iniciar Sesión</h2>
@@ -83,7 +91,7 @@ function Login() {
                     />
 
                 </form>
-                <footer className="login-footer">
+                <footer className={`login-footer ${pidiendoDatos ? 'inhabilitar' : ''}`}>
                     <h4>¿No tienes una cuenta? <Link to={'/signup'} >Registrate</Link></h4>
                 </footer>
             </div>

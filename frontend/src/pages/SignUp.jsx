@@ -2,42 +2,129 @@ import { useState, useEffect } from 'react'
 import './SignUp.css'
 import Input from '../components/Input';
 import Boton from '../components/FormButton';
+import Toast from '../components/Toast';
 import { Link } from 'react-router-dom';
 import { FaCheckCircle } from "react-icons/fa";
 import Confetti from 'react-confetti';
 import { useWindowSize } from '@react-hook/window-size';
+import axios from 'axios';
+import useToast from '../hooks/useToast.js';
+
 
 function SignUp() {
 
     const [estaLogeado, setEstaLogeado] = useState(false)
     const [width, height] = useWindowSize()
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('')
+    const [nombre, setNombre] = useState('')
+    const [apellido, setApellido] = useState('')
+    const [pidiendoDatos, setPidiendoDatos] = useState(false)
+    const [usuarioCreado, setUsuarioCreado] = useState(false)
+
+
+    const {
+        mensaje,
+        icono,
+        mostrar,
+        setMostrar,
+        mostrarToast
+    } = useToast()
+
+
+    const handleSignUp = async (e) => {
+        setPidiendoDatos(true)
+        e.preventDefault()
+
+        try {
+            const resultado = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/api/registrar`,
+                { email, password, username, nombre, apellido },
+                { withCredentials: true }
+            )
+
+            mostrarToast(resultado.data.message, 'check')
+
+            setUsuarioCreado(true)
+
+
+        } catch (error) {
+            console.log(error);
+            setPidiendoDatos(false)
+
+            if (error.response.data.tipoError === 'faltan campos') {
+                return mostrarToast(error.response.data.message, 'alert')
+            } else {
+                return mostrarToast(error.response.data.message, 'error')
+            }
+        }
+        setPidiendoDatos(false)
+    }
+
+
+
 
 
     return (
 
         <div className='sign-up-container' >
+            <Toast mensaje={mensaje} icono={icono} mostrar={mostrar} setMostrar={setMostrar} />
             {/* {estaLogeado && <Confetti width={width} height={height} />} */}
             <div className="flip-container">
-                <div className="flip-card">
+                <div className={`flip-card ${usuarioCreado ? 'girar' : ''}`}>
                     <div className="sign-up-card">
                         <div className="sign-up-titulo">
                             <h2>Registrate</h2>
                         </div>
-                        <form className="sign-up-form">
-                            <Input label='Correo Electronico' name='email' tipo='email' />
+                        <form className="sign-up-form" onSubmit={handleSignUp}>
+                            <Input
+                                label='Correo Electrónico'
+                                name='email'
+                                tipo='email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
 
-                            <Input label='Contraseña' name='password' tipo='password' />
+                            <Input
+                                label='Contraseña'
+                                name='password'
+                                tipo='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                minLenght={6}
+                            />
 
-                            <Input label='Nombre de Usuario' name='username' tipo='text' />
+                            <Input
+                                label='Nombre de Usuario'
+                                name='username'
+                                tipo='text'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
 
-                            <Input label='Nombre Real' name='nombreReal' tipo='text' />
+                            <Input
+                                label='Nombre'
+                                name='nombre'
+                                tipo='text'
+                                value={nombre}
+                                onChange={(e) => setNombre(e.target.value)}
+                            />
 
-                            <Boton texto='INICIAR SESION'
-                                
+                            <Input
+                                label='Apellido'
+                                name='apellido'
+                                tipo='text'
+                                value={apellido}
+                                onChange={(e) => setApellido(e.target.value)}
+                            />
+
+                            <Boton texto='Registrarse'
+                                clasesExtra={`${pidiendoDatos ? 'cargando' : ''}`}
                             />
                         </form>
-                        <footer className="sign-up-footer">
+                        <footer className={`sign-up-footer ${pidiendoDatos ? 'inhabilitar' : ''}`}>
                             <h3>Ya tienes una cuenta? <Link to="/login">Ir al Login</Link></h3>
                             {/* sign-up-login-btn */}
                         </footer>
@@ -54,7 +141,7 @@ function SignUp() {
                                 Te hemos enviado un correo de confirmación.</p>
                             <div className="correo-contenedor">
                                 <h4>Email:</h4>
-                                <p className='correo-confirmacion' >usuario@example.com</p>
+                                <p className='correo-confirmacion' >{email}</p>
                             </div>
                         </div>
 

@@ -16,7 +16,7 @@
     /* border: solid #fff; */
     perspective: 1000px;
     position: relative;
-    height: 500px;
+    height: 600px;
     width: min(450px, 100%);
     z-index: 50;
 }
@@ -29,8 +29,8 @@
     transition: 1s;
 }
 
-.flip-card:hover {
-    /* transform: rotateY(-180deg); */
+.flip-card.girar {
+    transform: rotateY(-180deg);
 }
 
 /* .flip-card:hover .confirmacion-container {
@@ -41,7 +41,7 @@
     /* border: solid #fff; */
     position: absolute;
     backface-visibility: hidden;
-    height: 500px;
+    height: 100%;
     width: min(450px, 100%);
     display: grid;
     grid-template-rows: 20% 65% 15%;
@@ -83,6 +83,13 @@
     align-items: center;
     font-size: 1.1rem;
     color: #fff;
+    transition: .3s;
+}
+
+.sign-up-footer.inhabilitar {
+    opacity: .5;
+    transform: scale(.9);
+    pointer-events: none;
 }
 
 .sign-up-footer a {
@@ -143,8 +150,9 @@
     backface-visibility: hidden;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 500px;
     width: 100%;
+    margin-top: auto;
     /* border: solid red; */
     transform: rotateY(180deg);
     /* color: #fff; */
@@ -215,7 +223,9 @@
     text-align: center;
     padding: 0 20px;
     margin: auto;
+    opacity: .5;
 }
+
 
 
 
