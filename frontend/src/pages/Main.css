@@ -74,6 +74,17 @@
     width: 100%;
 } */
 
+.pantalla-de-carga {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    color: #fff;
+    background: linear-gradient(120deg, #202657, #134CC5, #1699EE);
+}
+
 @media (max-width: 850px) {
     .regresar-niveles-btn {
         left: 90%;

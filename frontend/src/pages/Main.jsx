@@ -9,9 +9,29 @@ import { GiExitDoor } from "react-icons/gi";
 import App from '../App';
 import mapas from '../data/mapas';
 import { FaUser } from "react-icons/fa";
+import axios from 'axios';
 
 
-function PantallaPrincipal({user}) {
+function Main({user}) {
+
+    // const [user, setUser] = useState(null)
+
+    // useEffect(() => {
+    //     const verificarSesion = async () => {
+    //         try {
+    //             const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
+    //                 withCredentials: true
+    //             })
+    //             setUser(res.data.user)
+                
+    //         } catch (error) {
+    //             console.log('No autenticado', error)
+    //             setUser(null)
+    //         }
+    //     }
+
+    //     verificarSesion()
+    // }, [])
 
 
     const [mapaActual, setMapaActual] = useState(1)
@@ -36,14 +56,22 @@ function PantallaPrincipal({user}) {
 
 
 
+    // if(!user) return (
+    //     <div className="pantalla-de-carga">
+    //         CARGANDO...
+    //     </div>
+    // )
+
     return (
         <div className={`main-container ${jugando ? 'jugando' : ''}`}>
             <div className="perfil" style={{
-                background: `linear-gradient(to bottom right,${user.color1}, ${user.color2})`,
-                '--nombre-completo': `${user.nombre} ${user.apellido}`
+                background: `linear-gradient(to bottom right,${user?.color1}, ${user?.color2})`,
+                '--nombre-completo': `${user?.nombre} ${user?.apellido}`
             }} >
                 <h3>{user?.alias || <FaUser />}</h3>
             </div>
+
+
             <MenuInicio clasesExtra={`${vistaMenu ? '' : 'deslizar'}
                 ${creando ? 'ocultar' : ''}
             `}
@@ -72,4 +100,4 @@ function PantallaPrincipal({user}) {
     )
 }
 
-export default PantallaPrincipal
+export default Main

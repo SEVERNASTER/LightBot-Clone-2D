@@ -1,12 +1,16 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import { useAuth } from './hooks/useAuth'
 
 function CodePilot() {
 
-    const [user, setUser] = useState(null)
+    const { user, setUser, loading } = useAuth()
+
+    // const [user, setUser] = useState(null)
+    if (loading) return <div className="cargando">Cargando...</div>
 
     return (
         <Routes>

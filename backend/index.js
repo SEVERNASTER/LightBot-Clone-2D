@@ -192,3 +192,27 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
+// para obtener un usario isando su token
+
+app.get('/api/user', async (req, res) => {
+    const token = req.cookies['token']
+
+    if (!token) return res.status(401).json({ message: 'No autenticado' })
+
+    const { data: { user }, error } = await supabase.auth.getUser(token)
+
+    if (error || !user) return res.status(401).json({ message: 'Token inválido' })
+
+    const { data: usuario, error: errorUsuario } = await supabase
+        .from('Usuario')
+        .select('nombre, apellido, alias, color1, color2')
+        .eq('id', user.id)
+        .single()
+
+    if (errorUsuario || !usuario) {
+        return res.status(404).json({ message: 'Usuario no encontrado' })
+    }
+
+    res.status(200).json({ user: usuario })
+})
+
