@@ -4,15 +4,24 @@ import express from 'express';
 import dotenv from 'dotenv';
 import supabase from './services/supabaseClient.js';
 import supabaseAdmin from './services/supabaseAdmin.js';
-import bcrypt from 'bcrypt';
+import cookieParser from 'cookie-parser';
+
 
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
-app.use(cors())
+const allowedOrigins = ['http://localhost:5173'];
+
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
+
 app.use(express.json())
+app.use(cookieParser());
+
 
 
 app.listen(PORT, () => {
@@ -136,32 +145,39 @@ app.post('/api/login', async (req, res) => {
         })
 
         console.log(errorAuth);
-        
+
 
         if (errorAuth) return res.status(401).json({ message: 'Email o contraseña incorrectos' });
 
         const { user, session } = dataAuth
 
         console.log(dataAuth);
-        
+
 
         const { data: dataUser, error: errorUser } = await supabaseAdmin
-        .from('Usuario')
-        .select()
-        .eq('id', dataAuth.user.id)
-        .single()
+            .from('Usuario')
+            .select()
+            .eq('id', dataAuth.user.id)
+            .single()
 
-        if(errorUser) throw errorUser;
+        if (errorUser) throw errorUser;
 
-        res.status(200).json({
-            message: 'Login existoso',
-            user: dataUser
-        })
+        res
+            .cookie('token', session.access_token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60 * 24 // 1 día
+            })
+            .status(200).json({
+                message: 'Login existoso',
+                user: dataUser
+            })
 
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({message: error.message})
+        res.status(500).json({ message: error.message })
     }
 })
 
