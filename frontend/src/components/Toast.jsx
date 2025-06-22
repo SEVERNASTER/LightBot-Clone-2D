@@ -6,8 +6,7 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
 
-function Toast({ mensaje, tipoIcono }) {
-    const [mostrar, setMostrar] = useState(false)
+function Toast({ mensaje, icono, mostrar, setMostrar }) {
 
     const icons = {
         check: BsCheck2Circle,
@@ -15,25 +14,25 @@ function Toast({ mensaje, tipoIcono }) {
         error: IoMdCloseCircleOutline
     }
 
-    const Icono = icons[tipoIcono || 'check']
+    const Icono = icons[icono || 'check']
 
     useEffect(() => {
-        if (mensaje) {
+        if (mensaje && mensaje !== '' && mostrar) {
             setMostrar(true)
             const timeout = setTimeout(() => {
                 setMostrar(false)
-            }, 2000)
+            }, 2500)
 
             return () => clearTimeout(timeout)
         }
-    }, [mensaje])
+    }, [mostrar])
 
 
 
     return (
         <div className='toast-container'>
             <div className={`mensaje 
-                    ${tipoIcono}
+                    ${icono}
                     ${mostrar ? 'mostrar' : ''}
                 `}>
                 <Icono size={30} />

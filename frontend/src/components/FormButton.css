@@ -33,3 +33,28 @@
     transform: translateY(-10px);
     box-shadow: 0 10px 30px #BD29D9;
 }
+
+.login-btn.cargando {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.login-btn.cargando::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-left: solid 5px #fff;
+    border-right: none;
+    animation: cargando 1s linear infinite;
+}
+
+@keyframes cargando {
+    100% {
+        transform: translateY(-50%) translateX(-50%) rotate(360deg);
+    }
+}

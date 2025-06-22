@@ -171,6 +171,7 @@ app.post('/api/login', async (req, res) => {
             })
             .status(200).json({
                 message: 'Login existoso',
+                mensajeBienvenida: `Bienvenido ${dataUser.nombre}`,
                 user: dataUser
             })
 

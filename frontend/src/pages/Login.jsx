@@ -13,24 +13,37 @@ function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [mensaje, setMensaje] = useState('')
+    const [mostrarToast, setMostrarToast] = useState(false)
+    const [icono, setIcono] = useState('check')
+    const [pidiendoDatos, setPidiendoDatos] = useState(false)
+
+    const desplegarToast = (mensaje, icono) => {
+        setMensaje(mensaje)
+        setIcono(icono)
+        setMostrarToast(true)
+    }
 
 
 
     const handleLogin = async (e) => {
         e.preventDefault()
+        setPidiendoDatos(true)
 
         try {
             const resultado = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, { email, password }, {
                 withCredentials: true
             })
-            console.log(resultado.data);
+
+            desplegarToast(resultado.data.mensajeBienvenida, 'check')
+            
 
         } catch (error) {
-            console.log(error);
-            
+            console.log(error)
+            desplegarToast(error.response.data.message, 'error')
         }
 
-        
+        setPidiendoDatos(false)
 
     }
 
@@ -42,7 +55,7 @@ function Login() {
 
     return (
         <div className='login-container'>
-            <Toast />
+            <Toast mensaje={mensaje} icono={icono} mostrar={mostrarToast} setMostrar={setMostrarToast} />
             <div className="login-card">
                 <div className="titulo-login">
                     <h2>Iniciar Sesión</h2>
@@ -65,7 +78,9 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <Boton texto='INICIAR SESION' />
+                    <Boton texto='INICIAR SESION' 
+                        clasesExtra={`${pidiendoDatos ? 'cargando' : ''}`}
+                    />
 
                 </form>
                 <footer className="login-footer">

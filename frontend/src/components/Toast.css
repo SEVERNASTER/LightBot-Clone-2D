@@ -26,6 +26,7 @@
     background-color: #10A37F;
     transition: transform .5s ease-in;
     transform: translateY(-120px) translateX(-50%);
+    text-align: center;
 }
 
 .mensaje.mostrar {

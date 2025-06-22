@@ -1,11 +1,12 @@
-import React from 'react'
+import {useState} from 'react'
 import './FormButton.css'
 
-function FormButton({texto, onClick: eventoClick}) {
+function FormButton({texto, onClick: eventoClick, clasesExtra}) {
+    
     return (
-            <button className="login-btn"
+            <button className={`login-btn ${clasesExtra}`}
                 onClick={eventoClick}
-            >{texto}</button>
+            >{clasesExtra.includes('cargando') ? '' : texto}</button>
 
     )
 }
