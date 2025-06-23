@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
-function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados, debeVoltearse }) {
+function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
+    debeVoltearse, setTitulo
+}) {
 
 
 
@@ -24,7 +26,9 @@ function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados, debeVol
                 <h2>CONSTRUCCIÓN DEL NIVEL</h2>
             </div>
             <div className="titulo-mapa-contenedor">
-                <input type="text" name="nombreMapa" id="nombreMapa" required />
+                <input type="text" name="nombreMapa" id="nombreMapa" required 
+                    onChange={(e) => setTitulo(e.target.value)}
+                />
                 <label htmlFor="nombreMapa">Nombre del Mapa</label>
             </div>
             <div className="grilla-editar-wrapper">

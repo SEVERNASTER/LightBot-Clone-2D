@@ -8,10 +8,11 @@ import { BiSolidSave } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 import { IoArrowRedoSharp } from "react-icons/io5";
 import { IoArrowUndoSharp } from "react-icons/io5";
+import axios from 'axios';
 
 
 function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVoltearse,
-    setCreando, reiniciarPantallaEdicion
+    setCreando, reiniciarPantallaEdicion, titulo
 }) {
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
@@ -32,8 +33,8 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
         console.log(mapa);
     }, [mapa])
 
-    
-    const handleGuardarMapa = () => {
+
+    const handleGuardarMapa = async () => {
         let pos = null;
         const mapaSanitizado = mapa.map((fila, i) =>
             fila.map((celda, j) => {
@@ -48,11 +49,37 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
         console.log(mapaSanitizado);
         console.log(sentido);
         console.log(pos);
-        
+
+        try {
+            const resultado = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/api/guardarMapa`,
+                {
+                    titulo,
+                    mapaData: {
+                        mapa: mapaSanitizado,
+                        bot: {
+                            pos,
+                            direccionInicial: sentido
+                        }
+                    }
+                },
+                { withCredentials: true }
+            )
+
+            console.log(resultado.data.message);
+            console.log(resultado.data.mapa);
+            
+
+            
+
+        } catch (error) {
+            console.log(error);
+            
+        }
 
 
     }
-    
+
 
 
 
@@ -62,7 +89,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                 <div className="titulo-herramientas">
                     <h3>HERRAMIENTAS DE CONSTRUCCIÓN</h3>
                 </div>
-                
+
                 <div className="herramientas-contenedor">
                     <div className="bot-herramienta">
                         <Tool icono={bot}

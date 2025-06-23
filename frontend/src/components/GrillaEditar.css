@@ -71,6 +71,7 @@
     outline: none;
     color: #fff;
     font-size: 1.2rem;
+    text-align: center;
 }
 
 .titulo-mapa-contenedor input:focus~label {

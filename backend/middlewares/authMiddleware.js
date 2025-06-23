@@ -1,6 +1,7 @@
+import { createClient } from '@supabase/supabase-js';
 import supabase from '../services/supabaseClient.js';
 
-export const verificarToken = async (req, res, next) => {
+const verificarToken = async (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
@@ -14,5 +15,8 @@ export const verificarToken = async (req, res, next) => {
     }
 
     req.user = data.user;
+    req.token = token;
     next();
 };
+
+export default verificarToken;

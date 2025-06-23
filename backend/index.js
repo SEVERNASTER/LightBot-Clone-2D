@@ -6,6 +6,9 @@ import supabase from './services/supabaseClient.js';
 import supabaseAdmin from './services/supabaseAdmin.js';
 import cookieParser from 'cookie-parser';
 import getColores from './data/gradientColors.js';
+import authMiddleware from './middlewares/authMiddleware.js';
+import { createClient } from '@supabase/supabase-js';
+
 
 
 dotenv.config()
@@ -214,5 +217,50 @@ app.get('/api/user', async (req, res) => {
     }
 
     res.status(200).json({ user: usuario })
+})
+
+// para guardar mapas
+
+app.post('/api/guardarMapa', authMiddleware, async (req, res) => {
+    const { titulo, mapaData: mapa_data } = req.body
+
+    if (!titulo || !mapa_data) return res.status(400).json({ message: 'Faltan campos obligatorios' });
+
+    try {
+
+        const supabaseAutenticado = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_KEY,
+            {
+                global: {
+                    headers: {
+                        Authorization: `Bearer ${req.token}`,
+                    },
+                },
+            }
+        );
+
+        const { data, error } = await supabaseAutenticado
+            .from('Niveles')
+            .insert([{
+                titulo,
+                mapa_data,
+                id_usuario: req.user.id
+            }])
+
+        if (error) {
+            throw error
+        }
+
+        res.status(201).json({
+            message: 'Nivel creado exitosamente',
+            mapa: data
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message })
+    }
+
 })
 

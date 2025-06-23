@@ -10,6 +10,12 @@ function Maker({ creando, setCreando }) {
     const [columnas, setSolumnas] = useState(5)
     const [sentido, setSentido] = useState(0)
     const [debeVoltearse, setDebeVoltearse] = useState(false)
+    const [titulo, setTitulo] = useState('')
+
+    useEffect(() => {
+        console.log(titulo);
+    }, [titulo])
+
 
 
     const direccionDesdeGrados = (grados) => {
@@ -41,12 +47,12 @@ function Maker({ creando, setCreando }) {
         setDebeVoltearse(false)
         setMapa(
             Array(filas)
-            .fill(0)
-            .map(() => Array(columnas).fill(0))
+                .fill(0)
+                .map(() => Array(columnas).fill(0))
         )
     }
 
-    
+
 
     useEffect(() => {
         const normalizado = ((sentido % 360) + 360) % 360;
@@ -80,10 +86,12 @@ function Maker({ creando, setCreando }) {
         <div className={`creador ${creando ? 'mostrar' : ''}`} >
             <GrillaEditar mapa={mapa} setMapa={setMapa} botSentido={sentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
+                setTitulo={setTitulo}
             />
             <PanelEditar mapa={mapa} sentido={sentido} setSentido={setSentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
                 setCreando={setCreando} reiniciarPantallaEdicion={reiniciarPantallaEdicion}
+                titulo={titulo}
             />
         </div>
     )
