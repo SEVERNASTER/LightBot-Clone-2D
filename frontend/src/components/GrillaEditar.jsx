@@ -1,10 +1,10 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
-function GrillaEditar({mapa, setMapa, botSentido, direccionDesdeGrados, debeVoltearse}) {
+function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados, debeVoltearse }) {
 
-    
+
 
     // useEffect(() => {
     //     console.log(mapa);
@@ -23,6 +23,10 @@ function GrillaEditar({mapa, setMapa, botSentido, direccionDesdeGrados, debeVolt
             <div className="editar-titulo">
                 <h2>CONSTRUCCIÓN DEL NIVEL</h2>
             </div>
+            <div className="titulo-mapa-contenedor">
+                <input type="text" name="nombreMapa" id="nombreMapa" required />
+                <label htmlFor="nombreMapa">Nombre del Mapa</label>
+            </div>
             <div className="grilla-editar-wrapper">
                 <div className="grilla-editar" style={{
                     // gridTemplateColumns: `repeat(${columnas}, 1fr)`,
@@ -36,7 +40,7 @@ function GrillaEditar({mapa, setMapa, botSentido, direccionDesdeGrados, debeVolt
                                 contenido={celda}
                                 onDropTool={(tool) => handleDrop(i, j, tool)}
                                 mapa={mapa}
-                                pos={{fila: `${i}`, columna: `${j}`}}
+                                pos={{ fila: `${i}`, columna: `${j}` }}
                                 sentido={botSentido}
                                 clasesExtra={direccionDesdeGrados(botSentido)}
                                 debeVoltearse={debeVoltearse}

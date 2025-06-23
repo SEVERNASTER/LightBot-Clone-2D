@@ -28,6 +28,33 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
         setPuedeArrastrarBot(puedeArrastrar)
     }, [mapa])
 
+    useEffect(() => {
+        console.log(mapa);
+    }, [mapa])
+
+    
+    const handleGuardarMapa = () => {
+        let pos = null;
+        const mapaSanitizado = mapa.map((fila, i) =>
+            fila.map((celda, j) => {
+                if (celda === 4) {
+                    pos = { fila: i, columna: j };
+                    return 0;
+                }
+                return celda;
+            })
+        )
+
+        console.log(mapaSanitizado);
+        console.log(sentido);
+        console.log(pos);
+        
+
+
+    }
+    
+
+
 
     return (
         <div className='panel-editar' >
@@ -35,6 +62,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                 <div className="titulo-herramientas">
                     <h3>HERRAMIENTAS DE CONSTRUCCIÓN</h3>
                 </div>
+                
                 <div className="herramientas-contenedor">
                     <div className="bot-herramienta">
                         <Tool icono={bot}
@@ -86,15 +114,17 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
             </div>
 
             <div className="botones-editar">
-                <button className="boton-editar guardar-editar"
+                <button className="boton-editar cancelar-editar"
                     onClick={() => {
                         setCreando(false)
                         setTimeout(() => {
                             reiniciarPantallaEdicion()
                         }, 1000);
                     }}
-                ><IoClose size={25}/>CANCELAR</button>
-                <button className="boton-editar cancelar-editar"><BiSolidSave size={25} /> GUARDAR</button>
+                ><IoClose size={25} />CANCELAR</button>
+                <button className="boton-editar guardar-editar"
+                    onClick={handleGuardarMapa}
+                ><BiSolidSave size={25} /> GUARDAR</button>
             </div>
         </div>
     )

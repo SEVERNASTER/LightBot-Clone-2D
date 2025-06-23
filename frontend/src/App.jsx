@@ -39,7 +39,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
   }, [bot])
   
 
-  console.log('este es el bot:', bot);
+  // console.log('este es el bot:', bot);
 
 
   const reiniciarJuego = () => {

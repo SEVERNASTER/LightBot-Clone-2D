@@ -1,4 +1,3 @@
-
 .grilla-editar-contenedor {
     /* border: solid; */
     display: flex;
@@ -37,4 +36,50 @@
     /* grid-template-rows: repeat(5, 1fr); */
     grid-template-columns: repeat(5, 1fr);
     gap: 3px;
+}
+
+.titulo-mapa-contenedor {
+    position: relative;
+    /* border: solid #fff; */
+    gap: 10px;
+    width: 80%;
+    margin: auto;
+}
+
+.titulo-mapa-contenedor label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    color: rgb(255, 136, 1);
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.3rem;
+    transition: .3s;
+    background-color: #1A388A;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.titulo-mapa-contenedor input {
+    height: 60px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #1A388A;
+    border: solid 3px rgb(255, 136, 1);
+    padding: 0 15px;
+    outline: none;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.titulo-mapa-contenedor input:focus~label {
+    top: -15px;
+    transform: translateY(0) translateX(-50%);
+}
+
+.titulo-mapa-contenedor input:focus ~ label,
+.titulo-mapa-contenedor input:valid ~ label {
+    top: -15px;
+    transform: translateY(0) translateX(-50%);
 }
