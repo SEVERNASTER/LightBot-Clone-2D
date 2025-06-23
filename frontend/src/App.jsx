@@ -22,7 +22,7 @@ import Tour from './components/Tour';
  */
 
 
-function App({ mapa, setMapa, jugando, mapaActual }) {
+function App({ mapa, setMapa, jugando, mapaActual, bot }) {
 
   // 0 = camino libre
   // 1 = obstaculo
@@ -34,12 +34,24 @@ function App({ mapa, setMapa, jugando, mapaActual }) {
     reiniciarJuego()
   }, [mapaActual])
 
+  useEffect(() => {
+    reiniciarFuncionBtn()
+  }, [bot])
+  
+
+  console.log('este es el bot:', bot);
+
 
   const reiniciarJuego = () => {
-    setPos({ fila: 0, columna: 0 });
-    setPosAux({ fila: 0, columna: 0 });
-    setSentido(0);
-    setSentidoAux(0);
+    setPos(posInicial);
+    setPosAux(posInicial);
+    setSentido(sentidoInicial);
+    setSentidoAux(sentidoInicial);
+    // setPos(bot.pos)
+    // setPosAux(bot.pos)
+    // setSentido(bot.direccionInicial)
+    // setSentidoAux(bot.direccionInicial)
+
     setSecuencia([]);
     setBotAnimado(false);
     setEjecutando(false);
@@ -60,15 +72,31 @@ function App({ mapa, setMapa, jugando, mapaActual }) {
   const filas = 5
   const columnas = 5
 
-  // y: -1 porque si esta en 0 sobresale de la grilla entonces para que este acomodado una casilla arriba
-  const [pos, setPos] = useState({ fila: 0, columna: 0 })
-  const [posAux, setPosAux] = useState({ fila: 0, columna: 0 })
   // este es el sentido que sera en grados, en el sentido de las agujas del reloj y servira para
   // saber si se mueve arr abj izq der
-  const [sentido, setSentido] = useState(0)
-  const [sentidoAux, setSentidoAux] = useState(0)
-  const posInicial = { fila: 0, columna: 0 }
-  const sentidoInicial = 0
+
+  const [pos, setPos] = useState(bot.pos)
+  const [posAux, setPosAux] = useState(bot.pos)
+
+
+  const [sentido, setSentido] = useState(bot.direccionInicial)
+  const [sentidoAux, setSentidoAux] = useState(bot.direccionInicial)
+  // const posInicial = useRef(bot.pos)
+  // const sentidoInicial = useRef(bot.direccionInicial)
+  const posInicial = bot.pos
+  const sentidoInicial = bot.direccionInicial
+
+  // useEffect(() => {
+  //   if (bot) {
+  //     setPos(bot.pos)
+  //     setPosAux(bot.pos)
+  //     setSentido(bot.direccionInicial)
+  //     setSentidoAux(bot.direccionInicial)
+  //   }
+  // }, [bot])
+
+
+
 
   const [secuencia, setSecuencia] = useState([])
 
@@ -347,9 +375,9 @@ function App({ mapa, setMapa, jugando, mapaActual }) {
 
 
 
-  useEffect(() => {
-    console.log(secuencia);
-  }, [secuencia])
+  // useEffect(() => {
+  //   console.log(secuencia);
+  // }, [secuencia])
 
   // useEffect(() => {
   //   console.log(mapa);

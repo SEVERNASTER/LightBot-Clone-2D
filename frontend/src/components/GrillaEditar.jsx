@@ -6,9 +6,9 @@ function GrillaEditar({mapa, setMapa, botSentido, direccionDesdeGrados, debeVolt
 
     
 
-    useEffect(() => {
-        console.log(mapa);
-    }, [mapa])
+    // useEffect(() => {
+    //     console.log(mapa);
+    // }, [mapa])
 
 
     const handleDrop = (fila, col, tool) => {

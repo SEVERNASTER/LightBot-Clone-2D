@@ -66,13 +66,13 @@ function Maker({ creando, setCreando }) {
         }
     }, [sentido])
 
-    useEffect(() => {
-        console.log(sentido);
-    }, [sentido])
+    // useEffect(() => {
+    //     console.log(sentido);
+    // }, [sentido])
 
-    useEffect(() => {
-        console.log(debeVoltearse);
-    }, [debeVoltearse])
+    // useEffect(() => {
+    //     console.log(debeVoltearse);
+    // }, [debeVoltearse])
 
 
 

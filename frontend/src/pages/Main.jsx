@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import { IoIosArrowDropup } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
 import App from '../App';
-import mapas from '../data/mapas';
+import mapas from '../data/mapas.js';
 import { FaUser } from "react-icons/fa";
 import axios from 'axios';
 
@@ -48,10 +48,14 @@ function Main({user}) {
         setJugando(prev => !prev)
     }
 
-    const [mapa, setMapa] = useState(mapas[0])
+    const [mapa, setMapa] = useState(mapas[mapaActual - 1].mapa)
+    const [bot, setBot] = useState(mapas[mapaActual - 1].bot)
 
     useEffect(() => {        
-        setMapa(mapas[mapaActual - 1])
+        setMapa(mapas[mapaActual - 1].mapa)
+        setBot(mapas[mapaActual - 1].bot)
+        console.log(mapa);
+        
     }, [mapaActual])
 
 
@@ -95,7 +99,9 @@ function Main({user}) {
                 {jugando && <GiExitDoor />}
             </button>
 
-            <App mapa={mapa} setMapa={setMapa} jugando={jugando} mapaActual={mapaActual} />
+            <App mapa={mapa} setMapa={setMapa} jugando={jugando} mapaActual={mapaActual}
+                bot={bot}
+            />
         </div>
     )
 }
