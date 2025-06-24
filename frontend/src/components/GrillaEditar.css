@@ -58,7 +58,8 @@
     transition: .3s;
     background-color: #1A388A;
     border-radius: 10px;
-    padding: 5px;
+    padding: 0 5px;
+    width: 70%;
 }
 
 .titulo-mapa-contenedor input {
@@ -83,4 +84,21 @@
 .titulo-mapa-contenedor input:valid ~ label {
     top: -15px;
     transform: translateY(0) translateX(-50%);
+}
+
+@media screen and (max-width: 1010px) {
+    .grilla-editar-contenedor {
+        /* border: solid #fff; */
+    }
+
+    .grilla-editar-wrapper {
+        width: min(320px, 100%);
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .grilla-editar-contenedor {
+        display: none;
+    }
 }

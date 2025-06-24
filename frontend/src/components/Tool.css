@@ -3,6 +3,7 @@
     position: relative;
     background-size: cover;
     width: 130px;
+    /* height: 130px; */
     aspect-ratio: 1 / 1;
     border: solid #fff;
     background-position: center;
@@ -85,4 +86,8 @@
 .tool-fondo.voltear {
     transform: scaleX(-1) scale(1.2);
 
+}
+
+@media screen and (max-width: 1010px) {
+    
 }

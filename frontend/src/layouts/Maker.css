@@ -19,3 +19,21 @@
 .creador.mostrar {
     transform: translateX(0);
 }
+
+.no-disponible {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+
+    .no-disponible {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+        flex-direction: column;
+        gap: 20px;
+        font-size: 1.3rem;
+    }
+}

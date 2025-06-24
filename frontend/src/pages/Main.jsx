@@ -1,51 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Main.css'
 import MenuInicio from '../layouts/MenuInicio';
 import Niveles from '../layouts/NivelesPantalla';
 import Maker from '../layouts/Maker';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { IoIosArrowDropup } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
 import App from '../App';
-import mapas from '../data/mapas.js';
+import { mapas1, mapas2, mapas3 } from '../data/mapas.js';
 import { FaUser } from "react-icons/fa";
-import axios from 'axios';
 import Toast from '../components/Toast.jsx';
 import useToast from '../hooks/useToast.js';
 
 
 function Main({ user }) {
 
-    // const [user, setUser] = useState(null)
-
-    // useEffect(() => {
-    //     const verificarSesion = async () => {
-    //         try {
-    //             const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
-    //                 withCredentials: true
-    //             })
-    //             setUser(res.data.user)
-
-    //         } catch (error) {
-    //             console.log('No autenticado', error)
-    //             setUser(null)
-    //         }
-    //     }
-
-    //     verificarSesion()
-    // }, [])
-
-
     const [mapaActual, setMapaActual] = useState(1)
-
     const [vistaMenu, setVistaMenu] = useState(true)
     const [jugando, setJugando] = useState(false)
     const [creando, setCreando] = useState(false)
     const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()
     const [jugandoMiNivel, setJugandoMiNivel] = useState(false)
     const [hayNuevoNivel, setHayNuevoNivel] = useState(false)
+    const [mapas, setMapas] = useState(mapas1)
 
+    // Estados iniciales para mapa y bot
+    const [mapa, setMapa] = useState(mapas1[0].mapa)
+    const [bot, setBot] = useState(mapas1[0].bot)
 
+    // useEffect para actualizar mapa y bot cuando cambien mapas o mapaActual
+    useEffect(() => {
+        if (mapas && mapas[mapaActual - 1]) {
+            setMapa(mapas[mapaActual - 1].mapa)
+            setBot(mapas[mapaActual - 1].bot)
+        }
+    }, [mapas, mapaActual])
 
     const handleRegresar = () => {
         setVistaMenu(prev => !prev)
@@ -55,26 +44,7 @@ function Main({ user }) {
         setJugando(prev => !prev)
         setJugandoMiNivel(false)
         setJugando(false)
-        
     }
-
-    const [mapa, setMapa] = useState(mapas[mapaActual - 1].mapa)
-    const [bot, setBot] = useState(mapas[mapaActual - 1].bot)
-
-    useEffect(() => {
-        setMapa(mapas[mapaActual - 1].mapa)
-        setBot(mapas[mapaActual - 1].bot)
-        console.log(mapa);
-
-    }, [mapaActual])
-
-
-
-    // if(!user) return (
-    //     <div className="pantalla-de-carga">
-    //         CARGANDO...
-    //     </div>
-    // )
 
     return (
         <div className={`main-container ${jugando ? 'jugando' : ''}`}>
@@ -85,7 +55,6 @@ function Main({ user }) {
             }} >
                 <h3>{user?.alias || <FaUser />}</h3>
             </div>
-
 
             <MenuInicio clasesExtra={`${vistaMenu ? '' : 'deslizar'}
                 ${creando ? 'ocultar' : ''}
@@ -103,7 +72,8 @@ function Main({ user }) {
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}
-                jugandoMiNivel={jugandoMiNivel}
+                jugandoMiNivel={jugandoMiNivel} mapas1={mapas1} mapas2={mapas2} mapas3={mapas3}
+                setMapas={setMapas}
             />
 
             <button className={`boton-cambiar regresar-niveles-btn

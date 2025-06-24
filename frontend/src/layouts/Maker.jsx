@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './Maker.css'
 import GrillaEditar from '../components/GrillaEditar';
 import PanelEditar from '../components/PanelEditar';
+import Button from '../components/FormButton';
 
 
 
@@ -82,6 +83,10 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
     //     console.log(debeVoltearse);
     // }, [debeVoltearse])
 
+    const regresarMoviles = () => {
+        setCreando(false)
+    }
+
 
 
     return (
@@ -95,6 +100,12 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
                 setCreando={setCreando} reiniciarPantallaEdicion={reiniciarPantallaEdicion}
                 titulo={titulo} mostrarToast={mostrarToast} setHayNuevoNivel={setHayNuevoNivel}
             />
+
+            <div className="no-disponible">
+                <h2>⚠️ El constructor de niveles aún no está disponible para móviles</h2>
+                <Button texto='Regresar' onClick={regresarMoviles} />
+            </div>
+
         </div>
     )
 }

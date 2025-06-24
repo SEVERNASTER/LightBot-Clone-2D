@@ -165,3 +165,30 @@
     color: #C228D8;
 }
 
+@media screen and (max-width: 830px) {
+    .panel-editar {
+        height: 100%;
+        /* border: solid #fff; */
+        width: min(500px, 100%);
+        /* display: none; */
+    }
+    
+    .titulo-herramientas {
+        font-size: 1.3rem;
+    }
+
+    .herramientas {
+        width: min(500px, 100%);
+        height: auto;
+    }
+
+    .herramientas-contenedor {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .panel-editar {
+        display: none;
+    }
+}
