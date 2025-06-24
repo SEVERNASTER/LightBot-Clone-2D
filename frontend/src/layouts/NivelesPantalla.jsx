@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 import Niveles from '../components/Niveles';
 
 
-function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando }) {
+function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, jugandoMiNivel }) {
 
     const nivelesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
@@ -13,7 +13,7 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando }) {
 
     return (
         <div className={`niveles-container 
-            ${jugando ? 'ocultar' : ''} 
+            ${jugando && !jugandoMiNivel ? 'ocultar' : ''} 
             ${clasesExtra}
         `}>
             <div className={`niveles `}>

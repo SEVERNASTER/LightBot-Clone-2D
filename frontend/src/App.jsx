@@ -32,9 +32,11 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
 
   useEffect(() => {
     reiniciarJuego()
+    reiniciarFuncionBtn()
   }, [mapaActual])
 
   useEffect(() => {
+    reiniciarJuego()
     reiniciarFuncionBtn()
   }, [bot])
   

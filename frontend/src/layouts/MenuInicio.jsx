@@ -2,8 +2,12 @@ import { useState } from 'react'
 import './MenuInicio.css'
 import MiNivel from '../components/MiNivel';
 import axios from 'axios';
+import { IoClose } from "react-icons/io5";
 
-function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, setJugando }) {
+
+function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, setJugando,
+    jugandoMiNivel, setJugandoMiNivel
+}) {
 
     const [girar, setGirar] = useState(false)
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
@@ -16,7 +20,7 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
         try {
 
             const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getNiveles`,
-                {withCredentials: true}
+                { withCredentials: true }
             );
 
             console.log('Niveles:', response.data.niveles);
@@ -30,7 +34,9 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
 
 
     return (
-        <div className={`menu-inicio ${clasesExtra}`}>
+        <div className={`menu-inicio ${clasesExtra}
+            ${jugandoMiNivel ? 'ocultar-para-mi-nivel' : ''}
+        `}>
             <div className="inicio-flip-container">
                 <div className="inicio-flip">
                     <div className={`contenedor-menu-inicio ${girar ? 'girar' : ''}`}>
@@ -56,6 +62,11 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
                     <div className={`mis-niveles-container ${girar ? 'girar' : ''}`}>
                         <div className="mis-niveles-titulo">
                             <h2>Mis Niveles</h2>
+                            <div className="mis-niveles-regresar"
+                                onClick={() => setGirar(false)}
+                            >
+                                <IoClose size={35} />
+                            </div>
                         </div>
                         <div className={`mis-niveles ${pidiendoDatos ? 'cargando' : ''}`}>
                             {/* <MiNivel titulo='Mi nivel' />
@@ -67,6 +78,8 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
                                 mapasUsuario.map((mapa, index) => {
                                     return <MiNivel titulo={mapa.titulo} key={index}
                                         setMapa={setMapa} setBot={setBot} setJugando={setJugando}
+                                        mapa={mapa.mapa_data.mapa} bot={mapa.mapa_data.bot}
+                                        setJugandoMiNivel={setJugandoMiNivel}
                                     />
                                 })
                             }

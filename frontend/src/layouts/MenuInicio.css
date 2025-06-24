@@ -7,6 +7,11 @@
     color: #fff;
     transition: 1s ease-in;
     margin: auto;
+    
+}
+
+.menu-inicio.ocultar-para-mi-nivel {
+    transform: translateY(-100%);
 }
 
 .menu-inicio.ocultar {
@@ -232,6 +237,7 @@
 }
 
 .mis-niveles-titulo {
+    position: relative;
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
@@ -239,6 +245,24 @@
     text-align: center;
     background: linear-gradient(45deg, #b61ac4, #1796d5);
 
+}
+
+.mis-niveles-regresar {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 20px;
+    transition: .3s;
+}
+
+.mis-niveles-regresar:hover {
+    transform: scale(1.2) rotate(90deg);
+    color: red;
+}
+
+.mis-niveles-regresar:active {
+    transform: scale(.8) rotate(90deg);
 }
 
 .mis-niveles {

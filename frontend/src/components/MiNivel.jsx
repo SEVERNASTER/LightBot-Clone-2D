@@ -1,10 +1,13 @@
 import React from 'react'
 import './MiNivel.css'
 
-function MiNivel({titulo, setMapa, setBot, setJugando}) {
+function MiNivel({titulo, setMapa, setBot, setJugando, mapa, bot, setJugandoMiNivel}) {
 
     const handleJugar = () => {
-        
+        setMapa(mapa)
+        setBot(bot)
+        setJugando(true)
+        setJugandoMiNivel(true)
     }
 
     return (
@@ -13,7 +16,9 @@ function MiNivel({titulo, setMapa, setBot, setJugando}) {
                 <h3>{titulo}</h3>
             </div>
             <div className="mn-botones">
-                <button className="mn-button mn-jugar">Jugar</button>
+                <button className="mn-button mn-jugar"
+                    onClick={handleJugar}
+                >Jugar</button>
                 <button className="mn-button mn-eliminar">Eliminar</button>
             </div>
         </div>

@@ -42,6 +42,8 @@ function Main({ user }) {
     const [jugando, setJugando] = useState(false)
     const [creando, setCreando] = useState(false)
     const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()
+    const [jugandoMiNivel, setJugandoMiNivel] = useState(false)
+
 
 
     const handleRegresar = () => {
@@ -50,6 +52,12 @@ function Main({ user }) {
 
     const handleSalir = () => {
         setJugando(prev => !prev)
+        setJugandoMiNivel(false)
+        setJugando(false)
+        
+    }
+
+    const handleVolverAMisNiveles = () => {
     }
 
     const [mapa, setMapa] = useState(mapas[mapaActual - 1].mapa)
@@ -86,17 +94,20 @@ function Main({ user }) {
             `}
                 setVistaMenu={setVistaMenu} setCreando={setCreando}
                 setMapa={setMapa} setBot={setBot} setJugando={setJugando}
+                jugandoMiNivel={jugandoMiNivel} setJugandoMiNivel={setJugandoMiNivel}
             />
 
             <Maker creando={creando} setCreando={setCreando} mostrarToast={mostrarToast}
+            
             />
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}
+                jugandoMiNivel={jugandoMiNivel}
             />
 
             <button className={`boton-cambiar regresar-niveles-btn
-                    ${!vistaMenu ? 'mostrar' : ''}
+                    ${!vistaMenu || jugandoMiNivel ? 'mostrar' : ''}
                     ${jugando ? 'volver-btn' : ''}
                 `}
                 title='Regresar'
