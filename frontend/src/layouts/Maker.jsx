@@ -5,7 +5,7 @@ import PanelEditar from '../components/PanelEditar';
 
 
 
-function Maker({ creando, setCreando, mostrarToast }) {
+function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
 
     const [filas, setFilas] = useState(5)
     const [columnas, setSolumnas] = useState(5)
@@ -93,7 +93,7 @@ function Maker({ creando, setCreando, mostrarToast }) {
             <PanelEditar mapa={mapa} sentido={sentido} setSentido={setSentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
                 setCreando={setCreando} reiniciarPantallaEdicion={reiniciarPantallaEdicion}
-                titulo={titulo} mostrarToast={mostrarToast}
+                titulo={titulo} mostrarToast={mostrarToast} setHayNuevoNivel={setHayNuevoNivel}
             />
         </div>
     )

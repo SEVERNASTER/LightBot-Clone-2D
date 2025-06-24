@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './MenuInicio.css'
 import MiNivel from '../components/MiNivel';
 import axios from 'axios';
@@ -6,12 +6,13 @@ import { IoClose } from "react-icons/io5";
 
 
 function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, setJugando,
-    jugandoMiNivel, setJugandoMiNivel, mostrarToast
+    jugandoMiNivel, setJugandoMiNivel, mostrarToast, hayNuevoNivel, setHayNuevoNivel
 }) {
 
     const [girar, setGirar] = useState(false)
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
     const [mapasUsuario, setMapasUsuario] = useState([])
+    const [noTieneNiveles, setNoTieneNiveles] = useState(false)
 
     const eliminarNivelInterfaz = (id) => {
         setMapasUsuario(prev => prev.filter(nivel => nivel.id !== id));
@@ -20,6 +21,8 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
 
     const handlePedirNiveles = async () => {
         setGirar(true)
+        if (!hayNuevoNivel) return;
+
         setPidiendoDatos(true)
 
         try {
@@ -30,12 +33,22 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
 
             console.log('Niveles:', response.data.niveles);
             setMapasUsuario(response.data.niveles)
+            setHayNuevoNivel(false)
         } catch (error) {
             console.error('Error al obtener niveles:', error.response?.data || error.message);
             setPidiendoDatos(false)
         }
         setPidiendoDatos(false)
     }
+
+    useEffect(() => {
+        if (!mapasUsuario || mapasUsuario.length === 0) {
+            setNoTieneNiveles(true)
+        } else {
+            setNoTieneNiveles(false)
+        }
+    }, [mapasUsuario])
+
 
 
     return (
@@ -73,23 +86,35 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
                                 <IoClose size={35} />
                             </div>
                         </div>
-                        <div className={`mis-niveles ${pidiendoDatos ? 'cargando' : ''}`}>
-                            {/* <MiNivel titulo='Mi nivel' />
+                        <div className={`mis-niveles-wrapper
+                                ${pidiendoDatos? 'cargando' : ''}
+                            `}>
+
+                            <div className={`mis-niveles 
+                            ${pidiendoDatos ? 'cargando' : ''}
+                            ${noTieneNiveles ? 'sin-niveles' : ''}
+                        `}>
+                                {/* <MiNivel titulo='Mi nivel' />
                             <MiNivel titulo='Mi nivel' />
                             <MiNivel titulo='Mi nivel' /> */}
-                            {
-                                // mandar aqui tambien el bot y el mapa y setearlos dentro de la 
-                                // funcion del componente MiNivel
-                                mapasUsuario.map((mapa, index) => {
-                                    return <MiNivel titulo={mapa.titulo} key={index}
-                                        setMapa={setMapa} setBot={setBot} setJugando={setJugando}
-                                        mapa={mapa.mapa_data.mapa} bot={mapa.mapa_data.bot}
-                                        setJugandoMiNivel={setJugandoMiNivel} id={mapa.id}
-                                        mostrarToast={mostrarToast} 
-                                        eliminarNivelInterfaz={() => eliminarNivelInterfaz(mapa.id)}
-                                    />
-                                })
-                            }
+                                {
+                                    !pidiendoDatos && noTieneNiveles &&
+                                    <h2 className='sin-niveles'>No tienes niveles creados</h2>
+                                }
+                                {
+                                    // mandar aqui tambien el bot y el mapa y setearlos dentro de la 
+                                    // funcion del componente MiNivel
+                                    mapasUsuario.map((mapa, index) => {
+                                        return <MiNivel titulo={mapa.titulo} key={index}
+                                            setMapa={setMapa} setBot={setBot} setJugando={setJugando}
+                                            mapa={mapa.mapa_data.mapa} bot={mapa.mapa_data.bot}
+                                            setJugandoMiNivel={setJugandoMiNivel} id={mapa.id}
+                                            mostrarToast={mostrarToast}
+                                            eliminarNivelInterfaz={() => eliminarNivelInterfaz(mapa.id)}
+                                        />
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

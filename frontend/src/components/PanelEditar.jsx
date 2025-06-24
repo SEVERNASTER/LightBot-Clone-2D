@@ -12,7 +12,7 @@ import axios from 'axios';
 
 
 function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVoltearse,
-    setCreando, reiniciarPantallaEdicion, titulo, mostrarToast
+    setCreando, reiniciarPantallaEdicion, titulo, mostrarToast, setHayNuevoNivel
 }) {
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
@@ -75,6 +75,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
             mostrarToast(resultado.data.message, 'check')
             setPidiendoDatos(false)
+            setHayNuevoNivel(true)
 
             setTimeout(() => {
                 reiniciarPantallaEdicion()

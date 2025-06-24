@@ -43,6 +43,7 @@ function Main({ user }) {
     const [creando, setCreando] = useState(false)
     const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()
     const [jugandoMiNivel, setJugandoMiNivel] = useState(false)
+    const [hayNuevoNivel, setHayNuevoNivel] = useState(false)
 
 
 
@@ -55,9 +56,6 @@ function Main({ user }) {
         setJugandoMiNivel(false)
         setJugando(false)
         
-    }
-
-    const handleVolverAMisNiveles = () => {
     }
 
     const [mapa, setMapa] = useState(mapas[mapaActual - 1].mapa)
@@ -96,10 +94,11 @@ function Main({ user }) {
                 setMapa={setMapa} setBot={setBot} setJugando={setJugando}
                 jugandoMiNivel={jugandoMiNivel} setJugandoMiNivel={setJugandoMiNivel}
                 mostrarToast={mostrarToast}
+                hayNuevoNivel={hayNuevoNivel} setHayNuevoNivel={setHayNuevoNivel}
             />
 
             <Maker creando={creando} setCreando={setCreando} mostrarToast={mostrarToast}
-            
+                setHayNuevoNivel={setHayNuevoNivel}
             />
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
