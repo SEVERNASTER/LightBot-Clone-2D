@@ -79,6 +79,7 @@
     background-position: center;
     transition: .5s;
     transform: scale(1.2);
+    background-repeat: no-repeat;
 }
 
 .tool-fondo.voltear {

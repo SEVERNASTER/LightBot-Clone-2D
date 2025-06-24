@@ -1,0 +1,61 @@
+
+
+.mn-container {
+    height: 300px;
+    width: 80%;
+    background-color: #212550;
+    border-radius: 15px;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    margin: 20px auto;
+    
+}
+
+.mn-titulo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.mn-botones{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    
+}
+
+.mn-button {
+    height: 45px;
+    width: 120px;
+    border-radius: 15px;
+    color: #fff;
+    border: none;
+    font-size: 1.2rem;
+    transition: .3s;
+}
+
+.mn-button:hover {
+    transform: scale(1.1);
+    border: solid #fff;
+}
+
+.mn-button:active {
+    transform: scale(.8);
+}
+
+.mn-jugar {
+    background: linear-gradient(45deg, #17AAF5, #0B65D8);
+
+}
+
+.mn-eliminar {
+    background: linear-gradient(45deg, #7248E9, #B92BDA);
+}

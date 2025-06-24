@@ -3,7 +3,7 @@ import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
 function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
-    debeVoltearse, setTitulo
+    debeVoltearse, setTitulo, titulo
 }) {
 
 
@@ -20,14 +20,16 @@ function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
         setMapa(nuevoMapa);
     };
 
+
     return (
         <div className='grilla-editar-contenedor' >
             <div className="editar-titulo">
                 <h2>CONSTRUCCIÓN DEL NIVEL</h2>
             </div>
             <div className="titulo-mapa-contenedor">
-                <input type="text" name="nombreMapa" id="nombreMapa" required 
+                <input type="text" name="nombreMapa" id="nombreMapa" required
                     onChange={(e) => setTitulo(e.target.value)}
+                    value={!titulo || titulo?.trim() === '' ? '' : titulo}
                 />
                 <label htmlFor="nombreMapa">Nombre del Mapa</label>
             </div>

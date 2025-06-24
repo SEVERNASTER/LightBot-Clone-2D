@@ -1,23 +1,76 @@
-import React from 'react'
+import { useState } from 'react'
 import './MenuInicio.css'
+import MiNivel from '../components/MiNivel';
+import axios from 'axios';
 
-function MenuInicio({ clasesExtra, setVistaMenu, setCreando }) {
+function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, setJugando }) {
+
+    const [girar, setGirar] = useState(false)
+    const [pidiendoDatos, setPidiendoDatos] = useState(false)
+    const [mapasUsuario, setMapasUsuario] = useState([])
+
+    const handlePedirNiveles = async () => {
+        setGirar(true)
+        setPidiendoDatos(true)
+
+        try {
+
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getNiveles`,
+                {withCredentials: true}
+            );
+
+            console.log('Niveles:', response.data.niveles);
+            setMapasUsuario(response.data.niveles)
+        } catch (error) {
+            console.error('Error al obtener niveles:', error.response?.data || error.message);
+            setPidiendoDatos(false)
+        }
+        setPidiendoDatos(false)
+    }
+
+
     return (
         <div className={`menu-inicio ${clasesExtra}`}>
-            <div className="contenedor-menu-inicio">
-                <div className="contenedor-titulo">
-                    <h1>CODEPILOT</h1>
-                </div>
-                <div className="contenedor-menu-animado">
-                    <div className="contenedor-opciones">
-                        <button className="opcion-menu jugar"
-                            onClick={() => setVistaMenu(prev => !prev)}
-                        >Jugar</button>
-                        <button className="opcion-menu instrucciones">Instrucciones</button>
-                        <button className="opcion-menu opciones">Opciones</button>
-                        <button className="opcion-menu crear"
-                            onClick={() => setCreando(true)}
-                        >Crear Nivel</button>
+            <div className="inicio-flip-container">
+                <div className="inicio-flip">
+                    <div className={`contenedor-menu-inicio ${girar ? 'girar' : ''}`}>
+                        <div className="contenedor-titulo">
+                            <h1>CODEPILOT</h1>
+                        </div>
+                        <div className="contenedor-menu-animado">
+                            <div className="contenedor-opciones">
+                                <button className="opcion-menu jugar"
+                                    onClick={() => setVistaMenu(prev => !prev)}
+                                >Jugar</button>
+                                <button className="opcion-menu instrucciones">Instrucciones</button>
+                                <button className="opcion-menu opciones"
+                                    onClick={handlePedirNiveles}
+                                >Mis Niveles</button>
+                                <button className="opcion-menu crear"
+                                    onClick={() => setCreando(true)}
+                                >Crear Nivel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={`mis-niveles-container ${girar ? 'girar' : ''}`}>
+                        <div className="mis-niveles-titulo">
+                            <h2>Mis Niveles</h2>
+                        </div>
+                        <div className={`mis-niveles ${pidiendoDatos ? 'cargando' : ''}`}>
+                            {/* <MiNivel titulo='Mi nivel' />
+                            <MiNivel titulo='Mi nivel' />
+                            <MiNivel titulo='Mi nivel' /> */}
+                            {
+                                // mandar aqui tambien el bot y el mapa y setearlos dentro de la 
+                                // funcion del componente MiNivel
+                                mapasUsuario.map((mapa, index) => {
+                                    return <MiNivel titulo={mapa.titulo} key={index}
+                                        setMapa={setMapa} setBot={setBot} setJugando={setJugando}
+                                    />
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,8 @@ import GrillaEditar from '../components/GrillaEditar';
 import PanelEditar from '../components/PanelEditar';
 
 
-function Maker({ creando, setCreando }) {
+
+function Maker({ creando, setCreando, mostrarToast }) {
 
     const [filas, setFilas] = useState(5)
     const [columnas, setSolumnas] = useState(5)
@@ -43,6 +44,7 @@ function Maker({ creando, setCreando }) {
     )
 
     const reiniciarPantallaEdicion = () => {
+        setTitulo('')
         setSentido(0)
         setDebeVoltearse(false)
         setMapa(
@@ -86,12 +88,12 @@ function Maker({ creando, setCreando }) {
         <div className={`creador ${creando ? 'mostrar' : ''}`} >
             <GrillaEditar mapa={mapa} setMapa={setMapa} botSentido={sentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
-                setTitulo={setTitulo}
+                setTitulo={setTitulo} titulo={titulo}
             />
             <PanelEditar mapa={mapa} sentido={sentido} setSentido={setSentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
                 setCreando={setCreando} reiniciarPantallaEdicion={reiniciarPantallaEdicion}
-                titulo={titulo}
+                titulo={titulo} mostrarToast={mostrarToast}
             />
         </div>
     )

@@ -264,3 +264,42 @@ app.post('/api/guardarMapa', authMiddleware, async (req, res) => {
 
 })
 
+// para obtener Niveles
+
+app.get('/api/getNiveles', authMiddleware, async (req, res) => {
+    try {
+        const supabaseAutenticado = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_KEY,
+            {
+                global: {
+                    headers: {
+                        Authorization: `Bearer ${req.token}`,
+                    },
+                },
+            }
+        );
+
+        const { data, error } = await supabaseAutenticado
+            .from('Niveles')
+            .select('titulo, mapa_data')
+            .eq('id_usuario', req.user.id);
+
+        if (error) {
+            throw error;
+        }
+
+        res.status(200).json({
+            message: 'Niveles obtenidos exitosamente',
+            niveles: data
+        });
+
+    } catch (error) {
+        console.log(error);
+        
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+

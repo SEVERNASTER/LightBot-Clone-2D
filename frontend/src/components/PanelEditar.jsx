@@ -12,10 +12,11 @@ import axios from 'axios';
 
 
 function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVoltearse,
-    setCreando, reiniciarPantallaEdicion, titulo
+    setCreando, reiniciarPantallaEdicion, titulo, mostrarToast
 }) {
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
+    const [pidiendoDatos, setPidiendoDatos] = useState(false)
 
     useEffect(() => {
         let puedeArrastrar = true
@@ -35,6 +36,9 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
 
     const handleGuardarMapa = async () => {
+        if(!titulo || titulo?.trim() === '') return mostrarToast('El nivel necesita un nombre', 'alert');
+
+        setPidiendoDatos(true)
         let pos = null;
         const mapaSanitizado = mapa.map((fila, i) =>
             fila.map((celda, j) => {
@@ -68,14 +72,21 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
             console.log(resultado.data.message);
             console.log(resultado.data.mapa);
-            
 
-            
+            mostrarToast(resultado.data.message, 'check')
+            setPidiendoDatos(false)
+
+            setTimeout(() => {
+                reiniciarPantallaEdicion()
+            }, 1000);
+            setCreando(false)
 
         } catch (error) {
             console.log(error);
-            
+            mostrarToast('Algo salio mal intente mas tarde', 'error')
         }
+
+        setPidiendoDatos(false)
 
 
     }
@@ -141,17 +152,27 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
             </div>
 
             <div className="botones-editar">
-                <button className="boton-editar cancelar-editar"
+                <button className={`boton-editar cancelar-editar 
+                    ${pidiendoDatos ? 'cancelar-cargando' : ''}`
+                }
                     onClick={() => {
                         setCreando(false)
                         setTimeout(() => {
                             reiniciarPantallaEdicion()
                         }, 1000);
                     }}
-                ><IoClose size={25} />CANCELAR</button>
-                <button className="boton-editar guardar-editar"
+                >
+                    <IoClose size={25} />CANCELAR
+                </button>
+
+                <button className={`boton-editar guardar-editar
+                        ${pidiendoDatos ? 'cargando' : ''}
+                    `}
                     onClick={handleGuardarMapa}
-                ><BiSolidSave size={25} /> GUARDAR</button>
+                >
+                    {!pidiendoDatos && <BiSolidSave size={25} />}
+                    {!pidiendoDatos && 'GUARDAR' }
+                </button>
             </div>
         </div>
     )

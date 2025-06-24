@@ -10,9 +10,11 @@ import App from '../App';
 import mapas from '../data/mapas.js';
 import { FaUser } from "react-icons/fa";
 import axios from 'axios';
+import Toast from '../components/Toast.jsx';
+import useToast from '../hooks/useToast.js';
 
 
-function Main({user}) {
+function Main({ user }) {
 
     // const [user, setUser] = useState(null)
 
@@ -23,7 +25,7 @@ function Main({user}) {
     //                 withCredentials: true
     //             })
     //             setUser(res.data.user)
-                
+
     //         } catch (error) {
     //             console.log('No autenticado', error)
     //             setUser(null)
@@ -39,6 +41,8 @@ function Main({user}) {
     const [vistaMenu, setVistaMenu] = useState(true)
     const [jugando, setJugando] = useState(false)
     const [creando, setCreando] = useState(false)
+    const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()
+
 
     const handleRegresar = () => {
         setVistaMenu(prev => !prev)
@@ -51,11 +55,11 @@ function Main({user}) {
     const [mapa, setMapa] = useState(mapas[mapaActual - 1].mapa)
     const [bot, setBot] = useState(mapas[mapaActual - 1].bot)
 
-    useEffect(() => {        
+    useEffect(() => {
         setMapa(mapas[mapaActual - 1].mapa)
         setBot(mapas[mapaActual - 1].bot)
         console.log(mapa);
-        
+
     }, [mapaActual])
 
 
@@ -68,6 +72,7 @@ function Main({user}) {
 
     return (
         <div className={`main-container ${jugando ? 'jugando' : ''}`}>
+            <Toast mensaje={mensaje} icono={icono} mostrar={mostrar} setMostrar={setMostrar} />
             <div className="perfil" style={{
                 background: `linear-gradient(to bottom right,${user?.color1}, ${user?.color2})`,
                 '--nombre-completo': `${user?.nombre} ${user?.apellido}`
@@ -80,9 +85,11 @@ function Main({user}) {
                 ${creando ? 'ocultar' : ''}
             `}
                 setVistaMenu={setVistaMenu} setCreando={setCreando}
+                setMapa={setMapa} setBot={setBot} setJugando={setJugando}
             />
 
-            <Maker creando={creando} setCreando={setCreando} />
+            <Maker creando={creando} setCreando={setCreando} mostrarToast={mostrarToast}
+            />
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}
