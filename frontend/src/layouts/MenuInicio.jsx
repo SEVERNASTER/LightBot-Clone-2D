@@ -6,12 +6,17 @@ import { IoClose } from "react-icons/io5";
 
 
 function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, setJugando,
-    jugandoMiNivel, setJugandoMiNivel
+    jugandoMiNivel, setJugandoMiNivel, mostrarToast
 }) {
 
     const [girar, setGirar] = useState(false)
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
     const [mapasUsuario, setMapasUsuario] = useState([])
+
+    const eliminarNivelInterfaz = (id) => {
+        setMapasUsuario(prev => prev.filter(nivel => nivel.id !== id));
+    };
+
 
     const handlePedirNiveles = async () => {
         setGirar(true)
@@ -79,7 +84,9 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
                                     return <MiNivel titulo={mapa.titulo} key={index}
                                         setMapa={setMapa} setBot={setBot} setJugando={setJugando}
                                         mapa={mapa.mapa_data.mapa} bot={mapa.mapa_data.bot}
-                                        setJugandoMiNivel={setJugandoMiNivel}
+                                        setJugandoMiNivel={setJugandoMiNivel} id={mapa.id}
+                                        mostrarToast={mostrarToast} 
+                                        eliminarNivelInterfaz={() => eliminarNivelInterfaz(mapa.id)}
                                     />
                                 })
                             }

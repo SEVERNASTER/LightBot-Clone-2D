@@ -33,6 +33,7 @@
 }
 
 .mn-button {
+    position: relative;
     height: 45px;
     width: 120px;
     border-radius: 15px;
@@ -51,11 +52,41 @@
     transform: scale(.8);
 }
 
+.mn-button.eliminando {
+    pointer-events: none;
+    opacity: .7;
+}
+
 .mn-jugar {
     background: linear-gradient(45deg, #17AAF5, #0B65D8);
+}
 
+.mn-jugar.eliminando {
+    scale: .8;
 }
 
 .mn-eliminar {
     background: linear-gradient(45deg, #7248E9, #B92BDA);
 }
+
+.mn-eliminar.eliminando::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-left: solid 5px #fff;
+    border-right: none;
+    animation: cargando 1s linear infinite;
+    
+}
+
+@keyframes cargando {
+    100% {
+        transform: translateY(-50%) translateX(-50%) rotate(360deg);
+    }
+}
+

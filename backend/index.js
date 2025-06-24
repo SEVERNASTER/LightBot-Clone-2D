@@ -282,7 +282,7 @@ app.get('/api/getNiveles', authMiddleware, async (req, res) => {
 
         const { data, error } = await supabaseAutenticado
             .from('Niveles')
-            .select('titulo, mapa_data')
+            .select('id, titulo, mapa_data')
             .eq('id_usuario', req.user.id);
 
         if (error) {
@@ -301,5 +301,36 @@ app.get('/api/getNiveles', authMiddleware, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+app.delete('/api/eliminarNivel/:id', authMiddleware, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const supabaseAutenticado = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_KEY,
+            {
+                global: {
+                    headers: {
+                        Authorization: `Bearer ${req.token}`,
+                    },
+                },
+            }
+        );
+
+        const { error } = await supabaseAutenticado
+            .from('Niveles')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+
+        res.status(200).json({ message: 'Nivel eliminado correctamente' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 

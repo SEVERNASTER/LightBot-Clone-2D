@@ -95,6 +95,7 @@ function Main({ user }) {
                 setVistaMenu={setVistaMenu} setCreando={setCreando}
                 setMapa={setMapa} setBot={setBot} setJugando={setJugando}
                 jugandoMiNivel={jugandoMiNivel} setJugandoMiNivel={setJugandoMiNivel}
+                mostrarToast={mostrarToast}
             />
 
             <Maker creando={creando} setCreando={setCreando} mostrarToast={mostrarToast}

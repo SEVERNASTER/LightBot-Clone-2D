@@ -80,6 +80,12 @@
     animation: cargando 1s linear infinite;
 }
 
+@keyframes cargando {
+    100% {
+        transform: translateY(-50%) translateX(-50%) rotate(360deg);
+    }
+}
+
 .boton-editar.cargando {
     pointer-events: none;
     cursor: not-allowed;
@@ -92,11 +98,6 @@
     pointer-events: none;
 }
 
-@keyframes cargando {
-    100% {
-        transform: translateY(-50%) translateX(-50%) rotate(360deg);
-    }
-}
 
 .boton-editar:hover {
     transform: translateY(-10px);
