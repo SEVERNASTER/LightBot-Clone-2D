@@ -66,7 +66,7 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
                                 <button className="opcion-menu jugar"
                                     onClick={() => setVistaMenu(prev => !prev)}
                                 >Jugar</button>
-                                <button className="opcion-menu instrucciones">Instrucciones</button>
+                                {/* <button className="opcion-menu instrucciones">Instrucciones</button> */}
                                 <button className="opcion-menu opciones"
                                     onClick={handlePedirNiveles}
                                 >Mis Niveles</button>
