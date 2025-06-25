@@ -179,7 +179,7 @@ app.post('/api/login', async (req, res) => {
             .cookie('token', session.access_token, {
                 httpOnly: true,
                 secure: true,
-                sameSite: 'strict',
+                sameSite: 'none',
                 maxAge: 1000 * 60 * 60 * 24 // 1 día
             })
             .status(200).json({
