@@ -24,11 +24,9 @@ function Main({ user }) {
     const [hayNuevoNivel, setHayNuevoNivel] = useState(false)
     const [mapas, setMapas] = useState(mapas1)
 
-    // Estados iniciales para mapa y bot
     const [mapa, setMapa] = useState(mapas1[0].mapa)
     const [bot, setBot] = useState(mapas1[0].bot)
 
-    // useEffect para actualizar mapa y bot cuando cambien mapas o mapaActual
     useEffect(() => {
         if (mapas && mapas[mapaActual - 1]) {
             setMapa(mapas[mapaActual - 1].mapa)
