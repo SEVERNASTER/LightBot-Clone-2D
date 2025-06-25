@@ -90,6 +90,11 @@
         left: 90%;
         scale: .8;
     }
+
+    .perfil {
+        right: 90%;
+        transform: translateX(50%);
+    }
 }
 
 @media (max-width: 800px) {
