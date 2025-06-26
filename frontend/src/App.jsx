@@ -6,6 +6,7 @@ import Panel from './components/Panel';
 import { useState, useEffect, useRef } from 'react';
 import Tour from './components/Tour';
 
+import PantallaGanar from './components/PantallaGanar';
 
 
 
@@ -39,7 +40,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
     reiniciarJuego()
     reiniciarFuncionBtn()
   }, [bot])
-  
+
 
   // console.log('este es el bot:', bot);
 
@@ -116,6 +117,19 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
   const pausadoRef = useRef(false)
   const [mensajeLuz, setMensajeLuz] = useState(false)
 
+const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
+
+useEffect(() => {
+  if (secuenciaTerminada) {
+    const quedanLuces = mapa.some(fila => fila.some(celda => celda === 2));
+    if (!quedanLuces) {
+      terminarJuego(true);
+    } else {
+      terminarJuego(false);
+    }
+    setSecuenciaTerminada(false);
+  }
+}, [mapa, secuenciaTerminada]);
 
 
 
@@ -124,6 +138,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
     if (indice >= secuencia.length) {
       setPuedeEditar(true)
       setEjecutando(false)
+      setSecuenciaTerminada(true);
       return;
     }
 
@@ -397,6 +412,22 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
   //   }, 1000);  
   // }, [sentido])
 
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [mensaje, setMensaje] = useState('');
+  const [tipo, setTipo] = useState(''); // "ganar" o "perder"
+
+  // Esta función la llamas cuando el juego termina, y le pasas si ganaste o no
+  const terminarJuego = (gano) => {
+    if (gano) {
+      setMensaje('¡Ganaste! 🎉');
+      setTipo('ganar');
+    } else {
+      setMensaje('Perdiste 😢');
+      setTipo('perder');
+    }
+    setMostrarModal(true);
+  };
+
 
   return (
     <div className={`app-wrapper ${jugando ? 'mostrar' : ''}`}>
@@ -417,14 +448,19 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
           avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
           comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando} />
       </div>
-      <div className='mensaje-wrapper'>
-        {mensajeLuz && (
-          <div className='modal-luz'>
-          <p>Todas las luces prendidas exitosamente</p>
-          <button className="boton-aceptar" onClick={() => setMensajeLuz(false)}>Aceptar</button>
-        </div>
+      <div>
+        {/* Aquí va tu juego, y cuando termine llamas terminarJuego(true) o terminarJuego(false) */}
+
+
+        {mostrarModal && (
+          <PantallaGanar
+            mensaje={mensaje}
+            tipo={tipo}
+            onCerrar={() => setMostrarModal(false)}
+          />
         )}
       </div>
+
 
     </div>
   );
