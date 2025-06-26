@@ -114,6 +114,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
   const [listoParaEjecutar, setListoParaEjecutar] = useState(false);
   const indiceActualRef = useRef(0);
   const pausadoRef = useRef(false)
+  const [mensajeLuz, setMensajeLuz] = useState(false)
 
 
 
@@ -159,6 +160,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
 
           if (todasEncendidas) {
             console.log('¡Todas las luces han sido encendidas!');
+            setMensajeLuz(true);
           }
 
         } else if (celdaActual === 3) {
@@ -414,6 +416,14 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
           mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
           avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
           comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando} />
+      </div>
+      <div className='mensaje-wrapper'>
+        {mensajeLuz && (
+          <div className='modal-luz'>
+          <p>Todas las luces prendidas exitosamente</p>
+          <button className="boton-aceptar" onClick={() => setMensajeLuz(false)}>Aceptar</button>
+        </div>
+        )}
       </div>
 
     </div>

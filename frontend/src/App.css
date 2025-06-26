@@ -29,3 +29,26 @@
   }
 }
 
+.modal-luz {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  color: #b7dace;
+  font-size: 20px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(120deg, #063587, #19B4FA);
+  padding: 20px 40px;
+  border-radius: 25px;
+  text-align: center;
+}
+
+
+.boton-aceptar {
+ margin-top: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(120deg, #041a3e, #1d749c);
+  color: rgb(176, 140, 140);
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+}
