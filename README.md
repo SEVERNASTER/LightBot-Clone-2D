@@ -1,21 +1,59 @@
-# React + Vite
+# 🧠 CodePilot: Juego de lógica con programación visual
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**CodePilot** es un juego educativo estilo LightBot desarrollado con **React** y **Supabase**, diseñado para enseñar conceptos básicos de lógica y programación como movimiento secuencial, orientación y resolución de problemas mediante mapas interactivos.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🧩 **15 niveles básicos** para aprender movimiento y dirección.
+- 🛣️ **15 desafíos prácticos** para reforzar lo aprendido.
+- 🔁 **15 rutinas variadas** con nuevos caminos y posiciones.
+- ✍️ **Creador de mapas personalizados** con editor visual.
+- 💾 **Autenticación y almacenamiento** con Supabase.
+- 🌐 **Responsive**: compatible con computadoras y móviles (editor solo en PC).
+- 🍪 **Inicio de sesión con cookies seguras**.
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ⚛️ **React 19** + Vite
+- 🔥 **Supabase** (Auth, DB, Realtime)
+- 🎨 CSS personalizado + React Icons
+- 📦 Deploy con **Vercel** (frontend) y **Render** (backend)
 
-## ingresar a la carpeta del proyecto e instalar 
-npm install --dependency-peer-deps
- o
-npm install force
+## 📷 Capturas
 
-# para ejecutar el proyecto ingresar a la carpeta de backend
-## y en otra terminal ingresar al frontend y ejecutar:
-npm run dev
+![Vista del menú](./frontend/src/assets/menu.png)
+![Editor de mapas](./frontend/src/assets/editor.png)
+![Editor de mapas](./frontend/src/assets/juego.jpg)
+
+## 🧪 Instalación local
+
+1. Clona este repositorio:
+
+```bash
+   git clone https://github.com/SEVERNASTER/CODEPILOT.git
+   cd CODEPILOT
+```
+
+2. Instala las dependencias, copia y pega estos comandos y correlos de una vez para instalar dependencias tanto en el frontend como en el backend
+
+``` bash
+    cd frontend/
+    npm install --legacy-peer-deps
+    cd ../backend
+    npm install --legacy-peer-deps
+```
+
+# ⚠️ Nota importante:
+Si ocurre algún error relacionado con dependencias (npm ERR!), ejecuta el siguiente comando como alternativa:
+``` bash
+    npm install --force
+```
+
+## 🔐 Variables de entorno
+
+### Dentro de la capeta frontend crear un archivo `.env`
+
+```env
+    VITE_BACKEND_URL=http://localhost:3000
+    VITE_BACKEND_URL: URL del backend desplegado (por ejemplo en Render) o local (http://localhost:3000).
+```

@@ -21,7 +21,7 @@ function Main({ user }) {
     const [creando, setCreando] = useState(false)
     const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()
     const [jugandoMiNivel, setJugandoMiNivel] = useState(false)
-    const [hayNuevoNivel, setHayNuevoNivel] = useState(false)
+    const [hayNuevoNivel, setHayNuevoNivel] = useState(true)
     const [mapas, setMapas] = useState(mapas1)
 
     const [mapa, setMapa] = useState(mapas1[0].mapa)

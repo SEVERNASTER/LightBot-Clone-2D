@@ -26,10 +26,10 @@ function Niveles({ niveles, setMapaActual, extraClases, setJugando, extraStyles,
                             />
                         })}
                     </div>
-                    <footer className="niveles-footer">
+                    {/* <footer className="niveles-footer">
                         <div className="barra-progreso"></div>
                         <h4>Progreso: 8/15 niveles completados</h4>
-                    </footer>
+                    </footer> */}
                 </div>
             </div>
         </div>
