@@ -1,0 +1,111 @@
+.modal-overlay {
+    position: absolute;
+    /* Cambiado de fixed a absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* El resto queda igual */
+.modal-content {
+    background-color: #24244e;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    animation: zoomIn 0.3s ease;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+.modal-content.ganar {
+    border: 3px solid green;
+    color: green;
+}
+
+.modal-content.perder {
+    border: 3px solid red;
+    color: red;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animación para borde animado verde (ganar) */
+@keyframes borderGlowGreen {
+    0% {
+        box-shadow: 0 0 5px green;
+        border-color: green;
+    }
+
+    50% {
+        box-shadow: 0 0 20px limegreen;
+        border-color: limegreen;
+    }
+
+    100% {
+        box-shadow: 0 0 5px green;
+        border-color: green;
+    }
+}
+
+/* Animación para borde animado rojo (perder) */
+@keyframes borderGlowRed {
+    0% {
+        box-shadow: 0 0 5px red;
+        border-color: red;
+    }
+
+    50% {
+        box-shadow: 0 0 20px orangered;
+        border-color: orangered;
+    }
+
+    100% {
+        box-shadow: 0 0 5px red;
+        border-color: red;
+    }
+}
+
+.modal-content.ganar {
+    border: 3px solid green;
+    color: green;
+    animation: zoomIn 0.3s ease, borderGlowGreen 2s ease-in-out infinite;
+}
+
+.modal-content.perder {
+    border: 3px solid red;
+    color: red;
+    animation: zoomIn 0.3s ease, borderGlowRed 2s ease-in-out infinite;
+}
