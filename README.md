@@ -51,9 +51,59 @@ Si ocurre algún error relacionado con dependencias (npm ERR!), ejecuta el sigui
 
 ## 🔐 Variables de entorno
 
-### Dentro de la capeta frontend crear un archivo `.env`
+### Dentro de la carpeta `frontend`, crear un archivo `.env` con el siguiente contenido:
 
 ```env
-    VITE_BACKEND_URL=http://localhost:3000
-    VITE_BACKEND_URL: URL del backend desplegado (por ejemplo en Render) o local (http://localhost:3000).
+# Si vas a usar el backend en local:
+VITE_BACKEND_URL=http://localhost:3000
+
+# O si prefieres usar el backend desplegado:
+VITE_BACKEND_URL=https://codepilot-backend.onrender.com
+
 ```
+
+### 📁 Backend
+
+Dentro de la carpeta `backend`, crea un archivo `.env` con las siguientes variables:
+
+```env
+    SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6dndjcmh4cm56Z2RnZWlmdHJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0NDc2MTYsImV4cCI6MjA2NjAyMzYxNn0.JvEGJb6l0tLglPsgbJ08W0Xosku3PDBTVJ8EJ_bJFEQ
+
+    SERVICE_ROLE=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6dndjcmh4cm56Z2RnZWlmdHJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDQ0NzYxNiwiZXhwIjoyMDY2MDIzNjE2fQ.5SFe7Ud8bDILXsePfbeu4GOvoAb5zqBZ5Dl-6r82d-Y
+
+    SUPABASE_URL=https://szvwcrhxrnzgdgeiftrt.supabase.co
+```
+
+## ▶️ Cómo iniciar el proyecto en local
+
+### 🔹 Frontend
+
+```bash
+    cd ./frontend
+    npm run dev
+```
+
+### Esto iniciará el frontend en modo desarrollo, normalmente en http://localhost:5173.
+
+## 🔹 Backend
+
+```bash
+    cd ./backend
+    npm start
+```
+
+### Esto levantará el servidor backend en http://localhost:3000, si todo está configurado correctamente.
+
+## 🚀 Proyecto desplegado
+
+- 🔗 Frontend: [https://codepilot-ten.vercel.app](https://codepilot-ten.vercel.app)
+- 🔗 Backend: [https://codepilot-backend.onrender.com](https://codepilot-backend.onrender.com)
+
+> ⚠️ **Nota:** El backend está desplegado en Render (plan gratuito), por lo que puede tardar unos segundos en "despertar" cuando se hace la primera solicitud. Esto es normal en servicios con free trial o tier gratuito.
+
+
+
+
+
+
+

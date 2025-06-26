@@ -146,7 +146,7 @@ function SignUp() {
                         </div>
 
                         <footer className="confirmacion-footer">
-                            <p>Solo falta un pequeño paso: ve a tu bandeja de entrada y haz clic en el enlace para activar tu cuenta. 🚀</p>
+                            <p>Solo falta un pequeño paso: ve a tu bandeja de entrada y haz clic en el enlace para activar tu cuenta. No olvides revisar en SPAM</p>
                         </footer>
 
                     </div>
