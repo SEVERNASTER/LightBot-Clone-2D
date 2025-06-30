@@ -116,6 +116,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
   const indiceActualRef = useRef(0);
   const pausadoRef = useRef(false)
   const [mensajeLuz, setMensajeLuz] = useState(false)
+  const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
+
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
 
@@ -263,6 +265,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
 
   const agregarComando = (comando) => {
     if (secuencia.length >= limiteDeComandos) return;
+    setComandosRestantes(prev => prev - 1)
     switch (comando) {
       case 'avanzar':
         avanzar()
@@ -439,7 +442,11 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
           ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
           mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
-          comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando} />
+          comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando}
+          limiteDeComandos={limiteDeComandos} comandosRestantes={comandosRestantes}
+          setComandosRestantes={setComandosRestantes}
+        />
+
       </div>
       <div>
 

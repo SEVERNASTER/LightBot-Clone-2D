@@ -20,10 +20,17 @@ import { HiArrowUturnRight } from "react-icons/hi2";
 
 
 function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
-    reiniciar, comandoActual, puedeEditar, jugando
+    reiniciar, comandoActual, puedeEditar, jugando, limiteDeComandos, comandosRestantes,
+    setComandosRestantes
 }) {
 
     const [comandos, setComandos] = useState([])
+
+    useEffect(() => {
+        console.log(comandosRestantes);
+
+    }, [comandosRestantes])
+
 
     const agregarComandoImg = (comando) => {
         let res = {};
@@ -87,6 +94,17 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
         setSecuencia(prev => prev.filter((_, indice) => indice !== indiceAEliminar))
     }
 
+    const crearPseudoComandos = () => {
+        let pseudo = []
+        let inicio = limiteDeComandos - comandosRestantes - 1
+        for (let i = 0; i < limiteDeComandos; i++) {
+            if (i > inicio) {
+                pseudo.push(i + 1)
+            }
+        }
+        return pseudo
+    }
+
 
 
     return (
@@ -99,9 +117,10 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     </div>
                     <div className="comandos-contenedor" >
                         {
-                            comandos.length === 0 &&
+                            comandos.length === 0 && !limiteDeComandos &&
                             <h3 className='sin-comandos'>Aqui verás tus comandos</h3>
                         }
+
                         {
                             comandos.length > 0 &&
                             <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
@@ -110,6 +129,8 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     setComandos([])
                                     setSecuencia([])
                                     reiniciar()
+                                    setComandosRestantes(limiteDeComandos)
+
                                 }}
                                 disabled={!puedeEditar}
                             >
@@ -117,6 +138,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                 {!puedeEditar && <TbTrashOff />}
                             </button>
                         }
+
                         {
                             comandos.map((actual, indice) => {
                                 return <Comando
@@ -124,10 +146,20 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
                                     icono={actual.tipo === 'icono' ? actual.imagen : ''}
                                     resaltar={indice + 1 === comandoActual}
-                                    eliminarComando={() => eliminarComando(indice)}
+                                    eliminarComando={() => {
+                                        eliminarComando(indice)
+                                        setComandosRestantes(prev => prev + 1)
+                                    }}
                                     inhabilitar={ejecutando}
                                     puedeEditar={puedeEditar}
                                 />
+                            })
+                        }
+
+                        {
+                            limiteDeComandos &&
+                            crearPseudoComandos().map((actual, indice) => {
+                                return <div key={indice} className='pseudo'>{actual}</div>
                             })
                         }
                     </div>

@@ -262,6 +262,25 @@
     cursor: not-allowed;
 }
 
+.pseudo {
+    border: dashed #fff;
+    height: 70px;
+    width: 70px;
+    color: #fff;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, .2);
+}
+
+
+
+
+
+
+
 @media screen and (max-width: 850px) {
     .panel-contenedor {
         height: 50vh;
