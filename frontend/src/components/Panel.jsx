@@ -19,13 +19,13 @@ import { HiArrowUturnLeft } from "react-icons/hi2";
 import { HiArrowUturnRight } from "react-icons/hi2";
 
 
-function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, girarIzq,
+function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
     reiniciar, comandoActual, puedeEditar, jugando
 }) {
 
     const [comandos, setComandos] = useState([])
 
-    const agregarComando = (comando) => {
+    const agregarComandoImg = (comando) => {
         let res = {};
         switch (comando) {
             case 'avanzar':
@@ -62,20 +62,20 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
         if (secuencia.length !== 0) {
             const nuevosComandos = secuencia.map(actual => {
                 if (actual === 'avanzar') {
-                    return agregarComando(actual);
+                    return agregarComandoImg(actual);
                 }
                 if (actual === 'vueltaDer' || actual === 'vueltaIzq') {
-                    return agregarComando(actual);
+                    return agregarComandoImg(actual);
                 }
 
                 if (actual === 'luz') {
-                    return agregarComando(actual);
+                    return agregarComandoImg(actual);
                 }
                 return null;
             }).filter(Boolean)
 
             setComandos(nuevosComandos);
-        }else{
+        } else {
             setComandos([])
         }
 
@@ -139,8 +139,9 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
                     </div>
 
                     <div className="botones-contenedor">
+                        {/* para avanzar */}
                         <Button icon={FaArrowUp}
-                            onClick={avanzar}
+                            onClick={() => agregarComando('avanzar')}
                             extraClass={` ${!puedeEditar ? 'inhabilitar' : ''}`}
                             inhabilitar={!puedeEditar}
                             label='Avanzar'
@@ -149,9 +150,8 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
 
                         {/* para encender la luz */}
                         <Button icon={FaLightbulb}
-                            onClick={() => {
-                                setSecuencia(prev => [...prev, 'luz']);
-                            }} extraClass={`zoom boton-luz ${!puedeEditar ? 'inhabilitar' : ''}`}
+                            onClick={() => agregarComando('luz')}
+                            extraClass={`zoom boton-luz ${!puedeEditar ? 'inhabilitar' : ''}`}
                             inhabilitar={!puedeEditar}
                             label='Encender Luz'
                             titulo='ENCENDER'
@@ -159,7 +159,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
 
                         {/* girar a la izquierda */}
                         <Button icon={HiArrowUturnLeft}
-                            onClick={girarIzq}
+                            onClick={() => agregarComando('girarIzq')}
                             extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
                             inhabilitar={!puedeEditar}
                             label='Girar Izquierda'
@@ -168,7 +168,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, avanzar, girarDer, 
 
                         {/* girar a la derecha */}
                         <Button icon={HiArrowUturnRight}
-                            onClick={girarDer}
+                            onClick={() => agregarComando('girarDer')}
                             extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
 
                             inhabilitar={!puedeEditar}
