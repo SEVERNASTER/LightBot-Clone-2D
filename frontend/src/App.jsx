@@ -23,7 +23,7 @@ import PantallaGanar from './components/PantallaGanar';
  */
 
 
-function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
+function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1 }) {
 
   // 0 = camino libre
   // 1 = obstaculo
@@ -444,7 +444,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
           comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando}
           limiteDeComandos={limiteDeComandos} comandosRestantes={comandosRestantes}
-          setComandosRestantes={setComandosRestantes}
+          setComandosRestantes={setComandosRestantes} proc1={proc1}
         />
 
       </div>

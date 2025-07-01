@@ -21,7 +21,7 @@ import { HiArrowUturnRight } from "react-icons/hi2";
 
 function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
     reiniciar, comandoActual, puedeEditar, jugando, limiteDeComandos, comandosRestantes,
-    setComandosRestantes
+    setComandosRestantes, proc1
 }) {
 
     const [comandos, setComandos] = useState([])
@@ -165,6 +165,49 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     </div>
                 </div>
 
+                {   
+                    proc1 && 
+                    <div className="proc1-contenedor">
+                        <div className="proc1-titulo">
+                            <h3>COMANDOS DE PROC1</h3>
+                        </div>
+                        <div className="proc1-comandos">
+
+                            {
+                                comandos.length > 0 &&
+                                <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
+                                    title='Eliminar todos los comandos'
+                                    onClick={() => {
+                                        setComandos([])
+                                        setSecuencia([])
+                                        reiniciar()
+                                        setComandosRestantes(limiteDeComandos)
+
+                                    }}
+                                    disabled={!puedeEditar}
+                                >
+                                    {puedeEditar && <BsFillTrash3Fill />}
+                                    {!puedeEditar && <TbTrashOff />}
+                                </button>
+                            }
+
+                            {comandos.map((actual, indice) => {
+                                return <Comando
+                                    key={indice}
+                                    imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
+                                    icono={actual.tipo === 'icono' ? actual.imagen : ''}
+                                    resaltar={indice + 1 === comandoActual}
+                                    eliminarComando={() => {
+                                        eliminarComando(indice)
+                                        setComandosRestantes(prev => prev + 1)
+                                    }}
+                                    inhabilitar={ejecutando}
+                                    puedeEditar={puedeEditar}
+                                />
+                            })}
+                        </div>
+                    </div>
+                }
                 <div className="comandos-disponibles">
                     <div className="comandos-titulo">
                         <h3>COMANDOS DISPONIBLES</h3>
