@@ -23,7 +23,9 @@ import PantallaGanar from './components/PantallaGanar';
  */
 
 
-function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1 }) {
+function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
+  limiteDeComandosProc1
+}) {
 
   // 0 = camino libre
   // 1 = obstaculo
@@ -102,7 +104,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1
 
 
   const [secuencia, setSecuencia] = useState([])
-
+  const [secuenciaProc1, setSecuenciaProc1] = useState([])
+  
   const [botAnimado, setBotAnimado] = useState(false)
   const [ejecutando, setEjecutando] = useState(false)
   const [colisionArriba, setColisionArriba] = useState(false)
@@ -117,6 +120,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1
   const pausadoRef = useRef(false)
   const [mensajeLuz, setMensajeLuz] = useState(false)
   const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
+  const [comandosRestantesProc1, setComandosRestantesProc1] = useState(limiteDeComandosProc1)
 
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
@@ -263,21 +267,23 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1
     }, 1000);//500
   };
 
-  const agregarComando = (comando) => {
-    if (secuencia.length >= limiteDeComandos) return;
-    setComandosRestantes(prev => prev - 1)
+  const agregarComando = (comando, secuenciaActual, setSecuenciaActual, limiteDeComandosActual, setComandosRestantesActual) => {
+    console.log(secuencia, limiteDeComandosActual);
+    
+    if (secuenciaActual.length >= limiteDeComandosActual) return;
+    setComandosRestantesActual(prev => prev - 1)
     switch (comando) {
       case 'avanzar':
-        avanzar()
+        avanzar(setSecuenciaActual)
         break;
       case 'girarDer':
-        girarDer()
+        girarDer(setSecuenciaActual)
         break;
       case 'girarIzq':
-        girarIzq()
+        girarIzq(setSecuenciaActual)
         break;
       case 'luz':
-        setSecuencia(prev => [...prev, 'luz']);
+        setSecuenciaActual(prev => [...prev, 'luz']);
         break;
       default:
         break;
@@ -285,11 +291,11 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1
   }
 
 
-  const avanzar = () => {
+  const avanzar = (setSecuenciaActual) => {
 
     const angulo = ((sentidoAux % 360) + 360) % 360;
 
-    setSecuencia(prev => [...prev, 'avanzar']);
+    setSecuenciaActual(prev => [...prev, 'avanzar']);
 
     switch (angulo) {
       case 0: // arriba
@@ -327,15 +333,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1
 
 
 
-  const girarDer = () => {
+  const girarDer = (setSecuenciaActual) => {
     setSentidoAux(prev => prev + 90);
-    setSecuencia(prev => [...prev, 'vueltaDer']);
+    setSecuenciaActual(prev => [...prev, 'vueltaDer']);
   }
 
 
-  const girarIzq = () => {
+  const girarIzq = (setSecuenciaActual) => {
     setSentidoAux(prev => prev - 90);
-    setSecuencia(prev => [...prev, 'vueltaIzq']);
+    setSecuenciaActual(prev => [...prev, 'vueltaIzq']);
   }
 
 
@@ -404,9 +410,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1
     indiceActualRef.current = 0
   }
 
-  useEffect(() => {
-    console.log('fila: ' + posAux.fila, 'columna:' + posAux.columna);
-  }, [posAux])
+  // useEffect(() => {
+  //   console.log('fila: ' + posAux.fila, 'columna:' + posAux.columna);
+  // }, [posAux])
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [mensaje, setMensaje] = useState('');
@@ -444,7 +450,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandosm, proc1
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
           comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando}
           limiteDeComandos={limiteDeComandos} comandosRestantes={comandosRestantes}
-          setComandosRestantes={setComandosRestantes} proc1={proc1}
+          setComandosRestantes={setComandosRestantes} proc1={proc1} secuenciaProc1={secuenciaProc1}
+          setSecuenciaProc1={setSecuenciaProc1} limiteDeComandosProc1={limiteDeComandosProc1}
+          comandosRestantesProc1={comandosRestantesProc1} setComandosRestantesProc1={setComandosRestantesProc1}
         />
 
       </div>

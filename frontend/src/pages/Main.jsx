@@ -86,7 +86,7 @@ function Main({ user }) {
             </button>
 
             <App mapa={mapa} setMapa={setMapa} jugando={jugando} mapaActual={mapaActual}
-                bot={bot} limiteDeComandos={12}
+                bot={bot} limiteDeComandos={12} proc1={true} limiteDeComandosProc1={8}
             />
         </div>
     )

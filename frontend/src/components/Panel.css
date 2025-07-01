@@ -143,7 +143,7 @@
 .panel-principal {
     border: solid #fff;
     /* height: 550px; */
-    width: 80%;
+    width: 100%;
     height: 100%;
     padding: 20px 0;
     aspect-ratio: 1 / 1;
@@ -177,7 +177,6 @@
 }
 
 .comandos-contenedor {
-    border: dashed 2px #1ABCFD;
     border-radius: 20px;
     height: 275px;
     width: 100%;
@@ -190,6 +189,12 @@
     gap: 15px;
     margin-bottom: 30px;
     background-color: #233362;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.comandos-contenedor.activar {
+    border: dashed 4px #1ABCFD;
 }
 
 .sin-comandos {
@@ -302,7 +307,6 @@
 }
 
 .proc1-comandos{
-    border: dashed #0ef;
     background-color: #233362;
     margin: 20px;
     border-radius: 5px;
@@ -313,6 +317,13 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    transition: .2s;
+    cursor: pointer;
+}
+
+.proc1-comandos.activar {
+    border: dashed 4px #0ef;
+
 }
 
 
