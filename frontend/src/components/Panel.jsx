@@ -62,6 +62,12 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     tipo: 'icono'
                 }
                 break;
+            case 'p1':
+                res = {
+                    imagen: 'P1',
+                    tipo: 'texto'
+                }
+                break;
             default:
                 break;
         }
@@ -81,6 +87,10 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
                 if (actual === 'luz') {
                     return agregarComandoImg(actual);
+                }
+
+                if(actual === 'p1'){
+                    return agregarComandoImg(actual)
                 }
                 return null;
             }).filter(Boolean)
@@ -104,6 +114,10 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
                 if (actual === 'luz') {
                     return agregarComandoImg(actual);
+                }
+
+                if(actual === 'p1'){
+                    return agregarComandoImg(actual)
                 }
                 return null;
             }).filter(Boolean)
@@ -239,12 +253,14 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                             </button>
                         }
 
+                        {/* para mostrar los comandos en main */}
                         {
                             comandos.map((actual, indice) => {
                                 return <Comando
                                     key={indice}
                                     imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
                                     icono={actual.tipo === 'icono' ? actual.imagen : ''}
+                                    texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
                                     resaltar={indice + 1 === comandoActual}
                                     eliminarComando={() => {
                                         eliminarComando(indice)
@@ -304,6 +320,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     key={indice}
                                     imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
                                     icono={actual.tipo === 'icono' ? actual.imagen : ''}
+                                    texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
                                     resaltar={indice + 1 === comandoActual}
                                     eliminarComando={() => {
                                         eliminarComando(indice)
@@ -391,7 +408,6 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     seleccionarSetSecuencia(),
                                     seleccionarLimiteComandos(),
                                     seleccionarSetComandosRestantes()
-
                                 )
                             }
                             extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
@@ -414,6 +430,20 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                             onClick={jugar}
                             extraClass={`zoom boton-jugar ${ejecutando ? 'padding-icono' : ''}`}
                             label='Ejecutar Comandos'
+                        />
+
+                        <Button titulo={'P1'}
+                            onClick={() =>
+                                agregarComando(
+                                    'p1',
+                                    seleccionarSecuencia(),
+                                    seleccionarSetSecuencia(),
+                                    seleccionarLimiteComandos(),
+                                    seleccionarSetComandosRestantes()
+                                )
+                            }
+                            extraClass={`zoom boton-jugar ${ejecutando ? 'padding-icono' : ''} p1-button`}
+                            label='Agregar P1'
                         />
 
 

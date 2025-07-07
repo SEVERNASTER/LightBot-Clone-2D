@@ -311,10 +311,14 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
 
 
+  useEffect(() => {
+    console.log(secuencia);
+  }, [secuencia])
+  
 
 
   const agregarComando = (comando, secuenciaActual, setSecuenciaActual, limiteDeComandosActual, setComandosRestantesActual) => {
-    console.log(secuenciaActual, limiteDeComandosActual);
+    // console.log(secuenciaActual, limiteDeComandosActual);
 
     if (secuenciaActual.length >= limiteDeComandosActual) return;
     setComandosRestantesActual(prev => prev - 1)
@@ -330,6 +334,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
         break;
       case 'luz':
         setSecuenciaActual(prev => [...prev, 'luz']);
+        break;
+      case 'p1':
+        setSecuenciaActual(prev => [...prev, 'p1'])
         break;
       default:
         break;
