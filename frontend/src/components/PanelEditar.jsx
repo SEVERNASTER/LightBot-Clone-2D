@@ -30,9 +30,9 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
         setPuedeArrastrarBot(puedeArrastrar)
     }, [mapa])
 
-    useEffect(() => {
-        console.log(mapa);
-    }, [mapa])
+    // useEffect(() => {
+    //     console.log(mapa);
+    // }, [mapa])
 
 
     const handleGuardarMapa = async () => {

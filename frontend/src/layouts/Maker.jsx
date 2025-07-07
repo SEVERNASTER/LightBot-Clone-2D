@@ -14,9 +14,9 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
     const [debeVoltearse, setDebeVoltearse] = useState(false)
     const [titulo, setTitulo] = useState('')
 
-    useEffect(() => {
-        console.log(titulo);
-    }, [titulo])
+    // useEffect(() => {
+    //     console.log(titulo);
+    // }, [titulo])
 
 
 

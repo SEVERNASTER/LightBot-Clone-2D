@@ -30,7 +30,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    
+        
     /* flex-wrap: wrap; */
     gap: 15px;
     /* padding: 10px; */
@@ -87,11 +87,13 @@
 
 .boton-jugar {
     color: #fff;
+    width: 50% !important;
     border-radius: 50%;
     padding-left: 5px;
     padding-top: 2px;
     font-weight: 700;
     background-color: #F1287F !important;
+    grid-column: span 2;
 }
 
 .boton-jugar.inhabilitar {

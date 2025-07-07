@@ -289,7 +289,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                         setcomandosProc1([])
                                         setSecuenciaProc1([])
                                         reiniciar()
-                                        // setComandosRestantes(limiteDeComandosProc1)
+                                        setComandosRestantesProc1(limiteDeComandosProc1)
 
                                     }}
                                     disabled={!puedeEditar}
@@ -402,12 +402,12 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                         />
 
                         {/* para reiniciar la secuencia */}
-                        <Button icon={RiResetRightFill}
+                        {/* <Button icon={RiResetRightFill}
                             onClick={reiniciar}
                             extraClass={`zoom boton-reiniciar ${ejecutando ? 'inhabilitar' : ''}`}
                             inhabilitar={ejecutando}
                             label='Reiniciar'
-                        />
+                        /> */}
 
                         {/* para iniciar la secuencia */}
                         <Button icon={ejecutando ? FaPause : FaPlay}

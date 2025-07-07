@@ -105,9 +105,10 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
   const [secuencia, setSecuencia] = useState([])
   const [secuenciaProc1, setSecuenciaProc1] = useState([])
-  
+
   const [botAnimado, setBotAnimado] = useState(false)
   const [ejecutando, setEjecutando] = useState(false)
+  const ejecutandoRef = useRef(ejecutando)
   const [colisionArriba, setColisionArriba] = useState(false)
   const [colisionAbajo, setColisionAbajo] = useState(false)
   const [colisionDerecha, setColisionDerecha] = useState(false)
@@ -138,8 +139,23 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   }, [mapa, secuenciaTerminada]);
 
 
+  useEffect(() => {
+    ejecutandoRef.current = ejecutando
+  }, [ejecutando])
+  
 
-  const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
+
+
+
+
+
+
+
+
+
+  const ejecutarSecuencia = (indice = 0, sentidoActual = sentido,
+    posActual = pos, secuencia = this.secuencia) => {
+    
 
     if (indice >= secuencia.length) {
       setPuedeEditar(true)
@@ -148,7 +164,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       return;
     }
 
-    if (pausadoRef.current) {
+    if (!ejecutando) {
       setEjecutando(false)
       return;
     }
@@ -156,18 +172,20 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     indiceActualRef.current = indice + 1;
     setComandoActual(indice + 1)
 
-    const direccion = secuencia[indice];
+
+
+    const comandoActual = secuencia[indice];
     let nuevoSentido = sentidoActual;
     let nuevaPos = { ...posActual };
 
     // Giro
-    if (direccion === 'vueltaDer' || direccion === 'vueltaIzq') {
-      nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
+    if (comandoActual === 'vueltaDer' || comandoActual === 'vueltaIzq') {
+      nuevoSentido += comandoActual === 'vueltaDer' ? 90 : -90;
       setSentido(nuevoSentido);
     }
 
     // Encender luz
-    if (direccion === 'luz') {
+    if (comandoActual === 'luz') {
       setMapa(prevMapa => {
         const nuevoMapa = prevMapa.map(fila => [...fila]);
         const celdaActual = nuevoMapa[nuevaPos.fila][nuevaPos.columna];
@@ -199,7 +217,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
 
     // Movimiento para avanzar
-    if (direccion === 'avanzar') {
+    if (comandoActual === 'avanzar') {
       const angulo = ((nuevoSentido % 360) + 360) % 360;
 
       const filaActual = nuevaPos.fila;
@@ -263,13 +281,41 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     // Continuar
     setTimeout(() => {
-      ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
+      // if (comandoActual === 'p1') {
+      //   let indiceProc1 = -1
+      //   while(indiceProc1 < secuenciaProc1.length){
+      //     ejecutarSecuencia(indiceProc1 + 1, nuevoSentido, nuevaPos, secuenciaProc1);
+      //   }
+      // }else {
+      
+      // }
+      if(ejecutandoRef.current){
+        let indiceProc1 = -1
+        let indiceMain = indice
+        if(comandoActual === 'p1'){
+
+          while(indiceProc1 < secuenciaProc1.length){
+            setTimeout(() => {
+              if(ejecutandoRef.current){
+                ejecutarSecuencia(++indiceProc1, nuevoSentido, nuevaPos, secuenciaProc1)
+              }
+            }, 1000);
+          }
+          
+        }else{
+          ejecutarSecuencia(indiceMain + 1, nuevoSentido, nuevaPos, secuencia)
+        }
+      }
     }, 1000);//500
   };
 
+
+
+
+
   const agregarComando = (comando, secuenciaActual, setSecuenciaActual, limiteDeComandosActual, setComandosRestantesActual) => {
-    console.log(secuencia, limiteDeComandosActual);
-    
+    console.log(secuenciaActual, limiteDeComandosActual);
+
     if (secuenciaActual.length >= limiteDeComandosActual) return;
     setComandosRestantesActual(prev => prev - 1)
     switch (comando) {
@@ -355,7 +401,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   useEffect(() => {
     if (listoParaEjecutar) {
       setEjecutando(true);
-      ejecutarSecuencia(0, sentidoInicial, posInicial);
+      ejecutarSecuencia(0, sentidoInicial, posInicial, secuencia);
       setListoParaEjecutar(false);
     }
   }, [listoParaEjecutar]);
@@ -370,8 +416,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const jugar = () => {
     if (secuencia.length === 0) return;
 
-    if (!ejecutando && !pausadoRef.current) {
+    if (!ejecutando) {
       // Si ya terminó la secuencia o es la primera vez, reiniciar desde el inicio
+      setEjecutando(true)
       setPuedeEditar(false)
       setReiniciar(true)
       apagarLuces()
@@ -383,24 +430,25 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
         setListoParaEjecutar(true);
       }, 200);
 
-    } else if (!ejecutando && pausadoRef.current) {
-      // Reanudar desde donde quedó
-      setPuedeEditar(false)
-      setEjecutando(true);
-      pausadoRef.current = false;
-      ejecutarSecuencia(indiceActualRef.current, sentido, pos);
-
-    } else if (ejecutando && !pausadoRef.current) {
-      // Pausar ejecución
-      setPuedeEditar(false);
-      pausadoRef.current = true;
+    } else if (ejecutando) {
       setEjecutando(false);
+      setReiniciar(true);
+      setMensajeLuz(false); // mensaje de éxito
+      setComandoActual(-1)
+
+      setTimeout(() => {
+        setReiniciar(false);
+        setPos(posInicial);
+        setSentido(sentidoInicial);
+        apagarLuces();
+        setPuedeEditar(true);
+      }, 200);
     }
   }
 
   const reiniciarFuncionBtn = () => {
     setPuedeEditar(true)
-    setComandoActual(-1)
+    setComandoActual(-1)  
     setReiniciar(true)
     // para que devuevla el transition
     setTimeout(() => {
@@ -418,16 +466,17 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [mensaje, setMensaje] = useState('');
   const [tipo, setTipo] = useState(''); // "ganar" o "perder"
 
-  // Esta función la llamas cuando el juego termina, y le pasas si ganaste o no
   const terminarJuego = (gano) => {
-    if (gano) {
-      setMensaje('¡Ganaste! 🎉');
-      setTipo('ganar');
-    } else {
-      setMensaje('Perdiste 😢');
-      setTipo('perder');
-    }
-    setMostrarModal(true);
+    console.log(`${gano ? 'ganaste' : 'perdiste'}`);
+
+    // if (gano) {
+    //   setMensaje('¡Ganaste! 🎉');
+    //   setTipo('ganar');
+    // } else {
+    //   setMensaje('Perdiste 😢');
+    //   setTipo('perder');
+    // }
+    // setMostrarModal(true);
   };
 
 
@@ -440,7 +489,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
-          indice={indiceActualRef.current} jugando={jugando}
+          indice={indiceActualRef.current}
+          jugando={jugando}
         />
 
         <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}

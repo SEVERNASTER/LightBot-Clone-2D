@@ -21,6 +21,19 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
 
     const [frameIndex, setFrameIndex] = useState(0)
     const intervalRef = useRef(null)
+    const preloadedImages = useRef([]);
+
+
+    // para pre-cargar las imagenes de los frames
+
+
+    useEffect(() => {
+        preloadedImages.current = frames.map((src) => {
+            const img = new Image();
+            img.src = src;
+            return img;
+        });
+    }, []);
 
 
 
@@ -113,7 +126,7 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
                 ${reiniciar ? 'quitar-transition' : ''}
                 ${quitarBotAnimacion ? 'quitar-transition' : ''}
             `
-            } 
+        }
             id='bot'
             style={{
                 transform: `${tranformStyle}`,
@@ -125,8 +138,9 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
             <div className="bot-wrapper">
                 {/* No se que honda con esta parte nomas se que si le pongo 
                         indiceActual - 1 da normal hahaha, de lo contrario se adelanta a la secuencia */}
-                <img className={`bot ${debeVoltearse ? 'voltear' : ''}`}
-                    src={`${frames[frameIndex]}`}
+                <img
+                    className={`bot ${debeVoltearse ? 'voltear' : ''}`}
+                    src={preloadedImages.current[frameIndex]?.src || frames[0]}
                     alt="bot"
                 // style={{ transform: `rotate(${sentido}deg)` }}
                 />
