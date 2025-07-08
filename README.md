@@ -104,11 +104,12 @@ Dentro de la carpeta `backend`, crea un archivo `.env` con las siguientes variab
 
 Estas son algunas funcionalidades planeadas para futuras versiones del juego:
 
-- 🔁 **Implementación de funciones `PROC1` y `PROC2`** para reutilizar secuencias de comandos.
-- 🔄 **Soporte para bucles (LOOP)** al estilo del juego original LightBot.
-- 🔀 **Más niveles avanzados** con estructuras más complejas y desafiantes.
-- 🎯 **Sistema de logros y puntuaciones** para incentivar el aprendizaje.
-- 🧪 **Modo de prueba libre** para experimentar sin restricciones.
+- 🔁 **Implementación de funciones `PROC1` y `PROC2`** para reutilizar secuencias de comandos.  
+- 🔄 **Soporte para bucles (LOOP)** al estilo del juego original LightBot.  
+- 🔀 **Más niveles avanzados** con estructuras más complejas y desafiantes.  
+- 🎯 **Sistema de logros y puntuaciones** para incentivar el aprendizaje.  
+- 🧪 **Modo de prueba libre** para experimentar sin restricciones.  
+- ⏳ **Límite de comandos por nivel**, para que el usuario piense más y practique su lógica de manera más eficiente.
 
 
 ## 🚀 Proyecto desplegado
