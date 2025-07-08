@@ -66,6 +66,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     setColisionIzquierda(false);
     setReiniciar(false);
     setComandoActual(0);
+    setComandoActualProc1(0);
     setPuedeEditar(true);
     setListoParaEjecutar(false);
     indiceActualRef.current = 0;
@@ -114,7 +115,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [colisionDerecha, setColisionDerecha] = useState(false)
   const [colisionIzquierda, setColisionIzquierda] = useState(false)
   const [reiniciar, setReiniciar] = useState(false)
-  const [comandoActual, setComandoActual] = useState(0)
+  const [comandoActualMain, setComandoActual] = useState(0)
+  const [comandoActualProc1, setComandoActualProc1] = useState(0)
   const [puedeEditar, setPuedeEditar] = useState(true)
   const [listoParaEjecutar, setListoParaEjecutar] = useState(false);
   const indiceActualRef = useRef(0);
@@ -155,7 +157,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
   const ejecutarSecuenciaMain = (indice = 0, sentidoActual = sentido, posActual = pos) => {
 
-
+    // si ya no hay comandos para ejecutar ya no hacer nada
     if (indice >= secuencia.length) {
       setPuedeEditar(true)
       setEjecutando(false)
@@ -163,19 +165,64 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       return;
     }
 
-    if (!ejecutando) {
-      setEjecutando(false)
-      return;
-    }
-
+    // para ver en que comando va
     indiceActualRef.current = indice + 1;
     setComandoActual(indice + 1)
 
-
-
-    const comandoActual = secuencia[indice];
+    // auxiliares para la logica
+    const comandoActualMain = secuencia[indice];
     let nuevoSentido = sentidoActual;
     let nuevaPos = { ...posActual };
+
+    // Giro
+
+    nuevoSentido = girarBot(comandoActualMain, setSentido, nuevoSentido)
+
+    // Encender luz
+
+    encenderLuzBot(comandoActualMain, nuevaPos)
+
+    // Movimiento para avanzar
+
+    nuevaPos = moverBot(comandoActualMain, nuevoSentido, nuevaPos)
+
+
+    // Continuar
+
+    setTimeout(() => {
+      if (ejecutandoRef.current) {
+        if (comandoActualMain === 'p1') {
+
+          ejecutarProc1(0, nuevoSentido, nuevaPos, indice + 1)
+
+        } else {
+          ejecutarSecuenciaMain(indice + 1, nuevoSentido, nuevaPos)
+        }
+      }
+    }, 1000);//500
+
+  };
+
+
+
+
+  // para ejecutar la secuencia de proc1
+
+  const ejecutarProc1 = (indice, sentidoActual, posActual, indiceMain) => {
+
+    // caso base si no hay mas comandos no hacer nada
+    if (indice >= secuenciaProc1.length) {
+      return ejecutarSecuenciaMain(indiceMain, sentidoActual, posActual)
+    }
+
+    // para ver en que comando de proc1 va
+    setComandoActualProc1(indice + 1)
+
+
+    // auxiliares para la logica
+    const comandoActual = secuenciaProc1[indice]
+    let nuevoSentido = sentidoActual
+    let nuevaPos = { ...posActual }
 
     // Giro
 
@@ -189,28 +236,26 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
 
-    // Continuar
+
+    // continuar
+
     setTimeout(() => {
-      // if (comandoActual === 'p1') {
-      //   let indiceProc1 = -1
-      //   while(indiceProc1 < secuenciaProc1.length){
-      //     ejecutarSecuencia(indiceProc1 + 1, nuevoSentido, nuevaPos, secuenciaProc1);
-      //   }
-      // }else {
-
-      // }
       if (ejecutandoRef.current) {
-        let indiceProc1 = -1
-        let indiceMain = indice
-        if (comandoActual === 'p1') {
-
-
-        } else {
-          ejecutarSecuenciaMain(indiceMain + 1, nuevoSentido, nuevaPos)
-        }
+        ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
       }
     }, 1000);//500
-  };
+
+  }
+
+
+
+
+
+
+
+
+
+
 
 
   // para girar el bot
@@ -458,6 +503,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       setReiniciar(true);
       setMensajeLuz(false); // mensaje de éxito
       setComandoActual(-1)
+      setComandoActualProc1(-1)
 
       setTimeout(() => {
         setReiniciar(false);
@@ -472,6 +518,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const reiniciarFuncionBtn = () => {
     setPuedeEditar(true)
     setComandoActual(-1)
+    setComandoActualProc1(-1)
     setReiniciar(true)
     // para que devuevla el transition
     setTimeout(() => {
@@ -521,11 +568,13 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
           mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
-          comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando}
+          comandoActualMain={comandoActualMain} comandoActualProc1={comandoActualProc1}
+          puedeEditar={puedeEditar} jugando={jugando}
           limiteDeComandos={limiteDeComandos} comandosRestantes={comandosRestantes}
           setComandosRestantes={setComandosRestantes} proc1={proc1} secuenciaProc1={secuenciaProc1}
           setSecuenciaProc1={setSecuenciaProc1} limiteDeComandosProc1={limiteDeComandosProc1}
-          comandosRestantesProc1={comandosRestantesProc1} setComandosRestantesProc1={setComandosRestantesProc1}
+          comandosRestantesProc1={comandosRestantesProc1}
+          setComandosRestantesProc1={setComandosRestantesProc1}
         />
 
       </div>

@@ -20,7 +20,7 @@ import { HiArrowUturnRight } from "react-icons/hi2";
 
 
 function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
-    reiniciar, comandoActual, puedeEditar, jugando, limiteDeComandos, comandosRestantes,
+    reiniciar, comandoActualMain, comandoActualProc1, puedeEditar, jugando, limiteDeComandos, comandosRestantes,
     setComandosRestantes, proc1, secuenciaProc1, setSecuenciaProc1, limiteDeComandosProc1,
     comandosRestantesProc1, setComandosRestantesProc1
 }) {
@@ -261,7 +261,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
                                     icono={actual.tipo === 'icono' ? actual.imagen : ''}
                                     texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
-                                    resaltar={indice + 1 === comandoActual}
+                                    resaltar={indice + 1 === comandoActualMain}
                                     eliminarComando={() => {
                                         eliminarComando(indice)
                                         setComandosRestantes(prev => prev + 1)
@@ -321,7 +321,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
                                     icono={actual.tipo === 'icono' ? actual.imagen : ''}
                                     texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
-                                    resaltar={indice + 1 === comandoActual}
+                                    resaltar={indice + 1 === comandoActualProc1}
                                     eliminarComando={() => {
                                         eliminarComando(indice)
                                         // setComandosRestantes(prev => prev + 1)
