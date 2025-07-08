@@ -21,9 +21,15 @@
 
 ## 📷 Capturas
 
+### 🧭 Vista del menú
 ![Vista del menú](./frontend/src/assets/menu.png)
+
+### 🛠️ Editor de mapas
 ![Editor de mapas](./frontend/src/assets/editor.png)
-![Editor de mapas](./frontend/src/assets/juego.jpg)
+
+### 🎮 Ejecución del juego
+![Juego en acción](./frontend/src/assets/juego.jpg)
+
 
 ## 🧪 Instalación local
 
@@ -93,6 +99,17 @@ Dentro de la carpeta `backend`, crea un archivo `.env` con las siguientes variab
 ```
 
 ### Esto levantará el servidor backend en http://localhost:3000, si todo está configurado correctamente.
+
+## 📌 Mejoras futuras
+
+Estas son algunas funcionalidades planeadas para futuras versiones del juego:
+
+- 🔁 **Implementación de funciones `PROC1` y `PROC2`** para reutilizar secuencias de comandos.
+- 🔄 **Soporte para bucles (LOOP)** al estilo del juego original LightBot.
+- 🔀 **Más niveles avanzados** con estructuras más complejas y desafiantes.
+- 🎯 **Sistema de logros y puntuaciones** para incentivar el aprendizaje.
+- 🧪 **Modo de prueba libre** para experimentar sin restricciones.
+
 
 ## 🚀 Proyecto desplegado
 
