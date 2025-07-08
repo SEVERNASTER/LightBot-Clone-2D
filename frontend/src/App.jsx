@@ -70,6 +70,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     setPuedeEditar(true);
     setListoParaEjecutar(false);
     indiceActualRef.current = 0;
+    indiceActualProc1Ref.current = 0;
     pausadoRef.current = false;
   }
 
@@ -120,6 +121,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [puedeEditar, setPuedeEditar] = useState(true)
   const [listoParaEjecutar, setListoParaEjecutar] = useState(false);
   const indiceActualRef = useRef(0);
+  const indiceActualProc1Ref = useRef(0);
   const pausadoRef = useRef(false)
   const [mensajeLuz, setMensajeLuz] = useState(false)
   const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
@@ -216,6 +218,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     }
 
     // para ver en que comando de proc1 va
+    indiceActualProc1Ref.current = indice + 1;
     setComandoActualProc1(indice + 1)
 
 
@@ -499,6 +502,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
         setPos(posInicial);
         setSentido(sentidoInicial);
         indiceActualRef.current = 0;
+        indiceActualProc1Ref.current = 0;
         setListoParaEjecutar(true);
       }, 200);
 
@@ -530,6 +534,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     }, 200);
     apagarLuces()
     indiceActualRef.current = 0
+    indiceActualProc1Ref.current = 0
   }
 
   // useEffect(() => {
@@ -563,8 +568,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
-          indice={indiceActualRef.current}
-          jugando={jugando}
+          indice={indiceActualRef.current} indiceProc1={indiceActualProc1Ref.current}
+          jugando={jugando}  secuenciaProc1={secuenciaProc1}
         />
 
         <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
