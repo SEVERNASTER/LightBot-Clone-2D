@@ -142,7 +142,6 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   useEffect(() => {
     ejecutandoRef.current = ejecutando
   }, [ejecutando])
-  
 
 
 
@@ -153,9 +152,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
 
 
-  const ejecutarSecuencia = (indice = 0, sentidoActual = sentido,
-    posActual = pos, secuencia = this.secuencia) => {
-    
+
+  const ejecutarSecuenciaMain = (indice = 0, sentidoActual = sentido, posActual = pos) => {
+
 
     if (indice >= secuencia.length) {
       setPuedeEditar(true)
@@ -179,12 +178,54 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     let nuevaPos = { ...posActual };
 
     // Giro
+
+    nuevoSentido = girarBot(comandoActual, setSentido, nuevoSentido)
+
+    // Encender luz
+
+    encenderLuzBot(comandoActual, nuevaPos)
+
+    // Movimiento para avanzar
+
+    nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
+
+    // Continuar
+    setTimeout(() => {
+      // if (comandoActual === 'p1') {
+      //   let indiceProc1 = -1
+      //   while(indiceProc1 < secuenciaProc1.length){
+      //     ejecutarSecuencia(indiceProc1 + 1, nuevoSentido, nuevaPos, secuenciaProc1);
+      //   }
+      // }else {
+
+      // }
+      if (ejecutandoRef.current) {
+        let indiceProc1 = -1
+        let indiceMain = indice
+        if (comandoActual === 'p1') {
+
+
+        } else {
+          ejecutarSecuenciaMain(indiceMain + 1, nuevoSentido, nuevaPos)
+        }
+      }
+    }, 1000);//500
+  };
+
+
+  // para girar el bot
+  const girarBot = (comandoActual, setSentido, nuevoSentido) => {
     if (comandoActual === 'vueltaDer' || comandoActual === 'vueltaIzq') {
       nuevoSentido += comandoActual === 'vueltaDer' ? 90 : -90;
       setSentido(nuevoSentido);
     }
+    return nuevoSentido
+  }
 
-    // Encender luz
+  // para encender la luz
+
+  const encenderLuzBot = (comandoActual, nuevaPos) => {
+
     if (comandoActual === 'luz') {
       setMapa(prevMapa => {
         const nuevoMapa = prevMapa.map(fila => [...fila]);
@@ -215,8 +256,11 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       }, 500);
     }
 
+  }
 
-    // Movimiento para avanzar
+  // para avanzar 
+
+  const moverBot = (comandoActual, nuevoSentido, nuevaPos) => {
     if (comandoActual === 'avanzar') {
       const angulo = ((nuevoSentido % 360) + 360) % 360;
 
@@ -275,46 +319,18 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
       setPos(nuevaPos);
     }
+    return nuevaPos
+  }
 
 
 
-
-    // Continuar
-    setTimeout(() => {
-      // if (comandoActual === 'p1') {
-      //   let indiceProc1 = -1
-      //   while(indiceProc1 < secuenciaProc1.length){
-      //     ejecutarSecuencia(indiceProc1 + 1, nuevoSentido, nuevaPos, secuenciaProc1);
-      //   }
-      // }else {
-      
-      // }
-      if(ejecutandoRef.current){
-        let indiceProc1 = -1
-        let indiceMain = indice
-        if(comandoActual === 'p1'){
-
-          while(indiceProc1 < secuenciaProc1.length){
-            setTimeout(() => {
-              if(ejecutandoRef.current){
-                ejecutarSecuencia(++indiceProc1, nuevoSentido, nuevaPos, secuenciaProc1)
-              }
-            }, 1000);
-          }
-          
-        }else{
-          ejecutarSecuencia(indiceMain + 1, nuevoSentido, nuevaPos, secuencia)
-        }
-      }
-    }, 1000);//500
-  };
 
 
 
   useEffect(() => {
     console.log(secuencia);
   }, [secuencia])
-  
+
 
 
   const agregarComando = (comando, secuenciaActual, setSecuenciaActual, limiteDeComandosActual, setComandosRestantesActual) => {
@@ -408,7 +424,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   useEffect(() => {
     if (listoParaEjecutar) {
       setEjecutando(true);
-      ejecutarSecuencia(0, sentidoInicial, posInicial, secuencia);
+      ejecutarSecuenciaMain(0, sentidoInicial, posInicial);
       setListoParaEjecutar(false);
     }
   }, [listoParaEjecutar]);
@@ -455,7 +471,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
   const reiniciarFuncionBtn = () => {
     setPuedeEditar(true)
-    setComandoActual(-1)  
+    setComandoActual(-1)
     setReiniciar(true)
     // para que devuevla el transition
     setTimeout(() => {
