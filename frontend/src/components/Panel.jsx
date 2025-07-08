@@ -89,7 +89,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     return agregarComandoImg(actual);
                 }
 
-                if(actual === 'p1'){
+                if (actual === 'p1') {
                     return agregarComandoImg(actual)
                 }
                 return null;
@@ -116,7 +116,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     return agregarComandoImg(actual);
                 }
 
-                if(actual === 'p1'){
+                if (actual === 'p1') {
                     return agregarComandoImg(actual)
                 }
                 return null;
@@ -130,9 +130,10 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
     }, [secuenciaProc1]);
 
 
-    const eliminarComando = (indiceAEliminar) => {
+    const eliminarComando = (indiceAEliminar, setComandos, setSecuencia, setComandosRestantes) => {
         setComandos(prev => prev.filter((_, indice) => indice !== indiceAEliminar))
         setSecuencia(prev => prev.filter((_, indice) => indice !== indiceAEliminar))
+        setComandosRestantes(prev => prev + 1)
     }
 
     const crearPseudoComandos = () => {
@@ -263,7 +264,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
                                     resaltar={indice + 1 === comandoActualMain}
                                     eliminarComando={() => {
-                                        eliminarComando(indice)
+                                        eliminarComando(indice, setComandos, setSecuencia, setComandosRestantes)
                                         setComandosRestantes(prev => prev + 1)
                                     }}
                                     inhabilitar={ejecutando}
@@ -323,8 +324,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
                                     resaltar={indice + 1 === comandoActualProc1}
                                     eliminarComando={() => {
-                                        eliminarComando(indice)
-                                        // setComandosRestantes(prev => prev + 1)
+                                        eliminarComando(indice, setcomandosProc1, setSecuenciaProc1, setComandosRestantesProc1)
                                     }}
                                     inhabilitar={ejecutando}
                                     puedeEditar={puedeEditar}
@@ -442,8 +442,9 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     seleccionarSetComandosRestantes()
                                 )
                             }
-                            extraClass={`zoom boton-jugar ${ejecutando ? 'padding-icono' : ''} p1-button`}
+                            extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''} p1-button`}
                             label='Agregar P1'
+                            inhabilitar={!puedeEditar}
                         />
 
 

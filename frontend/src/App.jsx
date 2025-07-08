@@ -241,7 +241,11 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     setTimeout(() => {
       if (ejecutandoRef.current) {
-        ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
+        if (comandoActual === 'p1') {
+          ejecutarProc1(0, nuevoSentido, nuevaPos, indiceMain)
+        }else{
+          ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
+        }
       }
     }, 1000);//500
 

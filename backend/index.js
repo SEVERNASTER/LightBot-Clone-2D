@@ -164,7 +164,7 @@ app.post('/api/login', async (req, res) => {
 
         const { user, session } = dataAuth
 
-        console.log(dataAuth);
+        // console.log(dataAuth);
 
 
         const { data: dataUser, error: errorUser } = await supabaseAdmin
