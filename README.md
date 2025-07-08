@@ -68,7 +68,7 @@ VITE_BACKEND_URL=https://codepilot-backend.onrender.com
 
 ```
 
-### 📁 Backend
+<!-- ### 📁 Backend
 
 Dentro de la carpeta `backend`, crea un archivo `.env` con las siguientes variables:
 
@@ -78,7 +78,7 @@ Dentro de la carpeta `backend`, crea un archivo `.env` con las siguientes variab
     SERVICE_ROLE=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6dndjcmh4cm56Z2RnZWlmdHJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDQ0NzYxNiwiZXhwIjoyMDY2MDIzNjE2fQ.5SFe7Ud8bDILXsePfbeu4GOvoAb5zqBZ5Dl-6r82d-Y
 
     SUPABASE_URL=https://szvwcrhxrnzgdgeiftrt.supabase.co
-```
+``` -->
 
 ## ▶️ Cómo iniciar el proyecto en local
 

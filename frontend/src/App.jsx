@@ -23,7 +23,7 @@ import PantallaGanar from './components/PantallaGanar';
  */
 
 
-function App({ mapa, setMapa, jugando, mapaActual, bot }) {
+function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
 
   // 0 = camino libre
   // 1 = obstaculo
@@ -117,19 +117,19 @@ function App({ mapa, setMapa, jugando, mapaActual, bot }) {
   const pausadoRef = useRef(false)
   const [mensajeLuz, setMensajeLuz] = useState(false)
 
-const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
+  const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
 
-useEffect(() => {
-  if (secuenciaTerminada) {
-    const quedanLuces = mapa.some(fila => fila.some(celda => celda === 2));
-    if (!quedanLuces) {
-      terminarJuego(true);
-    } else {
-      terminarJuego(false);
+  useEffect(() => {
+    if (secuenciaTerminada) {
+      const quedanLuces = mapa.some(fila => fila.some(celda => celda === 2));
+      if (!quedanLuces) {
+        terminarJuego(true);
+      } else {
+        terminarJuego(false);
+      }
+      setSecuenciaTerminada(false);
     }
-    setSecuenciaTerminada(false);
-  }
-}, [mapa, secuenciaTerminada]);
+  }, [mapa, secuenciaTerminada]);
 
 
 
@@ -261,9 +261,29 @@ useEffect(() => {
     }, 1000);//500
   };
 
+  const agregarComando = (comando) => {
+    if (secuencia.length >= limiteDeComandos) return;
+    switch (comando) {
+      case 'avanzar':
+        avanzar()
+        break;
+      case 'girarDer':
+        girarDer()
+        break;
+      case 'girarIzq':
+        girarIzq()
+        break;
+      case 'luz':
+        setSecuencia(prev => [...prev, 'luz']);
+        break;
+      default:
+        break;
+    }
+  }
 
 
   const avanzar = () => {
+
     const angulo = ((sentidoAux % 360) + 360) % 360;
 
     setSecuencia(prev => [...prev, 'avanzar']);
@@ -369,13 +389,6 @@ useEffect(() => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(puedeEditar);
-  // }, [puedeEditar])
-
-
-
-
   const reiniciarFuncionBtn = () => {
     setPuedeEditar(true)
     setComandoActual(-1)
@@ -388,29 +401,9 @@ useEffect(() => {
     indiceActualRef.current = 0
   }
 
-
-
-
-
-
-
-  // useEffect(() => {
-  //   console.log(secuencia);
-  // }, [secuencia])
-
-  // useEffect(() => {
-  //   console.log(mapa);
-  // }, [mapa])
-
   useEffect(() => {
     console.log('fila: ' + posAux.fila, 'columna:' + posAux.columna);
   }, [posAux])
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     mover()
-  //   }, 1000);  
-  // }, [sentido])
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [mensaje, setMensaje] = useState('');
@@ -445,12 +438,10 @@ useEffect(() => {
           setSentidoAux={setSentidoAux}
           ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
           mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
-          avanzar={avanzar} girarDer={girarDer} girarIzq={girarIzq} reiniciar={reiniciarFuncionBtn}
+          agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
           comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando} />
       </div>
       <div>
-        {/* Aquí va tu juego, y cuando termine llamas terminarJuego(true) o terminarJuego(false) */}
-
 
         {mostrarModal && (
           <PantallaGanar
