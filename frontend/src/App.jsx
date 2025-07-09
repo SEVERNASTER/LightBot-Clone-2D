@@ -24,7 +24,7 @@ import PantallaGanar from './components/PantallaGanar';
 
 
 function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
-  limiteDeComandosProc1
+  limiteDeComandosProc1, filas: mapaFilas, columnas: mapaColumnas
 }) {
 
   // 0 = camino libre
@@ -33,10 +33,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   // 3 = luz ya prendida
   // 4 = bot
 
+
+  // cambiar estos 2 use effect para que este todo en uno solo !!!!!!!
+
   useEffect(() => {
     reiniciarJuego()
     reiniciarFuncionBtn()
-  }, [mapaActual, proc1, limiteDeComandos, limiteDeComandosProc1])
+    setFilas(mapaFilas)
+    setColumnas(mapaColumnas)
+  }, [mapaActual, proc1, limiteDeComandos, limiteDeComandosProc1, mapaFilas, mapaColumnas])
 
   useEffect(() => {
     reiniciarJuego()
@@ -78,9 +83,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   }
 
 
-
-  const filas = 5
-  const columnas = 5
+  // para las filas y columnas
+  const [filas, setFilas] = useState(mapaFilas)
+  const [columnas, setColumnas] = useState(mapaColumnas)
 
   // este es el sentido que sera en grados, en el sentido de las agujas del reloj y servira para
   // saber si se mueve arr abj izq der
@@ -586,10 +591,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           jugando={jugando} secuenciaProc1={secuenciaProc1}
         />
 
-        <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
-          setSentidoAux={setSentidoAux}
-          ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
-          mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
+        <Panel
+          ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia} secuencia={secuencia}
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
           comandoActualMain={comandoActualMain} comandoActualProc1={comandoActualProc1}
           puedeEditar={puedeEditar} jugando={jugando}
