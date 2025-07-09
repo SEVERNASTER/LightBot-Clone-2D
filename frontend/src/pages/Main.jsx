@@ -26,11 +26,17 @@ function Main({ user }) {
 
     const [mapa, setMapa] = useState(mapas1[0].mapa)
     const [bot, setBot] = useState(mapas1[0].bot)
+    const [limiteDeComandos, setLimiteDeComandos] = useState(mapas1[0].limiteDeComandos)
+    const [proc1, setProc1] = useState(mapas1[0].proc1)
+    const [limiteDeComandosProc1, setLimiteDeComandosProc1] = useState(mapas1[0].limiteDeComandosProc1)
 
     useEffect(() => {
         if (mapas && mapas[mapaActual - 1]) {
             setMapa(mapas[mapaActual - 1].mapa)
             setBot(mapas[mapaActual - 1].bot)
+            setLimiteDeComandos(mapas[mapaActual - 1].limiteDeComandos)
+            setProc1(mapas[mapaActual - 1].proc1)
+            setLimiteDeComandosProc1(mapas[mapaActual - 1].limiteDeComandosProc1)
         }
     }, [mapas, mapaActual])
 
@@ -86,7 +92,9 @@ function Main({ user }) {
             </button>
 
             <App mapa={mapa} setMapa={setMapa} jugando={jugando} mapaActual={mapaActual}
-                bot={bot} limiteDeComandos={12} proc1={true} limiteDeComandosProc1={8}
+                bot={bot}
+                limiteDeComandos={limiteDeComandos} proc1={proc1} 
+                limiteDeComandosProc1={limiteDeComandosProc1}
             />
         </div>
     )

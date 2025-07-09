@@ -94,6 +94,11 @@
     background-color: #F1287F !important;
 }
 
+.boton-jugar.proc1 {
+    grid-column: span 2;
+    width: 50% !important;
+}
+
 .boton-jugar.inhabilitar {
     cursor: not-allowed;
     padding-left: 0;
@@ -328,6 +333,7 @@
 .p1-button {
     font-size: 1.7rem !important;
 }
+
 
 
 

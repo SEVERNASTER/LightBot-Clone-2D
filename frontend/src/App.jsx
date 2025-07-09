@@ -36,7 +36,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   useEffect(() => {
     reiniciarJuego()
     reiniciarFuncionBtn()
-  }, [mapaActual])
+  }, [mapaActual, proc1, limiteDeComandos, limiteDeComandosProc1])
 
   useEffect(() => {
     reiniciarJuego()
@@ -58,6 +58,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     // setSentidoAux(bot.direccionInicial)
 
     setSecuencia([]);
+    setSecuenciaProc1([])
     setBotAnimado(false);
     setEjecutando(false);
     setColisionArriba(false);
@@ -72,6 +73,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     indiceActualRef.current = 0;
     indiceActualProc1Ref.current = 0;
     pausadoRef.current = false;
+    setComandosRestantes(limiteDeComandos)
+    setComandosRestantesProc1(limiteDeComandosProc1)
   }
 
 
@@ -188,7 +191,6 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     nuevaPos = moverBot(comandoActualMain, nuevoSentido, nuevaPos)
 
-
     // Continuar
 
     setTimeout(() => {
@@ -214,6 +216,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     // caso base si no hay mas comandos no hacer nada
     if (indice >= secuenciaProc1.length) {
+      /* para los tiempos de animacion del bot, fijarse el componente Bot dentro de la grilla
+      para entender mejor, ahi le pasamos 2 indices actuales de main y de proc1*/
+      indiceActualProc1Ref.current = -1
+
+      /** para quitar la marca del comando al finalizar la ejecucion de los comandos
+       * de proc1
+       */
+      setComandoActualProc1(-1)
+
       return ejecutarSecuenciaMain(indiceMain, sentidoActual, posActual)
     }
 
@@ -246,7 +257,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       if (ejecutandoRef.current) {
         if (comandoActual === 'p1') {
           ejecutarProc1(0, nuevoSentido, nuevaPos, indiceMain)
-        }else{
+        } else {
           ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
         }
       }
@@ -388,7 +399,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const agregarComando = (comando, secuenciaActual, setSecuenciaActual, limiteDeComandosActual, setComandosRestantesActual) => {
     // console.log(secuenciaActual, limiteDeComandosActual);
 
-    if (secuenciaActual.length >= limiteDeComandosActual) return;
+    if (limiteDeComandosActual !== -1 &&
+      secuenciaActual.length >= limiteDeComandosActual) return;
     setComandosRestantesActual(prev => prev - 1)
     switch (comando) {
       case 'avanzar':
@@ -475,6 +487,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
   useEffect(() => {
     if (listoParaEjecutar) {
+      // para quitar el comando marcado en proc1 cuando se vuelve a correr toda la secuencia
+      setComandoActualProc1(-1)
       setEjecutando(true);
       ejecutarSecuenciaMain(0, sentidoInicial, posInicial);
       setListoParaEjecutar(false);
@@ -569,7 +583,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
           indice={indiceActualRef.current} indiceProc1={indiceActualProc1Ref.current}
-          jugando={jugando}  secuenciaProc1={secuenciaProc1}
+          jugando={jugando} secuenciaProc1={secuenciaProc1}
         />
 
         <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
