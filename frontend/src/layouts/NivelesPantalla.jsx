@@ -56,8 +56,8 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, juga
                     extraStyles={{
                         background: 'linear-gradient(120deg, #2B236D, #580D43)'
                     }}
-                    titulo='DESAFÍOS PRÁCTICOS'
-                    subtitulo='Refuerza tus habilidades con caminos alternativos.'
+                    titulo='Procedimientos'
+                    subtitulo='Resuelve los niveles usando estructuras más limpias y reutilizables con PROC1'
                 />
 
                 <Niveles niveles={nivelesArray} setJugando={setJugando} setMapaActual={setMapaActual}
