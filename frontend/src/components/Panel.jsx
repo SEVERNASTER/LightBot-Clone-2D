@@ -20,10 +20,15 @@ import { HiArrowUturnRight } from "react-icons/hi2";
 
 
 function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
-    reiniciar, comandoActual, puedeEditar, jugando
+    reiniciar, comandoActualMain, comandoActualProc1, puedeEditar, jugando, limiteDeComandos,
+    comandosRestantes,
+    setComandosRestantes, proc1, secuenciaProc1, setSecuenciaProc1, limiteDeComandosProc1,
+    comandosRestantesProc1, setComandosRestantesProc1
 }) {
 
     const [comandos, setComandos] = useState([])
+    const [comandosProc1, setcomandosProc1] = useState([])
+    const [contenedorActivo, setContenedorActivo] = useState('main')
 
     const agregarComandoImg = (comando) => {
         let res = {};
@@ -52,6 +57,12 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     tipo: 'icono'
                 }
                 break;
+            case 'p1':
+                res = {
+                    imagen: 'P1',
+                    tipo: 'texto'
+                }
+                break;
             default:
                 break;
         }
@@ -64,12 +75,17 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                 if (actual === 'avanzar') {
                     return agregarComandoImg(actual);
                 }
+
                 if (actual === 'vueltaDer' || actual === 'vueltaIzq') {
                     return agregarComandoImg(actual);
                 }
 
                 if (actual === 'luz') {
                     return agregarComandoImg(actual);
+                }
+
+                if (actual === 'p1') {
+                    return agregarComandoImg(actual)
                 }
                 return null;
             }).filter(Boolean)
@@ -81,10 +97,126 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
     }, [secuencia]);
 
+    useEffect(() => {
+        if (secuenciaProc1.length !== 0) {
+            const nuevosComandos = secuenciaProc1.map(actual => {
+                if (actual === 'avanzar') {
+                    return agregarComandoImg(actual);
+                }
+                if (actual === 'vueltaDer' || actual === 'vueltaIzq') {
+                    return agregarComandoImg(actual);
+                }
 
-    const eliminarComando = (indiceAEliminar) => {
+                if (actual === 'luz') {
+                    return agregarComandoImg(actual);
+                }
+
+                if (actual === 'p1') {
+                    return agregarComandoImg(actual)
+                }
+                return null;
+            }).filter(Boolean)
+
+            setcomandosProc1(nuevosComandos);
+        } else {
+            setcomandosProc1([])
+        }
+
+    }, [secuenciaProc1]);
+
+
+    const eliminarComando = (indiceAEliminar, setComandos, setSecuencia, setComandosRestantes) => {
         setComandos(prev => prev.filter((_, indice) => indice !== indiceAEliminar))
         setSecuencia(prev => prev.filter((_, indice) => indice !== indiceAEliminar))
+        setComandosRestantes(prev => prev + 1)
+    }
+
+    const crearPseudoComandos = () => {
+        let pseudo = []
+        let inicio = limiteDeComandos - comandosRestantes - 1
+        for (let i = 0; i < limiteDeComandos; i++) {
+            if (i > inicio) {
+                pseudo.push(i + 1)
+            }
+        }
+        return pseudo
+    }
+
+    useEffect(() => {
+        console.log('restantes ' + comandosRestantes, 'res proc1 ' + comandosRestantesProc1);
+
+    }, [])
+
+
+    const crearPseudoComandosProc1 = () => {
+        let pseudo = []
+        let inicio = limiteDeComandosProc1 - comandosRestantesProc1 - 1
+        for (let i = 0; i < limiteDeComandosProc1; i++) {
+            if (i > inicio) {
+                pseudo.push(i + 1)
+            }
+        }
+        return pseudo
+    }
+
+    const seleccionarSecuencia = () => {
+        let res = []
+        switch (contenedorActivo) {
+            case 'main':
+                res = secuencia
+                break;
+            case 'proc1':
+                res = secuenciaProc1
+                break;
+            default:
+                break;
+        }
+        return res;
+    }
+
+    const seleccionarSetSecuencia = () => {
+        let res = () => { }
+        switch (contenedorActivo) {
+            case 'main':
+                res = setSecuencia
+                break;
+            case 'proc1':
+                res = setSecuenciaProc1
+                break;
+            default:
+                break;
+        }
+        return res;
+    }
+
+    const seleccionarLimiteComandos = () => {
+        let res = -1
+        switch (contenedorActivo) {
+            case 'main':
+                res = limiteDeComandos
+                break;
+            case 'proc1':
+                res = limiteDeComandosProc1
+                break;
+            default:
+                break;
+        }
+        return res;
+    }
+
+    const seleccionarSetComandosRestantes = () => {
+        let res = -1
+        switch (contenedorActivo) {
+            case 'main':
+                res = setComandosRestantes
+                break;
+            case 'proc1':
+                res = setComandosRestantesProc1
+                break;
+            default:
+                break;
+        }
+        return res;
     }
 
 
@@ -97,11 +229,16 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     <div className="secuencia-titulo">
                         <h3>SECUENCIA DE COMANDOS</h3>
                     </div>
-                    <div className="comandos-contenedor" >
+                    <div className={`comandos-contenedor ${contenedorActivo === 'main' ? 'activar' : ''}`}
+                        onClick={() => setContenedorActivo('main')}
+                    >
+                        {/* para cuado no hay comandos */}
                         {
-                            comandos.length === 0 &&
+                            comandos.length === 0 && limiteDeComandos === -1 &&
                             <h3 className='sin-comandos'>Aqui verás tus comandos</h3>
                         }
+
+                        {/* para el boton de eliminar todos los comandos */}
                         {
                             comandos.length > 0 &&
                             <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
@@ -110,6 +247,8 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     setComandos([])
                                     setSecuencia([])
                                     reiniciar()
+                                    setComandosRestantes(limiteDeComandos)
+
                                 }}
                                 disabled={!puedeEditar}
                             >
@@ -117,22 +256,97 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                 {!puedeEditar && <TbTrashOff />}
                             </button>
                         }
+
+                        {/* para mostrar los comandos en main */}
                         {
                             comandos.map((actual, indice) => {
                                 return <Comando
                                     key={indice}
                                     imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
                                     icono={actual.tipo === 'icono' ? actual.imagen : ''}
-                                    resaltar={indice + 1 === comandoActual}
-                                    eliminarComando={() => eliminarComando(indice)}
+                                    texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
+                                    resaltar={indice + 1 === comandoActualMain}
+                                    eliminarComando={() => {
+                                        eliminarComando(indice, setComandos, setSecuencia, setComandosRestantes)
+                                        setComandosRestantes(prev => prev + 1)
+                                    }}
                                     inhabilitar={ejecutando}
                                     puedeEditar={puedeEditar}
                                 />
                             })
                         }
+
+                        {/* para los pseudocomandos */}
+                        {
+                            limiteDeComandos !== -1 &&
+                            crearPseudoComandos().map((actual, indice) => {
+                                return <div key={indice} className='pseudo'>{actual}</div>
+                            })
+                        }
                     </div>
                 </div>
 
+
+
+
+
+
+
+                {
+                    proc1 &&
+                    <div className="proc1-contenedor">
+                        <div className="proc1-titulo">
+                            <h3>COMANDOS DE PROC1</h3>
+                        </div>
+                        <div className={`proc1-comandos ${contenedorActivo === 'proc1' ? 'activar' : ''}`}
+                            onClick={() => setContenedorActivo('proc1')}
+                        >
+
+                            {/* para eliminar todos los comandos de proc1 */}
+                            {
+                                comandosProc1.length > 0 &&
+                                <button className={`boton-limpiar ${!puedeEditar ? 'inhabilitar' : ''}`}
+                                    title='Eliminar todos los comandos'
+                                    onClick={() => {
+                                        setcomandosProc1([])
+                                        setSecuenciaProc1([])
+                                        reiniciar()
+                                        setComandosRestantesProc1(limiteDeComandosProc1)
+
+                                    }}
+                                    disabled={!puedeEditar}
+                                >
+                                    {puedeEditar && <BsFillTrash3Fill />}
+                                    {!puedeEditar && <TbTrashOff />}
+                                </button>
+                            }
+
+                            {/* para los comandos de proc1 */}
+                            {comandosProc1.map((actual, indice) => {
+                                return <Comando
+                                    key={indice}
+                                    imagen={actual.tipo === 'imagen' ? actual.imagen : ''}
+                                    icono={actual.tipo === 'icono' ? actual.imagen : ''}
+                                    texto={actual.tipo === 'texto' ? `${actual.imagen}` : ''}
+                                    resaltar={indice + 1 === comandoActualProc1}
+                                    eliminarComando={() => {
+                                        eliminarComando(indice, setcomandosProc1, setSecuenciaProc1, setComandosRestantesProc1)
+                                    }}
+                                    inhabilitar={ejecutando}
+                                    puedeEditar={puedeEditar}
+                                />
+                            })}
+
+                            {/* para los pseudocomandos */}
+                            {
+                                limiteDeComandosProc1 !== -1 &&
+                                crearPseudoComandosProc1().map((actual, indice) => {
+                                    return <div key={indice} className='pseudo'>{actual}</div>
+                                })
+                            }
+                        </div>
+                    </div>
+                }
                 <div className="comandos-disponibles">
                     <div className="comandos-titulo">
                         <h3>COMANDOS DISPONIBLES</h3>
@@ -141,7 +355,15 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                     <div className="botones-contenedor">
                         {/* para avanzar */}
                         <Button icon={FaArrowUp}
-                            onClick={() => agregarComando('avanzar')}
+                            onClick={() =>
+                                agregarComando(
+                                    'avanzar',
+                                    seleccionarSecuencia(),
+                                    seleccionarSetSecuencia(),
+                                    seleccionarLimiteComandos(),
+                                    seleccionarSetComandosRestantes()
+                                )
+                            }
                             extraClass={` ${!puedeEditar ? 'inhabilitar' : ''}`}
                             inhabilitar={!puedeEditar}
                             label='Avanzar'
@@ -150,7 +372,16 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
                         {/* para encender la luz */}
                         <Button icon={FaLightbulb}
-                            onClick={() => agregarComando('luz')}
+                            onClick={() =>
+                                agregarComando(
+                                    'luz',
+                                    seleccionarSecuencia(),
+                                    seleccionarSetSecuencia(),
+                                    seleccionarLimiteComandos(),
+                                    seleccionarSetComandosRestantes()
+
+                                )
+                            }
                             extraClass={`zoom boton-luz ${!puedeEditar ? 'inhabilitar' : ''}`}
                             inhabilitar={!puedeEditar}
                             label='Encender Luz'
@@ -159,7 +390,16 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
                         {/* girar a la izquierda */}
                         <Button icon={HiArrowUturnLeft}
-                            onClick={() => agregarComando('girarIzq')}
+                            onClick={() =>
+                                agregarComando(
+                                    'girarIzq',
+                                    seleccionarSecuencia(),
+                                    seleccionarSetSecuencia(),
+                                    seleccionarLimiteComandos(),
+                                    seleccionarSetComandosRestantes()
+
+                                )
+                            }
                             extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
                             inhabilitar={!puedeEditar}
                             label='Girar Izquierda'
@@ -168,7 +408,15 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
                         {/* girar a la derecha */}
                         <Button icon={HiArrowUturnRight}
-                            onClick={() => agregarComando('girarDer')}
+                            onClick={() =>
+                                agregarComando(
+                                    'girarDer',
+                                    seleccionarSecuencia(),
+                                    seleccionarSetSecuencia(),
+                                    seleccionarLimiteComandos(),
+                                    seleccionarSetComandosRestantes()
+                                )
+                            }
                             extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
 
                             inhabilitar={!puedeEditar}
@@ -177,19 +425,47 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                         />
 
                         {/* para reiniciar la secuencia */}
-                        <Button icon={RiResetRightFill}
+                        {/* <Button icon={RiResetRightFill}
                             onClick={reiniciar}
                             extraClass={`zoom boton-reiniciar ${ejecutando ? 'inhabilitar' : ''}`}
                             inhabilitar={ejecutando}
                             label='Reiniciar'
-                        />
+                        /> */}
 
                         {/* para iniciar la secuencia */}
                         <Button icon={ejecutando ? FaPause : FaPlay}
                             onClick={jugar}
-                            extraClass={`zoom boton-jugar ${ejecutando ? 'padding-icono' : ''}`}
+                            extraClass={`
+                                zoom
+                                boton-jugar 
+                                ${ejecutando ? 'padding-icono' : ''}
+                                ${!proc1 ? 'proc1' : ''}
+                                
+                            `}
                             label='Ejecutar Comandos'
                         />
+
+                        {
+                            proc1 &&
+                            <Button titulo={'P1'}
+                                onClick={() =>
+                                    agregarComando(
+                                        'p1',
+                                        seleccionarSecuencia(),
+                                        seleccionarSetSecuencia(),
+                                        seleccionarLimiteComandos(),
+                                        seleccionarSetComandosRestantes()
+                                    )
+                                }
+                                extraClass={`
+                                    zoom 
+                                    ${!puedeEditar ? 'inhabilitar' : ''} 
+                                    p1-button`
+                                }
+                                label='Agregar P1'
+                                inhabilitar={!puedeEditar}
+                            />
+                        }
 
 
 

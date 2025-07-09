@@ -8,7 +8,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import frames from '../data/frames';
 
 
-function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnimado,
+function Bot({ secuencia, secuenciaProc1, indiceActual, indiceActualProc1, ejecutando, sentido, reiniciar, botAnimado,
     colisionArriba, colisionAbajo, colisionDerecha, colisionIzquierda, pos, filas,
     columnas
 }) {
@@ -21,6 +21,19 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
 
     const [frameIndex, setFrameIndex] = useState(0)
     const intervalRef = useRef(null)
+    const preloadedImages = useRef([]);
+
+
+    // para pre-cargar las imagenes de los frames
+
+
+    useEffect(() => {
+        preloadedImages.current = frames.map((src) => {
+            const img = new Image();
+            img.src = src;
+            return img;
+        });
+    }, []);
 
 
 
@@ -30,12 +43,22 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
      * o tal vez no pausamos frames sino reducimos la velocidad
      */
     useEffect(() => {
-        if (ejecutando && (secuencia[indiceActual - 1]?.includes('vuelta') || secuencia[indiceActual - 1]?.includes('luz'))) {
+        const esLuzOVuelta = 
+            ejecutando && (secuencia[indiceActual - 1]?.includes('vuelta') || secuencia[indiceActual - 1]?.includes('luz'))
+                ||
+            ejecutando && (secuenciaProc1[indiceActualProc1 - 1]?.includes('vuelta') || secuenciaProc1[indiceActualProc1 - 1]?.includes('luz'))
+
+        const noEsLuzOVuelta = 
+            ejecutando && (secuencia[indiceActual - 1] !== 'luz')
+                ||
+            ejecutando && (secuenciaProc1[indiceActualProc1 - 1] !== 'luz')
+
+        if (esLuzOVuelta) {
             intervalRef.current = setInterval(() => {
                 setFrameIndex(prev => (prev + 1) % frames.length);
             }, 70);// 50
 
-        } else if (ejecutando && (secuencia[indiceActual - 1] !== 'luz')) {
+        } else if (noEsLuzOVuelta) {
             intervalRef.current = setInterval(() => {
                 setFrameIndex(prev => (prev + 1) % frames.length);
             }, 25);// 15
@@ -46,7 +69,7 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
         }
 
         return () => clearInterval(intervalRef.current);
-    }, [ejecutando, indiceActual]);
+    }, [ejecutando, indiceActual, indiceActualProc1]);
 
     // para que gire izq o der
     useEffect(() => {
@@ -113,7 +136,7 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
                 ${reiniciar ? 'quitar-transition' : ''}
                 ${quitarBotAnimacion ? 'quitar-transition' : ''}
             `
-            } 
+        }
             id='bot'
             style={{
                 transform: `${tranformStyle}`,
@@ -125,8 +148,9 @@ function Bot({ secuencia, indiceActual, ejecutando, sentido, reiniciar, botAnima
             <div className="bot-wrapper">
                 {/* No se que honda con esta parte nomas se que si le pongo 
                         indiceActual - 1 da normal hahaha, de lo contrario se adelanta a la secuencia */}
-                <img className={`bot ${debeVoltearse ? 'voltear' : ''}`}
-                    src={`${frames[frameIndex]}`}
+                <img
+                    className={`bot ${debeVoltearse ? 'voltear' : ''}`}
+                    src={preloadedImages.current[frameIndex]?.src || frames[0]}
                     alt="bot"
                 // style={{ transform: `rotate(${sentido}deg)` }}
                 />

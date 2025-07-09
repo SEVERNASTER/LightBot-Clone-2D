@@ -26,11 +26,21 @@ function Main({ user }) {
 
     const [mapa, setMapa] = useState(mapas1[0].mapa)
     const [bot, setBot] = useState(mapas1[0].bot)
+    const [limiteDeComandos, setLimiteDeComandos] = useState(mapas1[0].limiteDeComandos)
+    const [proc1, setProc1] = useState(mapas1[0].proc1)
+    const [limiteDeComandosProc1, setLimiteDeComandosProc1] = useState(mapas1[0].limiteDeComandosProc1)
+    const [filas, setFilas] = useState(mapas1[0].filas)
+    const [columnas, setColumnas] = useState(mapas1[0].columnas)
 
     useEffect(() => {
         if (mapas && mapas[mapaActual - 1]) {
             setMapa(mapas[mapaActual - 1].mapa)
             setBot(mapas[mapaActual - 1].bot)
+            setLimiteDeComandos(mapas[mapaActual - 1].limiteDeComandos)
+            setProc1(mapas[mapaActual - 1].proc1)
+            setLimiteDeComandosProc1(mapas[mapaActual - 1].limiteDeComandosProc1)
+            setFilas(mapas[mapaActual - 1].filas)
+            setColumnas(mapas[mapaActual - 1].columnas)
         }
     }, [mapas, mapaActual])
 
@@ -87,6 +97,9 @@ function Main({ user }) {
 
             <App mapa={mapa} setMapa={setMapa} jugando={jugando} mapaActual={mapaActual}
                 bot={bot}
+                limiteDeComandos={limiteDeComandos} proc1={proc1} 
+                limiteDeComandosProc1={limiteDeComandosProc1}
+                filas={filas} columnas={columnas}
             />
         </div>
     )

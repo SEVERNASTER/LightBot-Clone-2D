@@ -8,8 +8,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: yellow;
     transition: .3s;
+    font-size: 2rem;
+    color: yellow;
+    font-weight: 800;
+}
+
+.comando h3 {
+    background: linear-gradient(-45deg, #FF7F50, #FF7F50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* -webkit-text-stroke: 1px #fff; */
 }
 
 .comando.inhabilitar {

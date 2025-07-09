@@ -10,7 +10,7 @@ import Bot from '../components/Bot';
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
     colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando, secuencia,
-    indice, jugando
+    indice, jugando, secuenciaProc1, indiceProc1
 }) {
 
 
@@ -77,6 +77,7 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
 
 
                 <Bot secuencia={secuencia} indiceActual={indice}
+                    secuenciaProc1={secuenciaProc1} indiceActualProc1={indiceProc1}
                     ejecutando={ejecutando} sentido={sentido} reiniciar={reiniciar}
                     botAnimado={botAnimado} colisionArriba={colisionArriba}
                     colisionAbajo={colisionAbajo} colisionDerecha={colisionDerecha}

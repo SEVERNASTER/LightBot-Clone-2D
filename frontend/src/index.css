@@ -5,6 +5,18 @@
   font-family: 'Savate', sans-serif;
 }
 
+/* WebKit */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #17A8F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #C824D6;
+  border-radius: 10px;
+}
+/* 
 @font-face {
   font-family: 'Savate';
   src: url('./fonts/Savate-Regular.ttf') format('truetype');
@@ -24,4 +36,4 @@
   src: url('./fonts/Savate-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
-}
+} */

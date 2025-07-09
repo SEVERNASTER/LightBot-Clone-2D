@@ -23,7 +23,9 @@ import PantallaGanar from './components/PantallaGanar';
  */
 
 
-function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
+function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
+  limiteDeComandosProc1, filas: mapaFilas, columnas: mapaColumnas
+}) {
 
   // 0 = camino libre
   // 1 = obstaculo
@@ -31,10 +33,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
   // 3 = luz ya prendida
   // 4 = bot
 
+
+  // cambiar estos 2 use effect para que este todo en uno solo !!!!!!!
+
   useEffect(() => {
     reiniciarJuego()
     reiniciarFuncionBtn()
-  }, [mapaActual])
+    setFilas(mapaFilas)
+    setColumnas(mapaColumnas)
+  }, [mapaActual, proc1, limiteDeComandos, limiteDeComandosProc1, mapaFilas, mapaColumnas])
 
   useEffect(() => {
     reiniciarJuego()
@@ -56,6 +63,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
     // setSentidoAux(bot.direccionInicial)
 
     setSecuencia([]);
+    setSecuenciaProc1([])
     setBotAnimado(false);
     setEjecutando(false);
     setColisionArriba(false);
@@ -64,16 +72,20 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
     setColisionIzquierda(false);
     setReiniciar(false);
     setComandoActual(0);
+    setComandoActualProc1(0);
     setPuedeEditar(true);
     setListoParaEjecutar(false);
     indiceActualRef.current = 0;
+    indiceActualProc1Ref.current = 0;
     pausadoRef.current = false;
+    setComandosRestantes(limiteDeComandos)
+    setComandosRestantesProc1(limiteDeComandosProc1)
   }
 
 
-
-  const filas = 5
-  const columnas = 5
+  // para las filas y columnas
+  const [filas, setFilas] = useState(mapaFilas)
+  const [columnas, setColumnas] = useState(mapaColumnas)
 
   // este es el sentido que sera en grados, en el sentido de las agujas del reloj y servira para
   // saber si se mueve arr abj izq der
@@ -102,20 +114,27 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
 
 
   const [secuencia, setSecuencia] = useState([])
+  const [secuenciaProc1, setSecuenciaProc1] = useState([])
 
   const [botAnimado, setBotAnimado] = useState(false)
   const [ejecutando, setEjecutando] = useState(false)
+  const ejecutandoRef = useRef(ejecutando)
   const [colisionArriba, setColisionArriba] = useState(false)
   const [colisionAbajo, setColisionAbajo] = useState(false)
   const [colisionDerecha, setColisionDerecha] = useState(false)
   const [colisionIzquierda, setColisionIzquierda] = useState(false)
   const [reiniciar, setReiniciar] = useState(false)
-  const [comandoActual, setComandoActual] = useState(0)
+  const [comandoActualMain, setComandoActual] = useState(0)
+  const [comandoActualProc1, setComandoActualProc1] = useState(0)
   const [puedeEditar, setPuedeEditar] = useState(true)
   const [listoParaEjecutar, setListoParaEjecutar] = useState(false);
   const indiceActualRef = useRef(0);
+  const indiceActualProc1Ref = useRef(0);
   const pausadoRef = useRef(false)
   const [mensajeLuz, setMensajeLuz] = useState(false)
+  const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
+  const [comandosRestantesProc1, setComandosRestantesProc1] = useState(limiteDeComandosProc1)
+
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
 
@@ -132,9 +151,23 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
   }, [mapa, secuenciaTerminada]);
 
 
+  useEffect(() => {
+    ejecutandoRef.current = ejecutando
+  }, [ejecutando])
 
-  const ejecutarSecuencia = (indice = 0, sentidoActual = sentido, posActual = pos) => {
 
+
+
+
+
+
+
+
+
+
+  const ejecutarSecuenciaMain = (indice = 0, sentidoActual = sentido, posActual = pos) => {
+
+    // si ya no hay comandos para ejecutar ya no hacer nada
     if (indice >= secuencia.length) {
       setPuedeEditar(true)
       setEjecutando(false)
@@ -142,26 +175,126 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
       return;
     }
 
-    if (pausadoRef.current) {
-      setEjecutando(false)
-      return;
-    }
-
+    // para ver en que comando va
     indiceActualRef.current = indice + 1;
     setComandoActual(indice + 1)
 
-    const direccion = secuencia[indice];
+    // auxiliares para la logica
+    const comandoActualMain = secuencia[indice];
     let nuevoSentido = sentidoActual;
     let nuevaPos = { ...posActual };
 
     // Giro
-    if (direccion === 'vueltaDer' || direccion === 'vueltaIzq') {
-      nuevoSentido += direccion === 'vueltaDer' ? 90 : -90;
-      setSentido(nuevoSentido);
-    }
+
+    nuevoSentido = girarBot(comandoActualMain, setSentido, nuevoSentido)
 
     // Encender luz
-    if (direccion === 'luz') {
+
+    encenderLuzBot(comandoActualMain, nuevaPos)
+
+    // Movimiento para avanzar
+
+    nuevaPos = moverBot(comandoActualMain, nuevoSentido, nuevaPos)
+
+    // Continuar
+
+    setTimeout(() => {
+      if (ejecutandoRef.current) {
+        if (comandoActualMain === 'p1') {
+
+          ejecutarProc1(0, nuevoSentido, nuevaPos, indice + 1)
+
+        } else {
+          ejecutarSecuenciaMain(indice + 1, nuevoSentido, nuevaPos)
+        }
+      }
+    }, 1000);//500
+
+  };
+
+
+
+
+  // para ejecutar la secuencia de proc1
+
+  const ejecutarProc1 = (indice, sentidoActual, posActual, indiceMain) => {
+
+    // caso base si no hay mas comandos no hacer nada
+    if (indice >= secuenciaProc1.length) {
+      /* para los tiempos de animacion del bot, fijarse el componente Bot dentro de la grilla
+      para entender mejor, ahi le pasamos 2 indices actuales de main y de proc1*/
+      indiceActualProc1Ref.current = -1
+
+      /** para quitar la marca del comando al finalizar la ejecucion de los comandos
+       * de proc1
+       */
+      setComandoActualProc1(-1)
+
+      return ejecutarSecuenciaMain(indiceMain, sentidoActual, posActual)
+    }
+
+    // para ver en que comando de proc1 va
+    indiceActualProc1Ref.current = indice + 1;
+    setComandoActualProc1(indice + 1)
+
+
+    // auxiliares para la logica
+    const comandoActual = secuenciaProc1[indice]
+    let nuevoSentido = sentidoActual
+    let nuevaPos = { ...posActual }
+
+    // Giro
+
+    nuevoSentido = girarBot(comandoActual, setSentido, nuevoSentido)
+
+    // Encender luz
+
+    encenderLuzBot(comandoActual, nuevaPos)
+
+    // Movimiento para avanzar
+
+    nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
+
+
+    // continuar
+
+    setTimeout(() => {
+      if (ejecutandoRef.current) {
+        if (comandoActual === 'p1') {
+          ejecutarProc1(0, nuevoSentido, nuevaPos, indiceMain)
+        } else {
+          ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
+        }
+      }
+    }, 1000);//500
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  // para girar el bot
+  const girarBot = (comandoActual, setSentido, nuevoSentido) => {
+    if (comandoActual === 'vueltaDer' || comandoActual === 'vueltaIzq') {
+      nuevoSentido += comandoActual === 'vueltaDer' ? 90 : -90;
+      setSentido(nuevoSentido);
+    }
+    return nuevoSentido
+  }
+
+  // para encender la luz
+
+  const encenderLuzBot = (comandoActual, nuevaPos) => {
+
+    if (comandoActual === 'luz') {
       setMapa(prevMapa => {
         const nuevoMapa = prevMapa.map(fila => [...fila]);
         const celdaActual = nuevoMapa[nuevaPos.fila][nuevaPos.columna];
@@ -191,9 +324,12 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
       }, 500);
     }
 
+  }
 
-    // Movimiento para avanzar
-    if (direccion === 'avanzar') {
+  // para avanzar 
+
+  const moverBot = (comandoActual, nuevoSentido, nuevaPos) => {
+    if (comandoActual === 'avanzar') {
       const angulo = ((nuevoSentido % 360) + 360) % 360;
 
       const filaActual = nuevaPos.fila;
@@ -251,30 +387,41 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
 
       setPos(nuevaPos);
     }
+    return nuevaPos
+  }
 
 
 
 
-    // Continuar
-    setTimeout(() => {
-      ejecutarSecuencia(indice + 1, nuevoSentido, nuevaPos);
-    }, 1000);//500
-  };
 
-  const agregarComando = (comando) => {
-    if (secuencia.length >= limiteDeComandos) return;
+
+  useEffect(() => {
+    console.log(secuencia);
+  }, [secuencia])
+
+
+
+  const agregarComando = (comando, secuenciaActual, setSecuenciaActual, limiteDeComandosActual, setComandosRestantesActual) => {
+    // console.log(secuenciaActual, limiteDeComandosActual);
+
+    if (limiteDeComandosActual !== -1 &&
+      secuenciaActual.length >= limiteDeComandosActual) return;
+    setComandosRestantesActual(prev => prev - 1)
     switch (comando) {
       case 'avanzar':
-        avanzar()
+        avanzar(setSecuenciaActual)
         break;
       case 'girarDer':
-        girarDer()
+        girarDer(setSecuenciaActual)
         break;
       case 'girarIzq':
-        girarIzq()
+        girarIzq(setSecuenciaActual)
         break;
       case 'luz':
-        setSecuencia(prev => [...prev, 'luz']);
+        setSecuenciaActual(prev => [...prev, 'luz']);
+        break;
+      case 'p1':
+        setSecuenciaActual(prev => [...prev, 'p1'])
         break;
       default:
         break;
@@ -282,11 +429,11 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
   }
 
 
-  const avanzar = () => {
+  const avanzar = (setSecuenciaActual) => {
 
     const angulo = ((sentidoAux % 360) + 360) % 360;
 
-    setSecuencia(prev => [...prev, 'avanzar']);
+    setSecuenciaActual(prev => [...prev, 'avanzar']);
 
     switch (angulo) {
       case 0: // arriba
@@ -324,15 +471,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
 
 
 
-  const girarDer = () => {
+  const girarDer = (setSecuenciaActual) => {
     setSentidoAux(prev => prev + 90);
-    setSecuencia(prev => [...prev, 'vueltaDer']);
+    setSecuenciaActual(prev => [...prev, 'vueltaDer']);
   }
 
 
-  const girarIzq = () => {
+  const girarIzq = (setSecuenciaActual) => {
     setSentidoAux(prev => prev - 90);
-    setSecuencia(prev => [...prev, 'vueltaIzq']);
+    setSecuenciaActual(prev => [...prev, 'vueltaIzq']);
   }
 
 
@@ -345,8 +492,10 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
 
   useEffect(() => {
     if (listoParaEjecutar) {
+      // para quitar el comando marcado en proc1 cuando se vuelve a correr toda la secuencia
+      setComandoActualProc1(-1)
       setEjecutando(true);
-      ejecutarSecuencia(0, sentidoInicial, posInicial);
+      ejecutarSecuenciaMain(0, sentidoInicial, posInicial);
       setListoParaEjecutar(false);
     }
   }, [listoParaEjecutar]);
@@ -361,8 +510,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
   const jugar = () => {
     if (secuencia.length === 0) return;
 
-    if (!ejecutando && !pausadoRef.current) {
+    if (!ejecutando) {
       // Si ya terminó la secuencia o es la primera vez, reiniciar desde el inicio
+      setEjecutando(true)
       setPuedeEditar(false)
       setReiniciar(true)
       apagarLuces()
@@ -371,27 +521,31 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
         setPos(posInicial);
         setSentido(sentidoInicial);
         indiceActualRef.current = 0;
+        indiceActualProc1Ref.current = 0;
         setListoParaEjecutar(true);
       }, 200);
 
-    } else if (!ejecutando && pausadoRef.current) {
-      // Reanudar desde donde quedó
-      setPuedeEditar(false)
-      setEjecutando(true);
-      pausadoRef.current = false;
-      ejecutarSecuencia(indiceActualRef.current, sentido, pos);
-
-    } else if (ejecutando && !pausadoRef.current) {
-      // Pausar ejecución
-      setPuedeEditar(false);
-      pausadoRef.current = true;
+    } else if (ejecutando) {
       setEjecutando(false);
+      setReiniciar(true);
+      setMensajeLuz(false); // mensaje de éxito
+      setComandoActual(-1)
+      setComandoActualProc1(-1)
+
+      setTimeout(() => {
+        setReiniciar(false);
+        setPos(posInicial);
+        setSentido(sentidoInicial);
+        apagarLuces();
+        setPuedeEditar(true);
+      }, 200);
     }
   }
 
   const reiniciarFuncionBtn = () => {
     setPuedeEditar(true)
     setComandoActual(-1)
+    setComandoActualProc1(-1)
     setReiniciar(true)
     // para que devuevla el transition
     setTimeout(() => {
@@ -399,26 +553,28 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
     }, 200);
     apagarLuces()
     indiceActualRef.current = 0
+    indiceActualProc1Ref.current = 0
   }
 
-  useEffect(() => {
-    console.log('fila: ' + posAux.fila, 'columna:' + posAux.columna);
-  }, [posAux])
+  // useEffect(() => {
+  //   console.log('fila: ' + posAux.fila, 'columna:' + posAux.columna);
+  // }, [posAux])
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [mensaje, setMensaje] = useState('');
   const [tipo, setTipo] = useState(''); // "ganar" o "perder"
 
-  // Esta función la llamas cuando el juego termina, y le pasas si ganaste o no
   const terminarJuego = (gano) => {
-    if (gano) {
-      setMensaje('¡Ganaste! 🎉');
-      setTipo('ganar');
-    } else {
-      setMensaje('Perdiste 😢');
-      setTipo('perder');
-    }
-    setMostrarModal(true);
+    console.log(`${gano ? 'ganaste' : 'perdiste'}`);
+
+    // if (gano) {
+    //   setMensaje('¡Ganaste! 🎉');
+    //   setTipo('ganar');
+    // } else {
+    //   setMensaje('Perdiste 😢');
+    //   setTipo('perder');
+    // }
+    // setMostrarModal(true);
   };
 
 
@@ -431,15 +587,22 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos }) {
           botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
-          indice={indiceActualRef.current} jugando={jugando}
+          indice={indiceActualRef.current} indiceProc1={indiceActualProc1Ref.current}
+          jugando={jugando} secuenciaProc1={secuenciaProc1}
         />
 
-        <Panel posAux={posAux} setPosAux={setPosAux} sentidoAux={sentidoAux}
-          setSentidoAux={setSentidoAux}
-          ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia}
-          mapa={mapa} filas={filas} columnas={columnas} secuencia={secuencia}
+        <Panel
+          ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia} secuencia={secuencia}
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
-          comandoActual={comandoActual} puedeEditar={puedeEditar} jugando={jugando} />
+          comandoActualMain={comandoActualMain} comandoActualProc1={comandoActualProc1}
+          puedeEditar={puedeEditar} jugando={jugando}
+          limiteDeComandos={limiteDeComandos} comandosRestantes={comandosRestantes}
+          setComandosRestantes={setComandosRestantes} proc1={proc1} secuenciaProc1={secuenciaProc1}
+          setSecuenciaProc1={setSecuenciaProc1} limiteDeComandosProc1={limiteDeComandosProc1}
+          comandosRestantesProc1={comandosRestantesProc1}
+          setComandosRestantesProc1={setComandosRestantesProc1}
+        />
+
       </div>
       <div>
 
