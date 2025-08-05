@@ -23,8 +23,8 @@ import PantallaGanar from './components/PantallaGanar';
  */
 
 
-function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
-  limiteDeComandosProc1, filas: mapaFilas, columnas: mapaColumnas
+function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1, proc2,
+  limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas
 }) {
 
   // 0 = camino libre
@@ -41,7 +41,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     reiniciarFuncionBtn()
     setFilas(mapaFilas)
     setColumnas(mapaColumnas)
-  }, [mapaActual, proc1, limiteDeComandos, limiteDeComandosProc1, mapaFilas, mapaColumnas])
+  }, [mapaActual, proc1, proc2, limiteDeComandos, limiteDeComandosProc1, mapaFilas, mapaColumnas])
 
   useEffect(() => {
     reiniciarJuego()
@@ -115,6 +115,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
   const [secuencia, setSecuencia] = useState([])
   const [secuenciaProc1, setSecuenciaProc1] = useState([])
+  const [secuenciaProc2, setSecuenciaProc2] = useState([])
 
   const [botAnimado, setBotAnimado] = useState(false)
   const [ejecutando, setEjecutando] = useState(false)
@@ -126,14 +127,17 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [reiniciar, setReiniciar] = useState(false)
   const [comandoActualMain, setComandoActual] = useState(0)
   const [comandoActualProc1, setComandoActualProc1] = useState(0)
+  const [comandoActualProc2, setComandoActualProc2] = useState(0)
   const [puedeEditar, setPuedeEditar] = useState(true)
   const [listoParaEjecutar, setListoParaEjecutar] = useState(false);
   const indiceActualRef = useRef(0);
   const indiceActualProc1Ref = useRef(0);
+  const indiceActualProc2Ref = useRef(0);
   const pausadoRef = useRef(false)
   const [mensajeLuz, setMensajeLuz] = useState(false)
   const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
   const [comandosRestantesProc1, setComandosRestantesProc1] = useState(limiteDeComandosProc1)
+  const [comandosRestantesProc2, setComandosRestantesProc2] = useState(limiteDeComandosProc1)
 
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
@@ -258,6 +262,65 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     // continuar
 
+    setTimeout(() => {
+      if (ejecutandoRef.current) {
+        if (comandoActual === 'p1') {
+          ejecutarProc1(0, nuevoSentido, nuevaPos, indiceMain)
+        } else {
+          ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
+        }
+      }
+    }, 1000);//500
+
+  }
+
+    // para ejecutar la secuencia de proc2
+
+  const ejecutarProc2 = (indice, sentidoActual, posActual, indiceMain) => {
+
+    // caso base si no hay mas comandos no hacer nada
+    if (indice >= secuenciaProc2.length) {
+      /* para los tiempos de animacion del bot, fijarse el componente Bot dentro de la grilla
+      para entender mejor, ahi le pasamos 2 indices actuales de main y de proc1*/
+      indiceActualProc2Ref.current = -1
+
+      /** para quitar la marca del comando al finalizar la ejecucion de los comandos
+       * de proc1
+       */
+      setComandoActualProc2(-1)
+
+      // ver como regresamos al contenedor anterior de comandos, no siempre sera
+      // desde el contenedor main
+      return ejecutarSecuenciaMain(indiceMain, sentidoActual, posActual)
+    }
+
+    // para ver en que comando de proc1 va
+    indiceActualProc2Ref.current = indice + 1;
+    setComandoActualProc2(indice + 1)
+
+
+    // auxiliares para la logica
+    const comandoActual = secuenciaProc2[indice]
+    let nuevoSentido = sentidoActual
+    let nuevaPos = { ...posActual }
+
+    // Giro
+
+    nuevoSentido = girarBot(comandoActual, setSentido, nuevoSentido)
+
+    // Encender luz
+
+    encenderLuzBot(comandoActual, nuevaPos)
+
+    // Movimiento para avanzar
+
+    nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
+
+
+    // continuar
+
+
+    // controlar si se puso el comando P2
     setTimeout(() => {
       if (ejecutandoRef.current) {
         if (comandoActual === 'p1') {
@@ -422,6 +485,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
         break;
       case 'p1':
         setSecuenciaActual(prev => [...prev, 'p1'])
+        break;
+      case 'p2':
+        setSecuenciaActual(prev => [...prev, 'p2'])
         break;
       default:
         break;
@@ -597,10 +663,19 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           comandoActualMain={comandoActualMain} comandoActualProc1={comandoActualProc1}
           puedeEditar={puedeEditar} jugando={jugando}
           limiteDeComandos={limiteDeComandos} comandosRestantes={comandosRestantes}
-          setComandosRestantes={setComandosRestantes} proc1={proc1} secuenciaProc1={secuenciaProc1}
+          setComandosRestantes={setComandosRestantes} 
+          
+          proc1={proc1} secuenciaProc1={secuenciaProc1}
           setSecuenciaProc1={setSecuenciaProc1} limiteDeComandosProc1={limiteDeComandosProc1}
           comandosRestantesProc1={comandosRestantesProc1}
           setComandosRestantesProc1={setComandosRestantesProc1}
+
+          proc2={proc2} secuenciaProc2={secuenciaProc2} 
+          setSecuenciaProc2={setSecuenciaProc2} limiteDeComandosProc2={limiteDeComandosProc2}
+          comandosRestantesProc2={comandosRestantesProc2} 
+          setComandosRestantesProc2={setComandosRestantesProc2} 
+          comandoActualProc2={comandoActualProc2}
+
         />
 
       </div>

@@ -10,6 +10,8 @@ function Comando({ imagen, icono: Icono, resaltar, eliminarComando, inhabilitar,
                 comando 
                 ${resaltar ? 'resaltar' : ''}
                 ${inhabilitar ? 'inhabilitar' : ''}
+                ${texto === 'P1' ? 'p1' : ''}
+                ${texto === 'P2' ? 'p2' : ''}
             `}
 
             style={{

@@ -404,9 +404,11 @@ export const mapas2 = [
         filas: 5,
         columnas: 5,
         bot: { pos: { fila: 4, columna: 0 }, direccionInicial: 0 },
-        limiteDeComandos: 5,
+        limiteDeComandos: 12,
         proc1: true,
-        limiteDeComandosProc1: 6
+        proc2: true,
+        limiteDeComandosProc1: 6,
+        limiteDeComandosProc2: 6,
     },
     {
         mapa: [

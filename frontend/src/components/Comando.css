@@ -14,11 +14,19 @@
     font-weight: 800;
 }
 
+/* descomentar esto para agregar borde al texto H3 */
 .comando h3 {
-    background: linear-gradient(-45deg, #FF7F50, #FF7F50);
-    -webkit-background-clip: text;
+    /* -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* -webkit-text-stroke: 1px #fff; */
+    -webkit-text-stroke: 1px #fff; */
+}
+
+.comando.p1 h3 {
+    color: #FF7F50;
+}
+
+.comando.p2 h3 {
+    color: #EA2BFF;
 }
 
 .comando.inhabilitar {
