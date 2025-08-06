@@ -73,13 +73,16 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     setReiniciar(false);
     setComandoActual(0);
     setComandoActualProc1(0);
+    setComandoActualProc2(0);
     setPuedeEditar(true);
     setListoParaEjecutar(false);
     indiceActualRef.current = 0;
     indiceActualProc1Ref.current = 0;
+    indiceActualProc2Ref.current = 0;
     pausadoRef.current = false;
     setComandosRestantes(limiteDeComandos)
     setComandosRestantesProc1(limiteDeComandosProc1)
+    setComandosRestantesProc2(limiteDeComandosProc2)
   }
 
 
@@ -206,8 +209,10 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       if (ejecutandoRef.current) {
         if (comandoActualMain === 'p1') {
 
-          ejecutarProc1(0, nuevoSentido, nuevaPos, indice + 1)
+          ejecutarProc1(0, nuevoSentido, nuevaPos, indice + 1, 'main')
 
+        } else if (comandoActualMain === 'p2'){
+          ejecutarProc2(0, nuevoSentido, nuevaPos, indice + 1, 'main')
         } else {
           ejecutarSecuenciaMain(indice + 1, nuevoSentido, nuevaPos)
         }
@@ -221,7 +226,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
   // para ejecutar la secuencia de proc1
 
-  const ejecutarProc1 = (indice, sentidoActual, posActual, indiceMain) => {
+  const ejecutarProc1 = (indice, sentidoActual, posActual, indiceOrigen, origen) => {
 
     // caso base si no hay mas comandos no hacer nada
     if (indice >= secuenciaProc1.length) {
@@ -234,7 +239,19 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
        */
       setComandoActualProc1(-1)
 
-      return ejecutarSecuenciaMain(indiceMain, sentidoActual, posActual)
+      switch (origen) {
+        case 'main':
+          return ejecutarSecuenciaMain(indiceOrigen, sentidoActual, posActual)
+        case 'proc1':
+          /**esto es una excepcion porque da igual donde regrese se considera un bucle asi 
+           * que volvemos o ejecutamos desde el principio
+           */
+          return ejecutarProc1(0, nuevoSentido, nuevaPos, indiceOrigen, 'proc1')
+        case 'proc2 ':
+        // return ejecutarProc2(indiceOrigen, sentidoActual, posActual, )
+        default:
+          break;
+      }
     }
 
     // para ver en que comando de proc1 va
@@ -265,18 +282,18 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     setTimeout(() => {
       if (ejecutandoRef.current) {
         if (comandoActual === 'p1') {
-          ejecutarProc1(0, nuevoSentido, nuevaPos, indiceMain)
+          ejecutarProc1(0, nuevoSentido, nuevaPos, indiceOrigen, 'p1')
         } else {
-          ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
+          ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceOrigen, origen)
         }
       }
     }, 1000);//500
 
   }
 
-    // para ejecutar la secuencia de proc2
+  // para ejecutar la secuencia de proc1
 
-  const ejecutarProc2 = (indice, sentidoActual, posActual, indiceMain) => {
+  const ejecutarProc2 = (indice, sentidoActual, posActual, indiceOrigen, origen) => {
 
     // caso base si no hay mas comandos no hacer nada
     if (indice >= secuenciaProc2.length) {
@@ -289,9 +306,19 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
        */
       setComandoActualProc2(-1)
 
-      // ver como regresamos al contenedor anterior de comandos, no siempre sera
-      // desde el contenedor main
-      return ejecutarSecuenciaMain(indiceMain, sentidoActual, posActual)
+      switch (origen) {
+        case 'main':
+          return ejecutarSecuenciaMain(indiceOrigen, sentidoActual, posActual)
+        case 'proc1':
+          /**esto es una excepcion porque da igual donde regrese se considera un bucle asi 
+           * que volvemos o ejecutamos desde el principio
+           */
+          return ejecutarProc1(0, nuevoSentido, nuevaPos, indiceOrigen, 'proc2')
+        case 'proc2 ':
+        // return ejecutarProc2(indiceOrigen, sentidoActual, posActual, )
+        default:
+          break;
+      }
     }
 
     // para ver en que comando de proc1 va
@@ -319,20 +346,17 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     // continuar
 
-
-    // controlar si se puso el comando P2
     setTimeout(() => {
       if (ejecutandoRef.current) {
         if (comandoActual === 'p1') {
-          ejecutarProc1(0, nuevoSentido, nuevaPos, indiceMain)
+          ejecutarProc2(0, nuevoSentido, nuevaPos, indiceOrigen)
         } else {
-          ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, indiceMain)
+          ejecutarProc2(indice + 1, nuevoSentido, nuevaPos, indiceOrigen)
         }
       }
     }, 1000);//500
 
   }
-
 
 
 
@@ -612,6 +636,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     setPuedeEditar(true)
     setComandoActual(-1)
     setComandoActualProc1(-1)
+    setComandoActualProc2(-1)
     setReiniciar(true)
     // para que devuevla el transition
     setTimeout(() => {
@@ -620,6 +645,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     apagarLuces()
     indiceActualRef.current = 0
     indiceActualProc1Ref.current = 0
+    indiceActualProc2Ref.current = 0
   }
 
   // useEffect(() => {
@@ -663,17 +689,17 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           comandoActualMain={comandoActualMain} comandoActualProc1={comandoActualProc1}
           puedeEditar={puedeEditar} jugando={jugando}
           limiteDeComandos={limiteDeComandos} comandosRestantes={comandosRestantes}
-          setComandosRestantes={setComandosRestantes} 
-          
+          setComandosRestantes={setComandosRestantes}
+
           proc1={proc1} secuenciaProc1={secuenciaProc1}
           setSecuenciaProc1={setSecuenciaProc1} limiteDeComandosProc1={limiteDeComandosProc1}
           comandosRestantesProc1={comandosRestantesProc1}
           setComandosRestantesProc1={setComandosRestantesProc1}
 
-          proc2={proc2} secuenciaProc2={secuenciaProc2} 
+          proc2={proc2} secuenciaProc2={secuenciaProc2}
           setSecuenciaProc2={setSecuenciaProc2} limiteDeComandosProc2={limiteDeComandosProc2}
-          comandosRestantesProc2={comandosRestantesProc2} 
-          setComandosRestantesProc2={setComandosRestantesProc2} 
+          comandosRestantesProc2={comandosRestantesProc2}
+          setComandosRestantesProc2={setComandosRestantesProc2}
           comandoActualProc2={comandoActualProc2}
 
         />

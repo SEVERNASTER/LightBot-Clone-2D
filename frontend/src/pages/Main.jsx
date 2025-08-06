@@ -16,7 +16,7 @@ import useToast from '../hooks/useToast.js';
 function Main({ user }) {
 
     const [mapaActual, setMapaActual] = useState(1)
-    const [vistaMenu, setVistaMenu] = useState(true)
+    const [vistaMenu, setVistaMenu] = useState(false)//cambiar esto para intercalar entre el menu y los niveles
     const [jugando, setJugando] = useState(false)
     const [creando, setCreando] = useState(false)
     const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()

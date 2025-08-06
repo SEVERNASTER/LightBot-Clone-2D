@@ -80,6 +80,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
         return res
     }
 
+
     useEffect(() => {
         if (secuencia.length !== 0) {
             const nuevosComandos = secuencia.map(actual => {
@@ -344,7 +345,6 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     resaltar={indice + 1 === comandoActualMain}
                                     eliminarComando={() => {
                                         eliminarComando(indice, setComandos, setSecuencia, setComandosRestantes)
-                                        setComandosRestantes(prev => prev + 1)
                                     }}
                                     inhabilitar={ejecutando}
                                     puedeEditar={puedeEditar}

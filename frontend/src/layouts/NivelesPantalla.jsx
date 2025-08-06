@@ -11,7 +11,7 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, juga
 
     const nivelesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
-    const [nivelActual, setNivelActual] = useState(1) //para saber en que card de nivel va
+    const [nivelActual, setNivelActual] = useState(3) //para saber en que card de nivel va
 
     useEffect(() => {
         // console.log(nivelActual);
