@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { IoIosArrowDropup } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
 import App from '../App';
-import { mapas1, mapas2, mapas3 } from '../data/mapas.js';
+import { mapas1, mapas2, mapas3, mapas4 } from '../data/mapas.js';
 import { FaUser } from "react-icons/fa";
 import Toast from '../components/Toast.jsx';
 import useToast from '../hooks/useToast.js';
@@ -84,7 +84,7 @@ function Main({ user }) {
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}
-                jugandoMiNivel={jugandoMiNivel} mapas1={mapas1} mapas2={mapas2} mapas3={mapas3}
+                jugandoMiNivel={jugandoMiNivel} mapas1={mapas1} mapas2={mapas2} mapas3={mapas3} mapas4={mapas4}
                 setMapas={setMapas}
             />
 
