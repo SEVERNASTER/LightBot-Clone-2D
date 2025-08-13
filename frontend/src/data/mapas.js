@@ -868,20 +868,20 @@ export const mapas4 = [
     },
     {
         mapa: [
-            [1, 0, 0, 2, 0],
-            [0, 1, 0, 1, 0],
-            [0, 1, 0, 0, 2],
-            [0, 1, 1, 1, 1],
-            [0, 0, 0, 0, 0],
+            [1, 2, 2, 2, 1],
+            [2, 0, 0, 0, 2],
+            [2, 0, 1, 0, 2],
+            [2, 0, 0, 0, 2],
+            [1, 2, 2, 2, 1],
         ],
         filas: 5,
         columnas: 5, // Añadido
-        bot: { pos: { fila: 4, columna: 0 }, direccionInicial: 0 },
-        limiteDeComandos: 12,
+        bot: { pos: { fila: 4, columna: 1 }, direccionInicial: 90 },
+        limiteDeComandos: 1,
         proc1: true,
-        limiteDeComandosProc1: 6,
+        limiteDeComandosProc1: 8,
         proc2: true,
-        limiteDeComandosProc2: 6
+        limiteDeComandosProc2: 8
     },
     {
         mapa: [

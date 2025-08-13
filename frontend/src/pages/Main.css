@@ -12,6 +12,10 @@
     background: linear-gradient(#20285A, #123A95);
 }
 
+.main-container.creando {
+    background: linear-gradient(#20285A, #123A95);
+}
+
 .regresar-niveles-btn {
     top: -100px;
     left: 50%;

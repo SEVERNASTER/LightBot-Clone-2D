@@ -17,6 +17,17 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
+    const [tamanioGrilla, setTamanioGrilla] = useState('5')//numero de filas y columnas
+    const [mecanica, setMecanica] = useState('normal')
+
+    useEffect(() => {
+        console.log(tamanioGrilla);
+    }, [tamanioGrilla])
+
+    useEffect(() => {
+        console.log(mecanica);
+    }, [mecanica])
+
 
     useEffect(() => {
         let puedeArrastrar = true
@@ -36,7 +47,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
 
     const handleGuardarMapa = async () => {
-        if(!titulo || titulo?.trim() === '') return mostrarToast('El nivel necesita un nombre', 'alert');
+        if (!titulo || titulo?.trim() === '') return mostrarToast('El nivel necesita un nombre', 'alert');
 
         setPidiendoDatos(true)
         let pos = null;
@@ -97,6 +108,38 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
     return (
         <div className='panel-editar' >
+            <div className="nivel-config">
+                <div className="tamanio-grilla-container">
+                    <h3>Tamaño de la Grilla</h3>
+                    <div className="tamanios-opciones">
+                        <button className='tamanio-opcion-btn'
+                            onClick={() => setTamanioGrilla(5)}
+                        >5x5</button>
+
+                        <button className='tamanio-opcion-btn'
+                            onClick={() => setTamanioGrilla(7)}
+                        >7x7</button>
+
+                        <button className='tamanio-opcion-btn'
+                            onClick={() => setTamanioGrilla(10)}
+                        >10x10</button>
+                    </div>
+                </div>
+
+                <div className="mecanicas-nivel">
+                    <h3>Mecánicas del Nivel</h3>
+                    <div className="mecanicas-container">
+                        <button className="mecanica-label">Normal</button>
+                        <button className="mecanica-label">Proc1</button>
+                        <button className="mecanica-label">Proc1 + Proc2</button>
+                        <button className="mecanica-label">Loop</button>
+                        <button className="mecanica-label">Loop + Proc1</button>
+                        <button className="mecanica-label">Loop + Proc1 + Proc2</button>
+                    </div>
+                </div>
+            </div>
+
+
             <div className="herramientas">
                 <div className="titulo-herramientas">
                     <h3>HERRAMIENTAS DE CONSTRUCCIÓN</h3>
@@ -172,7 +215,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                     onClick={handleGuardarMapa}
                 >
                     {!pidiendoDatos && <BiSolidSave size={25} />}
-                    {!pidiendoDatos && 'GUARDAR' }
+                    {!pidiendoDatos && 'GUARDAR'}
                 </button>
             </div>
         </div>

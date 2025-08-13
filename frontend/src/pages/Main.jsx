@@ -16,7 +16,7 @@ import useToast from '../hooks/useToast.js';
 function Main({ user }) {
 
     const [mapaActual, setMapaActual] = useState(1)
-    const [vistaMenu, setVistaMenu] = useState(false)//cambiar esto para intercalar entre el menu y los niveles
+    const [vistaMenu, setVistaMenu] = useState(true)//cambiar esto para intercalar entre el menu y los niveles
     const [jugando, setJugando] = useState(false)
     const [creando, setCreando] = useState(false)
     const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()
@@ -59,7 +59,9 @@ function Main({ user }) {
     }
 
     return (
-        <div className={`main-container ${jugando ? 'jugando' : ''}`}>
+        <div className={`main-container ${jugando ? 'jugando' : ''}
+            ${creando ? 'creando' : ''}
+        `}>
             <Toast mensaje={mensaje} icono={icono} mostrar={mostrar} setMostrar={setMostrar} />
             <div className="perfil" style={{
                 background: `linear-gradient(to bottom right,${user?.color1}, ${user?.color2})`,

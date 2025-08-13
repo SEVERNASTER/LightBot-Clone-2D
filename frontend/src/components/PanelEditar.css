@@ -187,6 +187,87 @@
     }
 }
 
+.nivel-config {
+    height: auto;
+    background-color: #22244F;
+    border-radius: 20px;
+    border: solid 3px #BE2AD9;
+    padding: 20px;
+}
+
+.nivel-config h3 {
+    color: #1ABCFD;
+    font-size: 1.3rem;
+}
+
+.tamanios-opciones {
+    /* border: solid #fff; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.tamanio-opcion-btn {
+    height: 50px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: #242145;
+    border: solid 3px #1ABCFD;
+    color: #0ef;
+    padding: 10px 20px;
+    transition: .3s ease-out;
+}
+
+.tamanio-opcion-btn:hover {
+    background-color: #1ABCFD;
+    color: #242145;
+    box-shadow: 0 0 20px #1ABCFD;
+}
+
+.tamanio-opcion-btn:active {
+    background-color: #fff;
+    box-shadow: 0 0 20px #fff;
+}
+
+.mecanicas-container {
+    /* border: solid #fff; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.mecanica-label {
+    height: 40px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #D320D4;
+    border: solid 3px #D320D4;
+    background-color: #242145;
+    transition: .2s ease-out;
+    outline: none;
+}
+
+.mecanica-label:hover {
+    background-color: #D320D4;
+    color: #fff;
+    box-shadow: 0 0 20px #D320D4;
+}
+
+.mecanica-label:active {
+    background-color: #fff;
+    color: #D320D4;
+}
+
 @media screen and (max-width: 768px) {
     .panel-editar {
         display: none;
