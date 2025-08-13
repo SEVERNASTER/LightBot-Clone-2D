@@ -1,5 +1,3 @@
-
-
 .panel-editar {
     /* border: solid #fff; */
     height: 100vh;
@@ -120,7 +118,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(90deg, transparent, transparent, rgba(255, 255, 255, .8) , transparent, transparent);
+    background: linear-gradient(90deg, transparent, transparent, rgba(255, 255, 255, .8), transparent, transparent);
     transform: translateX(-100%);
     transition: .3s;
 }
@@ -176,7 +174,7 @@
         width: min(500px, 100%);
         /* display: none; */
     }
-    
+
     .titulo-herramientas {
         font-size: 1.3rem;
     }
@@ -226,6 +224,11 @@
     transition: .3s ease-out;
 }
 
+.tamanio-opcion-btn.marcar {
+    background-color: #1ABCFD;
+    color: #242145;
+}
+
 .tamanio-opcion-btn:hover {
     background-color: #1ABCFD;
     color: #242145;
@@ -261,6 +264,11 @@
     outline: none;
 }
 
+.mecanica-label.marcar {
+    background-color: #D320D4;
+    color: #fff;
+}
+
 .mecanica-label:hover {
     background-color: #D320D4;
     color: #fff;
@@ -281,7 +289,22 @@
     font-size: 1rem;
 }
 
+.limite-container {
+    border: solid red;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.sin-limite {
+    height: 20px !important;
+    width: 20px !important;
+}
+
 .limite-comando {
+    border: solid;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -300,6 +323,12 @@
     margin: 5px;
     border-radius: 10px;
     padding: 0 5px;
+    transition: .3s;
+}
+
+.limite-comando input:focus {
+    box-shadow: 0 0 20px #D320D4;
+    border-color: #D320D4;
 }
 
 @media screen and (max-width: 768px) {

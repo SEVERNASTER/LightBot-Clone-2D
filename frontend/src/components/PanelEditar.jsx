@@ -17,7 +17,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
-    const [tamanioGrilla, setTamanioGrilla] = useState('5')//numero de filas y columnas
+    const [tamanioGrilla, setTamanioGrilla] = useState(5)//numero de filas y columnas
     const [mecanica, setMecanica] = useState('normal')
 
     useEffect(() => {
@@ -102,10 +102,6 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
     }
 
-    const handleNormal = () => {
-
-    }
-
 
 
     return (
@@ -114,15 +110,24 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                 <div className="tamanio-grilla-container">
                     <h3>Tamaño de la Grilla</h3>
                     <div className="tamanios-opciones">
-                        <button className='tamanio-opcion-btn'
+                        <button className={`
+                            tamanio-opcion-btn
+                            ${tamanioGrilla === 5 ? 'marcar' : ''}
+                        `}
                             onClick={() => setTamanioGrilla(5)}
                         >5x5</button>
 
-                        <button className='tamanio-opcion-btn'
+                        <button className={`
+                            tamanio-opcion-btn
+                            ${tamanioGrilla === 7 ? 'marcar' : ''}
+                        `}
                             onClick={() => setTamanioGrilla(7)}
                         >7x7</button>
 
-                        <button className='tamanio-opcion-btn'
+                        <button className={`
+                            tamanio-opcion-btn
+                            ${tamanioGrilla === 10 ? 'marcar' : ''}
+                        `}
                             onClick={() => setTamanioGrilla(10)}
                         >10x10</button>
                     </div>
@@ -131,28 +136,76 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                 <div className="mecanicas-nivel">
                     <h3>Mecánicas del Nivel</h3>
                     <div className="mecanicas-container">
-                        <button className="mecanica-label">Normal</button>
-                        <button className="mecanica-label">Proc1</button>
-                        <button className="mecanica-label">Proc1 + Proc2</button>
-                        <button className="mecanica-label">Loop</button>
-                        <button className="mecanica-label">Loop + Proc1</button>
-                        <button className="mecanica-label">Loop + Proc1 + Proc2</button>
+                        <button className={`
+                            mecanica-label
+                            ${mecanica === 'normal' ? 'marcar' : ''}
+                        `}
+                            onClick={() => setMecanica('normal')}
+                        >Normal</button>
+                        <button className={`
+                            mecanica-label
+                            ${mecanica === 'proc1' ? 'marcar' : ''}
+                        `}
+                            onClick={() => setMecanica('proc1')}
+                        >Proc1</button>
+                        <button className={`
+                            mecanica-label
+                            ${mecanica === 'proc1-proc2' ? 'marcar' : ''}
+                        `}
+                            onClick={() => setMecanica('proc1-proc2')}
+                        >Proc1 + Proc2</button>
+                        <button className={`
+                            mecanica-label
+                            ${mecanica === 'loop' ? 'marcar' : ''}
+                        `}
+                            onClick={() => setMecanica('loop')}
+                        >Loop</button>
+                        <button className={`
+                            mecanica-label
+                            ${mecanica === 'loop-proc1' ? 'marcar' : ''}
+                        `}
+                            onClick={() => setMecanica('loop-proc1')}
+                        >Loop + Proc1</button>
+                        <button className={`
+                            mecanica-label
+                            ${mecanica === 'loop-proc1-proc2' ? 'marcar' : ''}
+                        `}
+                            onClick={() => setMecanica('loop-proc1-proc2')}
+                        >Loop + Proc1 + Proc2</button>
                     </div>
                     <div className="limite-comandos-crear">
                         <h3>Límite de Comandos</h3>
                         <div className="limite-comando limite-main">
                             <h4>Main:</h4>
+                            <div className="limite-container">
                             <input type="number" min={1}/>
+                            <label>
+                                <input className='sin-limite' type="checkbox" />
+                                Sin límite
+                            </label>
+                            </div>
                         </div>
 
                         <div className="limite-comando limite-proc1">
                             <h4>Proc1:</h4>
+                            <div className="limite-container">
                             <input type="number" min={1}/>
+                            <label>
+                                <input className='sin-limite' type="checkbox" />
+                                Sin límite
+                            </label>
+                            </div>
                         </div>
 
                         <div className="limite-comando limite-proc2">
                             <h4>Proc2:</h4>
+                            <div className="limite-container">
                             <input type="number" min={1}/>
+                            <label>
+                                <input className='sin-limite' type="checkbox" />
+                                Sin límite
+                            </label>
+                            </div>
                         </div>
                     </div>
                 </div>
