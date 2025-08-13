@@ -100,9 +100,11 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
         setPidiendoDatos(false)
 
-
     }
 
+    const handleNormal = () => {
+
+    }
 
 
 
@@ -135,6 +137,23 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                         <button className="mecanica-label">Loop</button>
                         <button className="mecanica-label">Loop + Proc1</button>
                         <button className="mecanica-label">Loop + Proc1 + Proc2</button>
+                    </div>
+                    <div className="limite-comandos-crear">
+                        <h3>Límite de Comandos</h3>
+                        <div className="limite-comando limite-main">
+                            <h4>Main:</h4>
+                            <input type="number" min={1}/>
+                        </div>
+
+                        <div className="limite-comando limite-proc1">
+                            <h4>Proc1:</h4>
+                            <input type="number" min={1}/>
+                        </div>
+
+                        <div className="limite-comando limite-proc2">
+                            <h4>Proc2:</h4>
+                            <input type="number" min={1}/>
+                        </div>
                     </div>
                 </div>
             </div>
