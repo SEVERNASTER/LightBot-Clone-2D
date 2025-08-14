@@ -19,6 +19,11 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
     const [tamanioGrilla, setTamanioGrilla] = useState(5)//numero de filas y columnas
     const [mecanica, setMecanica] = useState('normal')
+    const [limiteMain, setlimiteMain] = useState(12)
+    const [limiteProc1, setLimiteProc1] = useState(8)
+    const [limiteProc2, setLimiteProc2] = useState(8)
+
+    
 
     useEffect(() => {
         console.log(tamanioGrilla);
@@ -27,6 +32,19 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
     useEffect(() => {
         console.log(mecanica);
     }, [mecanica])
+
+
+    useEffect(() => {
+        console.log(limiteMain);
+    }, [limiteMain])
+
+    useEffect(() => {
+        console.log(limiteProc1);
+    }, [limiteProc1])
+
+    useEffect(() => {
+        console.log(limiteProc2);
+    }, [limiteProc2])
 
 
     useEffect(() => {
@@ -107,6 +125,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
     return (
         <div className='panel-editar' >
             <div className="nivel-config">
+                {/* para el tamanio de la grilla */}
                 <div className="tamanio-grilla-container">
                     <h3>Tamaño de la Grilla</h3>
                     <div className="tamanios-opciones">
@@ -133,6 +152,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                     </div>
                 </div>
 
+                {/* para las mecanicas del nivel */}
                 <div className="mecanicas-nivel">
                     <h3>Mecánicas del Nivel</h3>
                     <div className="mecanicas-container">
@@ -142,30 +162,28 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                         `}
                             onClick={() => setMecanica('normal')}
                         >Normal</button>
+
                         <button className={`
                             mecanica-label
                             ${mecanica === 'proc1' ? 'marcar' : ''}
                         `}
                             onClick={() => setMecanica('proc1')}
                         >Proc1</button>
+
                         <button className={`
                             mecanica-label
                             ${mecanica === 'proc1-proc2' ? 'marcar' : ''}
                         `}
                             onClick={() => setMecanica('proc1-proc2')}
                         >Proc1 + Proc2</button>
-                        <button className={`
-                            mecanica-label
-                            ${mecanica === 'loop' ? 'marcar' : ''}
-                        `}
-                            onClick={() => setMecanica('loop')}
-                        >Loop</button>
+
                         <button className={`
                             mecanica-label
                             ${mecanica === 'loop-proc1' ? 'marcar' : ''}
                         `}
                             onClick={() => setMecanica('loop-proc1')}
                         >Loop + Proc1</button>
+
                         <button className={`
                             mecanica-label
                             ${mecanica === 'loop-proc1-proc2' ? 'marcar' : ''}
@@ -173,38 +191,61 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                             onClick={() => setMecanica('loop-proc1-proc2')}
                         >Loop + Proc1 + Proc2</button>
                     </div>
+
+                    {/* para el limite de comandos */}
                     <div className="limite-comandos-crear">
                         <h3>Límite de Comandos</h3>
-                        <div className="limite-comando limite-main">
+
+                        <div className={`limite-comando limite-main
+                            ${mecanica === 'normal' ? 'habilitar' : ''}
+                        `}>
+
                             <h4>Main:</h4>
                             <div className="limite-container">
-                            <input type="number" min={1}/>
-                            <label>
-                                <input className='sin-limite' type="checkbox" />
-                                Sin límite
-                            </label>
+                                <input type="number" min={1} disabled={mecanica.includes('loop')}
+                                    value={mecanica.includes('loop') ? 1 : limiteMain}
+                                    onChange={(e) => setlimiteMain(e.target.value)}
+                                />
+                                <label className={`sin-limites-main ${mecanica.includes('loop') ? 'inhabilitar' : ''}`}>
+                                    <input className='sin-limite' type="checkbox"
+                                        disabled={mecanica.includes('loop')}
+                                    />
+                                    Sin límite
+                                </label>
                             </div>
                         </div>
 
-                        <div className="limite-comando limite-proc1">
+                        <div className={`limite-comando limite-proc1
+                            ${mecanica.includes('proc1') ? 'habilitar' : ''}
+                        `}>
+
                             <h4>Proc1:</h4>
                             <div className="limite-container">
-                            <input type="number" min={1}/>
-                            <label>
-                                <input className='sin-limite' type="checkbox" />
-                                Sin límite
-                            </label>
+                                <input type="number" min={1}
+                                    value={limiteProc1}
+                                    onChange={(e) => setLimiteProc1(e.target.value)}
+                                />
+                                <label>
+                                    <input className='sin-limite' type="checkbox" />
+                                    Sin límite
+                                </label>
                             </div>
                         </div>
 
-                        <div className="limite-comando limite-proc2">
+                        <div className={`limite-comando limite-proc2
+                            ${mecanica.includes('proc2') ? 'habilitar' : ''}
+                        `}>
+
                             <h4>Proc2:</h4>
                             <div className="limite-container">
-                            <input type="number" min={1}/>
-                            <label>
-                                <input className='sin-limite' type="checkbox" />
-                                Sin límite
-                            </label>
+                                <input type="number" min={1} 
+                                    value={limiteProc2}
+                                    onChange={(e) => setLimiteProc2(e.target.value)}
+                                />
+                                <label>
+                                    <input className='sin-limite' type="checkbox" />
+                                    Sin límite
+                                </label>
                             </div>
                         </div>
                     </div>

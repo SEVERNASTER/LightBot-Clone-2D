@@ -290,7 +290,7 @@
 }
 
 .limite-container {
-    border: solid red;
+    /* border: solid red; */
     font-size: 1.1rem;
     display: flex;
     justify-content: space-between;
@@ -301,10 +301,18 @@
 .sin-limite {
     height: 20px !important;
     width: 20px !important;
+
+}
+
+.limite-comando label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .limite-comando {
-    border: solid;
+    /* border: solid; */
+    border-bottom: solid 1px #1ABCFD;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -330,6 +338,37 @@
     box-shadow: 0 0 20px #D320D4;
     border-color: #D320D4;
 }
+
+.limite-proc1, .limite-proc2 {
+    opacity: .3;
+    pointer-events: none;
+    transform: scale(.9);
+    transition: .3s;
+}
+
+.limite-proc1.habilitar,
+.limite-proc2.habilitar {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+}
+
+.limite-proc2 {
+    transform: scale(.8);
+}
+
+.sin-limites-main {
+    transition: .3s;
+}
+
+.sin-limites-main.inhabilitar{
+    opacity: .5;
+    transform: scale(.8);
+
+}
+
+
+
 
 @media screen and (max-width: 768px) {
     .panel-editar {
