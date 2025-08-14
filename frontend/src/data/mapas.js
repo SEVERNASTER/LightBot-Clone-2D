@@ -874,9 +874,12 @@ export const mapas4 = [
             [2, 0, 0, 0, 2],
             [1, 2, 2, 2, 1],
         ],
+
         filas: 5,
         columnas: 5, // Añadido
+        
         bot: { pos: { fila: 4, columna: 1 }, direccionInicial: 90 },
+
         limiteDeComandos: 1,
         proc1: true,
         limiteDeComandosProc1: 8,

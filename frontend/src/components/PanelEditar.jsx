@@ -22,8 +22,73 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
     const [limiteMain, setlimiteMain] = useState(12)
     const [limiteProc1, setLimiteProc1] = useState(8)
     const [limiteProc2, setLimiteProc2] = useState(8)
+    const [mecanicaInfo, setMecanicaInfo] = useState({})
+    const [sinLimites, setSinLimites] = useState({
+        main: false,
+        proc1: false,
+        proc2: false
+    })
 
-    
+    useEffect(() => {
+        switch (mecanica) {
+            case 'normal':
+                setMecanicaInfo({
+                    proc1: false,
+                    proc2: false,
+                    limiteDeComandos: limiteMain,
+                    limiteDeComandosProc1: 0,
+                    limiteDeComandosProc2: 0
+                })
+                break;
+            case 'proc1':
+                setMecanicaInfo({
+                    proc1: true,
+                    proc2: false,
+                    limiteDeComandos: limiteMain,
+                    limiteDeComandosProc1: limiteProc1,
+                    limiteDeComandosProc2: 0
+                })
+                break;
+            case 'proc1-proc2':
+                setMecanicaInfo({
+                    proc1: true,
+                    proc2: true,
+                    limiteDeComandos: limiteMain,
+                    limiteDeComandosProc1: limiteProc1,
+                    limiteDeComandosProc2: limiteProc2
+                })
+                break;
+            case 'loop-proc1':
+                setMecanicaInfo({
+                    proc1: true,
+                    proc2: false,
+                    // 1 uno directo y manualmente desde aqui porque el usuario puede cambiar
+                    // el valor desde las devtools, aunque no se pudo cuando lo intentamos 
+                    // pero para prevenir errores
+                    limiteDeComandos: 1,
+                    limiteDeComandosProc1: limiteProc1,
+                    limiteDeComandosProc2: 0
+                })
+                break;
+            case 'loop-proc1-proc2':
+                setMecanicaInfo({
+                    proc1: true,
+                    proc2: true,
+                    limiteDeComandos: 1,
+                    limiteDeComandosProc1: limiteProc1,
+                    limiteDeComandosProc2: limiteProc2
+                })
+                break;
+
+            default:
+                break;
+        }
+    }, [limiteMain, limiteProc1, limiteProc2, mecanica])
+
+
+    useEffect(() => {
+        console.log(mecanicaInfo);
+    }, [mecanicaInfo])
 
     useEffect(() => {
         console.log(tamanioGrilla);
@@ -201,14 +266,29 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                         `}>
 
                             <h4>Main:</h4>
-                            <div className="limite-container">
+                            <div className={`limite-container
+                                    ${sinLimites.main ? 'inhabilitar' : ''}
+                                `}
+                            >
                                 <input type="number" min={1} disabled={mecanica.includes('loop')}
+                                    step={1}
                                     value={mecanica.includes('loop') ? 1 : limiteMain}
-                                    onChange={(e) => setlimiteMain(e.target.value)}
+                                    onChange={(e) => setlimiteMain(parseInt(e.target.value, 10))}
                                 />
                                 <label className={`sin-limites-main ${mecanica.includes('loop') ? 'inhabilitar' : ''}`}>
                                     <input className='sin-limite' type="checkbox"
                                         disabled={mecanica.includes('loop')}
+                                        onClick={(e) => {
+                                            setMecanicaInfo(prev => ({
+                                                ...prev,
+                                                limiteDeComandos: e.target.checked ? -1 : limiteProc2
+                                            }))
+
+                                            setSinLimites(prev => ({
+                                                ...prev,
+                                                main: e.target.checked ? true : false
+                                            }))
+                                        }}
                                     />
                                     Sin límite
                                 </label>
@@ -220,13 +300,28 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                         `}>
 
                             <h4>Proc1:</h4>
-                            <div className="limite-container">
+                            <div className={`limite-container
+                                ${sinLimites.proc1 ? 'inhabilitar' : ''}
+                            `}>
                                 <input type="number" min={1}
+                                    step={1}
                                     value={limiteProc1}
-                                    onChange={(e) => setLimiteProc1(e.target.value)}
+                                    onChange={(e) => setLimiteProc1(parseInt(e.target.value, 10))}
                                 />
                                 <label>
-                                    <input className='sin-limite' type="checkbox" />
+                                    <input className='sin-limite' type="checkbox"
+                                        onClick={(e) => {
+                                            setMecanicaInfo(prev => ({
+                                                ...prev,
+                                                limiteDeComandosProc1: e.target.checked ? -1 : limiteProc2
+                                            }))
+
+                                            setSinLimites(prev => ({
+                                                ...prev,
+                                                proc1: e.target.checked ? true : false
+                                            }))
+                                        }}
+                                    />
                                     Sin límite
                                 </label>
                             </div>
@@ -237,13 +332,28 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                         `}>
 
                             <h4>Proc2:</h4>
-                            <div className="limite-container">
-                                <input type="number" min={1} 
+                            <div className={`limite-container
+                                ${sinLimites.proc2 ? 'inhabilitar' : ''}
+                            `}>
+                                <input type="number" min={1}
+                                    step={1}
                                     value={limiteProc2}
-                                    onChange={(e) => setLimiteProc2(e.target.value)}
+                                    onChange={(e) => setLimiteProc2(parseInt(e.target.value, 10))}
                                 />
                                 <label>
-                                    <input className='sin-limite' type="checkbox" />
+                                    <input className='sin-limite' type="checkbox"
+                                        onClick={(e) => {
+                                            setMecanicaInfo(prev => ({
+                                                ...prev,
+                                                limiteDeComandosProc2: e.target.checked ? -1 : limiteProc2
+                                            }))
+
+                                            setSinLimites(prev => ({
+                                                ...prev,
+                                                proc2: e.target.checked ? true : false
+                                            }))
+                                        }}
+                                    />
                                     Sin límite
                                 </label>
                             </div>
