@@ -1,13 +1,17 @@
 .grilla-editar-contenedor {
-    /* border: solid; */
+    border: solid;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: min(500px, 100%);
-    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 700px;
     margin: auto;
-    /* overflow: auto; */
+    gap: 20px;
+    overflow: auto;
 }
+
+
 
 .grilla-editar-wrapper {
     /* border: solid #fff; */
@@ -17,6 +21,14 @@
     border-radius: 20px;
     padding: 20px;
 
+}
+
+.grilla-editar-wrapper.x6 {
+    width: min(550px, 100%);
+}
+
+.grilla-editar-wrapper.x7 {
+    width: min(600px, 100%);
 }
 
 .editar-titulo {
@@ -38,12 +50,19 @@
     gap: 3px;
 }
 
+.grilla-editar.x6 {
+    width: min(550px, 100%);
+}
+
+.grilla-editar.x7 {
+    width: min(600px, 100%);
+}
+
 .titulo-mapa-contenedor {
     position: relative;
     /* border: solid #fff; */
     gap: 10px;
     width: 80%;
-    margin: auto;
 }
 
 .titulo-mapa-contenedor label {

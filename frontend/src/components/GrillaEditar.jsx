@@ -33,12 +33,21 @@ function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
                 />
                 <label htmlFor="nombreMapa">Nombre del Mapa</label>
             </div>
-            <div className="grilla-editar-wrapper">
-                <div className="grilla-editar" style={{
-                    '--tamanioGrilla': `${tamanioGrilla}`
-                    // gridTemplateColumns: `repeat(${tamanioGrilla}, 1fr)`,
-                    // gridTemplateRows: `repeat(${tamanioGrilla}, 1fr)`
-                }}>
+            <div className={`grilla-editar-wrapper
+                    ${tamanioGrilla === 7 ? 'x7' : ''}
+                    ${tamanioGrilla === 10 ? 'x10' : ''}
+                `}
+            >
+                <div className={`grilla-editar
+                        ${tamanioGrilla === 7 ? 'x7' : ''}
+                        ${tamanioGrilla === 10 ? 'x10' : ''}
+                    `} 
+                    style={{
+                        '--tamanioGrilla': `${tamanioGrilla}`
+                        // gridTemplateColumns: `repeat(${tamanioGrilla}, 1fr)`,
+                        // gridTemplateRows: `repeat(${tamanioGrilla}, 1fr)`
+                    }}
+                >
 
                     {mapa.map((fila, i) =>
                         fila.map((celda, j) => (

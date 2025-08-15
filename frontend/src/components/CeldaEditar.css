@@ -3,7 +3,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    border: dashed #0F7BE1;
+    border: dashed 4px #0F7BE1;
     border-radius: 15px;
     display: flex;
     justify-content: center;
