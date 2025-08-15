@@ -203,17 +203,17 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
                         <button className={`
                             tamanio-opcion-btn
+                            ${tamanioGrilla === 6 ? 'marcar' : ''}
+                        `}
+                            onClick={() => setTamanioGrilla(6)}
+                        >6x6</button>
+
+                        <button className={`
+                            tamanio-opcion-btn
                             ${tamanioGrilla === 7 ? 'marcar' : ''}
                         `}
                             onClick={() => setTamanioGrilla(7)}
                         >7x7</button>
-
-                        <button className={`
-                            tamanio-opcion-btn
-                            ${tamanioGrilla === 10 ? 'marcar' : ''}
-                        `}
-                            onClick={() => setTamanioGrilla(10)}
-                        >10x10</button>
                     </div>
                 </div>
 

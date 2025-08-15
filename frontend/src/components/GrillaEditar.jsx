@@ -34,13 +34,13 @@ function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
                 <label htmlFor="nombreMapa">Nombre del Mapa</label>
             </div>
             <div className={`grilla-editar-wrapper
+                    ${tamanioGrilla === 6 ? 'x6' : ''}
                     ${tamanioGrilla === 7 ? 'x7' : ''}
-                    ${tamanioGrilla === 10 ? 'x10' : ''}
                 `}
             >
                 <div className={`grilla-editar
+                        ${tamanioGrilla === 6 ? 'x6' : ''}
                         ${tamanioGrilla === 7 ? 'x7' : ''}
-                        ${tamanioGrilla === 10 ? 'x10' : ''}
                     `} 
                     style={{
                         '--tamanioGrilla': `${tamanioGrilla}`
