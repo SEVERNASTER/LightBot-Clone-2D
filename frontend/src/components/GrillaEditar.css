@@ -20,6 +20,7 @@
     background-color: #19192D;
     border-radius: 20px;
     padding: 20px;
+    transition: width .3s ease-in;
 
 }
 
@@ -48,6 +49,7 @@
     display: grid;
     grid-template-columns: repeat(var(--tamanioGrilla), 1fr);
     gap: 3px;
+    transition: width .3s ease-in;
 }
 
 .grilla-editar.x6 {
@@ -62,7 +64,7 @@
     position: relative;
     /* border: solid #fff; */
     gap: 10px;
-    width: 80%;
+    width: 70%;
 }
 
 .titulo-mapa-contenedor label {
@@ -111,7 +113,7 @@
     }
 
     .grilla-editar-wrapper {
-        width: min(320px, 100%);
+        width: min(500px, 100%);
         margin: auto;
     }
 }

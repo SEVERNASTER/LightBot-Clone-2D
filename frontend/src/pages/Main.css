@@ -65,6 +65,7 @@
     align-items: center;
     font-size: 1.5rem;
     color: #fff;
+    z-index: 0;
     /* background: linear-gradient(to bottom right, #ff00ff, #00ff00); */
 
 }
