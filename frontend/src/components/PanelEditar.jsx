@@ -131,6 +131,8 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
     const handleGuardarMapa = async () => {
         if (!titulo || titulo?.trim() === '') return mostrarToast('El nivel necesita un nombre', 'alert');
+        if (puedeArrastrarBot) return mostrarToast('El nivel necesita un bot para poder jugar', 'alert');
+        if (tieneLuz) return mostrarToast('¡Falta la luz! Coloca al menos una', 'alert');
 
         setPidiendoDatos(true)
         let pos = null;
@@ -183,6 +185,11 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
 
         setPidiendoDatos(false)
 
+    }
+
+
+    const tieneLuz = () => {
+        return mapa.some(fila => fila.some(celda => celda === 2))
     }
 
 
@@ -450,6 +457,10 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                         ${pidiendoDatos ? 'cargando' : ''}
                     `}
                     onClick={handleGuardarMapa}
+                    // onClick={() => {
+                    //     console.log(tieneLuz() ? 'tiene luz' : 'no tiene luz');
+                        
+                    // }}
                 >
                     {!pidiendoDatos && <BiSolidSave size={25} />}
                     {!pidiendoDatos && 'GUARDAR'}

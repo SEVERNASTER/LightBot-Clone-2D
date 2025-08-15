@@ -106,7 +106,7 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
         <div className={`creador ${creando ? 'mostrar' : ''}`} >
             <GrillaEditar mapa={mapa} setMapa={setMapa} botSentido={sentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
-                setTitulo={setTitulo} titulo={titulo} tamanioGrilla={tamanioGrilla} setTamanioGrilla={setTamanioGrilla}
+                setTitulo={setTitulo} titulo={titulo} tamanioGrilla={tamanioGrilla}
             />
             <PanelEditar mapa={mapa} sentido={sentido} setSentido={setSentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}

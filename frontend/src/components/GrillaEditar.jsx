@@ -3,7 +3,7 @@ import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
 function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
-    debeVoltearse, setTitulo, titulo, tamanioGrilla, setTamanioGrilla
+    debeVoltearse, setTitulo, titulo, tamanioGrilla
 }) {
 
 
