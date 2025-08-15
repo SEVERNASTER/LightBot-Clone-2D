@@ -1,11 +1,11 @@
 .grilla-editar-contenedor {
-    border: solid;
+    /* border: solid; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 700px;
+    width: 800px;
     margin: auto;
     gap: 20px;
     overflow: auto;
@@ -80,7 +80,7 @@
     background-color: #1E2A63;
     border-radius: 10px;
     padding: 0 5px;
-    width: 55%;
+    width: 50%;
 }
 
 .titulo-mapa-contenedor input {
@@ -108,13 +108,16 @@
 }
 
 @media screen and (max-width: 1010px) {
-    .grilla-editar-contenedor {
-        /* border: solid #fff; */
-    }
 
     .grilla-editar-wrapper {
         width: min(500px, 100%);
-        margin: auto;
+        /* margin: auto; */
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .titulo-mapa-contenedor label {
+        width: 70%;
     }
 }
 

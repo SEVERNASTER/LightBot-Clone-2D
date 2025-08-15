@@ -18,12 +18,14 @@
 
 .herramientas {
     /* border: solid yellow; */
-    height: 250px;
+    height: auto;
     background-color: #26234C;
     border-radius: 20px;
+    padding: 10px 0;
 }
 
 .titulo-herramientas {
+    font-size: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,11 +43,13 @@
 .botones-editar {
     background-color: #25234C;
     border-radius: 20px;
-    height: 100px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
 }
 
 .boton-editar {
@@ -376,7 +380,23 @@
 }
 
 
+@media screen and (max-width: 1090px) {
+    .panel-editar {
+        padding-top: 150px;
+    }
+}
 
+@media screen and (max-width: 990px) {
+    .panel-editar {
+        padding-top: 230px;
+    }
+}
+
+@media screen and (max-width: 865px) {
+    .panel-editar {
+        padding-top: 300px;
+    }
+}
 
 @media screen and (max-width: 768px) {
     .panel-editar {

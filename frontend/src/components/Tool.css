@@ -2,7 +2,7 @@
 .tool {
     position: relative;
     background-size: cover;
-    width: 130px;
+    width: 90px;
     /* height: 130px; */
     aspect-ratio: 1 / 1;
     border: solid #fff;
