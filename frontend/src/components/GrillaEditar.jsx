@@ -3,7 +3,7 @@ import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
 function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
-    debeVoltearse, setTitulo, titulo
+    debeVoltearse, setTitulo, titulo, tamanioGrilla, setTamanioGrilla
 }) {
 
 
@@ -35,8 +35,9 @@ function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
             </div>
             <div className="grilla-editar-wrapper">
                 <div className="grilla-editar" style={{
-                    // gridTemplateColumns: `repeat(${columnas}, 1fr)`,
-                    // gridTemplateRows: `repeat(${columnas}, 1fr)`
+                    '--tamanioGrilla': `${tamanioGrilla}`
+                    // gridTemplateColumns: `repeat(${tamanioGrilla}, 1fr)`,
+                    // gridTemplateRows: `repeat(${tamanioGrilla}, 1fr)`
                 }}>
 
                     {mapa.map((fila, i) =>

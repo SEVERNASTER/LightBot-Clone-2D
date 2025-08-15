@@ -13,10 +13,26 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
     const [sentido, setSentido] = useState(0)
     const [debeVoltearse, setDebeVoltearse] = useState(false)
     const [titulo, setTitulo] = useState('')
+    const [tamanioGrilla, setTamanioGrilla] = useState(5)//numero de filas y columnas
+    const [mapa, setMapa] = useState(
+        Array(tamanioGrilla)
+            .fill(0)
+            .map(() => Array(tamanioGrilla).fill(0))
+    )
 
-    // useEffect(() => {
-    //     console.log(titulo);
-    // }, [titulo])
+
+    useEffect(() => {
+        console.log(mapa);
+    }, [mapa])
+
+    useEffect(() => {
+        setMapa(
+            Array(tamanioGrilla)
+                .fill(0)
+                .map(() => Array(tamanioGrilla).fill(0))
+        )
+    }, [tamanioGrilla])
+    
 
 
 
@@ -38,20 +54,17 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
     }
 
 
-    const [mapa, setMapa] = useState(
-        Array(filas)
-            .fill(0)
-            .map(() => Array(columnas).fill(0))
-    )
+    
 
     const reiniciarPantallaEdicion = () => {
         setTitulo('')
         setSentido(0)
         setDebeVoltearse(false)
+        setTamanioGrilla(5)
         setMapa(
-            Array(filas)
+            Array(tamanioGrilla)
                 .fill(0)
-                .map(() => Array(columnas).fill(0))
+                .map(() => Array(tamanioGrilla).fill(0))
         )
     }
 
@@ -93,12 +106,13 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
         <div className={`creador ${creando ? 'mostrar' : ''}`} >
             <GrillaEditar mapa={mapa} setMapa={setMapa} botSentido={sentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
-                setTitulo={setTitulo} titulo={titulo}
+                setTitulo={setTitulo} titulo={titulo} tamanioGrilla={tamanioGrilla} setTamanioGrilla={setTamanioGrilla}
             />
             <PanelEditar mapa={mapa} sentido={sentido} setSentido={setSentido}
                 direccionDesdeGrados={direccionDesdeGrados} debeVoltearse={debeVoltearse}
                 setCreando={setCreando} reiniciarPantallaEdicion={reiniciarPantallaEdicion}
                 titulo={titulo} mostrarToast={mostrarToast} setHayNuevoNivel={setHayNuevoNivel}
+                tamanioGrilla={tamanioGrilla} setTamanioGrilla={setTamanioGrilla}
             />
 
             <div className="no-disponible">

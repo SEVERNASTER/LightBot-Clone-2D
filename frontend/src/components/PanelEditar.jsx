@@ -12,12 +12,12 @@ import axios from 'axios';
 
 
 function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVoltearse,
-    setCreando, reiniciarPantallaEdicion, titulo, mostrarToast, setHayNuevoNivel
+    setCreando, reiniciarPantallaEdicion, titulo, mostrarToast, setHayNuevoNivel,
+    tamanioGrilla, setTamanioGrilla
 }) {
 
     const [puedeArrastrarBot, setPuedeArrastrarBot] = useState(true)
     const [pidiendoDatos, setPidiendoDatos] = useState(false)
-    const [tamanioGrilla, setTamanioGrilla] = useState(5)//numero de filas y columnas
     const [mecanica, setMecanica] = useState('normal')
     const [limiteMain, setlimiteMain] = useState(12)
     const [limiteProc1, setLimiteProc1] = useState(8)
@@ -281,7 +281,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                                         onClick={(e) => {
                                             setMecanicaInfo(prev => ({
                                                 ...prev,
-                                                limiteDeComandos: e.target.checked ? -1 : limiteProc2
+                                                limiteDeComandos: e.target.checked ? -1 : limiteMain
                                             }))
 
                                             setSinLimites(prev => ({
@@ -313,7 +313,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                                         onClick={(e) => {
                                             setMecanicaInfo(prev => ({
                                                 ...prev,
-                                                limiteDeComandosProc1: e.target.checked ? -1 : limiteProc2
+                                                limiteDeComandosProc1: e.target.checked ? -1 : limiteProc1
                                             }))
 
                                             setSinLimites(prev => ({
@@ -341,8 +341,9 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                                     onChange={(e) => setLimiteProc2(parseInt(e.target.value, 10))}
                                 />
                                 <label>
-                                    <input className='sin-limite' type="checkbox"
+                                    <input  className='sin-limite' type="checkbox"
                                         onClick={(e) => {
+
                                             setMecanicaInfo(prev => ({
                                                 ...prev,
                                                 limiteDeComandosProc2: e.target.checked ? -1 : limiteProc2
@@ -425,7 +426,20 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                     onClick={() => {
                         setCreando(false)
                         setTimeout(() => {
+                            document.querySelectorAll('.sin-limite').forEach(checkbox => checkbox.checked = false);
+
                             reiniciarPantallaEdicion()
+                            setMecanica('normal')
+                            setlimiteMain(12)
+                            setLimiteProc1(8)
+                            setLimiteProc2(8)
+                            setMecanicaInfo({})
+                            setSinLimites({
+                                main: false,
+                                proc1: false,
+                                proc2: false
+                            })
+                            
                         }, 1000);
                     }}
                 >
