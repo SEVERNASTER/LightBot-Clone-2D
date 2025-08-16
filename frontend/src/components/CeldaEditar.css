@@ -3,7 +3,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    border: dashed 4px #0F7BE1;
+    border: dashed 3px #0F7BE1;
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -13,6 +13,10 @@
     background-position: center !important;
     background-color: #125ce4;
     transition: .2s;
+}
+
+.celda-editar-container {
+    border: none;
 }
 
 /* Efecto cuando se arrastra algo sobre la celda */

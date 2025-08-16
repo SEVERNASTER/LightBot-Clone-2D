@@ -43,43 +43,45 @@ function CeldaEditar({ onDropTool, contenido, mapa, setMapa, pos, sentido, clase
     };
 
     return (
-        <div className={`celda-editar 
+        <div className="celda-editar celda-editar-container">
+            <div className={`celda-editar 
                 ${clasesExtra}
                 ${contenido === 2 ? 'luz' : ''} 
                 ${contenido === 4 ? 'bot' : ''}
                 ${isDraggedOver ? 'drag-over' : ''}
             `}
-            onDragOver={handleDragOver}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-            style={{
-                // background: 'linear-gradient(45deg, #17AAF5, #0956D1)',
-                backgroundImage: `url(
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                style={{
+                    // background: 'linear-gradient(45deg, #17AAF5, #0956D1)',
+                    backgroundImage: `url(
                     ${mapa[pos.fila][pos.columna] === 1 ? obstaculo : ''}
                 )`,
-                '--sentido': `${sentido}deg`,
-            }}
-        >
-            {contenido === 4 &&
-                <div className={`tool-fondo-celda
+                    '--sentido': `${sentido}deg`,
+                }}
+            >
+                {contenido === 4 &&
+                    <div className={`tool-fondo-celda
                         ${debeVoltearse ? 'voltear' : ''}
                     `}
-                    style={{
-                        backgroundImage: `url(${bot})`,
-                    }}
-                ></div>
-            }
-            {contenido === 2 && <FaLightbulb size={40} />}
+                        style={{
+                            backgroundImage: `url(${bot})`,
+                        }}
+                    ></div>
+                }
+                {contenido === 2 && <FaLightbulb size={40} />}
 
-            {/* para el boton de quitar celda */}
-            {contenido !== 0 &&
-                <div className="quitar-celda"
-                    onClick={eliminarCelda}
-                >
-                    <IoClose />
-                </div>
-            }
+                {/* para el boton de quitar celda */}
+                {contenido !== 0 &&
+                    <div className="quitar-celda"
+                        onClick={eliminarCelda}
+                    >
+                        <IoClose />
+                    </div>
+                }
+            </div>
         </div>
     )
 }

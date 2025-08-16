@@ -39,6 +39,10 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                     limiteDeComandosProc1: 0,
                     limiteDeComandosProc2: 0
                 })
+                document.getElementById('sinLimiteProc1').checked = false
+                document.getElementById('sinLimiteProc2').checked = false
+                sinLimites.proc1 = false
+                sinLimites.proc2 = false
                 break;
             case 'proc1':
                 setMecanicaInfo({
@@ -48,6 +52,8 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                     limiteDeComandosProc1: limiteProc1,
                     limiteDeComandosProc2: 0
                 })
+                document.getElementById('sinLimiteProc2').checked = false
+                sinLimites.proc2 = false
                 break;
             case 'proc1-proc2':
                 setMecanicaInfo({
@@ -69,6 +75,10 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                     limiteDeComandosProc1: limiteProc1,
                     limiteDeComandosProc2: 0
                 })
+                document.getElementById('sinLimiteMain').checked = false
+                sinLimites.main = false
+                document.getElementById('sinLimiteProc2').checked = false
+                sinLimites.proc2 = false
                 break;
             case 'loop-proc1-proc2':
                 setMecanicaInfo({
@@ -78,6 +88,8 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                     limiteDeComandosProc1: limiteProc1,
                     limiteDeComandosProc2: limiteProc2
                 })
+                document.getElementById('sinLimiteMain').checked = false
+                sinLimites.main = false
                 break;
 
             default:
@@ -132,10 +144,12 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
     const handleGuardarMapa = async () => {
         if (!titulo || titulo?.trim() === '') return mostrarToast('El nivel necesita un nombre', 'alert');
         if (puedeArrastrarBot) return mostrarToast('El nivel necesita un bot para poder jugar', 'alert');
-        if (tieneLuz) return mostrarToast('¡Falta la luz! Coloca al menos una', 'alert');
+        if (!tieneLuz) return mostrarToast('¡Falta la luz! Coloca al menos una', 'alert');
 
         setPidiendoDatos(true)
         let pos = null;
+
+        // para sacar al bot (4) del mapa y dejarlo como espacio vacio/libre
         const mapaSanitizado = mapa.map((fila, i) =>
             fila.map((celda, j) => {
                 if (celda === 4) {
@@ -146,42 +160,62 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
             })
         )
 
-        console.log(mapaSanitizado);
-        console.log(sentido);
-        console.log(pos);
+        // console.log(mapaSanitizado);
+        // console.log(sentido);
+        // console.log(pos);
 
-        try {
-            const resultado = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/api/guardarMapa`,
-                {
-                    titulo,
-                    mapaData: {
-                        mapa: mapaSanitizado,
-                        bot: {
-                            pos,
-                            direccionInicial: sentido
-                        }
-                    }
+        const infoFinal = {
+            titulo,
+            mapaData: {
+                mapa: mapaSanitizado,
+                bot: {
+                    pos,
+                    direccionInicial: sentido
                 },
-                { withCredentials: true }
-            )
-
-            console.log(resultado.data.message);
-            console.log(resultado.data.mapa);
-
-            mostrarToast(resultado.data.message, 'check')
-            setPidiendoDatos(false)
-            setHayNuevoNivel(true)
-
-            setTimeout(() => {
-                reiniciarPantallaEdicion()
-            }, 1000);
-            setCreando(false)
-
-        } catch (error) {
-            console.log(error);
-            mostrarToast('Algo salio mal intente mas tarde', 'error')
+                filas: tamanioGrilla,
+                columnas: tamanioGrilla,
+                ...mecanicaInfo
+            }
         }
+
+        console.log(infoFinal);
+
+
+        // try {
+        //     const resultado = await axios.post(
+        //         `${import.meta.env.VITE_BACKEND_URL}/api/guardarMapa`,
+        //         {
+        //             titulo,
+        //             mapaData: {
+        //                 mapa: mapaSanitizado,
+        //                 bot: {
+        //                     pos,
+        //                     direccionInicial: sentido
+        //                 },
+        //                 filas: tamanioGrilla,
+        //                 columnas: tamanioGrilla,
+        //                 ...mecanicaInfo
+        //             }
+        //         },
+        //         { withCredentials: true }
+        //     )
+
+        //     console.log(resultado.data.message);
+        //     console.log(resultado.data.mapa);
+
+        //     mostrarToast(resultado.data.message, 'check')
+        //     setPidiendoDatos(false)
+        //     setHayNuevoNivel(true)
+
+        //     setTimeout(() => {
+        //         reiniciarPantallaEdicion()
+        //     }, 1000);
+        //     setCreando(false)
+
+        // } catch (error) {
+        //     console.log(error);
+        //     mostrarToast('Algo salio mal intente mas tarde', 'error')
+        // }
 
         setPidiendoDatos(false)
 
@@ -192,6 +226,12 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
         return mapa.some(fila => fila.some(celda => celda === 2))
     }
 
+    const handleNumberChange = (setter, defaultValue = 0) => (e) => {
+        const value = e.target.value;
+        const num = parseInt(value, 10);
+
+        setter(isNaN(num) ? defaultValue : num);
+    };
 
 
     return (
@@ -278,12 +318,12 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                                 `}
                             >
                                 <input type="number" min={1} disabled={mecanica.includes('loop')}
-                                    step={1}
+                                    step={1} required
                                     value={mecanica.includes('loop') ? 1 : limiteMain}
-                                    onChange={(e) => setlimiteMain(parseInt(e.target.value, 10))}
+                                    onChange={handleNumberChange(setlimiteMain, 12)}
                                 />
                                 <label className={`sin-limites-main ${mecanica.includes('loop') ? 'inhabilitar' : ''}`}>
-                                    <input className='sin-limite' type="checkbox"
+                                    <input id='sinLimiteMain' className='sin-limite' type="checkbox" required
                                         disabled={mecanica.includes('loop')}
                                         onClick={(e) => {
                                             setMecanicaInfo(prev => ({
@@ -313,10 +353,10 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                                 <input type="number" min={1}
                                     step={1}
                                     value={limiteProc1}
-                                    onChange={(e) => setLimiteProc1(parseInt(e.target.value, 10))}
+                                    onChange={handleNumberChange(setLimiteProc1, 8)}
                                 />
                                 <label>
-                                    <input className='sin-limite' type="checkbox"
+                                    <input id='sinLimiteProc1' className='sin-limite' type="checkbox" required
                                         onClick={(e) => {
                                             setMecanicaInfo(prev => ({
                                                 ...prev,
@@ -345,10 +385,10 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                                 <input type="number" min={1}
                                     step={1}
                                     value={limiteProc2}
-                                    onChange={(e) => setLimiteProc2(parseInt(e.target.value, 10))}
+                                    onChange={handleNumberChange(setLimiteProc2, 8)}
                                 />
                                 <label>
-                                    <input  className='sin-limite' type="checkbox"
+                                    <input id='sinLimiteProc2' className='sin-limite' type="checkbox" required
                                         onClick={(e) => {
 
                                             setMecanicaInfo(prev => ({
@@ -446,7 +486,7 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                                 proc1: false,
                                 proc2: false
                             })
-                            
+
                         }, 1000);
                     }}
                 >
@@ -457,10 +497,10 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
                         ${pidiendoDatos ? 'cargando' : ''}
                     `}
                     onClick={handleGuardarMapa}
-                    // onClick={() => {
-                    //     console.log(tieneLuz() ? 'tiene luz' : 'no tiene luz');
-                        
-                    // }}
+                // onClick={() => {
+                //     console.log(tieneLuz() ? 'tiene luz' : 'no tiene luz');
+
+                // }}
                 >
                     {!pidiendoDatos && <BiSolidSave size={25} />}
                     {!pidiendoDatos && 'GUARDAR'}
