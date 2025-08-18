@@ -36,17 +36,33 @@ function Main({ user }) {
 
     useEffect(() => {
         if (mapas && mapas[mapaActual - 1]) {
-            setMapa(mapas[mapaActual - 1].mapa)
-            setBot(mapas[mapaActual - 1].bot)
-            setLimiteDeComandos(mapas[mapaActual - 1].limiteDeComandos)
-            setProc1(mapas[mapaActual - 1].proc1)
-            setProc2(mapas[mapaActual - 1].proc2)
-            setLimiteDeComandosProc1(mapas[mapaActual - 1].limiteDeComandosProc1)
-            setLimiteDeComandosProc2(mapas[mapaActual - 1].limiteDeComandosProc2)
-            setFilas(mapas[mapaActual - 1].filas)
-            setColumnas(mapas[mapaActual - 1].columnas)
+            const nuevoMapa = mapas[mapaActual - 1];
+
+            // Destructuring para extraer todas las propiedades
+            const {
+                mapa,
+                bot,
+                limiteDeComandos,
+                proc1,
+                proc2,
+                limiteDeComandosProc1,
+                limiteDeComandosProc2,
+                filas,
+                columnas
+            } = nuevoMapa;
+
+            // Actualizar todos los estados
+            setFilas(filas);
+            setColumnas(columnas);
+            setBot(bot);
+            setLimiteDeComandos(limiteDeComandos);
+            setProc1(proc1);
+            setProc2(proc2);
+            setLimiteDeComandosProc1(limiteDeComandosProc1);
+            setLimiteDeComandosProc2(limiteDeComandosProc2);
+            setMapa(mapa);
         }
-    }, [mapas, mapaActual])
+    }, [mapas, mapaActual]);
 
     const handleRegresar = () => {
         setVistaMenu(prev => !prev)
@@ -78,6 +94,9 @@ function Main({ user }) {
                 jugandoMiNivel={jugandoMiNivel} setJugandoMiNivel={setJugandoMiNivel}
                 mostrarToast={mostrarToast}
                 hayNuevoNivel={hayNuevoNivel} setHayNuevoNivel={setHayNuevoNivel}
+                proc1={proc1} proc2={proc2} setLimiteDeComandos={setLimiteDeComandos}
+                setLimiteDeComandosProc1={setLimiteDeComandosProc1} setLimiteDeComandosProc2={setLimiteDeComandosProc2}
+                setFilas={setFilas} setColumnas={setColumnas} setProc1={setProc1} setProc2={setProc2}
             />
 
             <Maker creando={creando} setCreando={setCreando} mostrarToast={mostrarToast}

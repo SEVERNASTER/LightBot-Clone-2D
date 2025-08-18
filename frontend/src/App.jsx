@@ -23,6 +23,8 @@ import PantallaGanar from './components/PantallaGanar';
  */
 
 
+
+// mapaActual es el indice de la lista de mapas
 function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1, proc2,
   limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas
 }) {
@@ -34,19 +36,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   // 4 = bot
 
 
-  // cambiar estos 2 use effect para que este todo en uno solo !!!!!!!
 
   useEffect(() => {
     reiniciarJuego()
     reiniciarFuncionBtn()
     setFilas(mapaFilas)
     setColumnas(mapaColumnas)
-  }, [mapaActual, proc1, proc2, limiteDeComandos, limiteDeComandosProc1, limiteDeComandosProc2, mapaFilas, mapaColumnas])
+  }, [bot, mapaActual, proc1, proc2, limiteDeComandos, limiteDeComandosProc1,
+    limiteDeComandosProc2, mapaFilas, mapaColumnas])
 
-  useEffect(() => {
-    reiniciarJuego()
-    reiniciarFuncionBtn()
-  }, [bot])
 
 
   // console.log('este es el bot:', bot);
@@ -171,166 +169,166 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
 
 
-// ← CAMBIO: Main ahora también recibe un callback (puede ser null si es la función principal)
-const ejecutarSecuenciaMain = (indice = 0, sentidoActual = sentido, posActual = pos, callbackCuandoTermine = null) => {
-  // si ya no hay comandos para ejecutar ya no hacer nada
-  if (indice >= secuencia.length) {
-    setPuedeEditar(true)
-    setEjecutando(false)
-    setSecuenciaTerminada(true);
-    
-    // ← CAMBIO: Si hay callback, ejecutarlo
-    if (callbackCuandoTermine) {
-      callbackCuandoTermine(sentidoActual, posActual);
+  // ← CAMBIO: Main ahora también recibe un callback (puede ser null si es la función principal)
+  const ejecutarSecuenciaMain = (indice = 0, sentidoActual = sentido, posActual = pos, callbackCuandoTermine = null) => {
+    // si ya no hay comandos para ejecutar ya no hacer nada
+    if (indice >= secuencia.length) {
+      setPuedeEditar(true)
+      setEjecutando(false)
+      setSecuenciaTerminada(true);
+
+      // ← CAMBIO: Si hay callback, ejecutarlo
+      if (callbackCuandoTermine) {
+        callbackCuandoTermine(sentidoActual, posActual);
+      }
+      return;
     }
-    return;
+
+    // para ver en que comando va
+    indiceActualRef.current = indice + 1;
+    setComandoActual(indice + 1)
+
+    // auxiliares para la logica
+    const comandoActualMain = secuencia[indice];
+    let nuevoSentido = sentidoActual;
+    let nuevaPos = { ...posActual };
+
+    // Giro
+    nuevoSentido = girarBot(comandoActualMain, setSentido, nuevoSentido)
+
+    // Encender luz
+    encenderLuzBot(comandoActualMain, nuevaPos)
+
+    // Movimiento para avanzar
+    nuevaPos = moverBot(comandoActualMain, nuevoSentido, nuevaPos)
+
+    // Continuar
+    setTimeout(() => {
+      if (ejecutandoRef.current) {
+        if (comandoActualMain === 'p1') {
+          ejecutarProc1(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
+            // ← CAMBIO: Pasar el callback original cuando continúe
+            ejecutarSecuenciaMain(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine);
+          });
+        } else if (comandoActualMain === 'p2') {
+          ejecutarProc2(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
+            // ← CAMBIO: Pasar el callback original cuando continúe
+            ejecutarSecuenciaMain(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine);
+          });
+        } else {
+          // ← CAMBIO: Pasar el callback original
+          ejecutarSecuenciaMain(indice + 1, nuevoSentido, nuevaPos, callbackCuandoTermine)
+        }
+      }
+    }, 1000);
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const ejecutarProc1 = (indice, sentidoActual, posActual, callbackCuandoTermine) => {
+    if (indice >= secuenciaProc1.length) {
+      indiceActualProc1Ref.current = -1
+      setComandoActualProc1(-1)
+
+      if (callbackCuandoTermine) {
+        callbackCuandoTermine(sentidoActual, posActual);
+      }
+      return;
+    }
+
+    indiceActualProc1Ref.current = indice + 1;
+    setComandoActualProc1(indice + 1)
+
+    const comandoActual = secuenciaProc1[indice]
+    let nuevoSentido = sentidoActual
+    let nuevaPos = { ...posActual }
+
+    nuevoSentido = girarBot(comandoActual, setSentido, nuevoSentido)
+    encenderLuzBot(comandoActual, nuevaPos)
+    nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
+
+    setTimeout(() => {
+      if (ejecutandoRef.current) {
+        if (comandoActual === 'p1') {
+          ejecutarProc1(0, nuevoSentido, nuevaPos, callbackCuandoTermine)
+        } else if (comandoActual === 'p2') {
+          ejecutarProc2(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
+            ejecutarProc1(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine)
+          });
+        } else {
+          ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, callbackCuandoTermine)
+        }
+      }
+    }, 1000);
   }
 
-  // para ver en que comando va
-  indiceActualRef.current = indice + 1;
-  setComandoActual(indice + 1)
 
-  // auxiliares para la logica
-  const comandoActualMain = secuencia[indice];
-  let nuevoSentido = sentidoActual;
-  let nuevaPos = { ...posActual };
 
-  // Giro
-  nuevoSentido = girarBot(comandoActualMain, setSentido, nuevoSentido)
 
-  // Encender luz
-  encenderLuzBot(comandoActualMain, nuevaPos)
 
-  // Movimiento para avanzar
-  nuevaPos = moverBot(comandoActualMain, nuevoSentido, nuevaPos)
 
-  // Continuar
-  setTimeout(() => {
-    if (ejecutandoRef.current) {
-      if (comandoActualMain === 'p1') {
-        ejecutarProc1(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
-          // ← CAMBIO: Pasar el callback original cuando continúe
-          ejecutarSecuenciaMain(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine);
-        });
-      } else if (comandoActualMain === 'p2') {
-        ejecutarProc2(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
-          // ← CAMBIO: Pasar el callback original cuando continúe
-          ejecutarSecuenciaMain(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine);
-        });
-      } else {
-        // ← CAMBIO: Pasar el callback original
-        ejecutarSecuenciaMain(indice + 1, nuevoSentido, nuevaPos, callbackCuandoTermine)
+
+
+
+
+
+
+  const ejecutarProc2 = (indice, sentidoActual, posActual, callbackCuandoTermine) => {
+    if (indice >= secuenciaProc2.length) {
+      indiceActualProc2Ref.current = -1
+      setComandoActualProc2(-1)
+
+      if (callbackCuandoTermine) {
+        callbackCuandoTermine(sentidoActual, posActual);
       }
+      return;
     }
-  }, 1000);
-};
 
+    indiceActualProc2Ref.current = indice + 1;
+    setComandoActualProc2(indice + 1)
 
+    const comandoActual = secuenciaProc2[indice]
+    let nuevoSentido = sentidoActual
+    let nuevaPos = { ...posActual }
 
+    nuevoSentido = girarBot(comandoActual, setSentido, nuevoSentido)
+    encenderLuzBot(comandoActual, nuevaPos)
+    nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
 
-
-
-
-
-
-
-
-
-
-const ejecutarProc1 = (indice, sentidoActual, posActual, callbackCuandoTermine) => {
-  if (indice >= secuenciaProc1.length) {
-    indiceActualProc1Ref.current = -1
-    setComandoActualProc1(-1)
-    
-    if (callbackCuandoTermine) {
-      callbackCuandoTermine(sentidoActual, posActual);
-    }
-    return;
+    setTimeout(() => {
+      if (ejecutandoRef.current) {
+        if (comandoActual === 'p1') {
+          ejecutarProc1(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
+            ejecutarProc2(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine)
+          });
+        } else if (comandoActual === 'p2') {
+          ejecutarProc2(0, nuevoSentido, nuevaPos, callbackCuandoTermine)
+        } else {
+          ejecutarProc2(indice + 1, nuevoSentido, nuevaPos, callbackCuandoTermine)
+        }
+      }
+    }, 1000);
   }
 
-  indiceActualProc1Ref.current = indice + 1;
-  setComandoActualProc1(indice + 1)
+  // ← Para iniciar la ejecución (sin callback porque es la función principal):
+  const iniciarEjecucion = () => {
+    setPuedeEditar(false);
+    setEjecutando(true);
+    setSecuenciaTerminada(false);
 
-  const comandoActual = secuenciaProc1[indice]
-  let nuevoSentido = sentidoActual
-  let nuevaPos = { ...posActual }
-
-  nuevoSentido = girarBot(comandoActual, setSentido, nuevoSentido)
-  encenderLuzBot(comandoActual, nuevaPos)
-  nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
-
-  setTimeout(() => {
-    if (ejecutandoRef.current) {
-      if (comandoActual === 'p1') {
-        ejecutarProc1(0, nuevoSentido, nuevaPos, callbackCuandoTermine)
-      } else if (comandoActual === 'p2') {
-        ejecutarProc2(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
-          ejecutarProc1(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine)
-        });
-      } else {
-        ejecutarProc1(indice + 1, nuevoSentido, nuevaPos, callbackCuandoTermine)
-      }
-    }
-  }, 1000);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-const ejecutarProc2 = (indice, sentidoActual, posActual, callbackCuandoTermine) => {
-  if (indice >= secuenciaProc2.length) {
-    indiceActualProc2Ref.current = -1
-    setComandoActualProc2(-1)
-    
-    if (callbackCuandoTermine) {
-      callbackCuandoTermine(sentidoActual, posActual);
-    }
-    return;
-  }
-
-  indiceActualProc2Ref.current = indice + 1;
-  setComandoActualProc2(indice + 1)
-
-  const comandoActual = secuenciaProc2[indice]
-  let nuevoSentido = sentidoActual
-  let nuevaPos = { ...posActual }
-
-  nuevoSentido = girarBot(comandoActual, setSentido, nuevoSentido)
-  encenderLuzBot(comandoActual, nuevaPos)
-  nuevaPos = moverBot(comandoActual, nuevoSentido, nuevaPos)
-
-  setTimeout(() => {
-    if (ejecutandoRef.current) {
-      if (comandoActual === 'p1') {
-        ejecutarProc1(0, nuevoSentido, nuevaPos, (sentidoCuandoTermine, posCuandoTermine) => {
-          ejecutarProc2(indice + 1, sentidoCuandoTermine, posCuandoTermine, callbackCuandoTermine)
-        });
-      } else if (comandoActual === 'p2') {
-        ejecutarProc2(0, nuevoSentido, nuevaPos, callbackCuandoTermine)
-      } else {
-        ejecutarProc2(indice + 1, nuevoSentido, nuevaPos, callbackCuandoTermine)
-      }
-    }
-  }, 1000);
-}
-
-// ← Para iniciar la ejecución (sin callback porque es la función principal):
-const iniciarEjecucion = () => {
-  setPuedeEditar(false);
-  setEjecutando(true);
-  setSecuenciaTerminada(false);
-  
-  // Sin callback porque es la función principal
-  ejecutarSecuenciaMain(0, sentido, pos, null);
-};
+    // Sin callback porque es la función principal
+    ejecutarSecuenciaMain(0, sentido, pos, null);
+  };
 
 
 

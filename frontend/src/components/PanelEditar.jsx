@@ -181,41 +181,41 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
         console.log(infoFinal);
 
 
-        // try {
-        //     const resultado = await axios.post(
-        //         `${import.meta.env.VITE_BACKEND_URL}/api/guardarMapa`,
-        //         {
-        //             titulo,
-        //             mapaData: {
-        //                 mapa: mapaSanitizado,
-        //                 bot: {
-        //                     pos,
-        //                     direccionInicial: sentido
-        //                 },
-        //                 filas: tamanioGrilla,
-        //                 columnas: tamanioGrilla,
-        //                 ...mecanicaInfo
-        //             }
-        //         },
-        //         { withCredentials: true }
-        //     )
+        try {
+            const resultado = await axios.post(
+                `${import.meta.env.VITE_BACKEND_URL}/api/guardarMapa`,
+                {
+                    titulo,
+                    mapaData: {
+                        mapa: mapaSanitizado,
+                        bot: {
+                            pos,
+                            direccionInicial: sentido
+                        },
+                        filas: tamanioGrilla,
+                        columnas: tamanioGrilla,
+                        ...mecanicaInfo
+                    }
+                },
+                { withCredentials: true }
+            )
 
-        //     console.log(resultado.data.message);
-        //     console.log(resultado.data.mapa);
+            console.log(resultado.data.message);
+            console.log(resultado.data.mapa);
 
-        //     mostrarToast(resultado.data.message, 'check')
-        //     setPidiendoDatos(false)
-        //     setHayNuevoNivel(true)
+            mostrarToast(resultado.data.message, 'check')
+            setPidiendoDatos(false)
+            setHayNuevoNivel(true)
 
-        //     setTimeout(() => {
-        //         reiniciarPantallaEdicion()
-        //     }, 1000);
-        //     setCreando(false)
+            setTimeout(() => {
+                reiniciarPantallaEdicion()
+            }, 1000);
+            setCreando(false)
 
-        // } catch (error) {
-        //     console.log(error);
-        //     mostrarToast('Algo salio mal intente mas tarde', 'error')
-        // }
+        } catch (error) {
+            console.log(error);
+            mostrarToast('Algo salio mal intente mas tarde', 'error')
+        }
 
         setPidiendoDatos(false)
 

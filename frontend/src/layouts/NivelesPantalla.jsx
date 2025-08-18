@@ -14,11 +14,6 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, juga
     const [nivelActual, setNivelActual] = useState(1) //para saber en que card de nivel va
 
     useEffect(() => {
-        // console.log(nivelActual);
-        hanldeSetMapasActuales();
-    }, [nivelActual])
-
-    const hanldeSetMapasActuales = () => {
         switch (nivelActual) {
             case 1:
                 setMapas(mapas1)
@@ -35,7 +30,7 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, juga
             default:
                 break;
         }
-    }
+    }, [nivelActual])
 
 
     return (
@@ -96,6 +91,8 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, juga
 
 
                 {/* <div className="botones-cambiar"> */}
+
+                {/* boton para cambiar a la izquierda */}
                 <button className={`boton-cambiar izq-btn ${nivelActual <= 1 ? 'inhabilitar' : ''}`}
                     onClick={() => {
                         setNivelActual(prev => prev - 1)
@@ -103,6 +100,7 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, juga
                     disabled={nivelActual <= 1}
                 ><FaArrowLeft /></button>
 
+                {/* boton para cambiar a la derecha */}
                 <button className={`boton-cambiar der-btn ${nivelActual >= 4 ? 'inhabilitar' : ''}`}
                     onClick={() => {
                         setNivelActual(prev => prev + 1)
