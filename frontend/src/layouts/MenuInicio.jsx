@@ -6,7 +6,9 @@ import { IoClose } from "react-icons/io5";
 
 
 function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, setJugando,
-    jugandoMiNivel, setJugandoMiNivel, mostrarToast, hayNuevoNivel, setHayNuevoNivel
+    jugandoMiNivel, setJugandoMiNivel, mostrarToast, hayNuevoNivel, setHayNuevoNivel,
+    setFilas, setColumnas, setLimiteDeComandos, setLimiteDeComandosProc1, setLimiteDeComandosProc2,
+    setProc1, setProc2
 }) {
 
     const [girar, setGirar] = useState(false)
@@ -108,9 +110,14 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
                                         return <MiNivel titulo={mapa.titulo} key={index}
                                             setMapa={setMapa} setBot={setBot} setJugando={setJugando}
                                             mapa={mapa.mapa_data.mapa} bot={mapa.mapa_data.bot}
+                                            mapaInfo={mapa.mapa_data}
                                             setJugandoMiNivel={setJugandoMiNivel} id={mapa.id}
                                             mostrarToast={mostrarToast}
                                             eliminarNivelInterfaz={() => eliminarNivelInterfaz(mapa.id)}
+                                            setFilas={setFilas} setColumnas={setColumnas} setProc1={setProc1}
+                                            setProc2={setProc2} setLimiteDeComandos={setLimiteDeComandos} 
+                                            setLimiteDeComandosProc1={setLimiteDeComandosProc1}
+                                            setLimiteDeComandosProc2={setLimiteDeComandosProc2}
                                         />
                                     })
                                 }

@@ -4,16 +4,29 @@ import axios from 'axios';
 import { useState } from 'react';
 
 function MiNivel({ titulo, setMapa, setBot, setJugando, mapa, bot, setJugandoMiNivel, id,
-    mostrarToast, eliminarNivelInterfaz
+    mostrarToast, eliminarNivelInterfaz, setFilas, setColumnas, setLimiteDeComandos,
+    setLimiteDeComandosProc1, setLimiteDeComandosProc2, setProc1, setProc2,
+    mapaInfo,
 }) {
 
     const [eliminando, setEliminando] = useState(false)
 
     const handleJugar = () => {
+        const { filas, columnas, proc1, proc2, limiteDeComandos,
+            limiteDeComandosProc1, limiteDeComandosProc2
+        } = mapaInfo
         setMapa(mapa)
         setBot(bot)
         setJugando(true)
         setJugandoMiNivel(true)
+
+        setFilas(filas)
+        setColumnas(columnas)
+        setProc1(proc1)
+        setProc2(proc2)
+        setLimiteDeComandos(limiteDeComandos)
+        setLimiteDeComandosProc1(limiteDeComandosProc1)
+        setLimiteDeComandosProc2(limiteDeComandosProc2)
     }
 
     const handleEliminarNivel = async () => {

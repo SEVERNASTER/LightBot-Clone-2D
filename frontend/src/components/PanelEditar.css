@@ -1,27 +1,31 @@
-
-
 .panel-editar {
     /* border: solid #fff; */
     height: 100vh;
     width: min(600px, 100%);
     margin-left: auto;
     /* width: ; */
-    padding: 0 20px;
+    padding: 0px 20px;
+    padding-top: 80px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 30px;
     z-index: 50;
+    overflow: auto;
+
 }
 
 .herramientas {
     /* border: solid yellow; */
-    height: 250px;
+    height: auto;
     background-color: #26234C;
     border-radius: 20px;
+    padding: 10px 0;
 }
 
 .titulo-herramientas {
+    font-size: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,11 +43,13 @@
 .botones-editar {
     background-color: #25234C;
     border-radius: 20px;
-    height: 100px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
 }
 
 .boton-editar {
@@ -116,7 +122,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(90deg, transparent, transparent, rgba(255, 255, 255, .8) , transparent, transparent);
+    background: linear-gradient(90deg, transparent, transparent, rgba(255, 255, 255, .8), transparent, transparent);
     transform: translateX(-100%);
     transition: .3s;
 }
@@ -172,7 +178,7 @@
         width: min(500px, 100%);
         /* display: none; */
     }
-    
+
     .titulo-herramientas {
         font-size: 1.3rem;
     }
@@ -184,6 +190,211 @@
 
     .herramientas-contenedor {
         flex-wrap: wrap;
+    }
+}
+
+.nivel-config {
+    height: auto;
+    background-color: #22244F;
+    border-radius: 20px;
+    border: solid 3px #BE2AD9;
+    padding: 20px;
+}
+
+.nivel-config h3 {
+    color: #1ABCFD;
+    font-size: 1.3rem;
+}
+
+.tamanios-opciones {
+    /* border: solid #fff; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.tamanio-opcion-btn {
+    height: 50px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: #242145;
+    border: solid 3px #1ABCFD;
+    color: #0ef;
+    padding: 10px 20px;
+    transition: .3s ease-out;
+}
+
+.tamanio-opcion-btn.marcar {
+    background-color: #1ABCFD;
+    color: #242145;
+}
+
+.tamanio-opcion-btn:hover {
+    background-color: #1ABCFD;
+    color: #242145;
+    box-shadow: 0 0 20px #1ABCFD;
+}
+
+.tamanio-opcion-btn:active {
+    background-color: #fff;
+    box-shadow: 0 0 20px #fff;
+}
+
+.mecanicas-container {
+    /* border: solid #fff; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.mecanica-label {
+    height: 40px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #D320D4;
+    border: solid 3px #D320D4;
+    background-color: #242145;
+    transition: .2s ease-out;
+    outline: none;
+}
+
+.mecanica-label.marcar {
+    background-color: #D320D4;
+    color: #fff;
+}
+
+.mecanica-label:hover {
+    background-color: #D320D4;
+    color: #fff;
+    box-shadow: 0 0 20px #D320D4;
+}
+
+.mecanica-label:active {
+    background-color: #fff;
+    color: #D320D4;
+}
+
+.limite-comandos-crear {
+    /* border: solid; */
+    padding-top: 10px;
+}
+
+.limite-comandos-crear h4 {
+    font-size: 1rem;
+}
+
+.limite-container {
+    /* border: solid red; */
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: .5s;
+}
+
+.limite-container.inhabilitar > input {
+    opacity: .5;
+    pointer-events: none;
+    transform: scale(.8);
+}
+
+
+.sin-limite {
+    height: 20px !important;
+    width: 20px !important;
+
+}
+
+.limite-comando label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.limite-comando {
+    /* border: solid; */
+    border-bottom: solid 1px #1ABCFD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.limite-comando input {
+    height: 40px;
+    width: 70px;
+    text-align: center;
+    font-size: 1.2rem;
+    background-color: #202656;
+    color: #fff;
+    border: solid 2px #1ABCFD;
+    outline: none;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 0 5px;
+    transition: .3s;
+}
+
+.limite-comando input:focus {
+    box-shadow: 0 0 20px #D320D4;
+    border-color: #D320D4;
+}
+
+.limite-proc1, .limite-proc2 {
+    opacity: .3;
+    pointer-events: none;
+    transform: scale(.9);
+    transition: .3s;
+}
+
+.limite-proc1.habilitar,
+.limite-proc2.habilitar {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+}
+
+.limite-proc2 {
+    transform: scale(.8);
+}
+
+.sin-limites-main {
+    transition: .3s;
+}
+
+.sin-limites-main.inhabilitar{
+    opacity: .5;
+    transform: scale(.8);
+
+}
+
+
+@media screen and (max-width: 1090px) {
+    .panel-editar {
+        padding-top: 150px;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .panel-editar {
+        padding-top: 230px;
+    }
+}
+
+@media screen and (max-width: 865px) {
+    .panel-editar {
+        padding-top: 300px;
     }
 }
 

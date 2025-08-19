@@ -2,11 +2,17 @@
     /* border: solid; */
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: min(500px, 100%);
-    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 800px;
     margin: auto;
+    gap: 20px;
+    overflow: auto;
+    
 }
+
+
 
 .grilla-editar-wrapper {
     /* border: solid #fff; */
@@ -15,7 +21,16 @@
     background-color: #19192D;
     border-radius: 20px;
     padding: 20px;
+    transition: width .3s ease-in;
 
+}
+
+.grilla-editar-wrapper.x6 {
+    width: min(550px, 100%);
+}
+
+.grilla-editar-wrapper.x7 {
+    width: min(600px, 100%);
 }
 
 .editar-titulo {
@@ -33,17 +48,24 @@
     aspect-ratio: 1 / 1;
     border-radius: 20px;
     display: grid;
-    /* grid-template-rows: repeat(5, 1fr); */
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(var(--tamanioGrilla), 1fr);
     gap: 3px;
+    transition: width .3s ease-in;
+}
+
+.grilla-editar.x6 {
+    width: min(550px, 100%);
+}
+
+.grilla-editar.x7 {
+    width: min(600px, 100%);
 }
 
 .titulo-mapa-contenedor {
     position: relative;
     /* border: solid #fff; */
     gap: 10px;
-    width: 80%;
-    margin: auto;
+    width: 70%;
 }
 
 .titulo-mapa-contenedor label {
@@ -56,17 +78,17 @@
     text-align: center;
     font-size: 1.3rem;
     transition: .3s;
-    background-color: #1A388A;
+    background-color: #1E2A63;
     border-radius: 10px;
     padding: 0 5px;
-    width: 70%;
+    width: 50%;
 }
 
 .titulo-mapa-contenedor input {
     height: 60px;
     width: 100%;
     border-radius: 15px;
-    background-color: #1A388A;
+    background-color: #1E2A63;
     border: solid 3px rgb(255, 136, 1);
     padding: 0 15px;
     outline: none;
@@ -87,13 +109,16 @@
 }
 
 @media screen and (max-width: 1010px) {
-    .grilla-editar-contenedor {
-        /* border: solid #fff; */
-    }
 
     .grilla-editar-wrapper {
-        width: min(320px, 100%);
-        margin: auto;
+        width: min(500px, 100%);
+        /* margin: auto; */
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .titulo-mapa-contenedor label {
+        width: 70%;
     }
 }
 

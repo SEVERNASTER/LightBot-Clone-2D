@@ -3,7 +3,7 @@ import './GrillaEditar.css'
 import CeldaEditar from './CeldaEditar';
 
 function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
-    debeVoltearse, setTitulo, titulo
+    debeVoltearse, setTitulo, titulo, tamanioGrilla
 }) {
 
 
@@ -33,11 +33,21 @@ function GrillaEditar({ mapa, setMapa, botSentido, direccionDesdeGrados,
                 />
                 <label htmlFor="nombreMapa">Nombre del Mapa</label>
             </div>
-            <div className="grilla-editar-wrapper">
-                <div className="grilla-editar" style={{
-                    // gridTemplateColumns: `repeat(${columnas}, 1fr)`,
-                    // gridTemplateRows: `repeat(${columnas}, 1fr)`
-                }}>
+            <div className={`grilla-editar-wrapper
+                    ${tamanioGrilla === 6 ? 'x6' : ''}
+                    ${tamanioGrilla === 7 ? 'x7' : ''}
+                `}
+            >
+                <div className={`grilla-editar
+                        ${tamanioGrilla === 6 ? 'x6' : ''}
+                        ${tamanioGrilla === 7 ? 'x7' : ''}
+                    `} 
+                    style={{
+                        '--tamanioGrilla': `${tamanioGrilla}`
+                        // gridTemplateColumns: `repeat(${tamanioGrilla}, 1fr)`,
+                        // gridTemplateRows: `repeat(${tamanioGrilla}, 1fr)`
+                    }}
+                >
 
                     {mapa.map((fila, i) =>
                         fila.map((celda, j) => (

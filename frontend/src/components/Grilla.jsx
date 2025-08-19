@@ -2,7 +2,7 @@
 import './Grilla.css'
 
 import Celda from './Celda';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import muroImg from '../assets/muro2.jpg';
 import Bot from '../components/Bot';
 
@@ -35,15 +35,6 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
 
 
     const grillaRef = useRef(null);
-    const [dimensiones, setDimensiones] = useState({ ancho: 0, alto: 0 });
-
-    useEffect(() => {
-        if (grillaRef.current) {
-            const { width, height } = grillaRef.current.getBoundingClientRect();
-            setDimensiones({ ancho: width, alto: height });
-        }
-
-    }, []);
 
 
 
@@ -51,19 +42,32 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
     //     console.log(dimensiones);
     // }, [dimensiones]);
 
-    let grilla = []
-
-    for (let i = 0; i < filas; i++) {
-        for (let j = 0; j < columnas; j++) {
-            grilla = [...grilla, { x: i, y: j }]
+    const grilla = useMemo(() => {
+        const nuevaGrilla = [];
+        for (let i = 0; i < filas; i++) {
+            for (let j = 0; j < columnas; j++) {
+                nuevaGrilla.push({ x: i, y: j });
+            }
         }
-    }
+        return nuevaGrilla;
+    }, [filas, columnas]);
 
     // console.log(grilla);
 
-    const alto = dimensiones.alto / filas
-    const ancho = dimensiones.ancho / columnas
 
+    useEffect(() => {
+        console.log('Mapa actualizado:', mapa);
+    }, [mapa]);
+
+
+    // verificamos si esa posicion del mapa existe porque el useEffect que esta en el Main.jsx
+    // no garantiza que cambie los useState inmediatamente y en el orden en el que esta
+    const obtenerValorCelda = (x, y) => {
+        if (!mapa[x] || mapa[x][y] === undefined) {
+            return 0; // valor por defecto para camino libre
+        }
+        return mapa[x][y];
+    };
 
 
 
@@ -81,22 +85,21 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
                     ejecutando={ejecutando} sentido={sentido} reiniciar={reiniciar}
                     botAnimado={botAnimado} colisionArriba={colisionArriba}
                     colisionAbajo={colisionAbajo} colisionDerecha={colisionDerecha}
-                    colisionIzquierda={colisionIzquierda} pos={pos} filas={filas} 
+                    colisionIzquierda={colisionIzquierda} pos={pos} filas={filas}
                     columnas={columnas}
                 />
 
 
                 {
+
                     grilla.map(actual => (
                         <Celda
-                            key={`{${actual.x}, ${actual.y}}`}
-                            alto={`${alto}px`}
-                            ancho={`${ancho}px`}
-                            // fondo= {textura(mapa[actual.x][actual.y])}
-                            fondo={mapa[actual.x][actual.y] === 1 ? muroImg : ''}
-                            colorFondo={colorFondo(mapa[actual.x][actual.y])}
+                            key={`${actual.x}-${actual.y}`}
+                            fondo={obtenerValorCelda(actual.x, actual.y) === 1 ? muroImg : ''}
+                            colorFondo={colorFondo(obtenerValorCelda(actual.x, actual.y))}
                         />
                     ))
+
                 }
                 {/* <Bot estilosExtra={{tranform: `${tranformStyle}`}}  alto={alto / filas} ancho={ancho / columnas} /> */}
 

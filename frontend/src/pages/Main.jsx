@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { IoIosArrowDropup } from "react-icons/io";
 import { GiExitDoor } from "react-icons/gi";
 import App from '../App';
-import { mapas1, mapas2, mapas3 } from '../data/mapas.js';
+import { mapas1, mapas2, mapas3, mapas4 } from '../data/mapas.js';
 import { FaUser } from "react-icons/fa";
 import Toast from '../components/Toast.jsx';
 import useToast from '../hooks/useToast.js';
@@ -16,7 +16,7 @@ import useToast from '../hooks/useToast.js';
 function Main({ user }) {
 
     const [mapaActual, setMapaActual] = useState(1)
-    const [vistaMenu, setVistaMenu] = useState(true)
+    const [vistaMenu, setVistaMenu] = useState(true)//cambiar esto para intercalar entre el menu y los niveles
     const [jugando, setJugando] = useState(false)
     const [creando, setCreando] = useState(false)
     const { mensaje, icono, mostrar, setMostrar, mostrarToast } = useToast()
@@ -28,21 +28,41 @@ function Main({ user }) {
     const [bot, setBot] = useState(mapas1[0].bot)
     const [limiteDeComandos, setLimiteDeComandos] = useState(mapas1[0].limiteDeComandos)
     const [proc1, setProc1] = useState(mapas1[0].proc1)
+    const [proc2, setProc2] = useState(mapas1[0].proc2)//por ahora puede ser undefined porque no todos los mapas lo tienen
     const [limiteDeComandosProc1, setLimiteDeComandosProc1] = useState(mapas1[0].limiteDeComandosProc1)
+    const [limiteDeComandosProc2, setLimiteDeComandosProc2] = useState(mapas1[0].limiteDeComandosProc2)
     const [filas, setFilas] = useState(mapas1[0].filas)
     const [columnas, setColumnas] = useState(mapas1[0].columnas)
 
     useEffect(() => {
         if (mapas && mapas[mapaActual - 1]) {
-            setMapa(mapas[mapaActual - 1].mapa)
-            setBot(mapas[mapaActual - 1].bot)
-            setLimiteDeComandos(mapas[mapaActual - 1].limiteDeComandos)
-            setProc1(mapas[mapaActual - 1].proc1)
-            setLimiteDeComandosProc1(mapas[mapaActual - 1].limiteDeComandosProc1)
-            setFilas(mapas[mapaActual - 1].filas)
-            setColumnas(mapas[mapaActual - 1].columnas)
+            const nuevoMapa = mapas[mapaActual - 1];
+
+            // Destructuring para extraer todas las propiedades
+            const {
+                mapa,
+                bot,
+                limiteDeComandos,
+                proc1,
+                proc2,
+                limiteDeComandosProc1,
+                limiteDeComandosProc2,
+                filas,
+                columnas
+            } = nuevoMapa;
+
+            // Actualizar todos los estados
+            setFilas(filas);
+            setColumnas(columnas);
+            setBot(bot);
+            setLimiteDeComandos(limiteDeComandos);
+            setProc1(proc1);
+            setProc2(proc2);
+            setLimiteDeComandosProc1(limiteDeComandosProc1);
+            setLimiteDeComandosProc2(limiteDeComandosProc2);
+            setMapa(mapa);
         }
-    }, [mapas, mapaActual])
+    }, [mapas, mapaActual]);
 
     const handleRegresar = () => {
         setVistaMenu(prev => !prev)
@@ -55,7 +75,9 @@ function Main({ user }) {
     }
 
     return (
-        <div className={`main-container ${jugando ? 'jugando' : ''}`}>
+        <div className={`main-container ${jugando ? 'jugando' : ''}
+            ${creando ? 'creando' : ''}
+        `}>
             <Toast mensaje={mensaje} icono={icono} mostrar={mostrar} setMostrar={setMostrar} />
             <div className="perfil" style={{
                 background: `linear-gradient(to bottom right,${user?.color1}, ${user?.color2})`,
@@ -72,6 +94,9 @@ function Main({ user }) {
                 jugandoMiNivel={jugandoMiNivel} setJugandoMiNivel={setJugandoMiNivel}
                 mostrarToast={mostrarToast}
                 hayNuevoNivel={hayNuevoNivel} setHayNuevoNivel={setHayNuevoNivel}
+                proc1={proc1} proc2={proc2} setLimiteDeComandos={setLimiteDeComandos}
+                setLimiteDeComandosProc1={setLimiteDeComandosProc1} setLimiteDeComandosProc2={setLimiteDeComandosProc2}
+                setFilas={setFilas} setColumnas={setColumnas} setProc1={setProc1} setProc2={setProc2}
             />
 
             <Maker creando={creando} setCreando={setCreando} mostrarToast={mostrarToast}
@@ -80,7 +105,7 @@ function Main({ user }) {
 
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}
-                jugandoMiNivel={jugandoMiNivel} mapas1={mapas1} mapas2={mapas2} mapas3={mapas3}
+                jugandoMiNivel={jugandoMiNivel} mapas1={mapas1} mapas2={mapas2} mapas3={mapas3} mapas4={mapas4}
                 setMapas={setMapas}
             />
 
@@ -97,8 +122,8 @@ function Main({ user }) {
 
             <App mapa={mapa} setMapa={setMapa} jugando={jugando} mapaActual={mapaActual}
                 bot={bot}
-                limiteDeComandos={limiteDeComandos} proc1={proc1} 
-                limiteDeComandosProc1={limiteDeComandosProc1}
+                limiteDeComandos={limiteDeComandos} proc1={proc1} proc2={proc2}
+                limiteDeComandosProc1={limiteDeComandosProc1} limiteDeComandosProc2={limiteDeComandosProc2}
                 filas={filas} columnas={columnas}
             />
         </div>

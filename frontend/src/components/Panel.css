@@ -294,7 +294,7 @@
 }
 
 .proc1-contenedor {
-    border: solid #fff;
+    /* border: solid #fff; */
     height: 300px;
     width: min(450px, 100%);
     display: grid;
@@ -332,6 +332,16 @@
 
 .p1-button {
     font-size: 1.7rem !important;
+}
+
+.p2-button {
+    font-size: 1.7rem !important;
+
+}
+
+
+.proc2-titulo{
+    color: #ea2bff;
 }
 
 
