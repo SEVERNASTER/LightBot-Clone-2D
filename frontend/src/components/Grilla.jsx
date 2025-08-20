@@ -2,7 +2,7 @@
 import './Grilla.css'
 
 import Celda from './Celda';
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useEffect, useMemo, act } from 'react';
 import muroImg from '../assets/muro2.jpg';
 import Bot from '../components/Bot';
 
@@ -10,7 +10,7 @@ import Bot from '../components/Bot';
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
     colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando, secuencia,
-    indice, jugando, secuenciaProc1, indiceProc1
+    indice, jugando, secuenciaProc1, indiceProc1, todasEncendidas
 }) {
 
 
@@ -55,11 +55,6 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
     // console.log(grilla);
 
 
-    useEffect(() => {
-        console.log('Mapa actualizado:', mapa);
-    }, [mapa]);
-
-
     // verificamos si esa posicion del mapa existe porque el useEffect que esta en el Main.jsx
     // no garantiza que cambie los useState inmediatamente y en el orden en el que esta
     const obtenerValorCelda = (x, y) => {
@@ -92,11 +87,15 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
 
                 {
 
-                    grilla.map(actual => (
+                    grilla.map((actual, index) => (
                         <Celda
                             key={`${actual.x}-${actual.y}`}
                             fondo={obtenerValorCelda(actual.x, actual.y) === 1 ? muroImg : ''}
                             colorFondo={colorFondo(obtenerValorCelda(actual.x, actual.y))}
+                            todasEncendidas={todasEncendidas}
+                            esLuz={obtenerValorCelda(actual.x, actual.y) === 2 ||
+                                    obtenerValorCelda(actual.x, actual.y) === 3}
+                            numCelda={index}
                         />
                     ))
 

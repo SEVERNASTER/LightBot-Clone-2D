@@ -5,3 +5,21 @@
     border-radius: 15px;
     background-size: cover !important;
 }
+
+.celda.es-luz.animar {
+    animation: parpadear 1s ease-in infinite;
+    animation-delay: var(--num-celda);
+}
+
+@keyframes parpadear {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    
+    50%{
+        transform: scale(.9);
+        opacity: .5;
+        /* transform: rotate(10deg); */
+    }
+}

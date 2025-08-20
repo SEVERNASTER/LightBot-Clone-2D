@@ -1,12 +1,17 @@
 import './Celda.css'
 
-function Celda({fondo, colorFondo}) {
+function Celda({fondo, colorFondo, todasEncendidas, esLuz, numCelda}) {
     // console.log(alto, ancho);
     
     return (
-        <div className='celda' style={{
+        <div className={`
+                celda
+                ${esLuz ? 'es-luz' : ''}
+                ${todasEncendidas ? 'animar' : ''}
+            `} style={{
             backgroundImage: `url(${fondo})`,
-            background: `${colorFondo}`
+            background: `${colorFondo}`,
+            '--num-celda': `${numCelda * 100}ms`
         }}></div>
         
     )
