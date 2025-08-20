@@ -1,10 +1,25 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import ModalResultado from './ModalResultado';
 import './PantallaGanar.css';
 import Confetti from "react-confetti";
 
 
 export default function PantallaGanar({ onCerrar, todasEncendidas }) {
+
+    const [mostrarModal, setMostrarModal] = useState(false);
+
+    useEffect(() => {
+        if (todasEncendidas) {
+            const timer = setTimeout(() => {
+                setMostrarModal(true);
+            }, 10);
+
+            return () => clearTimeout(timer);
+        } else {
+            setMostrarModal(false);
+        }
+    }, [todasEncendidas]);
+
     return (
         <div className={`
             winner-modal-container
@@ -15,7 +30,7 @@ export default function PantallaGanar({ onCerrar, todasEncendidas }) {
             }
             <div className={`
                 winner-modal-animado
-                ${todasEncendidas ? 'mostrar' : ''}
+                ${mostrarModal ? 'mostrar' : ''}
             `}>
 
                 <div className="winner-modal">

@@ -8,7 +8,7 @@
 
 .celda.es-luz.animar {
     animation: parpadear 1s ease-in infinite;
-    animation-delay: var(--num-celda);
+    animation-delay: var(--delay);
 }
 
 @keyframes parpadear {

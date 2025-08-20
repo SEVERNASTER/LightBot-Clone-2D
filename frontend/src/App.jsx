@@ -83,6 +83,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     setComandosRestantesProc1(limiteDeComandosProc1)
     setComandosRestantesProc2(limiteDeComandosProc2)
     setTodasEncendidas(false)
+    setAnimarCeldaLuces(false)
   }
 
 
@@ -142,6 +143,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [comandosRestantesProc1, setComandosRestantesProc1] = useState(limiteDeComandosProc1)
   const [comandosRestantesProc2, setComandosRestantesProc2] = useState(limiteDeComandosProc1)
   const [todasEncendidas, setTodasEncendidas] = useState(false)
+  const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
 
@@ -369,7 +371,10 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
             ejecutandoRef.current = false
             setPuedeEditar(true)
             setEjecutando(false)
-            setTodasEncendidas(true)
+            setAnimarCeldaLuces(true)
+            setTimeout(() => {
+              setTodasEncendidas(true)
+            }, 1000);
           }
 
         } else if (celdaActual === 3) {
@@ -657,7 +662,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
           indice={indiceActualRef.current} indiceProc1={indiceActualProc1Ref.current}
-          jugando={jugando} secuenciaProc1={secuenciaProc1} todasEncendidas={todasEncendidas}
+          jugando={jugando} secuenciaProc1={secuenciaProc1} todasEncendidas={animarCeldaLuces}
 
         />
 

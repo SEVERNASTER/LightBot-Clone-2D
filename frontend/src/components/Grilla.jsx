@@ -2,7 +2,7 @@
 import './Grilla.css'
 
 import Celda from './Celda';
-import { useRef, useEffect, useMemo, act } from 'react';
+import { useState, useRef, useEffect, useMemo, act } from 'react';
 import muroImg from '../assets/muro2.jpg';
 import Bot from '../components/Bot';
 
@@ -13,6 +13,8 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
     indice, jugando, secuenciaProc1, indiceProc1, todasEncendidas
 }) {
 
+
+    const contadorDeLuces = useRef(1)
 
     const colorFondo = (valor) => {
         if (valor === 0) {// camino libre
@@ -52,6 +54,8 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
         return nuevaGrilla;
     }, [filas, columnas]);
 
+
+
     // console.log(grilla);
 
 
@@ -64,6 +68,23 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
         return mapa[x][y];
     };
 
+    const obtenerIndiceLuz = (x, y) => {
+        let indice = 0;
+        for (let i = 0; i < filas; i++) {
+            for (let j = 0; j < columnas; j++) {
+                if (i === x && j === y) return indice;
+                if (obtenerValorCelda(i, j) === 2 || obtenerValorCelda(i, j) === 3) {
+                    indice++;
+                }
+            }
+        }
+        return 0;
+    };
+
+    const esLuz = (x, y) => {
+        return obtenerValorCelda(x, y) === 2 ||
+                obtenerValorCelda(x, y) === 3
+    }
 
 
 
@@ -92,10 +113,9 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
                             key={`${actual.x}-${actual.y}`}
                             fondo={obtenerValorCelda(actual.x, actual.y) === 1 ? muroImg : ''}
                             colorFondo={colorFondo(obtenerValorCelda(actual.x, actual.y))}
-                            todasEncendidas={todasEncendidas}
-                            esLuz={obtenerValorCelda(actual.x, actual.y) === 2 ||
-                                    obtenerValorCelda(actual.x, actual.y) === 3}
-                            numCelda={index}
+                            todasEncendidas={esLuz(actual.x, actual.y) ? todasEncendidas : null}
+                            esLuz={esLuz(actual.x , actual.y)}
+                            delay={esLuz(actual.x, actual.y) ? obtenerIndiceLuz(actual.x, actual.y) : 0}
                         />
                     ))
 

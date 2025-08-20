@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import './Celda.css'
 
-function Celda({fondo, colorFondo, todasEncendidas, esLuz, numCelda}) {
+function Celda({fondo, colorFondo, todasEncendidas, esLuz, delay}) {
     // console.log(alto, ancho);
     
     return (
@@ -11,7 +12,7 @@ function Celda({fondo, colorFondo, todasEncendidas, esLuz, numCelda}) {
             `} style={{
             backgroundImage: `url(${fondo})`,
             background: `${colorFondo}`,
-            '--num-celda': `${numCelda * 100}ms`
+            '--delay': `${delay * 200}ms`,
         }}></div>
         
     )
