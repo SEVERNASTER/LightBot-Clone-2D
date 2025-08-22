@@ -1,10 +1,12 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import ModalResultado from './ModalResultado';
 import './PantallaGanar.css';
 import Confetti from "react-confetti";
 
 
-export default function PantallaGanar({ onCerrar, todasEncendidas, setTodasEncendidas, handleSalir }) {
+export default function PantallaGanar({ onCerrar, todasEncendidas, setTodasEncendidas, handleSalir,
+    setDebeReiniciar
+}) {
 
     const [mostrarModal, setMostrarModal] = useState(false);
 
@@ -65,7 +67,7 @@ export default function PantallaGanar({ onCerrar, todasEncendidas, setTodasEncen
                             }}
                         >Siguiente Nivel</button>
                         <button className="winner-btn next-again"
-                            
+                            onClick={() => setDebeReiniciar(true)}
                         >Reintentar</button>
                     </div>
 

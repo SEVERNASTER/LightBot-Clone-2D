@@ -705,7 +705,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           tipo={tipo}
           onCerrar={() => setTodasEncendidas(false)}
           todasEncendidas={todasEncendidas} handleSalir={handleSalir}
-          setTodasEncendidas={setTodasEncendidas}
+          setTodasEncendidas={setTodasEncendidas} setDebeReiniciar={setDebeReiniciar}
         />
       </div>
 
