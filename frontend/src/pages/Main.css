@@ -52,6 +52,10 @@
     top: 10px;
 }
 
+.regresar-niveles-btn.ocultar {
+    top: -100px;
+}
+
 .perfil {
     border: solid #fff;
     position: absolute;

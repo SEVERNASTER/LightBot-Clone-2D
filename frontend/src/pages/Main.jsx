@@ -33,6 +33,9 @@ function Main({ user }) {
     const [limiteDeComandosProc2, setLimiteDeComandosProc2] = useState(mapas1[0].limiteDeComandosProc2)
     const [filas, setFilas] = useState(mapas1[0].filas)
     const [columnas, setColumnas] = useState(mapas1[0].columnas)
+    const [todasEncendidas, setTodasEncendidas] = useState(false)
+    const [nivelDebeReiniciarse, setNivelDebeReiniciarse] = useState(false)
+
 
     useEffect(() => {
         if (mapas && mapas[mapaActual - 1]) {
@@ -72,6 +75,9 @@ function Main({ user }) {
         setJugando(prev => !prev)
         setJugandoMiNivel(false)
         setJugando(false)
+        setTimeout(() => {
+            setNivelDebeReiniciarse(true)
+        }, 1000);
     }
 
     return (
@@ -112,6 +118,7 @@ function Main({ user }) {
             <button className={`boton-cambiar regresar-niveles-btn
                     ${!vistaMenu || jugandoMiNivel ? 'mostrar' : ''}
                     ${jugando ? 'volver-btn' : ''}
+                    ${todasEncendidas ? 'ocultar' : ''}
                 `}
                 title='Regresar'
                 onClick={jugando ? handleSalir : handleRegresar}
@@ -124,7 +131,8 @@ function Main({ user }) {
                 bot={bot}
                 limiteDeComandos={limiteDeComandos} proc1={proc1} proc2={proc2}
                 limiteDeComandosProc1={limiteDeComandosProc1} limiteDeComandosProc2={limiteDeComandosProc2}
-                filas={filas} columnas={columnas}
+                filas={filas} columnas={columnas} todasEncendidas={todasEncendidas} setTodasEncendidas={setTodasEncendidas}
+                handleSalir={handleSalir} debeReiniciar={nivelDebeReiniciarse} setDebeReiniciar={setNivelDebeReiniciarse}
             />
         </div>
     )

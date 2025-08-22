@@ -10,11 +10,11 @@ import Bot from '../components/Bot';
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
     colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando, secuencia,
-    indice, jugando, secuenciaProc1, indiceProc1, todasEncendidas
+    indice, jugando, secuenciaProc1, indiceProc1, todasEncendidas, setTodasEncendidas
 }) {
 
 
-    const contadorDeLuces = useRef(1)
+    // const contadorDeLuces = useRef(1)
 
     const colorFondo = (valor) => {
         if (valor === 0) {// camino libre
@@ -83,9 +83,17 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
 
     const esLuz = (x, y) => {
         return obtenerValorCelda(x, y) === 2 ||
-                obtenerValorCelda(x, y) === 3
+            obtenerValorCelda(x, y) === 3
     }
 
+    // const esLaUltimaLuz = (x, y) => {
+    //     // Si no es una luz apagada
+    //     if (!mapa[x] || mapa[x][y] !== 2) return false;
+
+    //     const lucesApagadas = mapa.flat().filter(celda => celda === 2).length;
+
+    //     return lucesApagadas === 1;
+    // }
 
 
     return (
@@ -114,8 +122,10 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
                             fondo={obtenerValorCelda(actual.x, actual.y) === 1 ? muroImg : ''}
                             colorFondo={colorFondo(obtenerValorCelda(actual.x, actual.y))}
                             todasEncendidas={esLuz(actual.x, actual.y) ? todasEncendidas : null}
-                            esLuz={esLuz(actual.x , actual.y)}
+                            esLuz={esLuz(actual.x, actual.y)}
                             delay={esLuz(actual.x, actual.y) ? obtenerIndiceLuz(actual.x, actual.y) : 0}
+                            // esLaUltimaLuz={esLaUltimaLuz(actual.x, actual.y)}
+                            setTodasEncendidas={setTodasEncendidas}
                         />
                     ))
 

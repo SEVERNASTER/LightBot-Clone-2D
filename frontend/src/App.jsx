@@ -26,7 +26,8 @@ import PantallaGanar from './components/PantallaGanar';
 
 // mapaActual es el indice de la lista de mapas
 function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1, proc2,
-  limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas
+  limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas,
+  todasEncendidas, setTodasEncendidas, handleSalir, debeReiniciar, setDebeReiniciar
 }) {
 
   // 0 = camino libre
@@ -35,6 +36,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   // 3 = luz ya prendida
   // 4 = bot
 
+
+  useEffect(() => {
+    if(debeReiniciar){
+      reiniciarJuego()
+      reiniciarFuncionBtn()
+      setDebeReiniciar(false)
+    }
+  }, [debeReiniciar])
+  
 
 
   useEffect(() => {
@@ -142,8 +152,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
   const [comandosRestantesProc1, setComandosRestantesProc1] = useState(limiteDeComandosProc1)
   const [comandosRestantesProc2, setComandosRestantesProc2] = useState(limiteDeComandosProc1)
-  const [todasEncendidas, setTodasEncendidas] = useState(false)
-  const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)
+  const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)// ya no se usa
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
 
@@ -662,7 +671,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
           indice={indiceActualRef.current} indiceProc1={indiceActualProc1Ref.current}
-          jugando={jugando} secuenciaProc1={secuenciaProc1} todasEncendidas={animarCeldaLuces}
+          jugando={jugando} secuenciaProc1={secuenciaProc1} todasEncendidas={todasEncendidas}
+          setTodasEncendidas={setTodasEncendidas}
 
         />
 
@@ -695,7 +705,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
             mensaje={mensaje}
             tipo={tipo}
             onCerrar={() => setTodasEncendidas(false)}
-            todasEncendidas={todasEncendidas}
+            todasEncendidas={todasEncendidas} handleSalir={handleSalir}
+            setTodasEncendidas={setTodasEncendidas}
           />
         )}
 

@@ -4,7 +4,7 @@ import './PantallaGanar.css';
 import Confetti from "react-confetti";
 
 
-export default function PantallaGanar({ onCerrar, todasEncendidas }) {
+export default function PantallaGanar({ onCerrar, todasEncendidas, setTodasEncendidas, handleSalir }) {
 
     const [mostrarModal, setMostrarModal] = useState(false);
 
@@ -58,7 +58,12 @@ export default function PantallaGanar({ onCerrar, todasEncendidas }) {
                     </div>
 
                     <div className="winner-buttons">
-                        <button className="winner-btn next-winner">Siguiente Nivel</button>
+                        <button className="winner-btn next-winner"
+                            onClick={() => {
+                                handleSalir()
+                                setTodasEncendidas(false)
+                            }}
+                        >Siguiente Nivel</button>
                         <button className="winner-btn next-again">Reintentar</button>
                     </div>
 
