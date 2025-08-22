@@ -1,8 +1,8 @@
-
 .app-wrapper {
-  overflow: hidden; 
+  overflow: hidden;
   transition: 1s ease-in;
   /* border: solid #fff; */
+  position: relative;
 }
 
 .app-wrapper.mostrar {
@@ -44,7 +44,7 @@
 
 
 .boton-aceptar {
- margin-top: 10px;
+  margin-top: 10px;
   padding: 10px 20px;
   background: linear-gradient(120deg, #041a3e, #1d749c);
   color: rgb(176, 140, 140);

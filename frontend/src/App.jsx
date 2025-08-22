@@ -26,7 +26,8 @@ import PantallaGanar from './components/PantallaGanar';
 
 // mapaActual es el indice de la lista de mapas
 function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1, proc2,
-  limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas
+  limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas,
+  todasEncendidas, setTodasEncendidas, handleSalir, debeReiniciar, setDebeReiniciar
 }) {
 
   // 0 = camino libre
@@ -34,6 +35,15 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   // 2 = objetivo / luz para prender
   // 3 = luz ya prendida
   // 4 = bot
+
+
+  useEffect(() => {
+    if (debeReiniciar) {
+      reiniciarJuego()
+      reiniciarFuncionBtn()
+      setDebeReiniciar(false)
+    }
+  }, [debeReiniciar])
 
 
 
@@ -82,6 +92,8 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
     setComandosRestantes(limiteDeComandos)
     setComandosRestantesProc1(limiteDeComandosProc1)
     setComandosRestantesProc2(limiteDeComandosProc2)
+    setTodasEncendidas(false)
+    setAnimarCeldaLuces(false)
   }
 
 
@@ -140,7 +152,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
   const [comandosRestantesProc1, setComandosRestantesProc1] = useState(limiteDeComandosProc1)
   const [comandosRestantesProc2, setComandosRestantesProc2] = useState(limiteDeComandosProc1)
-
+  const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)// ya no se usa
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
 
@@ -365,6 +377,13 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           if (todasEncendidas) {
             console.log('¡Todas las luces han sido encendidas!');
             setMensajeLuz(true);
+            ejecutandoRef.current = false
+            setPuedeEditar(true)
+            setEjecutando(false)
+            setAnimarCeldaLuces(true)
+            setTimeout(() => {
+              setTodasEncendidas(true)
+            }, 1000);
           }
 
         } else if (celdaActual === 3) {
@@ -652,7 +671,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
           indice={indiceActualRef.current} indiceProc1={indiceActualProc1Ref.current}
-          jugando={jugando} secuenciaProc1={secuenciaProc1}
+          jugando={jugando} secuenciaProc1={secuenciaProc1} todasEncendidas={todasEncendidas}
+          setTodasEncendidas={setTodasEncendidas}
+
         />
 
         <Panel
@@ -679,13 +700,13 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       </div>
       <div>
 
-        {mostrarModal && (
-          <PantallaGanar
-            mensaje={mensaje}
-            tipo={tipo}
-            onCerrar={() => setMostrarModal(false)}
-          />
-        )}
+        <PantallaGanar
+          mensaje={mensaje}
+          tipo={tipo}
+          onCerrar={() => setTodasEncendidas(false)}
+          todasEncendidas={todasEncendidas} handleSalir={handleSalir}
+          setTodasEncendidas={setTodasEncendidas} setDebeReiniciar={setDebeReiniciar}
+        />
       </div>
 
 

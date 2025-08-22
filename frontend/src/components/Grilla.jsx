@@ -2,7 +2,7 @@
 import './Grilla.css'
 
 import Celda from './Celda';
-import { useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect, useMemo, act } from 'react';
 import muroImg from '../assets/muro2.jpg';
 import Bot from '../components/Bot';
 
@@ -10,9 +10,11 @@ import Bot from '../components/Bot';
 
 function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArriba,
     colisionAbajo, colisionDerecha, colisionIzquierda, reiniciar, ejecutando, secuencia,
-    indice, jugando, secuenciaProc1, indiceProc1
+    indice, jugando, secuenciaProc1, indiceProc1, todasEncendidas, setTodasEncendidas
 }) {
 
+
+    // const contadorDeLuces = useRef(1)
 
     const colorFondo = (valor) => {
         if (valor === 0) {// camino libre
@@ -52,12 +54,9 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
         return nuevaGrilla;
     }, [filas, columnas]);
 
+
+
     // console.log(grilla);
-
-
-    useEffect(() => {
-        console.log('Mapa actualizado:', mapa);
-    }, [mapa]);
 
 
     // verificamos si esa posicion del mapa existe porque el useEffect que esta en el Main.jsx
@@ -69,7 +68,32 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
         return mapa[x][y];
     };
 
+    const obtenerIndiceLuz = (x, y) => {
+        let indice = 0;
+        for (let i = 0; i < filas; i++) {
+            for (let j = 0; j < columnas; j++) {
+                if (i === x && j === y) return indice;
+                if (obtenerValorCelda(i, j) === 2 || obtenerValorCelda(i, j) === 3) {
+                    indice++;
+                }
+            }
+        }
+        return 0;
+    };
 
+    const esLuz = (x, y) => {
+        return obtenerValorCelda(x, y) === 2 ||
+            obtenerValorCelda(x, y) === 3
+    }
+
+    // const esLaUltimaLuz = (x, y) => {
+    //     // Si no es una luz apagada
+    //     if (!mapa[x] || mapa[x][y] !== 2) return false;
+
+    //     const lucesApagadas = mapa.flat().filter(celda => celda === 2).length;
+
+    //     return lucesApagadas === 1;
+    // }
 
 
     return (
@@ -92,11 +116,16 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
 
                 {
 
-                    grilla.map(actual => (
+                    grilla.map((actual, index) => (
                         <Celda
                             key={`${actual.x}-${actual.y}`}
                             fondo={obtenerValorCelda(actual.x, actual.y) === 1 ? muroImg : ''}
                             colorFondo={colorFondo(obtenerValorCelda(actual.x, actual.y))}
+                            todasEncendidas={esLuz(actual.x, actual.y) ? todasEncendidas : null}
+                            esLuz={esLuz(actual.x, actual.y)}
+                            delay={esLuz(actual.x, actual.y) ? obtenerIndiceLuz(actual.x, actual.y) : 0}
+                            // esLaUltimaLuz={esLaUltimaLuz(actual.x, actual.y)}
+                            setTodasEncendidas={setTodasEncendidas}
                         />
                     ))
 

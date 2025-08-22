@@ -52,11 +52,15 @@
     top: 10px;
 }
 
+.regresar-niveles-btn.ocultar {
+    top: -100px;
+}
+
 .perfil {
     border: solid #fff;
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 30px;
     height: 60px;
     width: 60px;
     border-radius: 50%;
@@ -65,7 +69,7 @@
     align-items: center;
     font-size: 1.5rem;
     color: #fff;
-    z-index: 0;
+    /* z-index: 20; */
     /* background: linear-gradient(to bottom right, #ff00ff, #00ff00); */
 
 }
