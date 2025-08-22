@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import ConfettiExplosion from 'react-confetti-explosion';
+// instalar esta dependencia si se quiere usar mas adelante porque la quitamos
+// import ConfettiExplosion from 'react-confetti-explosion';
 import './Celda.css'
 
 function Celda({ fondo, colorFondo, todasEncendidas, esLuz, delay, esLaUltimaLuz,
