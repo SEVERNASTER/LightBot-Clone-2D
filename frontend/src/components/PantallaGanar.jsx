@@ -64,7 +64,9 @@ export default function PantallaGanar({ onCerrar, todasEncendidas, setTodasEncen
                                 setTodasEncendidas(false)
                             }}
                         >Siguiente Nivel</button>
-                        <button className="winner-btn next-again">Reintentar</button>
+                        <button className="winner-btn next-again"
+                            
+                        >Reintentar</button>
                     </div>
 
                 </div>

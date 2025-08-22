@@ -38,13 +38,13 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
 
   useEffect(() => {
-    if(debeReiniciar){
+    if (debeReiniciar) {
       reiniciarJuego()
       reiniciarFuncionBtn()
       setDebeReiniciar(false)
     }
   }, [debeReiniciar])
-  
+
 
 
   useEffect(() => {
@@ -700,18 +700,13 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
       </div>
       <div>
 
-        {todasEncendidas && (
-          <PantallaGanar
-            mensaje={mensaje}
-            tipo={tipo}
-            onCerrar={() => setTodasEncendidas(false)}
-            todasEncendidas={todasEncendidas} handleSalir={handleSalir}
-            setTodasEncendidas={setTodasEncendidas}
-          />
-        )}
-
-        {
-        }
+        <PantallaGanar
+          mensaje={mensaje}
+          tipo={tipo}
+          onCerrar={() => setTodasEncendidas(false)}
+          todasEncendidas={todasEncendidas} handleSalir={handleSalir}
+          setTodasEncendidas={setTodasEncendidas}
+        />
       </div>
 
 

@@ -14,12 +14,17 @@
     justify-content: center;
     align-items: center;
     padding: 0 20px;
-    transform: translateX(-100%);
-    /* transition: 50ms; */
+    /* transform: translateX(-100%); */
+    /* transform: scale(0); */
+    opacity: 0;
+    z-index: -10;
+    transition: .5s;
 }
 
 .winner-modal-container.mostrar {
-    transform: translateX(0);
+    transform: scale(1);
+    opacity: 1;
+    z-index: 10;
 }
 
 
@@ -34,7 +39,7 @@
     z-index: 10;
     opacity: .5;
     transform: rotate(-20deg) scale(.8);
-    transition: .3s all;
+    transition: .7s ease-out;
 }
 
 .winner-modal-animado.mostrar {
@@ -202,7 +207,7 @@
 
 @media screen and (max-width: 440px) {
 
-    .winner-modal {
+    .winner-modal-animado {
         height: 450px;
     }
 
