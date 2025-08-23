@@ -11,6 +11,8 @@
     transition: 1s ease-out;
 }
 
+
+
 .grilla-contenedor.mostrar {
     transform: translateX(0);
 }
@@ -26,10 +28,26 @@
     gap: 3px;
 }
 
+@media screen and (max-width: 920px) {
+
+    .grilla-contenedor, .grilla {
+        width: min(380px, 100%);
+    }
+
+    .grilla-contenedor {
+        transform: translateY(30px) !important;
+    }
+
+}
+
 @media screen and (max-width: 850px) {
 
     .grilla-contenedor, .grilla {
         width: min(400px, 100%);
+    }
+
+    .grilla-contenedor {
+        transform: translateY(40px) !important;
     }
 
 }

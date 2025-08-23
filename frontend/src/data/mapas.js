@@ -23,17 +23,18 @@ export const mapas1 = [
     },
     {
         mapa: [
-            [0, 1, 0, 0, 2],
-            [0, 1, 0, 1, 0],
-            [0, 0, 0, 1, 0],
-            [2, 1, 1, 0, 0],
-            [0, 0, 0, 0, 1],
+            [0, 1, 0, 0, 2, 0],
+            [0, 1, 0, 1, 0, 0],
+            [0, 0, 0, 1, 0, 2],
+            [2, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0],
+            [0, 2, 0, 1, 0, 0],
         ],
-        filas: 5,
-        columnas: 5, // Corregido de 'columas' a 'columnas'
+        filas: 6,
+        columnas: 6,
         bot: {
-            pos: { fila: 2, columna: 0 },
-            direccionInicial: 0
+            pos: { fila: 5, columna: 0 }, // Esquina inferior izquierda
+            direccionInicial: 90          // Apuntando hacia la derecha
         },
         limiteDeComandos: -1,
         proc1: false,
@@ -41,19 +42,22 @@ export const mapas1 = [
         proc2: false,
         limiteDeComandosProc2: -1
     },
+
     {
         mapa: [
-            [2, 0, 0, 0, 0],
-            [1, 1, 1, 1, 0],
-            [0, 0, 0, 1, 2],
-            [0, 1, 0, 0, 0],
-            [0, 0, 0, 1, 0],
+            [0, 1, 0, 0, 2, 0, 0],
+            [0, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 2, 0],
+            [2, 1, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0],
+            [0, 2, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
         ],
-        filas: 5,
-        columnas: 5, // Corregido de 'columas' a 'columnas'
+        filas: 7,
+        columnas: 7,
         bot: {
-            pos: { fila: 0, columna: 0 },
-            direccionInicial: 90
+            pos: { fila: 6, columna: 0 }, // esquina inferior izquierda
+            direccionInicial: 90          // hacia la derecha
         },
         limiteDeComandos: -1,
         proc1: false,
@@ -61,6 +65,7 @@ export const mapas1 = [
         proc2: false,
         limiteDeComandosProc2: -1
     },
+
     {
         mapa: [
             [0, 0, 0, 0, 0],
@@ -874,12 +879,12 @@ export const mapas4 = [
             [2, 0, 0, 0, 2],
             [1, 2, 2, 2, 1],
         ],
-        
+
         bot: { pos: { fila: 4, columna: 1 }, direccionInicial: 90 },
-        
+
         filas: 5,
         columnas: 5, // Añadido
-        
+
 
         limiteDeComandos: 1,
         proc1: true,
@@ -889,20 +894,25 @@ export const mapas4 = [
     },
     {
         mapa: [
-            [2, 1, 0, 0, 0],
-            [0, 1, 0, 1, 0],
-            [0, 1, 2, 1, 0],
-            [0, 1, 0, 0, 0],
-            [0, 0, 0, 1, 0],
+            [0, 1, 0, 0, 2, 0, 0],
+            [0, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 2, 0],
+            [2, 1, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0],
+            [0, 2, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
         ],
-        filas: 5,
-        columnas: 5, // Añadido
-        bot: { pos: { fila: 0, columna: 4 }, direccionInicial: 180 },
+        filas: 7,
+        columnas: 7,
+        bot: {
+            pos: { fila: 6, columna: 0 }, // esquina inferior izquierda
+            direccionInicial: 90          // hacia la derecha
+        },
         limiteDeComandos: 12,
         proc1: true,
-        limiteDeComandosProc1: 6,
+        limiteDeComandosProc1: 8,
         proc2: true,
-        limiteDeComandosProc2: 6
+        limiteDeComandosProc2: 8
     },
     {
         mapa: [

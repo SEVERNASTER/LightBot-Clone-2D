@@ -152,7 +152,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [comandosRestantes, setComandosRestantes] = useState(limiteDeComandos)
   const [comandosRestantesProc1, setComandosRestantesProc1] = useState(limiteDeComandosProc1)
   const [comandosRestantesProc2, setComandosRestantesProc2] = useState(limiteDeComandosProc1)
-  const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)// ya no se usa
+  const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
 
@@ -664,14 +664,17 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   return (
     <div className={`app-wrapper ${jugando ? 'mostrar' : ''}`}>
 
-      <div className="app-contenedor">
+      <div className={`
+        app-contenedor
+        ${!proc1 && !proc2 ? 'diseno-simple' : ''}
+      `}>
         {/* <Tour /> */}
         <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
           botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
           reiniciar={reiniciar} ejecutando={ejecutando} secuencia={secuencia}
           indice={indiceActualRef.current} indiceProc1={indiceActualProc1Ref.current}
-          jugando={jugando} secuenciaProc1={secuenciaProc1} todasEncendidas={todasEncendidas}
+          jugando={jugando} secuenciaProc1={secuenciaProc1} todasEncendidas={animarCeldaLuces}
           setTodasEncendidas={setTodasEncendidas}
 
         />

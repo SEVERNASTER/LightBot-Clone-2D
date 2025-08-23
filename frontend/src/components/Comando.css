@@ -1,7 +1,7 @@
 .comando {
     position: relative;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     /* aspect-ratio: 1 / 1; */
     border: solid #fff;
     border-radius: 20px;
