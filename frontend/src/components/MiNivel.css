@@ -26,10 +26,9 @@
 .mn-botones{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    gap: 30px;
-    
+    flex-wrap: wrap;
 }
 
 .mn-button {
