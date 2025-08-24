@@ -50,43 +50,48 @@ function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, juga
                 {/* carta #2 */}
                 <Niveles niveles={nivelesArray} setJugando={setJugando} setMapaActual={setMapaActual}
                     extraClases={`
+                    proc1
                     ${nivelActual === 1 ? 'ocultarDer' : ''}
                     ${nivelActual === 2 ? 'segunda-card' : ''}
                     ${nivelActual === 3 ? 'ocultarIzq' : ''}
                     ${nivelActual === 4 ? 'ocultarIzq' : ''}
                 `}
                     extraStyles={{
-                        background: 'linear-gradient(120deg, #2B236D, #580D43)'
+                        // background: 'linear-gradient(120deg, #2B236D, #580D43)'
                     }}
                     titulo='Procedimientos'
                     subtitulo='Resuelve los niveles usando estructuras más limpias y reutilizables con PROC1'
+                    tipoNivel={'proc1'}
                 />
 
 
                 {/* carta #3 */}
                 <Niveles niveles={nivelesArray} setJugando={setJugando} setMapaActual={setMapaActual}
                     extraClases={`
-                    ${nivelActual === 1 ? 'ocultarDer' : ''}
-                    ${nivelActual === 2 ? 'ocultarDer' : ''}
-                    ${nivelActual === 3 ? 'segunda-card' : ''}
-                    ${nivelActual === 4 ? 'ocultarIzq' : ''}
-                `}
+                        proc2
+                        ${nivelActual === 1 ? 'ocultarDer' : ''}
+                        ${nivelActual === 2 ? 'ocultarDer' : ''}
+                        ${nivelActual === 3 ? 'segunda-card' : ''}
+                        ${nivelActual === 4 ? 'ocultarIzq' : ''}
+                    `}
                     extraStyles={{
-                        background: 'linear-gradient(120deg, #2B236D, #580D43)'
+                        // background: 'linear-gradient(120deg, #2B236D, #580D43)'
                     }}
                     titulo='Procedimientos Avanzados'
                     subtitulo='Resuelve los niveles combinando y anidando llamadas con PROC2 para soluciones más eficientes'
+                    tipoNivel={'proc2'}
                 />
 
 
                 {/* carta #4 */}
                 <Niveles niveles={nivelesArray} setJugando={setJugando} setMapaActual={setMapaActual}
-                    extraClases={`${nivelActual !== 4 ? 'ocultarDer' : ''}`}
+                    extraClases={`loop ${nivelActual !== 4 ? 'ocultarDer' : ''}`}
                     extraStyles={{
-                        background: 'linear-gradient(120deg, #a90570, #300E82)'
+                        // background: 'linear-gradient(120deg, #a90570, #300E82)'
                     }}
                     titulo='Bucles'
                     subtitulo='Supera los niveles repitiendo secuencias de acciones para resolverlos con menos instrucciones'
+                    tipoNivel={'loop'}
                 />
 
 

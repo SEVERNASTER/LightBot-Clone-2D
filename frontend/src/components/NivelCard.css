@@ -17,6 +17,18 @@
     border: none;
 }
 
+.nivel.proc1 {
+    background: linear-gradient(120deg, #0cbe89, #047B59);
+}
+
+.nivel.proc2 {
+    background: linear-gradient(120deg, #E9550E, #DE2B24);
+}
+
+.nivel.loop {
+    background: linear-gradient(120deg, #8A59F5, #7D3DEE);
+}
+
 .nivel:active {
     transform: scale(.9) !important;
 }
