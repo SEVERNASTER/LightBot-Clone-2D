@@ -434,12 +434,13 @@
 
     .comandos-disponibles.diseno-simple {
         width: 300px;
-        height: 300px;
+        height: 250px;
     }
 
     .comandos-disponibles {
         width: 300px;
         height: auto;
+        margin: auto;
     }
 
     .comandos-titulo {
@@ -458,10 +459,18 @@
     }
 
     .proc1-contenedor {
-        height: 300px;
+        height: 350px;
         width: 300px;
         font-size: 1rem;
         
+    }
+
+    .proc1-titulo {
+        padding-top: 0;
+    }
+
+    .proc1-comandos {
+        margin-top: 0;
     }
 }
 
