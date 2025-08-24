@@ -3,13 +3,18 @@
 .comandos-disponibles {
     display: flex;
     flex-direction: column;
-    margin-top: auto;
+    /* margin-top: auto; */
     gap: 20px;
     padding: 20px 10px;
     background-color: #24244E;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    width: min(400px, 100%);
+    width: 350px;
+    height: auto;
+}
+
+.comandos-disponibles.diseno-simple {
+    height: 320px;
 }
 
 .comandos-titulo {
@@ -34,7 +39,7 @@
     /* flex-wrap: wrap; */
     gap: 15px;
     /* padding: 10px; */
-    margin-top: auto;
+    /* margin-top: auto; */
 }
 
 /* .botones-contenedor button:nth-child(6){
@@ -94,7 +99,8 @@
     background-color: #F1287F !important;
 }
 
-.boton-jugar.proc1 {
+.boton-jugar.proc1, 
+.boton-jugar.proc2 {
     grid-column: span 2;
     width: 50% !important;
 }
@@ -129,8 +135,11 @@
 
 .panel-contenedor {
     /* border: solid red; */
-    height: 100vh;
-    width: min(600px, 100%);
+    height: 100%;
+    max-height: 100vh;
+    /* width: min(700px, 100%); */
+    width: 100%;
+    max-width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -146,18 +155,18 @@
 
 
 .panel-principal {
-    border: solid #fff;
+    /* border: solid #fff; */
     /* height: 550px; */
     width: 100%;
+    
     height: 100%;
     padding: 20px 0;
-    aspect-ratio: 1 / 1;
     display: flex;
     /* flex-direction: column; */
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
-    overflow-y: auto;
+    overflow: auto;
     padding: 20px;
     z-index: 30 !important;
 }
@@ -166,10 +175,10 @@
     /* border: solid #0ef; */
     background-color: #24244E;
     border-radius: 20px;
-    padding: 0 30px;
+    padding: 0 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
-    height: 380px;
-    width: min(500px, 100%);
+    height: 370px;
+    width: 400px;
 }
 
 .secuencia-titulo {
@@ -245,8 +254,8 @@
 /* para el boton limpiar */
 
 .boton-limpiar {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     aspect-ratio: 1 / 1;
     border-radius: 20px;
     font-size: 35px;
@@ -283,10 +292,10 @@
 
 .pseudo {
     border: dashed #fff;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -296,8 +305,8 @@
 
 .proc1-contenedor {
     /* border: solid #fff; */
-    height: 300px;
-    width: min(450px, 100%);
+    height: 350px;
+    width: 350px;
     display: grid;
     grid-template-rows: 20% 80%;
     border-radius: 20px;
@@ -309,7 +318,9 @@
 .proc1-titulo {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
+    padding-top: 20px;
+    text-align: center;
 }
 
 .proc1-comandos{
@@ -354,7 +365,6 @@
     .panel-contenedor {
         height: 50vh;
         width: 100%;
-        background: transparent;
     }
 
     .panel-principal {
@@ -367,7 +377,8 @@
     }
 
     .secuencia-contenedor {
-        width: min(320px, 100%);
+        /* width: min(320px, 100%); */
+        width: 320px;
         height: auto;
         padding: 0;
     }
@@ -401,18 +412,80 @@
     }
 }
 
+/* para ajustar el tamanio de los contenedores y los comandos */
+
+@media screen and (max-width: 920px) {
+    .comandos-titulo {
+        display: none;
+    }
+
+    .secuencia-contenedor {
+        width: 310px;
+        height: 320px;
+    }
+
+    .secuencia-titulo {
+        font-size: 1rem;
+    }
+
+    .comandos-contenedor {
+        height: 235px;
+    }
+
+    .comandos-disponibles.diseno-simple {
+        width: 300px;
+        height: 250px;
+    }
+
+    .comandos-disponibles {
+        width: 300px;
+        height: auto;
+        margin: auto;
+    }
+
+    .comandos-titulo {
+        font-size: 1rem;
+    }
+
+    .panel-principal {
+        flex-direction: column;
+        overflow: auto;
+        height: 370px;
+        justify-content: flex-end;
+    }
+
+    .panel-contenedor {
+        background: linear-gradient(transparent, #362C82, #362C82);
+    }
+
+    .proc1-contenedor {
+        height: 350px;
+        width: 300px;
+        font-size: 1rem;
+        
+    }
+
+    .proc1-titulo {
+        padding-top: 0;
+    }
+
+    .proc1-comandos {
+        margin-top: 0;
+    }
+}
+
+
+
 @media screen and (max-width: 710px) {
 
     .panel-contenedor {
-        box-shadow: 0 10px 20px #0ef inset;
-        padding-top: 20px;
+        /* box-shadow: 0 10px 20px #0ef inset; */
+        /* padding-top: 20px; */
     }
     
     .panel-principal {
         /* border: solid #fff; */
         flex-direction: column;
-        overflow: auto;
-        padding-top: 300px;
     }
 }
 

@@ -4,14 +4,16 @@ import NivelCard from '../components/NivelCard';
 
 
 function Niveles({ niveles, setMapaActual, extraClases, setJugando, extraStyles, titulo, subtitulo,
+    tipoNivel
 }) {
     
+
     return (
         <div className={`niveles-wrapper ${extraClases}
         `}>
             <div className={`niveles-card ${extraClases}`}>
-                <div className={`contenido-niveles-card`} style={extraStyles}>
-                    <header className="niveles-header">
+                <div className={`contenido-niveles-card ${extraClases}`} style={extraStyles}>
+                    <header className={`niveles-header ${tipoNivel}`}>
                         <h2>{`${titulo}`}</h2>
                         <h3>{`${subtitulo}`}</h3>
                     </header>
@@ -23,6 +25,8 @@ function Niveles({ niveles, setMapaActual, extraClases, setJugando, extraStyles,
                                     setMapaActual(nivel)
                                     setJugando(true)
                                 }}
+                                tipoNivel={tipoNivel}
+
                             />
                         })}
                     </div>

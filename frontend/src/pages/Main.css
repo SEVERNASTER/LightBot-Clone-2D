@@ -103,6 +103,7 @@
     .perfil {
         right: 90%;
         transform: translateX(50%);
+        top: 0;
     }
 }
 

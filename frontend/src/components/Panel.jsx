@@ -304,7 +304,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
             <div className="panel-principal" >
                 <div className="secuencia-contenedor">
                     <div className="secuencia-titulo">
-                        <h3>SECUENCIA DE COMANDOS</h3>
+                        <h3>SECUENCIA MAIN</h3>
                     </div>
                     <div className={`comandos-contenedor ${contenedorActivo === 'main' ? 'activar' : ''}`}
                         onClick={() => setContenedorActivo('main')}
@@ -484,7 +484,10 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
 
 
-                <div className="comandos-disponibles">
+                <div className={`
+                    comandos-disponibles
+                    ${!proc1 && !proc2 ? 'diseno-simple' : ''}
+                `}>
                     <div className="comandos-titulo">
                         <h3>COMANDOS DISPONIBLES</h3>
                     </div>
@@ -569,19 +572,6 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                             label='Reiniciar'
                         /> */}
 
-                        {/* para iniciar la secuencia */}
-                        <Button icon={ejecutando ? FaPause : FaPlay}
-                            onClick={jugar}
-                            extraClass={`
-                                zoom
-                                boton-jugar 
-                                ${ejecutando ? 'padding-icono' : ''}
-                                ${!proc1 ? 'proc1' : ''}
-                                
-                            `}
-                            label='Ejecutar Comandos'
-                        />
-
                         {
                             proc1 &&
                             <Button titulo={'P1'}
@@ -625,6 +615,19 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                 inhabilitar={!puedeEditar}
                             />
                         }
+
+                        {/* para iniciar la secuencia */}
+                        <Button icon={ejecutando ? FaPause : FaPlay}
+                            onClick={jugar}
+                            extraClass={`
+                                zoom
+                                boton-jugar 
+                                ${ejecutando ? 'padding-icono' : ''}
+                                ${!proc1 ? 'proc1' : ''}
+                                ${proc1 && proc2 ? 'proc2' : ''}
+                            `}
+                            label='Ejecutar Comandos'
+                        />
 
 
 

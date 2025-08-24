@@ -9,7 +9,7 @@ function Button({ icon: Icono, onClick, extraClass, inhabilitar, label, titulo }
             disabled={inhabilitar}
             title={label}
         >
-            {Icono && <Icono size={35} />}
+            {Icono && <Icono size={30} />}
             {titulo}
         </button>
     );
