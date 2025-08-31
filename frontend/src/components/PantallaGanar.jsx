@@ -45,16 +45,22 @@ export default function PantallaGanar({ onCerrar, todasEncendidas, setTodasEncen
                     <div className="winner-info-wrapper">
                         <div className="winner-info">
                             <div className="winner-nivel-completado">
-                                <h2>Nivel <span>7</span></h2>
-                                <h2 className="estado-nivel-winner">
-                                    COMPLETADO
-                                </h2>
+                                📊 ESTADÍSTICAS
                             </div>
 
                             <div className="comandos-usados">
-                                <h2>Comandos usados:</h2>
-                                <h2>12/20</h2>
+                                <h2>⏱️ Tiempo:</h2>
+                                <h2>cargando...</h2>
                             </div>
+                            <div className="comandos-usados">
+                                <h2>🔧 Comandos:</h2>
+                                <h2>cargando...</h2>
+                            </div>
+                            <div className="comandos-usados">
+                                <h2>⭐ Puntuación:</h2>
+                                <h2 className='total-puntos'>100 pts</h2>
+                            </div>
+                            
                         </div>
 
                     </div>

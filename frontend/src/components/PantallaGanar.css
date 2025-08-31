@@ -84,7 +84,7 @@
     border-radius: 25px;
     background: linear-gradient(#6822A7, #1F3FAE);
     display: grid;
-    grid-template-rows: 40% 40% 20%;
+    grid-template-rows: 30% 50% 20%;
     z-index: 20;
 }
 
@@ -98,7 +98,7 @@
 }
 
 .header-winner h2 {
-    font-size: 5rem;
+    font-size: 3rem;
     animation: winner 1s ease-in-out infinite;
 }
 
@@ -113,13 +113,13 @@
 
 
 .header-winner h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #DFB732;
 }
 
 
 .header-winner h4 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: #74B9EF;
 }
 
@@ -132,19 +132,27 @@
 }
 
 .winner-info {
+    /* width: 80%; */
     background-color: #28256A;
     border-radius: 10px;
     padding: 40px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    
+}
+
+.total-puntos {
+    color: #E6BE37;
 }
 
 .winner-nivel-completado {
     border-bottom: solid 2px #2AC6E0;
     display: flex;
     justify-content: space-between;
-    color: #fff;
+    color: #2AC6E0;
+    font-weight: 600;
+    font-size: 1.2rem;
 }
 
 .estado-nivel-winner {
@@ -155,14 +163,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.comandos-usados:last-child {
-    color: #DFB732;
-}
-
-.comandos-usados:first-child {
-    color: #fff !important;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 500;
+    gap: 10px;
 }
 
 .winner-buttons {
@@ -235,5 +239,9 @@
 
     .winner-btn:active {
         transform: scale(.8);
+    }
+
+    .winner-info {
+        padding: 20px;
     }
 }
