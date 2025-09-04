@@ -6,6 +6,8 @@ import './Celda.css'
 function Celda({ fondo, colorFondo, todasEncendidas, esLuz, delay, esLaUltimaLuz,
     setTodasEncendidas }) {
 
+        const [animarCelda, setAnimarCelda] = useState(false)
+
     // if(esLaUltimaLuz && todasEncendidas) {
     //     setTimeout(() => {
     //         setTodasEncendidas(true)
@@ -26,11 +28,21 @@ function Celda({ fondo, colorFondo, todasEncendidas, esLuz, delay, esLaUltimaLuz
     //     }
     // }, [todasEncendidas, esLuz, delay]);
 
+    useEffect(() => {
+        if(colorFondo === '#FFFC00'){
+            setAnimarCelda(true)
+        }else{
+            setAnimarCelda(false)
+        }
+    }, [colorFondo])
+    
+
     return (
         <div className={`
                 celda
                 ${esLuz ? 'es-luz' : ''}
                 ${todasEncendidas ? 'animar' : ''}
+                ${animarCelda ? 'encender' : ''}
             `} style={{
                 backgroundImage: `url(${fondo})`,
                 background: `${colorFondo}`,
