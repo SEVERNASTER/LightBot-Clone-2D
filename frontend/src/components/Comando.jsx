@@ -1,10 +1,14 @@
 
+import { useState } from 'react';
 import './Comando.css'
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import { IoCloseCircle } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 
 function Comando({ imagen, icono: Icono, resaltar, eliminarComando, inhabilitar, puedeEditar, texto }) {
+    
+    const [eliminado, setEliminado] = useState(false)
+    
     return (
         <div className={`
                 comando 
@@ -12,6 +16,7 @@ function Comando({ imagen, icono: Icono, resaltar, eliminarComando, inhabilitar,
                 ${inhabilitar ? 'inhabilitar' : ''}
                 ${texto === 'P1' ? 'p1' : ''}
                 ${texto === 'P2' ? 'p2' : ''}
+                ${eliminado ? 'eliminar' : ''}
             `}
 
             style={{
@@ -23,8 +28,14 @@ function Comando({ imagen, icono: Icono, resaltar, eliminarComando, inhabilitar,
                 {Icono && <Icono size={35} />}
                 {puedeEditar &&
                 <span
-                    onClick={eliminarComando}
-                    className='quitar-comando'><IoClose title='Eliminar este comando' />
+                    onClick={() => {
+                        setEliminado(true)
+                        setTimeout(() => {
+                            eliminarComando()
+                            setEliminado(false)
+                        }, 200);
+                    }}
+                    className={`quitar-comando`}><IoClose title='Eliminar este comando' />
                 </span>}
                 {
                     texto && <h3>{texto}</h3>
