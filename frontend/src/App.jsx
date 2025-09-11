@@ -7,6 +7,14 @@ import { useState, useEffect, useRef } from 'react';
 import Tour from './components/Tour';
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
+// para la imagen del bot del tour
+import tourBot1 from './assets/tourbot1.png';
+import tourBot2 from './assets/tourbot2.png';
+import tourBot3 from './assets/tourbot3.png';
+import tourBot4 from './assets/tourbot4.png';
+import tourBot5 from './assets/tourbot5.png';
+
+
 
 
 import PantallaGanar from './components/PantallaGanar';
@@ -158,6 +166,10 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
+
+  // ref para Driver.js
+  const driverRef = useRef(null);
+
 
   useEffect(() => {
     if (secuenciaTerminada) {
@@ -667,50 +679,105 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   // para hacer el tour con Driver.js
 
   useEffect(() => {
-    if (jugando) {
+    if (!jugando) return;
 
-      const driverObj = driver({
-        showProgress: true,        // muestra progreso paso a paso
-        animate: true,             // animaciones
-        allowClose: true,         // obliga a terminar el tour
-        doneBtnText: 'Listo',       // texto botón final
-        nextBtnText: 'Siguiente',  // texto botón siguiente
-        prevBtnText: 'Anterior',   // texto botón anterior
+    // Crear la instancia solo si no existe
+    if (!driverRef.current) {
+      driverRef.current = driver({
+        showProgress: true,
+        animate: true,
+        allowClose: true,
+        doneBtnText: 'Listo',
+        nextBtnText: 'Siguiente',
+        prevBtnText: 'Anterior',
         steps: [
           {
-            element: '#apppContenedor', // selector del elemento
+            element: '#apppContenedor',
             popover: {
-              title: '¡Bienvenido!',
-              description: 'Aprende a mover tu robot paso a paso',
-              // position: 'bottom'
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot1} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >¡Hola! Bienvenido a LightBot. ¡Qué bueno tenerte aquí!</span>
+                </div>  
+              `
             }
           },
           {
-            element: '#appPanel', // selector del elemento
+            // 16 por que el bot cuenta igual
+            element: '.grilla .celda:nth-child(16)',
             popover: {
-              title: '¡Bienvenido!',
-              description: 'Aprende a mover tu robot paso a paso',
-              // position: 'bottom'
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot2} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >Necesito tu ayuda para enceder todas las luces</span>
+                </div>  
+              `
+            }
+          },
+          {
+            // 16 por que el bot cuenta igual
+            element: '.botones-contenedor .boton-funcional:first-child',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot5} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >El comando AVANZAR hace que me mueva un paso hacia adelante</span>
+                </div>  
+              `
+            }
+          },
+          {
+            element: '.botones-contenedor .boton-funcional:nth-child(2)',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot3} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >El comando ENCENDER me dice que encienda la luz</span>
+                </div>  
+              `
+            }
+          },
+          {
+            element: '#appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >Buena Suerte!</span>
+                </div>  
+              `
             }
           },
         ]
       });
-
-      // esto solamente para resaltar elementos individuales
-      // driverObj.highlight([
-      //   {
-      //     element: '#apppContenedor', // selector del elemento
-      //     popover: {
-      //       title: '¡Bienvenido!',
-      //       description: 'Aprende a mover tu robot paso a paso',
-      //       // position: 'bottom'
-      //     }
-      //   },
-      // ]);
-
-      driverObj.drive();
     }
+
+    // Iniciar el tour
+    driverRef.current.drive();
+
+    // Opcional: limpiar si dejas de jugar
+    return () => {
+      if (driverRef.current) {
+        driverRef.current = null;
+      }
+    };
   }, [jugando]);
+
 
 
   return (

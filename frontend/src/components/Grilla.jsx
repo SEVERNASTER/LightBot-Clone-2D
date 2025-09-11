@@ -100,8 +100,9 @@ function Grilla({ pos, sentido, filas, columnas, mapa, botAnimado, colisionArrib
         <div id='appContenedor' className={`grilla-contenedor ${jugando ? 'mostrar' : ''}`}>
 
             <div className="grilla" ref={grillaRef} style={{
-                gridTemplateColumns: `repeat(${columnas}, 1fr)`,
-            }}>
+                    gridTemplateColumns: `repeat(${columnas}, 1fr)`,
+                }}
+            >
 
 
                 <Bot secuencia={secuencia} indiceActual={indice}
