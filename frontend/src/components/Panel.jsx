@@ -302,7 +302,7 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
         <div className={`panel-contenedor ${jugando ? 'mostrar' : ''}`}>
 
             <div className="panel-principal" >
-                <div className="secuencia-contenedor">
+                <div id='appPanel' className="secuencia-contenedor">
                     <div className="secuencia-titulo">
                         <h3>SECUENCIA MAIN</h3>
                     </div>

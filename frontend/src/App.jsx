@@ -5,6 +5,9 @@ import Grilla from './components/Grilla';
 import Panel from './components/Panel';
 import { useState, useEffect, useRef } from 'react';
 import Tour from './components/Tour';
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
+
 
 import PantallaGanar from './components/PantallaGanar';
 
@@ -470,9 +473,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
 
 
-  useEffect(() => {
-    console.log(secuencia);
-  }, [secuencia])
+  // useEffect(() => {
+  //   console.log(secuencia);
+  // }, [secuencia])
 
 
 
@@ -661,14 +664,63 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   };
 
 
+  // para hacer el tour con Driver.js
+
+  useEffect(() => {
+    if (jugando) {
+
+      const driverObj = driver({
+        showProgress: true,        // muestra progreso paso a paso
+        animate: true,             // animaciones
+        allowClose: true,         // obliga a terminar el tour
+        doneBtnText: 'Listo',       // texto botón final
+        nextBtnText: 'Siguiente',  // texto botón siguiente
+        prevBtnText: 'Anterior',   // texto botón anterior
+        steps: [
+          {
+            element: '#apppContenedor', // selector del elemento
+            popover: {
+              title: '¡Bienvenido!',
+              description: 'Aprende a mover tu robot paso a paso',
+              // position: 'bottom'
+            }
+          },
+          {
+            element: '#appPanel', // selector del elemento
+            popover: {
+              title: '¡Bienvenido!',
+              description: 'Aprende a mover tu robot paso a paso',
+              // position: 'bottom'
+            }
+          },
+        ]
+      });
+
+      // esto solamente para resaltar elementos individuales
+      // driverObj.highlight([
+      //   {
+      //     element: '#apppContenedor', // selector del elemento
+      //     popover: {
+      //       title: '¡Bienvenido!',
+      //       description: 'Aprende a mover tu robot paso a paso',
+      //       // position: 'bottom'
+      //     }
+      //   },
+      // ]);
+
+      driverObj.drive();
+    }
+  }, [jugando]);
+
+
   return (
     <div className={`app-wrapper ${jugando ? 'mostrar' : ''}`}>
 
-      <div className={`
+      {/* <Tour /> */}
+      <div /*id='apppContenedor'*/ className={`
         app-contenedor
         ${!proc1 && !proc2 ? 'diseno-simple' : ''}
-      `}>
-        {/* <Tour /> */}
+      `} >
         <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
           botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
