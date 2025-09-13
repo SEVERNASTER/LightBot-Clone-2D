@@ -24,6 +24,10 @@
     padding: 10px 0;
 }
 
+.boton-funcional.ocultar {
+    display: none;
+}
+
 .boton-funcional.padding-icono {
     padding-right: 6px;
 }

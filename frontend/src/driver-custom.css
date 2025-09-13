@@ -92,6 +92,7 @@
 
 /* Personalizar el botón de cerrar */
 .driver-popover-close-btn {
+    display: none !important;
     background-color: transparent !important;
     color: #D320D4 !important;
     /* Magenta */
@@ -103,7 +104,7 @@
     font-weight: bold !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
-    display: flex !important;
+    /* display: flex !important; */
     align-items: center !important;
     justify-content: center !important;
     margin: 10px;

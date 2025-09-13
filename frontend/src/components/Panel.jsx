@@ -19,7 +19,7 @@ import { HiArrowUturnLeft } from "react-icons/hi2";
 import { HiArrowUturnRight } from "react-icons/hi2";
 
 
-function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
+function Panel({ nivelActual, ejecutando, jugar, setSecuencia, secuencia, agregarComando,
     reiniciar, comandoActualMain, puedeEditar, jugando, limiteDeComandos,
     comandosRestantes, setComandosRestantes,
     proc1, secuenciaProc1, setSecuenciaProc1, limiteDeComandosProc1,
@@ -540,10 +540,13 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
 
                                 )
                             }
-                            extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
+                            extraClass={`zoom 
+                                ${!puedeEditar ? 'inhabilitar' : ''}
+                                ${nivelActual === 1 ? 'ocultar' : ''}
+                            `}
                             inhabilitar={!puedeEditar}
                             label='Girar Izquierda'
-                            titulo='GIRAR IZQ'
+                            titulo='IZQUIERDA'
                         />
 
                         {/* girar a la derecha */}
@@ -557,11 +560,13 @@ function Panel({ ejecutando, jugar, setSecuencia, secuencia, agregarComando,
                                     seleccionarSetComandosRestantes()
                                 )
                             }
-                            extraClass={`zoom ${!puedeEditar ? 'inhabilitar' : ''}`}
-
+                            extraClass={`zoom 
+                                ${!puedeEditar ? 'inhabilitar' : ''}
+                                ${nivelActual === 1 ? 'ocultar' : ''}
+                            `}
                             inhabilitar={!puedeEditar}
                             label='Girar Derecha'
-                            titulo='GIRAR DER'
+                            titulo='DERECHA'
                         />
 
                         {/* para reiniciar la secuencia */}
