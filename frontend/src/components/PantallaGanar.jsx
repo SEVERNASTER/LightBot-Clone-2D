@@ -50,11 +50,11 @@ export default function PantallaGanar({ onCerrar, todasEncendidas, setTodasEncen
 
                             <div className="comandos-usados">
                                 <h2>⏱️ Tiempo:</h2>
-                                <h2>cargando...</h2>
+                                <h2>-</h2>
                             </div>
                             <div className="comandos-usados">
                                 <h2>🔧 Comandos:</h2>
-                                <h2>cargando...</h2>
+                                <h2>-</h2>
                             </div>
                             <div className="comandos-usados">
                                 <h2>⭐ Puntuación:</h2>

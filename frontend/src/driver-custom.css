@@ -1,0 +1,179 @@
+/* driver-custom.css - Estilos personalizados para Driver.js */
+
+
+/* Personalizar el popover principal */
+.driver-popover {
+    background-color: #242145 !important;
+    /* Azul oscuro */
+    color: #1ABCFD !important;
+    /* Azul claro para el texto */
+    border-radius: 16px !important;
+    border: 2px solid #6150EE !important;
+    /* Borde morado */
+    box-shadow: 0 15px 35px rgba(211, 32, 212, 0.3) !important;
+    /* Sombra con magenta */
+    max-width: 350px !important;
+}
+
+/* Personalizar el título del popover */
+.driver-popover-title {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    color: #D320D4 !important;
+    /* Magenta para títulos */
+    margin-bottom: 10px !important;
+    text-shadow: 0 0 10px rgba(211, 32, 212, 0.5) !important;
+    /* Efecto de brillo */
+}
+
+/* Personalizar la descripción */
+.driver-popover-description {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    color: #1ABCFD !important;
+    /* Azul claro */
+    margin-bottom: 15px !important;
+}
+
+/* Personalizar el footer (contenedor de botones) */
+.driver-popover-footer {
+    border-top: 1px solid #6150EE !important;
+    /* Línea divisoria morada */
+    padding-top: 15px !important;
+    margin-top: 15px !important;
+}
+
+/* Personalizar el botón "Siguiente" */
+.driver-popover-next-btn {
+    background: linear-gradient(45deg, #D320D4, #6150EE) !important;
+    /* Gradiente magenta a morado */
+    color: white !important;
+    text-shadow: none !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(211, 32, 212, 0.4) !important;
+}
+
+.driver-popover-next-btn:hover {
+    background: linear-gradient(45deg, #6150EE, #074CCD) !important;
+    /* Cambio de gradiente en hover */
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(97, 80, 238, 0.5) !important;
+}
+
+/* Personalizar el botón "Anterior" */
+.driver-popover-prev-btn {
+    background-color: #074CCD !important;
+    /* Azul oscuro */
+    color: white !important;
+    border: 2px solid #1ABCFD !important;
+    /* Borde azul claro */
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-shadow: none !important;
+}
+
+.driver-popover-prev-btn:hover {
+    background-color: #1ABCFD !important;
+    /* Cambio a azul claro en hover */
+    color: #242145 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(26, 188, 253, 0.4) !important;
+}
+
+/* Personalizar el botón de cerrar */
+.driver-popover-close-btn {
+    background-color: transparent !important;
+    color: #D320D4 !important;
+    /* Magenta */
+    border: 2px solid #D320D4 !important;
+    border-radius: 50% !important;
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 10px;
+}
+
+.driver-popover-close-btn:hover {
+    background-color: #D320D4 !important;
+    color: white !important;
+    transform: rotate(90deg) !important;
+    box-shadow: 0 4px 15px rgba(211, 32, 212, 0.5) !important;
+}
+
+/* Personalizar la barra de progreso */
+.driver-popover-progress-text {
+    color: #6150EE !important;
+    /* Morado */
+    font-weight: 600 !important;
+    font-size: 13px !important;
+}
+
+/* Personalizar la flecha del popover */
+.driver-popover-arrow {
+    border-color: #6150EE !important;
+    /* Flecha con color del borde */
+}
+
+.driver-popover-arrow-side-top {
+    border-bottom-color: #242145 !important;
+}
+
+.driver-popover-arrow-side-bottom {
+    border-top-color: #242145 !important;
+}
+
+.driver-popover-arrow-side-left {
+    border-right-color: #242145 !important;
+}
+
+.driver-popover-arrow-side-right {
+    border-left-color: #242145 !important;
+}
+
+/* Personalizar el elemento resaltado */
+.driver-highlighted-element {
+    box-shadow: 0 0 0 4px #D320D4, 0 0 0 8px rgba(211, 32, 212, 0.3) !important;
+    /* Resplandor magenta */
+    border-radius: 8px !important;
+}
+
+/* Animación personalizada para el popover */
+.driver-popover {
+    animation: slideInUp 0.4s ease-out !important;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Personalizar el texto del contador de pasos */
+.driver-popover-navigation-btns {
+    gap: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    /* justify-content: space-between !important; */
+}

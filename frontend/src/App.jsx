@@ -7,12 +7,16 @@ import { useState, useEffect, useRef } from 'react';
 import Tour from './components/Tour';
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
+import './driver-custom.css'; 
 // para la imagen del bot del tour
 import tourBot1 from './assets/tourbot1.png';
 import tourBot2 from './assets/tourbot2.png';
 import tourBot3 from './assets/tourbot3.png';
 import tourBot4 from './assets/tourbot4.png';
 import tourBot5 from './assets/tourbot5.png';
+import tourBot6 from './assets/tourbot6.png';
+import tourBot7 from './assets/tourbot7.png';
+import tourBot8 from './assets/tourbot8.png';
 
 
 
@@ -721,7 +725,34 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
             }
           },
           {
-            // 16 por que el bot cuenta igual
+            element: '.grilla',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >Este es el mapa que recorreré</span>
+                </div>  
+              `
+            }
+          },
+          {
+            element: '.grilla .celda:nth-child(8)',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >Estos son obstáculos y no puedo atravesarlos</span>
+                </div>  
+              `
+            }
+          },
+          {
             element: '.botones-contenedor .boton-funcional:first-child',
             popover: {
               title: 'Lightbot',
@@ -750,12 +781,26 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
             }
           },
           {
+            element: '.bot-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
+                  <span 
+                    style="text-align:center"
+                  >👀 Fíjate en la flecha junto a mí: indica hacia dónde me moveré</span>
+                </div>  
+              `
+            }
+          },
+          {
             element: '#appContenedor',
             popover: {
               title: 'Lightbot',
               description: `
                 <div style="display:flex; align-items:center; gap:10px;">
-                  <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
+                  <img src=${tourBot6} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
                     style="text-align:center"
                   >Buena Suerte!</span>
