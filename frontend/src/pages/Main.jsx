@@ -35,6 +35,8 @@ function Main({ user }) {
     const [columnas, setColumnas] = useState(mapas1[0].columnas)
     const [todasEncendidas, setTodasEncendidas] = useState(false)
     const [nivelDebeReiniciarse, setNivelDebeReiniciarse] = useState(false)
+    const [cartaDeNivelActual, setCartaDeNivelActual] = useState(1) //para saber en que card de nivel va
+
 
 
     useEffect(() => {
@@ -80,6 +82,11 @@ function Main({ user }) {
         }, 1000);
     }
 
+    useEffect(() => {
+        console.log(cartaDeNivelActual);
+    }, [cartaDeNivelActual])
+
+
     return (
         <div className={`main-container ${jugando ? 'jugando' : ''}
             ${creando ? 'creando' : ''}
@@ -112,7 +119,7 @@ function Main({ user }) {
             <Niveles clasesExtra={`${vistaMenu ? 'deslizar' : ''}`}
                 setJugando={setJugando} setMapaActual={setMapaActual} jugando={jugando}
                 jugandoMiNivel={jugandoMiNivel} mapas1={mapas1} mapas2={mapas2} mapas3={mapas3} mapas4={mapas4}
-                setMapas={setMapas}
+                setMapas={setMapas} nivelActual={cartaDeNivelActual} setNivelActual={setCartaDeNivelActual}
             />
 
             <button className={`boton-cambiar regresar-niveles-btn
@@ -133,6 +140,7 @@ function Main({ user }) {
                 limiteDeComandosProc1={limiteDeComandosProc1} limiteDeComandosProc2={limiteDeComandosProc2}
                 filas={filas} columnas={columnas} todasEncendidas={todasEncendidas} setTodasEncendidas={setTodasEncendidas}
                 handleSalir={handleSalir} debeReiniciar={nivelDebeReiniciarse} setDebeReiniciar={setNivelDebeReiniciarse}
+                cartaDeNivelActual={cartaDeNivelActual}
             />
         </div>
     )

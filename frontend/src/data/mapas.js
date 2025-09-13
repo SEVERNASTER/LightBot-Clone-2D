@@ -114,16 +114,16 @@ export const mapas1 = [
     // NIVEL 6: Dos luces - concepto múltiple
     {
         mapa: [
-            [2, 0, 3, 0, 0],
+            [0, 0, 0, 2, 0],
+            [1, 1, 1, 0, 1],
             [0, 0, 0, 0, 0],
+            [1, 0, 1, 1, 1],
             [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 3, 0, 0],
         ],
         filas: 5,
         columnas: 5,
         bot: {
-            pos: { fila: 0, columna: 0 },
+            pos: { fila: 4, columna: 0 },
             direccionInicial: 90
         },
         limiteDeComandos: -1,
@@ -180,11 +180,11 @@ export const mapas1 = [
     // NIVEL 9: Patrón en cruz - posición central
     {
         mapa: [
-            [0, 0, 3, 0, 0],
-            [0, 0, 0, 0, 0],
-            [3, 0, 2, 0, 3],
-            [0, 0, 0, 0, 0],
-            [0, 0, 3, 0, 0],
+            [1, 1, 2, 1, 1],
+            [1, 0, 0, 0, 1],
+            [2, 0, 2, 0, 2],
+            [1, 0, 0, 0, 0],
+            [1, 1, 2, 1, 1],
         ],
         filas: 5,
         columnas: 5,
@@ -202,11 +202,11 @@ export const mapas1 = [
     // NIVEL 10: Camino serpenteante
     {
         mapa: [
-            [2, 0, 0, 0, 3],
+            [2, 0, 0, 0, 0],
             [1, 1, 1, 0, 1],
             [0, 0, 0, 0, 1],
             [1, 0, 1, 1, 1],
-            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 2],
         ],
         filas: 5,
         columnas: 5,
@@ -224,19 +224,19 @@ export const mapas1 = [
     // NIVEL 11: Esquinas - múltiples giros (CON LÍMITE)
     {
         mapa: [
-            [3, 0, 0, 0, 2],
-            [0, 1, 1, 0, 0],
-            [0, 1, 1, 0, 0],
-            [0, 0, 0, 1, 0],
-            [3, 0, 0, 0, 3],
+            [1, 1, 1, 1, 1],
+            [1, 0, 2, 0, 1],
+            [1, 2, 1, 2, 1],
+            [1, 0, 2, 0, 1],
+            [1, 1, 1, 1, 1],
         ],
         filas: 5,
         columnas: 5,
         bot: {
-            pos: { fila: 0, columna: 4 },
-            direccionInicial: 180
+            pos: { fila: 3, columna: 2 },
+            direccionInicial: 270
         },
-        limiteDeComandos: 15,
+        limiteDeComandos: -1,
         proc1: false,
         limiteDeComandosProc1: -1,
         proc2: false,
@@ -268,7 +268,7 @@ export const mapas1 = [
     // NIVEL 13: Múltiples luces con obstáculos (CON LÍMITE)
     {
         mapa: [
-            [2, 1, 3, 1, 0],
+            [0, 1, 3, 1, 0],
             [0, 0, 0, 0, 0],
             [1, 0, 1, 0, 1],
             [0, 0, 0, 0, 0],
@@ -280,7 +280,7 @@ export const mapas1 = [
             pos: { fila: 0, columna: 0 },
             direccionInicial: 90
         },
-        limiteDeComandos: 20,
+        limiteDeComandos: -1,
         proc1: false,
         limiteDeComandosProc1: -1,
         proc2: false,
@@ -290,11 +290,11 @@ export const mapas1 = [
     // NIVEL 14: Patrón complejo (CON LÍMITE)
     {
         mapa: [
-            [0, 1, 3, 1, 0],
-            [0, 0, 0, 0, 0],
-            [3, 0, 2, 0, 3],
-            [0, 0, 0, 0, 0],
-            [0, 1, 3, 1, 0],
+            [2, 1, 1, 1, 2],
+            [0, 0, 1, 0, 0],
+            [1, 0, 0, 0, 1],
+            [0, 0, 1, 0, 0],
+            [2, 1, 1, 1, 2],
         ],
         filas: 5,
         columnas: 5,
@@ -302,7 +302,7 @@ export const mapas1 = [
             pos: { fila: 2, columna: 2 },
             direccionInicial: 270
         },
-        limiteDeComandos: 22,
+        limiteDeComandos: -1,
         proc1: false,
         limiteDeComandosProc1: -1,
         proc2: false,
@@ -324,7 +324,7 @@ export const mapas1 = [
             pos: { fila: 0, columna: 0 },
             direccionInicial: 90
         },
-        limiteDeComandos: 25,
+        limiteDeComandos: -1,
         proc1: false,
         limiteDeComandosProc1: -1,
         proc2: false,

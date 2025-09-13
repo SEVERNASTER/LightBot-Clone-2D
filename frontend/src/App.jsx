@@ -35,7 +35,7 @@ import PantallaGanar from './components/PantallaGanar';
 // mapaActual es el indice de la lista de mapas
 function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1, proc2,
   limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas,
-  todasEncendidas, setTodasEncendidas, handleSalir, debeReiniciar, setDebeReiniciar
+  todasEncendidas, setTodasEncendidas, handleSalir, debeReiniciar, setDebeReiniciar, cartaDeNivelActual
 }) {
 
   // 0 = camino libre
@@ -678,7 +678,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   useEffect(() => {
     if (!jugando) return;
 
-    const steps = getSteps(mapaActual);
+    const steps = getSteps(mapaActual, cartaDeNivelActual);
 
     if (!steps || steps.length === 0) return;
 
@@ -697,7 +697,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
     }
 
-      driverRef.current.drive();
+    driverRef.current.drive();
 
     return () => {
       if (driverRef.current) {

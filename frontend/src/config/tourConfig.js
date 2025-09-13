@@ -11,15 +11,17 @@ import tourBot8 from '../assets/tourbot8.png';
 
 
 
-const getSteps = (nivel) => {
+const getSteps = (nivel, cartaDeNivelActual) => {
+  // para los niveles basicos
+  if (cartaDeNivelActual === 1) {
     switch (nivel) {
-        case 1:
-            return [
-                {
-                    element: '#apppContenedor',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+      case 1:
+        return [
+          {
+            element: '#apppContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot1} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
@@ -27,14 +29,14 @@ const getSteps = (nivel) => {
                   >¡Hola! Bienvenido a LightBot. ¡Qué bueno tenerte aquí!</span>
                 </div>  
               `
-                    }
-                },
-                {
-                    // 16 por que el bot cuenta igual
-                    element: '.grilla .celda:nth-child(16)',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+            }
+          },
+          {
+            // 16 por que el bot cuenta igual
+            element: '.grilla .celda:nth-child(16)',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot2} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
@@ -42,13 +44,13 @@ const getSteps = (nivel) => {
                   >Necesito tu ayuda para enceder todas las luces</span>
                 </div>  
               `
-                    }
-                },
-                {
-                    element: '.grilla',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+            }
+          },
+          {
+            element: '.grilla',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
@@ -56,13 +58,13 @@ const getSteps = (nivel) => {
                   >Este es el mapa que recorreré</span>
                 </div>  
               `
-                    }
-                },
-                {
-                    element: '.grilla .celda:nth-child(8)',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+            }
+          },
+          {
+            element: '.grilla .celda:nth-child(8)',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
@@ -70,13 +72,13 @@ const getSteps = (nivel) => {
                   >Estos son obstáculos y no puedo atravesarlos</span>
                 </div>  
               `
-                    }
-                },
-                {
-                    element: '.botones-contenedor .boton-funcional:first-child',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+            }
+          },
+          {
+            element: '.botones-contenedor .boton-funcional:first-child',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot5} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
@@ -84,13 +86,13 @@ const getSteps = (nivel) => {
                   >El comando AVANZAR hace que me mueva un paso hacia adelante</span>
                 </div>  
               `
-                    }
-                },
-                {
-                    element: '.botones-contenedor .boton-funcional:nth-child(2)',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+            }
+          },
+          {
+            element: '.botones-contenedor .boton-funcional:nth-child(2)',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot3} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
@@ -98,27 +100,27 @@ const getSteps = (nivel) => {
                   >El comando ENCENDER me dice que encienda la luz</span>
                 </div>  
               `
-                    }
-                },
-                {
-                    element: '.bot-contenedor',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+            }
+          },
+          {
+            element: '.bot-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
                     style="text-align:center"
-                  >👀 Fíjate en la flecha junto a mí: indica hacia dónde me moveré</span>
+                  >👀 Fíjate en la flecha verde junto a mí: indica hacia dónde me moveré, cambiará de color si choco contra algo</span>
                 </div>  
               `
-                    }
-                },
-                {
-                    element: '#appContenedor',
-                    popover: {
-                        title: 'Lightbot',
-                        description: `
+            }
+          },
+          {
+            element: '#appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
                 <div style="display:flex; align-items:center; gap:10px;">
                   <img src=${tourBot6} alt="Bot" style="width:100px; height:150px;"/>
                   <span 
@@ -126,17 +128,17 @@ const getSteps = (nivel) => {
                   >Buena Suerte!</span>
                 </div>  
               `
-                    }
-                },
-            ]
+            }
+          },
+        ]
 
-        case 2:
-            return [
-                {
-                    element: '#apppContenedor',
-                    popover: {
-                    title: 'Lightbot',
-                    description: `
+      case 2:
+        return [
+          {
+            element: '#apppContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
                         <div style="display:flex; align-items:center; gap:10px;">
                             <img src=${tourBot6} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
@@ -144,13 +146,13 @@ const getSteps = (nivel) => {
                             >Buen Trabajo!!</span>
                         </div>  
                     `
-                    }
-                },
-                {
-                    element: '.botones-contenedor',
-                    popover: {
-                    title: 'Lightbot',
-                    description: `
+            }
+          },
+          {
+            element: '.botones-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
                         <div style="display:flex; align-items:center; gap:10px;">
                             <img src=${tourBot1} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
@@ -158,13 +160,13 @@ const getSteps = (nivel) => {
                             >Aqui hay algunos comandos nuevos!</span>
                         </div>  
                     `
-                    }
-                },
-                {
-                    element: '.botones-contenedor .boton-funcional:nth-child(3)',
-                    popover: {
-                    title: 'Lightbot',
-                    description: `
+            }
+          },
+          {
+            element: '.botones-contenedor .boton-funcional:nth-child(3)',
+            popover: {
+              title: 'Lightbot',
+              description: `
                         <div style="display:flex; align-items:center; gap:10px;">
                             <img src=${tourBot1} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
@@ -172,13 +174,13 @@ const getSteps = (nivel) => {
                             >El comando IZQUIERDA me dice que de vuelta a la izquierda (contrario a las agujas del reloj)</span>
                         </div>  
                     `
-                    }
-                },
-                {
-                    element: '.botones-contenedor .boton-funcional:nth-child(4)',
-                    popover: {
-                    title: 'Lightbot',
-                    description: `
+            }
+          },
+          {
+            element: '.botones-contenedor .boton-funcional:nth-child(4)',
+            popover: {
+              title: 'Lightbot',
+              description: `
                         <div style="display:flex; align-items:center; gap:10px;">
                             <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
@@ -186,13 +188,13 @@ const getSteps = (nivel) => {
                             >Y el comando DERECHA me dice que de vuelta a la derecha (en el sentido de las agujas del reloj)</span>
                         </div>  
                     `,
-                    }
-                },
-                {
-                    element: '#appContenedor',
-                    popover: {
-                    title: 'Lightbot',
-                    description: `
+            }
+          },
+          {
+            element: '#appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
                         <div style="display:flex; align-items:center; gap:10px;">
                             <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
@@ -200,14 +202,45 @@ const getSteps = (nivel) => {
                             >Buena Suerte!!</span>
                         </div>  
                     `,
-                    
-                    }
-                },
-            ]
+
+            }
+          },
+        ]
+
+      default:
+        break;
+    }
+
+    // para los niveles de proc1
+
+    if (cartaDeNivelActual === 2) {
+      switch (nivel) {
+        case 1:
+          return [
+            {
+              element: '#appContenedor',
+              popover: {
+                title: 'Lightbot',
+                description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Lo estas haciendo bien!!</span>
+                        </div>  
+                    `,
+
+              }
+            },
+          ]
 
         default:
-            break;
+          break;
+      }
     }
+
+
+  }
 
 }
 

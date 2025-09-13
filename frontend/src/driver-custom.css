@@ -12,7 +12,7 @@
     /* Borde morado */
     box-shadow: 0 15px 35px rgba(211, 32, 212, 0.3) !important;
     /* Sombra con magenta */
-    max-width: 350px !important;
+    /* max-width: 350px !important; */
 }
 
 /* Personalizar el título del popover */
