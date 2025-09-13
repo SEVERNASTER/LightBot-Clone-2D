@@ -26,16 +26,16 @@ export const mapas1 = [
     // NIVEL 2: Introducir el giro - movimiento en L
     {
         mapa: [
+            [1, 1, 1, 1, 1],
+            [0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0],
             [2, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [3, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1],
         ],
         filas: 5,
         columnas: 5,
         bot: {
-            pos: { fila: 0, columna: 0 },
+            pos: { fila: 1, columna: 0 },
             direccionInicial: 90
         },
         limiteDeComandos: -1,
@@ -48,17 +48,17 @@ export const mapas1 = [
     // NIVEL 3: Primer obstáculo
     {
         mapa: [
-            [2, 0, 1, 0, 3],
+            [1, 1, 1, 1, 1],
+            [2, 0, 2, 1, 1],
             [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
+            [1, 1, 2, 0, 2],
+            [1, 1, 1, 1, 1],
         ],
         filas: 5,
         columnas: 5,
         bot: {
-            pos: { fila: 0, columna: 0 },
-            direccionInicial: 90
+            pos: { fila: 3, columna: 4 },
+            direccionInicial: 270
         },
         limiteDeComandos: -1,
         proc1: false,
@@ -67,20 +67,20 @@ export const mapas1 = [
         limiteDeComandosProc2: -1
     },
 
-    // NIVEL 4: Camino en U
+    // NIVEL 4: Camino en S
     {
         mapa: [
-            [2, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 3],
+            [0, 2, 0, 2, 0],
+            [1, 1, 1, 0, 0],
+            [0, 2, 0, 2, 0],
+            [0, 0, 1, 1, 1],
+            [0, 2, 0, 2, 0],
         ],
         filas: 5,
         columnas: 5,
         bot: {
-            pos: { fila: 0, columna: 0 },
-            direccionInicial: 180
+            pos: { fila: 4, columna: 3 },
+            direccionInicial: 270
         },
         limiteDeComandos: -1,
         proc1: false,
@@ -92,17 +92,17 @@ export const mapas1 = [
     // NIVEL 5: Múltiples obstáculos en línea
     {
         mapa: [
-            [2, 0, 0, 0, 0],
-            [1, 1, 0, 1, 1],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 3, 0, 0],
+            [1, 1, 1, 0, 2],
+            [1, 1, 1, 0, 0],
+            [0, 2, 0, 0, 2],
+            [0, 0, 1, 1, 1],
+            [0, 0, 1, 1, 1],
         ],
         filas: 5,
         columnas: 5,
         bot: {
-            pos: { fila: 0, columna: 0 },
-            direccionInicial: 180
+            pos: { fila: 4, columna: 0 },
+            direccionInicial: 90
         },
         limiteDeComandos: -1,
         proc1: false,
