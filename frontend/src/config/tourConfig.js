@@ -429,7 +429,7 @@ const getSteps = (nivel, cartaDeNivelActual) => {
                             <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
                                 style="text-align:center"
-                            >La lógica es la misma, cuando vea <span style="color:#EA2BFF">P2</span> ejecutaré todos los comandos que estan dentro de PROC2 </span>
+                            >La lógica es la misma, cuando vea <span style="color:#EA2BFF">P2</span> ejecutaré todos los comandos que estan dentro de <span style="color:#EA2BFF">PROC2</span> </span>
                         </div>  
                     `,
 
@@ -480,6 +480,153 @@ const getSteps = (nivel, cartaDeNivelActual) => {
                         </div>  
                     `,
 
+            }
+          },
+
+        ]
+
+      default:
+        break;
+    }
+  }
+
+  if (cartaDeNivelActual === 4) {
+    switch (nivel) {
+      case 1:
+        return [
+          {
+            element: '.appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Ok, ahora las cosas serán diferentes</span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.secuencia-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot5} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Para ahorrar espacio y energía solo podrás poner un comando en MAIN</span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.proc1-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Pero ahora puedes usar el comando <span style="color:#FF7F50">P1</span> dentro de <span style="color:#FF7F50">PROC1</span> para formar un bucle </span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.proc1-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot5} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Cuando usas <span style="color:#FF7F50">P1</span> dentro de <span style="color:#FF7F50">PROC1</span>, yo ejecuto <span style="color:#FF7F50">PROC1</span> una y otra vez</span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.grilla',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >¡Vamos a encender todas las luces una vez más!</span>
+                        </div>  
+                    `,
+
+            }
+          },
+        ]
+
+      case 9:
+        return [
+          {
+            element: '.appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+        <span style="text-align:center">
+          Ahora toca ponernos más creativos
+        </span>
+      </div>  
+    `,
+            }
+          },
+          {
+            element: '.proc1-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
+        <span style="text-align:center">
+          Puedes usar <span style="color:#DE2BFF">P2</span> dentro de <span style="color:#FF7F50">PROC1</span> para crear bucles más grandes o separar tareas.
+        </span>
+      </div>  
+    `,
+            }
+          },
+          {
+            element: '.proc2-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
+        <span style="text-align:center">
+          <span style="color:#DE2BFF">PROC2</span> funciona igual que <span style="color:#FF7F50">PROC1</span>, pero te da más espacio para organizar y repetir acciones.
+        </span>
+      </div>  
+    `,
+            }
+          },
+          {
+            element: '.grilla',
+            popover: {
+              title: 'Lightbot',
+              description: `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src=${tourBot6} alt="Bot" style="width:100px; height:150px;"/>
+        <span style="text-align:center">
+          ¡Prepara tus comandos y activemos cada luz del camino!
+        </span>
+      </div>  
+    `,
             }
           },
 
