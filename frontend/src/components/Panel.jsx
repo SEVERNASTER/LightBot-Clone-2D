@@ -19,7 +19,7 @@ import { HiArrowUturnLeft } from "react-icons/hi2";
 import { HiArrowUturnRight } from "react-icons/hi2";
 
 
-function Panel({ nivelActual, ejecutando, jugar, setSecuencia, secuencia, agregarComando,
+function Panel({ nivelActual, cartaDeNivelActual, ejecutando, jugar, setSecuencia, secuencia, agregarComando,
     reiniciar, comandoActualMain, puedeEditar, jugando, limiteDeComandos,
     comandosRestantes, setComandosRestantes,
     proc1, secuenciaProc1, setSecuenciaProc1, limiteDeComandosProc1,
@@ -542,7 +542,7 @@ function Panel({ nivelActual, ejecutando, jugar, setSecuencia, secuencia, agrega
                             }
                             extraClass={`zoom 
                                 ${!puedeEditar ? 'inhabilitar' : ''}
-                                ${nivelActual === 1 ? 'ocultar' : ''}
+                                ${nivelActual === 1 && cartaDeNivelActual === 1 ? 'ocultar' : ''}
                             `}
                             inhabilitar={!puedeEditar}
                             label='Girar Izquierda'
@@ -562,7 +562,7 @@ function Panel({ nivelActual, ejecutando, jugar, setSecuencia, secuencia, agrega
                             }
                             extraClass={`zoom 
                                 ${!puedeEditar ? 'inhabilitar' : ''}
-                                ${nivelActual === 1 ? 'ocultar' : ''}
+                                ${nivelActual === 1 && cartaDeNivelActual === 1 ? 'ocultar' : ''}
                             `}
                             inhabilitar={!puedeEditar}
                             label='Girar Derecha'

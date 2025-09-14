@@ -335,24 +335,6 @@ export const mapas1 = [
 
 
 export const mapas2 = [
-    // mapa 1: Cuatro esquinas con luz
-    {
-        mapa: [
-            [2, 0, 0, 0, 2],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [2, 0, 0, 0, 2],
-        ],
-        filas: 5,
-        columnas: 5,
-        bot: { pos: { fila: 0, columna: 0 }, direccionInicial: 90 },
-        limiteDeComandos: 5,
-        proc1: true,
-        proc2: false,
-        limiteDeComandosProc1: 6,
-        limiteDeComandosProc2: -1,
-    },
 
     // mapa 2: mapa en forma de C
     {
@@ -617,7 +599,25 @@ export const mapas2 = [
         proc2: false,
         limiteDeComandosProc1: 6,
         limiteDeComandosProc2: -1,
-    }
+    },
+    // mapa 1: Cuatro esquinas con luz
+    {
+        mapa: [
+            [2, 0, 0, 0, 2],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 2],
+        ],
+        filas: 5,
+        columnas: 5,
+        bot: { pos: { fila: 0, columna: 0 }, direccionInicial: 90 },
+        limiteDeComandos: 5,
+        proc1: true,
+        proc2: false,
+        limiteDeComandosProc1: 6,
+        limiteDeComandosProc2: -1,
+    },
 ];
 
 export const mapas3 = [

@@ -207,39 +207,182 @@ const getSteps = (nivel, cartaDeNivelActual) => {
           },
         ]
 
+      case 12:
+        return [
+          {
+            element: '.appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Lo haces bien!! Pero...</span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.secuencia-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Ahora tendras que optimizar tus comandos</span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.secuencia-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot5} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Tendrás un límite nuevo en cada nivel</span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot6} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Buena Suerte!!</span>
+                        </div>  
+                    `,
+
+            }
+          },
+
+        ]
+
       default:
         break;
     }
 
-    // para los niveles de proc1
 
-    if (cartaDeNivelActual === 2) {
-      switch (nivel) {
-        case 1:
-          return [
-            {
-              element: '#appContenedor',
-              popover: {
-                title: 'Lightbot',
-                description: `
+
+
+  }
+
+  // para los niveles de proc1
+
+  if (cartaDeNivelActual === 2) {
+    switch (nivel) {
+      case 1:
+        return [
+          {
+            element: '.appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
                         <div style="display:flex; align-items:center; gap:10px;">
-                            <img src=${tourBot4} alt="Bot" style="width:100px; height:150px;"/>
+                            <img src=${tourBot6} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
                                 style="text-align:center"
                             >Lo estas haciendo bien!!</span>
                         </div>  
                     `,
 
-              }
-            },
-          ]
+            }
+          },
+          {
+            element: '.secuencia-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Pero necesitarás más espacio que el contenedor <p style="color:#FF7F50">MAIN</p> para los siguientes niveles...</span>
+                        </div>  
+                    `,
 
-        default:
-          break;
-      }
+            }
+          },
+          {
+            element: '.proc1-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Ya sé! tal vez puedas agregar comandos a mi nuevo contenedor <p style="color:#FF7F50">PROC1</p> </span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.comandos-disponibles .boton-funcional:nth-child(5)',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >El comando <p style="color:#FF7F50">P1</p> me dice que corra todos los comandos que hay en <p style="color:#FF7F50">PROC1</p></span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.secuencia-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Cuando veo <p style="color:#FF7F50">P1</p> en <p style="color:#FF7F50">MAIN</p> simplemente corro todos los comandos que hay en <p style="color:#FF7F50">PROC1</p></span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.grilla',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot6} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Lo harás bien <br>Buena Suerte!!</span>
+                        </div>  
+                    `,
+
+            }
+          },
+
+        ]
+
+      default:
+        break;
     }
-
-
   }
 
 }

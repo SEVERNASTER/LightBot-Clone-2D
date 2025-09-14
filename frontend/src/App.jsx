@@ -727,7 +727,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
         />
 
         <Panel
-          nivelActual={mapaActual}
+          nivelActual={mapaActual} cartaDeNivelActual={cartaDeNivelActual}
           ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia} secuencia={secuencia}
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
           comandoActualMain={comandoActualMain} comandoActualProc1={comandoActualProc1}

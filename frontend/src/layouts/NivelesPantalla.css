@@ -12,7 +12,7 @@
 .niveles-container.ocultar {
     /* se pone translate X -100% porque al hacerse mas pequeño con scale da la impresion de que
     el left 50% lo lleva mas a la derecha, aunque no es asi */
-    transform: translateY(100%) translateX(-50%);
+    transform: translateY(120%) translateX(-50%);
     animation: ocultar .8s ease-out;
 }
 
