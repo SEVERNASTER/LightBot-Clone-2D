@@ -6,12 +6,11 @@ import Niveles from '../components/Niveles';
 
 
 function NivelesPantalla({ clasesExtra, setJugando, setMapaActual, jugando, jugandoMiNivel,
-    mapas1, mapas2, mapas3, mapas4, setMapas
+    mapas1, mapas2, mapas3, mapas4, setMapas, nivelActual, setNivelActual
 }) {
 
     const nivelesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
-    const [nivelActual, setNivelActual] = useState(1) //para saber en que card de nivel va
 
     useEffect(() => {
         switch (nivelActual) {

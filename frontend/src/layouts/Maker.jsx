@@ -21,9 +21,9 @@ function Maker({ creando, setCreando, mostrarToast , setHayNuevoNivel}) {
     )
 
 
-    useEffect(() => {
-        console.log(mapa);
-    }, [mapa])
+    // useEffect(() => {
+    //     console.log(mapa);
+    // }, [mapa])
 
     useEffect(() => {
         setMapa(

@@ -98,30 +98,30 @@ function PanelEditar({ mapa, sentido, setSentido, direccionDesdeGrados, debeVolt
     }, [limiteMain, limiteProc1, limiteProc2, mecanica])
 
 
-    useEffect(() => {
-        console.log(mecanicaInfo);
-    }, [mecanicaInfo])
+    // useEffect(() => {
+    //     console.log(mecanicaInfo);
+    // }, [mecanicaInfo])
 
-    useEffect(() => {
-        console.log(tamanioGrilla);
-    }, [tamanioGrilla])
+    // useEffect(() => {
+    //     console.log(tamanioGrilla);
+    // }, [tamanioGrilla])
 
-    useEffect(() => {
-        console.log(mecanica);
-    }, [mecanica])
+    // useEffect(() => {
+    //     console.log(mecanica);
+    // }, [mecanica])
 
 
-    useEffect(() => {
-        console.log(limiteMain);
-    }, [limiteMain])
+    // useEffect(() => {
+    //     console.log(limiteMain);
+    // }, [limiteMain])
 
-    useEffect(() => {
-        console.log(limiteProc1);
-    }, [limiteProc1])
+    // useEffect(() => {
+    //     console.log(limiteProc1);
+    // }, [limiteProc1])
 
-    useEffect(() => {
-        console.log(limiteProc2);
-    }, [limiteProc2])
+    // useEffect(() => {
+    //     console.log(limiteProc2);
+    // }, [limiteProc2])
 
 
     useEffect(() => {

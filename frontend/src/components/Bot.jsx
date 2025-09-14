@@ -16,6 +16,8 @@ function Bot({ secuencia, secuenciaProc1, indiceActual, indiceActualProc1, ejecu
     const [botSentido, setBotSentido] = useState(0)
     const [debeVoltearse, setDebeVoltearse] = useState(false)
     const [quitarBotAnimacion, setQuitarBotAnimacion] = useState(false)
+    const [valorColisionX, setValorColisionX] = useState(0)
+    const [valorColisionY, setValorColisionY] = useState(0)
 
 
 
@@ -35,6 +37,22 @@ function Bot({ secuencia, secuenciaProc1, indiceActual, indiceActualProc1, ejecu
         });
     }, []);
 
+    useEffect(() => {
+        if (colisionArriba) {
+            setValorColisionY(50)
+        } else if (colisionAbajo) {
+            setValorColisionY(-50)
+        } else if (colisionDerecha) {
+            setValorColisionX(-50)
+        } else if (colisionIzquierda) {
+            setValorColisionX(50)
+        } else {
+            setValorColisionX(0)
+            setValorColisionY(0)
+        }
+    }, [colisionArriba, colisionAbajo, colisionDerecha, colisionIzquierda])
+
+
 
 
     /**en esta parte se ve el tiempo de animacion de los frames
@@ -43,14 +61,14 @@ function Bot({ secuencia, secuenciaProc1, indiceActual, indiceActualProc1, ejecu
      * o tal vez no pausamos frames sino reducimos la velocidad
      */
     useEffect(() => {
-        const esLuzOVuelta = 
+        const esLuzOVuelta =
             ejecutando && (secuencia[indiceActual - 1]?.includes('vuelta') || secuencia[indiceActual - 1]?.includes('luz'))
-                ||
+            ||
             ejecutando && (secuenciaProc1[indiceActualProc1 - 1]?.includes('vuelta') || secuenciaProc1[indiceActualProc1 - 1]?.includes('luz'))
 
-        const noEsLuzOVuelta = 
+        const noEsLuzOVuelta =
             ejecutando && (secuencia[indiceActual - 1] !== 'luz')
-                ||
+            ||
             ejecutando && (secuenciaProc1[indiceActualProc1 - 1] !== 'luz')
 
         if (esLuzOVuelta) {
@@ -156,12 +174,16 @@ function Bot({ secuencia, secuenciaProc1, indiceActual, indiceActualProc1, ejecu
                 />
 
                 <span className={`
-                                bot-sentido
-                                ${botDireccion(botSentido)}
-                                ${reiniciar ? 'quitar-transition' : ''}
-                            `}
+                        bot-sentido
+                        ${botDireccion(botSentido)}
+                        ${reiniciar ? 'quitar-transition' : ''}
+                        ${colisionArriba ? 'colisionar-arr' : ''}
+                        ${colisionAbajo ? 'colisionar-abj' : ''}
+                        ${colisionDerecha ? 'colisionar-der' : ''}
+                        ${colisionIzquierda ? 'colisionar-izq' : ''}
+                    `}
                     style={{
-                        transform: `rotate(${sentido}deg)`
+                        transform: ` translateX(${valorColisionX}%) translateY(${valorColisionY}%) rotate(${sentido}deg)`
                     }}
                 ><IoIosArrowUp /></span>
             </div>

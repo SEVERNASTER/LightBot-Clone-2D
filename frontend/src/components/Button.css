@@ -7,7 +7,7 @@
     background-color: transparent;
     border: none;
     outline: none;
-    transition: .3s ease-out;
+    transition: .2s ease;
     background-size: cover;
     border-radius: 20px;
     /* aspect-ratio: 1 / 1; */
@@ -22,6 +22,10 @@
     font-size: 1rem;
     font-weight: 600;
     padding: 10px 0;
+}
+
+.boton-funcional.ocultar {
+    display: none;
 }
 
 .boton-funcional.padding-icono {

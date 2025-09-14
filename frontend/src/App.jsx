@@ -5,6 +5,14 @@ import Grilla from './components/Grilla';
 import Panel from './components/Panel';
 import { useState, useEffect, useRef } from 'react';
 import Tour from './components/Tour';
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
+import './driver-custom.css';
+import getSteps from './config/tourConfig.js';
+
+
+
+
 
 import PantallaGanar from './components/PantallaGanar';
 
@@ -27,7 +35,7 @@ import PantallaGanar from './components/PantallaGanar';
 // mapaActual es el indice de la lista de mapas
 function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1, proc2,
   limiteDeComandosProc1, limiteDeComandosProc2, filas: mapaFilas, columnas: mapaColumnas,
-  todasEncendidas, setTodasEncendidas, handleSalir, debeReiniciar, setDebeReiniciar
+  todasEncendidas, setTodasEncendidas, handleSalir, debeReiniciar, setDebeReiniciar, cartaDeNivelActual
 }) {
 
   // 0 = camino libre
@@ -155,6 +163,10 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   const [animarCeldaLuces, setAnimarCeldaLuces] = useState(false)
 
   const [secuenciaTerminada, setSecuenciaTerminada] = useState(false);
+
+  // ref para Driver.js
+  const driverRef = useRef(null);
+
 
   useEffect(() => {
     if (secuenciaTerminada) {
@@ -470,9 +482,9 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
 
 
 
-  useEffect(() => {
-    console.log(secuencia);
-  }, [secuencia])
+  // useEffect(() => {
+  //   console.log(secuencia);
+  // }, [secuencia])
 
 
 
@@ -661,14 +673,49 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
   };
 
 
+  // para hacer el tour con Driver.js
+
+  useEffect(() => {
+    if (!jugando) return;
+
+    const steps = getSteps(mapaActual, cartaDeNivelActual);
+
+    if (!steps || steps.length === 0) return;
+
+    if (!driverRef.current) {
+
+      driverRef.current = driver({
+        showProgress: true,
+        animate: true,
+        allowClose: false,
+        doneBtnText: 'Listo',
+        nextBtnText: 'Siguiente',
+        prevBtnText: 'Anterior',
+        steps
+      });
+
+
+    }
+
+    driverRef.current.drive();
+
+    return () => {
+      if (driverRef.current) {
+        driverRef.current = null;
+      }
+    };
+  }, [jugando]);
+
+
+
   return (
     <div className={`app-wrapper ${jugando ? 'mostrar' : ''}`}>
 
-      <div className={`
+      {/* <Tour /> */}
+      <div /*id='apppContenedor'*/ className={`
         app-contenedor
         ${!proc1 && !proc2 ? 'diseno-simple' : ''}
-      `}>
-        {/* <Tour /> */}
+      `} >
         <Grilla pos={pos} sentido={sentido} filas={filas} columnas={columnas} mapa={mapa}
           botAnimado={botAnimado} colisionArriba={colisionArriba} colisionAbajo={colisionAbajo}
           colisionDerecha={colisionDerecha} colisionIzquierda={colisionIzquierda}
@@ -680,6 +727,7 @@ function App({ mapa, setMapa, jugando, mapaActual, bot, limiteDeComandos, proc1,
         />
 
         <Panel
+          nivelActual={mapaActual} cartaDeNivelActual={cartaDeNivelActual}
           ejecutando={ejecutando} jugar={jugar} setSecuencia={setSecuencia} secuencia={secuencia}
           agregarComando={agregarComando} reiniciar={reiniciarFuncionBtn}
           comandoActualMain={comandoActualMain} comandoActualProc1={comandoActualProc1}

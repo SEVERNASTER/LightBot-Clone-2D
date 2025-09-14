@@ -61,7 +61,7 @@ function MenuInicio({ clasesExtra, setVistaMenu, setCreando, setMapa, setBot, se
                 <div className="inicio-flip">
                     <div className={`contenedor-menu-inicio ${girar ? 'girar' : ''}`}>
                         <div className="contenedor-titulo">
-                            <h1>CODEPILOT</h1>
+                            <h1>LIGHTBOT</h1>
                         </div>
                         <div className="contenedor-menu-animado">
                             <div className="contenedor-opciones">
