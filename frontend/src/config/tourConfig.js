@@ -8,6 +8,7 @@ import tourBot5 from '../assets/tourbot5.png';
 import tourBot6 from '../assets/tourbot6.png';
 import tourBot7 from '../assets/tourbot7.png';
 import tourBot8 from '../assets/tourbot8.png';
+import tourBot9 from '../assets/tourbot9.png';
 
 
 
@@ -255,7 +256,7 @@ const getSteps = (nivel, cartaDeNivelActual) => {
             }
           },
           {
-            element: '.appContenedor',
+            element: '.grilla',
             popover: {
               title: 'Lightbot',
               description: `
@@ -372,6 +373,110 @@ const getSteps = (nivel, cartaDeNivelActual) => {
                             <span 
                                 style="text-align:center"
                             >Lo harás bien <br>Buena Suerte!!</span>
+                        </div>  
+                    `,
+
+            }
+          },
+
+        ]
+
+      default:
+        break;
+    }
+  }
+
+  if (cartaDeNivelActual === 3) {
+    switch (nivel) {
+      case 1:
+        return [
+          {
+            element: '.appContenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot9} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Los niveles son cada vez mas largos y complejos</span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.proc2-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Por eso activé otro contenedor especial: <span style="color:#EA2BFF">PROC2</span></span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.botones-contenedor .boton-funcional:nth-child(6)',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot8} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >La lógica es la misma, cuando vea <span style="color:#EA2BFF">P2</span> ejecutaré todos los comandos que estan dentro de PROC2 </span>
+                        </div>  
+                    `,
+
+            }
+          },
+
+          {
+            element: '.secuencia-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >Puedes llamarlo desde MAIN...</span>
+                        </div>  
+                    `,
+
+            }
+          },
+
+          {
+            element: '.proc1-contenedor',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot5} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >...O incluso desde <span style="color:#FF7F50">PROC1</span></span>
+                        </div>  
+                    `,
+
+            }
+          },
+          {
+            element: '.grilla',
+            popover: {
+              title: 'Lightbot',
+              description: `
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <img src=${tourBot1} alt="Bot" style="width:100px; height:150px;"/>
+                            <span 
+                                style="text-align:center"
+                            >¡Manos a la obra!</span></span>
                         </div>  
                     `,
 

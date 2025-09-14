@@ -428,7 +428,7 @@ function Panel({ nivelActual, cartaDeNivelActual, ejecutando, jugar, setSecuenci
 
                 {
                     proc2 &&
-                    <div className="proc1-contenedor">
+                    <div className="proc1-contenedor proc2-contenedor">
                         <div className="proc1-titulo proc2-titulo">
                             <h3>COMANDOS DE PROC2</h3>
                         </div>
