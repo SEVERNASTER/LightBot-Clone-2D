@@ -89,28 +89,6 @@ export const mapas1 = [
         limiteDeComandosProc2: -1
     },
 
-    // NIVEL 5: Múltiples obstáculos en línea
-    {
-        mapa: [
-            [1, 1, 1, 0, 2],
-            [1, 1, 1, 0, 0],
-            [0, 2, 0, 0, 2],
-            [0, 0, 1, 1, 1],
-            [0, 0, 1, 1, 1],
-        ],
-        filas: 5,
-        columnas: 5,
-        bot: {
-            pos: { fila: 4, columna: 0 },
-            direccionInicial: 90
-        },
-        limiteDeComandos: -1,
-        proc1: false,
-        limiteDeComandosProc1: -1,
-        proc2: false,
-        limiteDeComandosProc2: -1
-    },
-
     // NIVEL 6: Dos luces - concepto múltiple
     {
         mapa: [
@@ -199,72 +177,6 @@ export const mapas1 = [
         limiteDeComandosProc2: -1
     },
 
-    // NIVEL 10: Camino serpenteante
-    {
-        mapa: [
-            [2, 0, 0, 0, 0],
-            [1, 1, 1, 0, 1],
-            [0, 0, 0, 0, 1],
-            [1, 0, 1, 1, 1],
-            [0, 0, 0, 0, 2],
-        ],
-        filas: 5,
-        columnas: 5,
-        bot: {
-            pos: { fila: 0, columna: 0 },
-            direccionInicial: 90
-        },
-        limiteDeComandos: -1,
-        proc1: false,
-        limiteDeComandosProc1: -1,
-        proc2: false,
-        limiteDeComandosProc2: -1
-    },
-
-    // NIVEL 11: Esquinas - múltiples giros (CON LÍMITE)
-    {
-        mapa: [
-            [1, 1, 1, 1, 1],
-            [1, 0, 2, 0, 1],
-            [1, 2, 1, 2, 1],
-            [1, 0, 2, 0, 1],
-            [1, 1, 1, 1, 1],
-        ],
-        filas: 5,
-        columnas: 5,
-        bot: {
-            pos: { fila: 3, columna: 2 },
-            direccionInicial: 270
-        },
-        limiteDeComandos: -1,
-        proc1: false,
-        limiteDeComandosProc1: -1,
-        proc2: false,
-        limiteDeComandosProc2: -1
-    },
-
-    // NIVEL 12: Laberinto con límite (CON LÍMITE)
-    {
-        mapa: [
-            [2, 0, 1, 0, 0],
-            [1, 0, 1, 0, 1],
-            [0, 0, 0, 0, 1],
-            [0, 1, 1, 0, 1],
-            [0, 0, 0, 0, 3],
-        ],
-        filas: 5,
-        columnas: 5,
-        bot: {
-            pos: { fila: 0, columna: 0 },
-            direccionInicial: 90
-        },
-        limiteDeComandos: 18,
-        proc1: false,
-        limiteDeComandosProc1: -1,
-        proc2: false,
-        limiteDeComandosProc2: -1
-    },
-
     // NIVEL 13: Múltiples luces con obstáculos (CON LÍMITE)
     {
         mapa: [
@@ -329,7 +241,95 @@ export const mapas1 = [
         limiteDeComandosProc1: -1,
         proc2: false,
         limiteDeComandosProc2: -1
-    }
+    },
+
+    // NIVEL 11: Esquinas - múltiples giros (CON LÍMITE)
+    {
+        mapa: [
+            [1, 1, 1, 1, 1],
+            [1, 0, 2, 0, 1],
+            [1, 2, 1, 2, 1],
+            [1, 0, 2, 0, 1],
+            [1, 1, 1, 1, 1],
+        ],
+        filas: 5,
+        columnas: 5,
+        bot: {
+            pos: { fila: 3, columna: 2 },
+            direccionInicial: 270
+        },
+        limiteDeComandos: 13,
+        proc1: false,
+        limiteDeComandosProc1: -1,
+        proc2: false,
+        limiteDeComandosProc2: -1
+    },
+
+    {
+        mapa: [
+            [1, 2, 0, 0, 1, 0],
+            [1, 0, 1, 0, 1, 0],
+            [1, 0, 0, 2, 0, 0],
+            [1, 0, 1, 1, 0, 1],
+            [0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 1, 1, 0],
+        ],
+        filas: 6,
+        columnas: 6,
+        bot: {
+            pos: { fila: 4, columna: 0 },
+            direccionInicial: 90
+        },
+        limiteDeComandos: 13,
+        proc1: false,
+        limiteDeComandosProc1: -1,
+        proc2: false,
+        limiteDeComandosProc2: -1
+    },
+    {
+        mapa: [
+            [0, 0, 0, 0, 0, 0],
+            [0, 1, 0, 1, 0, 1],
+            [0, 1, 0, 1, 0, 1],
+            [0, 0, 2, 0, 0, 0],
+            [1, 2, 1, 1, 0, 1],
+            [0, 0, 0, 0, 2, 0],
+        ],
+        filas: 6,
+        columnas: 6,
+        bot: {
+            pos: { fila: 0, columna: 0 },
+            direccionInicial: 90
+        },
+        limiteDeComandos: 18,
+        proc1: false,
+        limiteDeComandosProc1: -1,
+        proc2: false,
+        limiteDeComandosProc2: -1
+    },
+    {
+        mapa: [
+            [0, 1, 1, 0, 1, 0],
+            [0, 0, 0, 2, 0, 0],
+            [0, 1, 1, 0, 1, 0],
+            [0, 0, 0, 0, 1, 0],
+            [0, 1, 1, 0, 2, 0],
+            [0, 0, 0, 2, 1, 0],
+        ],
+        filas: 6,
+        columnas: 6,
+        bot: {
+            pos: { fila: 5, columna: 0 },
+            direccionInicial: 90
+        },
+        limiteDeComandos: 17,
+        proc1: false,
+        limiteDeComandosProc1: -1,
+        proc2: false,
+        limiteDeComandosProc2: -1
+    },
+
+    
 ];
 
 
