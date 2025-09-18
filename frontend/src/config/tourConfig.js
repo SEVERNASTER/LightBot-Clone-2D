@@ -1,18 +1,34 @@
 
+import tourBot1 from '../assets/tourbot1.webp';
+import tourBot2 from '../assets/tourbot2.webp';
+import tourBot3 from '../assets/tourbot3.webp';
+import tourBot4 from '../assets/tourbot4.webp';
+import tourBot5 from '../assets/tourbot5.webp';
+import tourBot6 from '../assets/tourbot6.webp';
+import tourBot7 from '../assets/tourbot7.webp';
+import tourBot8 from '../assets/tourbot8.webp';
+import tourBot9 from '../assets/tourbot9.webp';
 
-import tourBot1 from '../assets/tourbot1.png';
-import tourBot2 from '../assets/tourbot2.png';
-import tourBot3 from '../assets/tourbot3.png';
-import tourBot4 from '../assets/tourbot4.png';
-import tourBot5 from '../assets/tourbot5.png';
-import tourBot6 from '../assets/tourbot6.png';
-import tourBot7 from '../assets/tourbot7.png';
-import tourBot8 from '../assets/tourbot8.png';
-import tourBot9 from '../assets/tourbot9.png';
-
-
+const frames = [
+  tourBot1,
+  tourBot2,
+  tourBot3,
+  tourBot4,
+  tourBot5,
+  tourBot6,
+  tourBot7,
+  tourBot8,
+  tourBot9
+];
 
 const getSteps = (nivel, cartaDeNivelActual) => {
+
+  const preloadedImages = frames.map(src => {
+    const img = new Image();
+    img.src = src;
+    return img;
+  })
+
   // para los niveles basicos
   if (cartaDeNivelActual === 1) {
     switch (nivel) {
@@ -500,7 +516,7 @@ const getSteps = (nivel, cartaDeNivelActual) => {
               title: 'Lightbot',
               description: `
                         <div style="display:flex; align-items:center; gap:10px;">
-                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
+                            <img src=${frames[tourBot7]} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
                                 style="text-align:center"
                             >Ok, ahora las cosas serán diferentes</span>
