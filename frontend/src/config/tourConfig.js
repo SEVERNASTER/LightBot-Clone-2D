@@ -516,7 +516,7 @@ const getSteps = (nivel, cartaDeNivelActual) => {
               title: 'Lightbot',
               description: `
                         <div style="display:flex; align-items:center; gap:10px;">
-                            <img src=${frames[tourBot7]} alt="Bot" style="width:100px; height:150px;"/>
+                            <img src=${tourBot7} alt="Bot" style="width:100px; height:150px;"/>
                             <span 
                                 style="text-align:center"
                             >Ok, ahora las cosas serán diferentes</span>
