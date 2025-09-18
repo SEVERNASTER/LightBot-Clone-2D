@@ -1,16 +1,18 @@
-# 🧠 CodePilot: Juego de lógica con programación visual
+# 🧠 LightBot: Juego de lógica con programación visual
 
-**CodePilot** es un juego educativo estilo LightBot desarrollado con **React** y **Supabase**, diseñado para enseñar conceptos básicos de lógica y programación como movimiento secuencial, orientación y resolución de problemas mediante mapas interactivos.
+**LightBot** es un juego educativo desarrollado con **React** y **Supabase**, diseñado para enseñar conceptos básicos de lógica y programación como movimiento secuencial, orientación y resolución de problemas mediante mapas interactivos.
 
 ## 🚀 Características
-
-- 🧩 **15 niveles básicos** para aprender movimiento y dirección.
-- 🛣️ **15 desafíos prácticos** para reforzar lo aprendido.
-- 🔁 **15 rutinas variadas** con nuevos caminos y posiciones.
-- ✍️ **Creador de mapas personalizados** con editor visual.
-- 💾 **Autenticación y almacenamiento** con Supabase.
-- 🌐 **Responsive**: compatible con computadoras y móviles (editor solo en PC).
+- 🧩 **4 tarjetas de niveles (15 niveles cada una)**:  
+  - **Conceptos Básicos**: aprende movimiento y orientación.  
+  - **Procedimientos**: resuelve niveles usando `PROC1` para soluciones más limpias y reutilizables.  
+  - **Procedimientos Avanzados**: combina y anida llamadas con `PROC2` para soluciones más eficientes.  
+  - **Bucles**: repite secuencias de acciones para resolver niveles con menos instrucciones.  
+- ✍️ **Creador de mapas personalizados** con editor visual.  
+- 💾 **Autenticación y almacenamiento** con Supabase.  
+- 🌐 **Responsive**: compatible con computadoras y móviles (editor solo en PC).  
 - 🍪 **Inicio de sesión con cookies seguras**.
+
 
 ## 🛠️ Tecnologías utilizadas
 
@@ -31,74 +33,20 @@
 ![Juego en acción](./frontend/src/assets/juego.jpg)
 
 
-## 🧪 Instalación local
+## 📌 Mejoras futuras
 
-1. Clona este repositorio:
+Estas son algunas funcionalidades planeadas para futuras versiones del juego:
 
-```bash
-   git clone https://github.com/SEVERNASTER/CODEPILOT.git
-   cd CODEPILOT
-```
+- ✅ **Implementación de funciones `PROC1` y `PROC2`** para reutilizar secuencias de comandos.  
+- ✅ **Soporte para bucles (LOOP)** al estilo del juego original LightBot.  
+- ✅ **Más niveles avanzados** con estructuras más complejas y desafiantes.  
+- ❌ **Sistema de logros y puntuaciones** para incentivar el aprendizaje.  
+- ❌ **Modo de prueba libre** para experimentar sin restricciones.  
+- ✅ **Límite de comandos por nivel**, para que el usuario piense más y practique su lógica de manera más eficiente.
 
-2. Instala las dependencias, copia y pega estos comandos y correlos de una vez para instalar dependencias tanto en el frontend como en el backend
+> ✅ = ya implementado  
+> ❌ = pendiente
 
-``` bash
-    cd frontend/
-    npm install --legacy-peer-deps
-    cd ../backend
-    npm install --legacy-peer-deps
-```
-
-# ⚠️ Nota importante:
-Si ocurre algún error relacionado con dependencias (npm ERR!), ejecuta el siguiente comando como alternativa:
-``` bash
-    npm install --force
-```
-
-## 🔐 Variables de entorno
-
-### Dentro de la carpeta `frontend`, crear un archivo `.env` con el siguiente contenido:
-
-```env
-# Si vas a usar el backend en local:
-VITE_BACKEND_URL=http://localhost:3000
-
-# O si prefieres usar el backend desplegado:
-VITE_BACKEND_URL=https://codepilot-backend.onrender.com
-
-```
-
-<!-- ### 📁 Backend
-
-Dentro de la carpeta `backend`, crea un archivo `.env` con las siguientes variables:
-
-```env
-    SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6dndjcmh4cm56Z2RnZWlmdHJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0NDc2MTYsImV4cCI6MjA2NjAyMzYxNn0.JvEGJb6l0tLglPsgbJ08W0Xosku3PDBTVJ8EJ_bJFEQ
-
-    SERVICE_ROLE=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN6dndjcmh4cm56Z2RnZWlmdHJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MDQ0NzYxNiwiZXhwIjoyMDY2MDIzNjE2fQ.5SFe7Ud8bDILXsePfbeu4GOvoAb5zqBZ5Dl-6r82d-Y
-
-    SUPABASE_URL=https://szvwcrhxrnzgdgeiftrt.supabase.co
-``` -->
-
-## ▶️ Cómo iniciar el proyecto en local
-
-### 🔹 Frontend
-
-```bash
-    cd ./frontend
-    npm run dev
-```
-
-### Esto iniciará el frontend en modo desarrollo, normalmente en http://localhost:5173.
-
-## 🔹 Backend
-
-```bash
-    cd ./backend
-    npm start
-```
-
-### Esto levantará el servidor backend en http://localhost:3000, si todo está configurado correctamente.
 
 ## 📌 Mejoras futuras
 
